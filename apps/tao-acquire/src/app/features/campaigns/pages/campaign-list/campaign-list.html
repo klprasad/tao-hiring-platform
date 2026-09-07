@@ -1,0 +1,45 @@
+<div class="page">
+  <tao-page-header title="Campaigns" subtitle="Manage and track your hiring campaigns">
+    <tao-button label="Create Campaign" (click)="createCampaign()"> </tao-button>
+  </tao-page-header>
+
+  <tao-card class="campaign-list-card">
+    <!-- Filters -->
+    <div class="toolbar">
+      <tao-input
+        class="search"
+        label="Search campaigns"
+        placeholder="Search by name, title or department"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+      >
+      </tao-input>
+
+      <tao-select
+        class="status-filter"
+        label="Status"
+        placeholder="All statuses"
+        [options]="statusOptions"
+        [ngModel]="selectedStatus()"
+        (ngModelChange)="selectedStatus.set($event)"
+      >
+      </tao-select>
+    </div>
+
+    <!-- Campaign Table -->
+    @if (filteredCampaigns().length > 0) {
+      <tao-data-table [columns]="columns" [rows]="tableRows()"> </tao-data-table>
+    }
+
+    <!-- Empty State -->
+    @if (filteredCampaigns().length === 0) {
+      <tao-empty-state
+        icon="search_off"
+        title="No campaigns found"
+        message="Try changing your search or create a new campaign."
+      >
+        <tao-button label="Create Campaign" (click)="createCampaign()"> </tao-button>
+      </tao-empty-state>
+    }
+  </tao-card>
+</div>

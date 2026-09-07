@@ -1,0 +1,113 @@
+:host {
+  display: block;
+}
+
+.page {
+  padding: 32px;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 6px 0 0;
+    font-size: 14px;
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search {
+  width: 420px;
+}
+
+.table-card {
+  overflow: hidden;
+  background: var(--tao-surface);
+  border: 1px solid var(--tao-border);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+.campaign-name {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  font-weight: 600;
+  text-align: left;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+
+  &--active {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  &--draft {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  &--processing {
+    background: #ede9fe;
+    color: #6d28d9;
+  }
+
+  &--completed {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  &--failed {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+}
+
+.empty-state {
+  padding: 64px;
+  text-align: center;
+
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  h3 {
+    margin: 16px 0 4px;
+  }
+
+  p {
+    margin: 0;
+  }
+}

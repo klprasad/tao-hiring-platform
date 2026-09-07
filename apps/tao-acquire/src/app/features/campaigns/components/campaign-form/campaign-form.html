@@ -1,0 +1,91 @@
+<form class="campaign-form" [formGroup]="campaignForm" (ngSubmit)="submit()">
+  <!-- Basic Information -->
+
+  <tao-card class="form-card">
+    <div class="card-header">
+      <div>
+        <h2>Campaign Information</h2>
+        <p>Define the basic information for this hiring campaign.</p>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <tao-input
+        class="span-2"
+        label="Campaign Name"
+        placeholder="e.g. Senior .NET Hiring"
+        formControlName="campaignName"
+        [showErrors]="showValidationErrors()"
+        [required]="true"
+      >
+      </tao-input>
+
+      <tao-input
+        label="Job Title"
+        placeholder="e.g. Senior .NET Developer"
+        formControlName="jobTitle"
+        [showErrors]="showValidationErrors()"
+        [required]="true"
+      >
+      </tao-input>
+
+      <tao-select
+        label="Department"
+        placeholder="Select department"
+        [options]="departmentOptions"
+        formControlName="department"
+        [showErrors]="showValidationErrors()"
+        [required]="true"
+      >
+      </tao-select>
+
+      <tao-input
+        label="Location"
+        placeholder="e.g. Hyderabad"
+        formControlName="location"
+        [showErrors]="showValidationErrors()"
+        [required]="true"
+      >
+      </tao-input>
+
+      <tao-select
+        label="Employment Type"
+        placeholder="Select employment type"
+        [options]="employmentTypeOptions"
+        formControlName="employmentType"
+        [showErrors]="showValidationErrors()"
+        [required]="true"
+      >
+      </tao-select>
+    </div>
+  </tao-card>
+
+  <!-- Job Description -->
+
+  <tao-card class="form-card">
+    <div class="card-header">
+      <div>
+        <h2>Job Description</h2>
+        <p>Provide the job description that will be used to understand the role requirements.</p>
+      </div>
+    </div>
+
+    <tao-textarea
+      label="Job Description"
+      placeholder="Describe the responsibilities, required skills, experience and qualifications..."
+      formControlName="jobDescription"
+      [showErrors]="showValidationErrors()"
+      [required]="true"
+      [rows]="10"
+    >
+    </tao-textarea>
+  </tao-card>
+
+  <!-- Actions -->
+
+  <div class="form-actions">
+    <tao-button type="button" label="Cancel" appearance="outlined" (click)="cancel()"> </tao-button>
+
+    <tao-button type="submit" label="Create Campaign" appearance="filled"> </tao-button>
+  </div>
+</form>

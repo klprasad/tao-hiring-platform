@@ -1,4 +1,10 @@
-<mat-form-field appearance="outline" class="field">
+<mat-form-field
+  appearance="outline"
+  class="field"
+  [class.mat-form-field-invalid]="
+    ngControl?.invalid && (ngControl?.touched || ngControl?.dirty || showErrors())
+  "
+>
   <mat-label
     >{{ label() }}
     @if (required()) {
@@ -6,11 +12,13 @@
     }
   </mat-label>
   <mat-select
+    [errorStateMatcher]="errorStateMatcher"
     [multiple]="multiple()"
     [value]="value"
     [disabled]="isDisabled || disabled()"
     [placeholder]="placeholder()"
     (selectionChange)="onSelectionChange($event.value)"
+    (blur)="onBlur()"
   >
     @for (option of options(); track option) {
       <mat-option [value]="option">{{ option }}</mat-option>
@@ -19,11 +27,12 @@
   @if (hint() && !ngControl?.invalid) {
     <mat-hint>{{ hint() }}</mat-hint>
   }
-  @if (ngControl?.invalid && (ngControl?.touched || ngControl?.dirty)) {
-    <mat-error>
-      @if (ngControl?.errors?.['required']) {
-        {{ label() }} is required.
-      }
-    </mat-error>
-  }
 </mat-form-field>
+
+@if (ngControl?.invalid && (ngControl?.touched || ngControl?.dirty || showErrors())) {
+  <div class="field-error" role="alert">
+    @if (ngControl?.errors?.['required']) {
+      {{ label() }} is required.
+    }
+  </div>
+}

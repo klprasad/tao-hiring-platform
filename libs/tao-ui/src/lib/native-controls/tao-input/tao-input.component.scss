@@ -5,6 +5,20 @@
 .field {
   width: 100%;
 }
+.field.mat-form-field-invalid {
+  --mat-form-field-outlined-error-outline-color: #b3261e;
+  --mat-form-field-outlined-error-hover-outline-color: #b3261e;
+  --mat-form-field-outlined-error-focus-outline-color: #b3261e;
+}
+::ng-deep .field.mat-form-field-invalid .mdc-text-field--outlined .mat-mdc-notch-piece {
+  border-color: #b3261e !important;
+}
 mat-hint {
   color: #6e7a8e;
+}
+.field-error {
+  color: #b3261e;
+  font-size: 12px;
+  line-height: 16px;
+  margin: -16px 16px 8px;
 }

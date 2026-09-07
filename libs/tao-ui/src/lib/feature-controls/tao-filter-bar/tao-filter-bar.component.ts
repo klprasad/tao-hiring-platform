@@ -1,16 +1,9 @@
-import { Component, forwardRef, inject, input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, inject, input } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'tao-filter-bar',
   imports: [FormsModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TaoFilterBarComponent),
-      multi: true,
-    },
-  ],
   templateUrl: './tao-filter-bar.component.html',
   styleUrl: './tao-filter-bar.component.scss',
 })
@@ -22,6 +15,12 @@ export class TaoFilterBarComponent implements ControlValueAccessor {
   protected isDisabled = false;
   private onChange: (value: string) => void = () => {};
   protected onTouched: () => void = () => {};
+
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   writeValue(value: string | null): void {
     this.value = value ?? '';

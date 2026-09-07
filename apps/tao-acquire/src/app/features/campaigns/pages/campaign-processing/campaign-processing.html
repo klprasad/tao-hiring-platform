@@ -1,0 +1,53 @@
+<div class="processing-page">
+  <section class="processing-card">
+    @if (processing().status === 'processing') {
+      <div class="ai-icon">
+        <mat-icon>auto_awesome</mat-icon>
+      </div>
+
+      <h1>Preparing your campaign</h1>
+
+      <p class="message">
+        {{ processing().message }}
+      </p>
+
+      <div class="progress">
+        <div class="progress__header">
+          <span>
+            {{ processing().currentStep }}
+          </span>
+
+          <span> {{ processing().progress }}% </span>
+        </div>
+
+        <mat-progress-bar mode="determinate" [value]="processing().progress"> </mat-progress-bar>
+      </div>
+
+      <p class="supporting-text">You can continue once processing is complete.</p>
+    }
+
+    @if (processing().status === 'completed') {
+      <div class="success-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+
+      <h1>Campaign ready</h1>
+
+      <p>Your campaign has been successfully prepared.</p>
+
+      <button mat-flat-button color="primary" (click)="openCampaign()">Open Campaign</button>
+    }
+
+    @if (processing().status === 'failed') {
+      <div class="error-icon">
+        <mat-icon>error_outline</mat-icon>
+      </div>
+
+      <h1>Processing failed</h1>
+
+      <p>We couldn't complete campaign processing. You can retry the operation.</p>
+
+      <button mat-flat-button color="primary" (click)="retry()">Retry Processing</button>
+    }
+  </section>
+</div>

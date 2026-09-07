@@ -1,0 +1,176 @@
+<div class="page">
+  <header class="campaign-header">
+    <div class="campaign-header__main">
+      <button mat-icon-button aria-label="Back to campaigns" routerLink="/campaigns">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div>
+        <div class="eyebrow">Hiring Campaign</div>
+
+        <h1>
+          {{ campaign().name }}
+        </h1>
+
+        <div class="campaign-meta">
+          <span>
+            {{ campaign().jobTitle }}
+          </span>
+
+          <span>•</span>
+
+          <span>
+            {{ campaign().department }}
+          </span>
+
+          <span>•</span>
+
+          <span>
+            {{ campaign().location }}
+          </span>
+
+          <span class="status status--active">
+            {{ campaign().status }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <button mat-stroked-button (click)="editCampaign()">
+      <mat-icon>edit</mat-icon>
+
+      Edit Campaign
+    </button>
+  </header>
+
+  <section class="metrics">
+    <mat-card class="metric">
+      <div class="metric__value">
+        {{ campaign().candidateCount }}
+      </div>
+
+      <div class="metric__label">Candidates</div>
+    </mat-card>
+
+    <mat-card class="metric">
+      <div class="metric__value">
+        {{ campaign().shortlistedCount }}
+      </div>
+
+      <div class="metric__label">Shortlisted</div>
+    </mat-card>
+
+    <mat-card class="metric">
+      <div class="metric__value">
+        {{ campaign().assessmentCount }}
+      </div>
+
+      <div class="metric__label">Assessments</div>
+    </mat-card>
+
+    <mat-card class="metric">
+      <div class="metric__value">{{ campaignProgress() }}%</div>
+
+      <div class="metric__label">Workflow Complete</div>
+    </mat-card>
+  </section>
+
+  <section class="workflow">
+    <div class="section-header">
+      <div>
+        <h2>Campaign Workflow</h2>
+
+        <p>Complete each stage to progress your campaign.</p>
+      </div>
+
+      <span> {{ completedSteps() }} of {{ steps().length }} completed </span>
+    </div>
+
+    <div class="workflow-list">
+      @for (step of steps(); track step.id) {
+        <button
+          class="workflow-step"
+          [class.workflow-step--completed]="step.status === 'completed'"
+          [class.workflow-step--active]="step.status === 'in-progress'"
+          [class.workflow-step--disabled]="step.status === 'not-started'"
+          [disabled]="step.status === 'not-started'"
+          (click)="navigateToStep(step)"
+        >
+          <div class="workflow-step__icon">
+            @if (step.status === 'completed') {
+              <mat-icon>check</mat-icon>
+            } @else if (step.status === 'in-progress') {
+              <mat-icon>arrow_forward</mat-icon>
+            } @else {
+              <mat-icon>radio_button_unchecked</mat-icon>
+            }
+          </div>
+
+          <div class="workflow-step__content">
+            <div class="workflow-step__title">
+              {{ step.name }}
+            </div>
+
+            <div class="workflow-step__description">
+              {{ step.description }}
+            </div>
+          </div>
+
+          <mat-icon class="workflow-step__arrow"> chevron_right </mat-icon>
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="overview-grid">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Campaign Summary </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <dl class="summary">
+          <div>
+            <dt>Created</dt>
+            <dd>{{ campaign().createdOn }}</dd>
+          </div>
+
+          <div>
+            <dt>Last Updated</dt>
+            <dd>{{ campaign().updatedOn }}</dd>
+          </div>
+
+          <div>
+            <dt>Department</dt>
+            <dd>{{ campaign().department }}</dd>
+          </div>
+
+          <div>
+            <dt>Location</dt>
+            <dd>{{ campaign().location }}</dd>
+          </div>
+        </dl>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Next Recommended Action </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="next-action">
+          <div class="next-action__icon">
+            <mat-icon>people</mat-icon>
+          </div>
+
+          <div>
+            <strong> Continue candidate screening </strong>
+
+            <p>Review candidates and build your shortlist before configuring assessments.</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

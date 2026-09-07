@@ -1,14 +1,12 @@
-import { Component, forwardRef, inject, input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, inject, input } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'tao-select',
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule],
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TaoSelectComponent), multi: true },
-  ],
+  imports: [MatFormFieldModule, MatSelectModule],
   templateUrl: './tao-select.component.html',
   styleUrl: './tao-select.component.scss',
 })
@@ -20,10 +18,21 @@ export class TaoSelectComponent implements ControlValueAccessor {
   readonly required = input(false);
   readonly disabled = input(false);
   readonly hint = input('');
+  readonly showErrors = input(false);
 
   protected readonly ngControl = inject(NgControl, { optional: true, self: true });
+  protected readonly errorStateMatcher: ErrorStateMatcher = {
+    isErrorState: () =>
+      Boolean(this.ngControl?.invalid && (this.ngControl.touched || this.ngControl.dirty)),
+  };
   protected value: string | string[] = '';
   protected isDisabled = false;
+
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   private onChange: (value: string | string[]) => void = () => {};
   private onTouched: () => void = () => {};
@@ -42,6 +51,10 @@ export class TaoSelectComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+  }
+
+  protected onBlur(): void {
+    this.onTouched();
   }
 
   protected onSelectionChange(value: string | string[]): void {

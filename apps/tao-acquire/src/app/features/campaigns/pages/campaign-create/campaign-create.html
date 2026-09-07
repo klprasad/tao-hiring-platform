@@ -1,0 +1,21 @@
+<div class="page">
+  <tao-page-header
+    title="Create Campaign"
+    subtitle="Set up a hiring campaign and configure the requirements for candidate evaluation"
+  >
+    <tao-button
+      appearance="icon"
+      icon="arrow_back"
+      color="primary"
+      label="Back to Campaigns"
+      tooltip="Back to Campaigns"
+      (click)="cancel()"
+    >
+    </tao-button>
+  </tao-page-header>
+
+  <div class="content">
+    <tao-campaign-form (submitted)="createCampaign($event)" (cancelled)="cancel()">
+    </tao-campaign-form>
+  </div>
+</div>

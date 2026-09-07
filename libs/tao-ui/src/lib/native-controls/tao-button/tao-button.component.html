@@ -45,8 +45,9 @@
     >
       @if (loading()) {
         <mat-spinner diameter="18" />
-      } @else {
-        <ng-content />
+      }
+      @if (icon()) {
+        <mat-icon aria-hidden="true">{{ icon() }}</mat-icon>
       }
     </button>
   }

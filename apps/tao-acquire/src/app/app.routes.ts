@@ -8,8 +8,8 @@ export const routes: Routes = [
   },
   {
     path: 'campaigns',
-    loadComponent: () =>
-      import('./features/campaigns/pages/campaigns.page').then((module) => module.CampaignsPage),
+    loadChildren: () =>
+      import('./features/campaigns/campaign.routes').then((module) => module.CAMPAIGN_ROUTES),
   },
   {
     path: 'candidates',

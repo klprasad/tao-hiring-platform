@@ -1,5 +1,5 @@
-import { Component, forwardRef, inject, input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, inject, input } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -7,13 +7,6 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'tao-autocomplete',
   imports: [FormsModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TaoAutocompleteComponent),
-      multi: true,
-    },
-  ],
   templateUrl: './tao-autocomplete.component.html',
   styleUrl: './tao-autocomplete.component.scss',
 })
@@ -29,6 +22,12 @@ export class TaoAutocompleteComponent implements ControlValueAccessor {
   protected isDisabled = false;
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
+
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   writeValue(value: string | null): void {
     this.value = value ?? '';
