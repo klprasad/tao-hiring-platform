@@ -1,0 +1,70 @@
+@switch (appearance()) {
+  @case ('outlined') {
+    <button
+      mat-stroked-button
+      [class]="'button button-' + size()"
+      [class.full-width]="fullWidth()"
+      [color]="color()"
+      [disabled]="disabled() || loading()"
+      [type]="type()"
+      [matTooltip]="tooltip()"
+    >
+      @if (loading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <ng-content /><span>{{ label() }}</span>
+      }
+    </button>
+  }
+  @case ('text') {
+    <button
+      mat-button
+      [class]="'button button-' + size()"
+      [class.full-width]="fullWidth()"
+      [color]="color()"
+      [disabled]="disabled() || loading()"
+      [type]="type()"
+      [matTooltip]="tooltip()"
+    >
+      @if (loading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <ng-content /><span>{{ label() }}</span>
+      }
+    </button>
+  }
+  @case ('icon') {
+    <button
+      mat-icon-button
+      [class]="'button button-' + size()"
+      [color]="color()"
+      [disabled]="disabled() || loading()"
+      [type]="type()"
+      [matTooltip]="tooltip()"
+      [attr.aria-label]="label()"
+    >
+      @if (loading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <ng-content />
+      }
+    </button>
+  }
+  @default {
+    <button
+      mat-flat-button
+      [class]="'button button-' + size()"
+      [class.full-width]="fullWidth()"
+      [color]="color()"
+      [disabled]="disabled() || loading()"
+      [type]="type()"
+      [matTooltip]="tooltip()"
+    >
+      @if (loading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <ng-content /><span>{{ label() }}</span>
+      }
+    </button>
+  }
+}

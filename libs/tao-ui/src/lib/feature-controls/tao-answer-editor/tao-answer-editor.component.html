@@ -1,0 +1,11 @@
+<label class="editor"
+  ><span>Answer</span
+  ><textarea
+    [value]="value"
+    [disabled]="isDisabled || disabled()"
+    [placeholder]="placeholder()"
+    (input)="onInput($event)"
+    (blur)="onTouched()"
+  ></textarea
+  ><small>Autosave enabled</small></label
+>

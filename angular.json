@@ -51,7 +51,10 @@
                 "input": "apps/tao-acquire/public"
               }
             ],
-            "styles": ["apps/tao-acquire/src/styles.scss"]
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css",
+              "apps/tao-acquire/src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -142,7 +145,10 @@
                 "input": "apps/tao-assess/public"
               }
             ],
-            "styles": ["apps/tao-assess/src/styles.scss"]
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css",
+              "apps/tao-assess/src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,0 +1,11 @@
+<div class="filters">
+  <label
+    ><span class="sr-only">Search</span
+    ><input
+      [placeholder]="placeholder()"
+      [value]="value"
+      [disabled]="isDisabled || disabled()"
+      (input)="onInput($event)"
+      (blur)="onTouched()" /></label
+  ><ng-content />
+</div>

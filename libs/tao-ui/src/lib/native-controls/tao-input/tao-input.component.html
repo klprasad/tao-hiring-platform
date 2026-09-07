@@ -1,0 +1,45 @@
+<mat-form-field appearance="outline" class="field">
+  <mat-label
+    >{{ label() }}
+    @if (required()) {
+      *
+    }
+  </mat-label>
+  @if (prefix()) {
+    <span matTextPrefix>{{ prefix() }}&nbsp;</span>
+  }
+  <input
+    matInput
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [value]="value"
+    [disabled]="isDisabled || disabled()"
+    [readonly]="readonly()"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  />
+  @if (suffix()) {
+    <span matTextSuffix>{{ suffix() }}</span>
+  }
+  @if (hint() && !ngControl?.invalid) {
+    <mat-hint>{{ hint() }}</mat-hint>
+  }
+  @if (ngControl?.invalid && (ngControl?.touched || ngControl?.dirty)) {
+    <mat-error>
+      @if (ngControl?.errors?.['required']) {
+        {{ label() }} is required.
+      }
+      @if (ngControl?.errors?.['minlength']) {
+        {{ label() }} must contain at least
+        {{ ngControl?.errors?.['minlength'].requiredLength }} characters.
+      }
+      @if (ngControl?.errors?.['maxlength']) {
+        {{ label() }} must contain no more than
+        {{ ngControl?.errors?.['maxlength'].requiredLength }} characters.
+      }
+      @if (ngControl?.errors?.['email']) {
+        Enter a valid {{ label().toLowerCase() }}.
+      }
+    </mat-error>
+  }
+</mat-form-field>

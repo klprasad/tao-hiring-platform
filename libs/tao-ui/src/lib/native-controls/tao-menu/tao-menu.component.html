@@ -1,0 +1,6 @@
+<button mat-stroked-button [matMenuTriggerFor]="menu">{{ label() }}</button
+><mat-menu #menu="matMenu">
+  @for (item of items(); track item) {
+    <button mat-menu-item (click)="selected.emit(item)">{{ item }}</button>
+  }
+</mat-menu>

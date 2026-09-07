@@ -1,0 +1,29 @@
+<mat-form-field appearance="outline" class="field">
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    matInput
+    [placeholder]="placeholder()"
+    [value]="value"
+    [disabled]="isDisabled || disabled()"
+    [required]="required()"
+    [matAutocomplete]="auto"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    (optionSelected)="onOptionSelected($any($event).option.value)"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (option of options(); track option) {
+      <mat-option [value]="option">{{ option }}</mat-option>
+    }
+  </mat-autocomplete>
+  @if (hint() && !ngControl?.invalid) {
+    <mat-hint>{{ hint() }}</mat-hint>
+  }
+  @if (ngControl?.invalid && (ngControl?.touched || ngControl?.dirty)) {
+    <mat-error>
+      @if (ngControl?.errors?.['required']) {
+        {{ label() }} is required.
+      }
+    </mat-error>
+  }
+</mat-form-field>

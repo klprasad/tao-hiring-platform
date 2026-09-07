@@ -1,0 +1,7 @@
+<mat-tab-group [selectedIndex]="activeIndex()" (selectedIndexChange)="changed.emit($event)">
+  @for (tab of tabs(); track tab) {
+    <mat-tab [label]="tab"
+      ><div class="tab-content"><ng-content /></div
+    ></mat-tab>
+  }
+</mat-tab-group>

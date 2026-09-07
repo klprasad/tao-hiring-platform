@@ -1,0 +1,23 @@
+<mat-form-field appearance="outline" class="field"
+  ><mat-label
+    >{{ label() }}
+    @if (required()) {
+      *
+    }</mat-label
+  ><input
+    matInput
+    [matDatepicker]="picker"
+    [placeholder]="placeholder()"
+    [value]="value"
+    [disabled]="isDisabled || disabled()"
+    (dateChange)="onDateChange($event.value)"
+    (blur)="onTouched()"
+  /><mat-datepicker-toggle matIconSuffix [for]="picker" /><mat-datepicker #picker />
+  @if (ngControl?.invalid && (ngControl?.touched || ngControl?.dirty)) {
+    <mat-error>
+      @if (ngControl?.errors?.['required']) {
+        {{ label() }} is required.
+      }
+    </mat-error>
+  }
+</mat-form-field>

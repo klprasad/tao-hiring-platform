@@ -1,0 +1,23 @@
+:host {
+  display: inline-block;
+}
+.button {
+  min-height: 40px;
+}
+.button-small {
+  min-height: 32px;
+  font-size: 12px;
+}
+.button-large {
+  min-height: 48px;
+  font-size: 15px;
+}
+.full-width {
+  width: 100%;
+}
+button span {
+  margin-left: 6px;
+}
+mat-spinner {
+  display: inline-block;
+}

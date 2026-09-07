@@ -1,0 +1,29 @@
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #66518f;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9775d6;
+}
+.state-generating .dot {
+  background: #e6aa53;
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+.state-ready .dot {
+  background: #57bd8d;
+}
+.state-failed .dot {
+  background: #cf6565;
+}
+@keyframes pulse {
+  to {
+    opacity: 0.35;
+  }
+}

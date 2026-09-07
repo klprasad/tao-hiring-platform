@@ -1,0 +1,23 @@
+.table-wrap {
+  overflow: auto;
+  border: 1px solid #e3e8f0;
+  border-radius: 8px;
+}
+table {
+  width: 100%;
+  min-width: 560px;
+}
+th {
+  color: #8490a4;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+td {
+  color: #536176;
+  font-size: 13px;
+}
+mat-paginator {
+  border-top: 1px solid #edf0f5;
+}

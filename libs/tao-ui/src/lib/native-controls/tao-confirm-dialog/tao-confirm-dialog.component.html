@@ -1,0 +1,8 @@
+<section class="dialog" role="dialog" aria-modal="true" [attr.aria-label]="title()">
+  <h2>{{ title() }}</h2>
+  <p>{{ message() }}</p>
+  <footer>
+    <tao-button label="Cancel" appearance="outlined" (click)="cancelled.emit()" />
+    <tao-button label="Confirm" (click)="confirmed.emit()" />
+  </footer>
+</section>

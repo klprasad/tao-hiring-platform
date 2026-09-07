@@ -1,0 +1,27 @@
+<mat-form-field appearance="outline" class="field"
+  ><mat-label
+    >{{ label() }}
+    @if (required()) {
+      *
+    }</mat-label
+  ><textarea
+    matInput
+    [rows]="rows()"
+    [placeholder]="placeholder()"
+    [value]="value"
+    [attr.maxlength]="maxLength()"
+    [disabled]="isDisabled || disabled()"
+    (input)="onInput($event)"
+    (blur)="onTouched()"
+  ></textarea>
+  @if (maxLength()) {
+    <mat-hint align="end">{{ value.length }} / {{ maxLength() }}</mat-hint>
+  }
+  @if (ngControl?.invalid && (ngControl?.touched || ngControl?.dirty)) {
+    <mat-error>
+      @if (ngControl?.errors?.['required']) {
+        {{ label() }} is required.
+      }
+    </mat-error>
+  }
+</mat-form-field>
