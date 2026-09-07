@@ -1,0 +1,46 @@
+{
+  "name": "tao-platform",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "build:lib:contracts": "ng build tao-contracts",
+    "build:lib:core": "ng build tao-core",
+    "build:lib:ui": "ng build tao-ui",
+    "build:lib:utils": "ng build tao-utils",
+    "build:libs": "npm run build:lib:contracts && npm run build:lib:core && npm run build:lib:ui && npm run build:lib:utils",
+    "build:acquire": "npm run build:libs && ng build tao-acquire",
+    "build:assess": "npm run build:libs && ng build tao-assess",
+    "prestart": "npm run build:libs",
+    "start": "ng serve",
+    "start:acquire": "npm run build:libs && ng serve tao-acquire",
+    "start:assess": "npm run build:libs && ng serve tao-assess",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "packageManager": "npm@11.19.0",
+  "dependencies": {
+    "@angular/animations": "^22.1.5",
+    "@angular/cdk": "^22.1.5",
+    "@angular/common": "^22.1.0",
+    "@angular/compiler": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/forms": "^22.1.0",
+    "@angular/material": "^22.1.5",
+    "@angular/platform-browser": "^22.1.0",
+    "@angular/router": "^22.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.1.7",
+    "@angular/cli": "^22.1.7",
+    "@angular/compiler-cli": "^22.1.0",
+    "jsdom": "^28.0.0",
+    "ng-packagr": "^22.1.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "vitest": "^4.0.8"
+  }
+}

@@ -1,0 +1,61 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "paths": {
+      "tao-contracts": ["./dist/tao-contracts"],
+      "tao-core": ["./dist/tao-core"],
+      "tao-ui": ["./dist/tao-ui"],
+      "tao-utils": ["./dist/tao-utils"]
+    },
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/tao-acquire/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/tao-assess/tsconfig.app.json"
+    },
+    {
+      "path": "./libs/tao-ui/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/tao-ui/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/tao-core/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/tao-core/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/tao-contracts/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/tao-contracts/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/tao-utils/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/tao-utils/tsconfig.spec.json"
+    }
+  ]
+}
