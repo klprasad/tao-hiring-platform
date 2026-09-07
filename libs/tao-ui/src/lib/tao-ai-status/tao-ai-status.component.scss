@@ -1,0 +1,20 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #536176;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #57bd8d;
+}
+.status-generating .indicator {
+  background: #e6aa53;
+}
+.status-failed .indicator {
+  background: #cf6565;
+}

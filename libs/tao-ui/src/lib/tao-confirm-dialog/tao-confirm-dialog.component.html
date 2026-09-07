@@ -1,0 +1,8 @@
+<section class="dialog" role="dialog" aria-modal="true" [attr.aria-label]="title()">
+  <h2>{{ title() }}</h2>
+  <p>{{ message() }}</p>
+  <footer>
+    <button type="button" class="cancel" (click)="cancelled.emit()">Cancel</button
+    ><button type="button" class="confirm" (click)="confirmed.emit()">Confirm</button>
+  </footer>
+</section>

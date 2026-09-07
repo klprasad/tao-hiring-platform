@@ -1,9 +1,62 @@
-.access { width: min(480px, 100%); margin: 10vh auto; background: #fff; border: 1px solid #e3e8f0; border-radius: 14px; padding: 42px; box-shadow: 0 18px 50px rgba(23, 32, 51, .08); }
-.kicker { color: #63806f; text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 800; }
-.access h1 { font-size: 30px; margin: 20px 0 10px; color: #172033; }
-.intro, .help { color: #718096; line-height: 1.6; font-size: 14px; }
-.access label { display: block; font-weight: 700; font-size: 13px; margin: 28px 0 8px; }
-.access input { width: 100%; padding: 13px; border: 1px solid #cbd5e1; border-radius: 7px; font: inherit; }
-.access button { margin-top: 20px; width: 100%; padding: 13px; border: 0; border-radius: 7px; background: #183a58; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
-.access button span { color: #79e2b1; font-size: 18px; margin-left: 6px; }
-.help { text-align: center; margin: 24px 0 0; font-size: 12px; }
+.access {
+  width: min(480px, 100%);
+  margin: 10vh auto;
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 14px;
+  padding: 42px;
+  box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
+}
+.kicker {
+  color: #63806f;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 800;
+}
+.access h1 {
+  font-size: 30px;
+  margin: 20px 0 10px;
+  color: #172033;
+}
+.intro,
+.help {
+  color: #718096;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.access label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin: 28px 0 8px;
+}
+.access input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font: inherit;
+}
+.access button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 7px;
+  background: #183a58;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+.access button span {
+  color: #79e2b1;
+  font-size: 18px;
+  margin-left: 6px;
+}
+.help {
+  text-align: center;
+  margin: 24px 0 0;
+  font-size: 12px;
+}

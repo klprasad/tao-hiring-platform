@@ -1,0 +1,23 @@
+.confidence {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  color: #6e7a8e;
+  font-size: 12px;
+}
+.bar {
+  height: 7px;
+  overflow: hidden;
+  background: #e8edf3;
+  border-radius: 9px;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: #79cfa7;
+  border-radius: inherit;
+}
+.confidence b {
+  color: #286b63;
+}

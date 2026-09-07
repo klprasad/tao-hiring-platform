@@ -1,0 +1,8 @@
+<div class="filters">
+  <label
+    ><span class="sr-only">Search</span
+    ><input
+      [placeholder]="placeholder()"
+      (input)="changed.emit($any($event.target).value)" /></label
+  ><ng-content />
+</div>

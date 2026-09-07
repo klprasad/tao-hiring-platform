@@ -1,0 +1,29 @@
+.message {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #ded8f0;
+  border-radius: 9px;
+  background: #f8f6fd;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  background: #8066bb;
+  font-weight: 800;
+}
+.message small {
+  color: #66518f;
+  font-weight: 700;
+}
+.message p {
+  margin: 5px 0 0;
+  color: #536176;
+  font-size: 13px;
+  line-height: 1.5;
+}

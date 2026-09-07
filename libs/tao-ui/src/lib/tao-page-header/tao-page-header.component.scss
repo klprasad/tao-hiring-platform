@@ -1,4 +1,25 @@
-.page-header { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 32px; }
-.kicker { color: #63806f; text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 800; margin: 0 0 8px; }
-h1 { margin: 0; font-size: 32px; letter-spacing: -.02em; }
-.description { color: #6e7a8e; margin: 10px 0 0; font-size: 14px; }
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.kicker {
+  color: #63806f;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+.description {
+  color: #6e7a8e;
+  margin: 10px 0 0;
+  font-size: 14px;
+}

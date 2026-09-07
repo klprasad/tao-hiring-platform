@@ -1,0 +1,21 @@
+.question {
+  padding: 24px;
+  border: 1px solid #dfe6ef;
+  border-radius: 10px;
+  background: #fff;
+}
+.question header {
+  display: flex;
+  justify-content: space-between;
+  color: #778398;
+  font-size: 12px;
+}
+.question b {
+  color: #956a29;
+}
+.question h2 {
+  margin: 24px 0;
+  color: #172033;
+  font-size: 20px;
+  line-height: 1.4;
+}

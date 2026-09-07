@@ -1,1 +1,65 @@
-.primary { border: 0; border-radius: 7px; background: #183a58; color: #fff; padding: 12px 17px; font-weight: 700; cursor: pointer; }.primary span { color: #79e2b1; font-size: 18px; margin-left: 6px; }.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 18px; }.metrics strong { display: block; font-size: 30px; }.metrics small { display: block; color: #6e7a8e; margin-top: 8px; }.assessment { display: grid; grid-template-columns: 1.5fr 1fr 55px; align-items: center; gap: 22px; padding: 17px 0; border-bottom: 1px solid #edf0f5; }.assessment:last-child { border-bottom: 0; }.assessment strong, .assessment small { display: block; }.assessment small { color: #778398; font-size: 12px; margin-top: 5px; }.assessment b { color: #286b63; font-size: 13px; }.progress { height: 8px; background: #e8edf3; border-radius: 10px; overflow: hidden; }.progress span { display: block; height: 100%; background: #79cfa7; border-radius: inherit; }
+.primary {
+  border: 0;
+  border-radius: 7px;
+  background: #183a58;
+  color: #fff;
+  padding: 12px 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.primary span {
+  color: #79e2b1;
+  font-size: 18px;
+  margin-left: 6px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.metrics strong {
+  display: block;
+  font-size: 30px;
+}
+.metrics small {
+  display: block;
+  color: #6e7a8e;
+  margin-top: 8px;
+}
+.assessment {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 55px;
+  align-items: center;
+  gap: 22px;
+  padding: 17px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+.assessment:last-child {
+  border-bottom: 0;
+}
+.assessment strong,
+.assessment small {
+  display: block;
+}
+.assessment small {
+  color: #778398;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.assessment b {
+  color: #286b63;
+  font-size: 13px;
+}
+.progress {
+  height: 8px;
+  background: #e8edf3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress span {
+  display: block;
+  height: 100%;
+  background: #79cfa7;
+  border-radius: inherit;
+}

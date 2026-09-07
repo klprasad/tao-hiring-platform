@@ -1,0 +1,14 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 14px;
+  border: 1px solid #b9d9ca;
+  border-radius: 8px;
+  background: #effaf3;
+  color: #286b63;
+  font-size: 13px;
+}
+.banner span:first-child {
+  font-size: 18px;
+}

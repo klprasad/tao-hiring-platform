@@ -1,0 +1,19 @@
+.editor {
+  display: grid;
+  gap: 8px;
+  color: #435167;
+  font-size: 13px;
+}
+.editor textarea {
+  min-height: 150px;
+  resize: vertical;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font: inherit;
+  line-height: 1.5;
+}
+.editor small {
+  color: #8490a4;
+  font-size: 11px;
+}

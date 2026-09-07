@@ -8,5 +8,4 @@ import { TaoShellComponent } from 'tao-ui';
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
-export class App {
-}
+export class App {}

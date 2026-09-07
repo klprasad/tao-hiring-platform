@@ -1,0 +1,12 @@
+<ol class="timeline">
+  @for (event of events(); track event.title) {
+    <li>
+      <span class="dot" aria-hidden="true"></span>
+      <div>
+        <strong>{{ event.title }}</strong>
+        <p>{{ event.detail }}</p>
+        <small>{{ event.time }}</small>
+      </div>
+    </li>
+  }
+</ol>

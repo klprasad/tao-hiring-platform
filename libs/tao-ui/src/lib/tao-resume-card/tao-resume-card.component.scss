@@ -1,0 +1,45 @@
+.resume {
+  padding: 16px;
+  border: 1px solid #dfe6ef;
+  border-radius: 9px;
+  background: #fff;
+}
+.resume header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.resume header div {
+  flex: 1;
+}
+.resume strong,
+.resume small {
+  display: block;
+}
+.resume small {
+  color: #778398;
+  margin-top: 3px;
+  font-size: 12px;
+}
+.resume .file {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  color: #286b63;
+  background: #e9f7ef;
+  font-size: 10px;
+  font-weight: 800;
+}
+.resume button {
+  border: 0;
+  background: none;
+  color: #286b83;
+  cursor: pointer;
+}
+.resume p {
+  color: #536176;
+  font-size: 13px;
+  line-height: 1.5;
+}

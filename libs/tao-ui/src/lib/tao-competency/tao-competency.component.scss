@@ -1,0 +1,20 @@
+.competency {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 13px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+.competency strong,
+.competency small {
+  display: block;
+}
+.competency small {
+  color: #778398;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.competency tao-confidence {
+  min-width: 180px;
+}

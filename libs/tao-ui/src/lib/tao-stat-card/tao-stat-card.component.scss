@@ -1,0 +1,27 @@
+.stat-card {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+.stat-card p {
+  margin: 0 0 12px;
+  color: #6e7a8e;
+  font-size: 12px;
+}
+.stat-card strong {
+  display: block;
+  color: #172033;
+  font-size: 30px;
+}
+.stat-card footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  color: #778398;
+  font-size: 12px;
+}
+.stat-card b {
+  color: #31805d;
+}

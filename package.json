@@ -16,7 +16,9 @@
     "start:assess": "npm run build:libs && ng serve tao-assess",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "format": "prettier --write \"apps/**/*.{ts,html,scss,css}\" \"libs/**/*.{ts,html,scss,css}\" \"*.{json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"apps/**/*.{ts,html,scss,css}\" \"libs/**/*.{ts,html,scss,css}\" \"*.{json,md,yml,yaml}\""
   },
   "private": true,
   "packageManager": "npm@11.19.0",

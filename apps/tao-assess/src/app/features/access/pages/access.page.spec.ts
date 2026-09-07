@@ -11,7 +11,9 @@ describe('AccessPage', () => {
   });
 
   it('renders the secure assessment entry form', () => {
-    expect(fixture.nativeElement.querySelector('h1').textContent).toContain('Enter your assessment');
+    expect(fixture.nativeElement.querySelector('h1').textContent).toContain(
+      'Enter your assessment',
+    );
     expect(fixture.nativeElement.querySelector('#email')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('button').textContent).toContain('Continue');
   });

@@ -1,0 +1,10 @@
+<article class="question">
+  <header>
+    <span>Question {{ number() }} of {{ total() }}</span>
+    @if (required()) {
+      <b>Required</b>
+    }
+  </header>
+  <h2>{{ question() }}</h2>
+  <ng-content />
+</article>

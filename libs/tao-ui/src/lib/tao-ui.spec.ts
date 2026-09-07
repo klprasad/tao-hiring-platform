@@ -24,7 +24,10 @@ describe('TAO UI components', () => {
   });
 
   it('renders navigation items in the shell', async () => {
-    await TestBed.configureTestingModule({ imports: [TaoShellComponent], providers: [provideRouter([])] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [TaoShellComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
     const fixture: ComponentFixture<TaoShellComponent> = TestBed.createComponent(TaoShellComponent);
     fixture.componentRef.setInput('items', [{ label: 'Dashboard', route: '/', icon: 'grid' }]);
     fixture.detectChanges();

@@ -1,0 +1,34 @@
+.candidate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #dfe6ef;
+  border-radius: 9px;
+  background: #fff;
+}
+.candidate div:nth-child(2) {
+  flex: 1;
+}
+.candidate strong,
+.candidate small {
+  display: block;
+}
+.candidate small {
+  color: #778398;
+  margin-top: 3px;
+  font-size: 12px;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #d9e8e4;
+  color: #286b63;
+  font-weight: 800;
+}
+.candidate b {
+  color: #286b63;
+}

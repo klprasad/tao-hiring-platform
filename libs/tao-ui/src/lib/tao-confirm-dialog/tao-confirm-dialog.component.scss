@@ -1,0 +1,39 @@
+.dialog {
+  max-width: 420px;
+  padding: 24px;
+  border: 1px solid #dfe6ef;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 45px #17203322;
+}
+.dialog h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 18px;
+}
+.dialog p {
+  color: #6e7a8e;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.dialog footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+.dialog button {
+  padding: 9px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cancel {
+  border: 1px solid #cbd5e1;
+  color: #536176;
+  background: #fff;
+}
+.confirm {
+  border: 0;
+  color: #fff;
+  background: #183a58;
+}

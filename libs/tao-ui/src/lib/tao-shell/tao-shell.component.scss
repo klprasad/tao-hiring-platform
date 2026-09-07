@@ -1,27 +1,160 @@
-:host { display: block; min-height: 100vh; color: #172033; }
-.shell { display: flex; min-height: 100vh; background: #f5f7fb; }
-.sidebar { width: 248px; background: #101827; color: #d6deed; padding: 28px 18px 18px; display: flex; flex-direction: column; }
-.brand { color: #fff; font-size: 19px; font-weight: 800; letter-spacing: .12em; display: flex; align-items: center; gap: 10px; }
-.brand-mark { display: grid; place-items: center; width: 30px; height: 30px; color: #101827; background: #79e2b1; border-radius: 8px; }
-.eyebrow { margin: 44px 12px 12px; color: #7f8da7; font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
-nav { display: grid; gap: 4px; }
-nav a { color: #9aa7bc; text-decoration: none; padding: 11px 12px; border-radius: 8px; font-size: 14px; display: flex; gap: 12px; align-items: center; }
-nav a:hover, nav a.active { background: #1d2a40; color: #fff; }
-nav a.active { box-shadow: inset 3px 0 #79e2b1; }
-.nav-icon { position: relative; width: 18px; height: 18px; flex: 0 0 18px; color: #79e2b1; text-align: center; }
-.nav-icon::before { position: absolute; inset: 0; display: grid; place-items: center; font-size: 14px; line-height: 18px; }
-.nav-icon-dashboard::before { content: '\25A6'; }
-.nav-icon-campaigns::before { content: '\25C8'; }
-.nav-icon-candidates::before { content: '\25C9'; }
-.nav-icon-assessments::before { content: '\2713'; font-weight: 800; }
-.nav-icon-reports::before { content: '\25A4'; }
-.sidebar-footer { margin-top: auto; padding: 16px 8px 4px; border-top: 1px solid #263247; display: flex; gap: 10px; align-items: center; font-size: 12px; }
-.sidebar-footer strong, .sidebar-footer small { display: block; }
-.sidebar-footer small { color: #8290a7; margin-top: 3px; }
-.avatar, .user-initials { display: grid; place-items: center; background: #e4c7a2; color: #432d20; border-radius: 50%; width: 30px; height: 30px; font-size: 10px; font-weight: 800; }
-.main { flex: 1; min-width: 0; }
-.topbar { height: 76px; display: flex; justify-content: space-between; align-items: center; padding: 0 38px; background: #fff; border-bottom: 1px solid #e4e9f1; }
-.context { font-size: 13px; color: #647086; }
-.top-actions { display: flex; align-items: center; gap: 22px; }
-.top-actions button { background: none; border: 0; color: #718096; font-size: 18px; cursor: pointer; }
-.content { max-width: 1360px; padding: 38px 42px 56px; }
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #172033;
+}
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+.sidebar {
+  width: 248px;
+  background: #101827;
+  color: #d6deed;
+  padding: 28px 18px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.brand {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  color: #101827;
+  background: #79e2b1;
+  border-radius: 8px;
+}
+.eyebrow {
+  margin: 44px 12px 12px;
+  color: #7f8da7;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+nav {
+  display: grid;
+  gap: 4px;
+}
+nav a {
+  color: #9aa7bc;
+  text-decoration: none;
+  padding: 11px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+nav a:hover,
+nav a.active {
+  background: #1d2a40;
+  color: #fff;
+}
+nav a.active {
+  box-shadow: inset 3px 0 #79e2b1;
+}
+.nav-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: #79e2b1;
+  text-align: center;
+}
+.nav-icon::before {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  line-height: 18px;
+}
+.nav-icon-dashboard::before {
+  content: "\25A6";
+}
+.nav-icon-campaigns::before {
+  content: "\25C8";
+}
+.nav-icon-candidates::before {
+  content: "\25C9";
+}
+.nav-icon-assessments::before {
+  content: "\2713";
+  font-weight: 800;
+}
+.nav-icon-reports::before {
+  content: "\25A4";
+}
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 8px 4px;
+  border-top: 1px solid #263247;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+.sidebar-footer strong,
+.sidebar-footer small {
+  display: block;
+}
+.sidebar-footer small {
+  color: #8290a7;
+  margin-top: 3px;
+}
+.avatar,
+.user-initials {
+  display: grid;
+  place-items: center;
+  background: #e4c7a2;
+  color: #432d20;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  font-weight: 800;
+}
+.main {
+  flex: 1;
+  min-width: 0;
+}
+.topbar {
+  height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 38px;
+  background: #fff;
+  border-bottom: 1px solid #e4e9f1;
+}
+.context {
+  font-size: 13px;
+  color: #647086;
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.top-actions button {
+  background: none;
+  border: 0;
+  color: #718096;
+  font-size: 18px;
+  cursor: pointer;
+}
+.content {
+  max-width: 1360px;
+  padding: 38px 42px 56px;
+}

@@ -1,0 +1,30 @@
+.document {
+  overflow: hidden;
+  border: 1px solid #dfe6ef;
+  border-radius: 9px;
+  background: #eef2f6;
+}
+.document header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  background: #fff;
+  color: #435167;
+  font-size: 13px;
+}
+.document button {
+  border: 0;
+  background: none;
+  color: #286b83;
+  cursor: pointer;
+}
+.page {
+  min-height: 220px;
+  margin: 16px;
+  padding: 24px;
+  background: #fff;
+  color: #536176;
+  line-height: 1.7;
+  font-size: 13px;
+  box-shadow: 0 2px 8px #d6dee8;
+}
