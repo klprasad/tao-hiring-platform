@@ -37,7 +37,9 @@
     <button
       mat-icon-button
       [class]="'button button-' + size()"
-      [color]="color()"
+      [class.button-primary]="color() === 'primary'"
+      [class.button-accent]="color() === 'accent'"
+      [class.button-warn]="color() === 'warn'"
       [disabled]="disabled() || loading()"
       [type]="type()"
       [matTooltip]="tooltip()"

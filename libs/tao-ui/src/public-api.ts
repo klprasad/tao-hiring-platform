@@ -6,6 +6,7 @@ export * from './lib/feature-controls/tao-status-chip/tao-status-chip.component'
 export * from './lib/feature-controls/tao-ai-badge/tao-ai-badge.component';
 export * from './lib/feature-controls/tao-ai-status/tao-ai-status.component';
 export * from './lib/native-controls/tao-data-table/tao-data-table.component';
+export * from './lib/native-controls/tao-data-table/tao-table.models';
 export * from './lib/feature-controls/tao-score/tao-score.component';
 export * from './lib/feature-controls/tao-confidence/tao-confidence.component';
 export * from './lib/feature-controls/tao-evidence/tao-evidence.component';

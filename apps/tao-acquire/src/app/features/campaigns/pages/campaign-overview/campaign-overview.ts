@@ -29,6 +29,7 @@ export class CampaignOverview {
     candidateCount: 124,
     shortlistedCount: 18,
     assessmentCount: 12,
+    progress: 15,
     createdOn: '2026-08-20',
     updatedOn: '2026-09-05',
   });

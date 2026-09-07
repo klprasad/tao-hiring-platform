@@ -1,19 +1,26 @@
 <div class="page">
-  <tao-page-header title="Campaigns" subtitle="Manage and track your hiring campaigns">
-    <tao-button label="Create Campaign" (click)="createCampaign()"> </tao-button>
-  </tao-page-header>
+  <header class="campaign-header">
+    <div class="campaign-heading">
+      <div class="campaign-mark" aria-hidden="true">
+        <mat-icon>workspaces</mat-icon>
+      </div>
+      <div>
+        <h1>Hiring Campaigns</h1>
+        <p>Track progress and manage your open roles.</p>
+      </div>
+    </div>
 
-  <tao-card class="campaign-list-card">
-    <!-- Filters -->
-    <div class="toolbar">
-      <tao-input
-        class="search"
-        label="Search campaigns"
-        placeholder="Search by name, title or department"
-        [ngModel]="searchTerm()"
-        (ngModelChange)="searchTerm.set($event)"
-      >
-      </tao-input>
+    <div class="campaign-actions">
+      <label class="search-control">
+        <mat-icon aria-hidden="true">search</mat-icon>
+        <span class="visually-hidden">Search campaigns</span>
+        <input
+          type="search"
+          placeholder="Search campaigns..."
+          [value]="searchTerm()"
+          (input)="onSearchInput($event)"
+        />
+      </label>
 
       <tao-select
         class="status-filter"
@@ -24,11 +31,24 @@
         (ngModelChange)="selectedStatus.set($event)"
       >
       </tao-select>
-    </div>
 
+      <tao-button
+        label="Create Campaign"
+        icon="add"
+        (click)="createCampaign()">
+      </tao-button>
+    </div>
+  </header>
+
+  <tao-card class="campaign-list-card">
     <!-- Campaign Table -->
     @if (filteredCampaigns().length > 0) {
-      <tao-data-table [columns]="columns" [rows]="tableRows()"> </tao-data-table>
+      <tao-data-table
+        [columns]="columns"
+        [rows]="filteredCampaigns()"
+        [config]="tableConfig"
+        (rowClick)="onRowClick($event)"
+      />
     }
 
     <!-- Empty State -->

@@ -13,6 +13,7 @@ export interface CampaignVm {
   candidateCount: number;
   shortlistedCount: number;
   assessmentCount: number;
+  progress: number;
   createdOn: string;
   updatedOn: string;
 }

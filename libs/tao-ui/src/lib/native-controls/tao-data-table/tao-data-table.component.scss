@@ -1,23 +1,658 @@
-.table-wrap {
-  overflow: auto;
-  border: 1px solid #e3e8f0;
-  border-radius: 8px;
+:host {
+  display: block;
+  width: 100%;
+
+  /*
+   * Design tokens
+   * Keep these here so the table can be themed easily later.
+   */
+  --tao-table-border: #dfe5f0;
+  --tao-table-border-light: #edf1f7;
+
+  --tao-table-header-bg: #f7f9fd;
+  --tao-table-hover-bg: #f5f7fc;
+  --tao-table-stripe-bg: #fbfcff;
+
+  --tao-table-text: #33415c;
+  --tao-table-header-text: #64728d;
+  --tao-table-muted-text: #8c99b0;
+
+  --tao-table-primary: #175cd3;
+
+  --tao-table-row-height: 58px;
+  --tao-table-header-height: 54px;
+
+  font-family: "Segoe UI", sans-serif;
 }
+
+/* ============================================================
+   TABLE CONTAINER
+   ============================================================ */
+
+.table-container {
+  width: 100%;
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  background: #fff;
+
+  border: 1px solid var(--tao-table-border);
+  border-radius: 14px;
+
+  /*
+   * Very subtle elevation.
+   * Avoid heavy shadows for enterprise tables.
+   */
+  box-shadow: 0 4px 14px rgb(31 49 82 / 7%);
+}
+
+/* ============================================================
+   TABLE SCROLL AREA
+   ============================================================ */
+
+.table-scroll {
+  width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /*
+   * Keeps horizontal scrolling smooth on smaller screens.
+   */
+  -webkit-overflow-scrolling: touch;
+
+  /*
+   * Firefox
+   */
+  scrollbar-width: thin;
+}
+
+/*
+ * Optional scrollbar styling for Chromium/Edge.
+ */
+
+.table-scroll::-webkit-scrollbar {
+  height: 7px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background: #d0d5dd;
+  border-radius: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #98a2b3;
+}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+
 table {
   width: 100%;
-  min-width: 560px;
+
+  /*
+   * Important for generic tables.
+
+   * If a table has many columns, it can grow beyond the
+   * available viewport and .table-scroll handles scrolling.
+   */
+  min-width: 720px;
+
+  border-spacing: 0;
+
+  background: #fff;
+
+  /*
+   * Prevent inherited browser table styles.
+   */
+  font-family: inherit;
 }
-th {
-  color: #8490a4;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.mat-mdc-header-row {
+  height: var(--tao-table-header-height);
+
+  background: var(--tao-table-header-bg);
 }
-td {
-  color: #536176;
+
+.mat-mdc-header-cell {
+  box-sizing: border-box;
+
+  padding: 0 18px;
+
+  color: var(--tao-table-header-text);
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 16px;
+
+  letter-spacing: 0;
+
+  white-space: nowrap;
+
+  border-bottom: 1px solid var(--tao-table-border);
+
+  /*
+   * Avoid selecting text while repeatedly clicking
+   * sortable headers.
+   */
+  user-select: none;
+}
+
+.mat-mdc-header-cell:first-child {
+  padding-left: 20px;
+}
+
+.mat-mdc-header-cell:last-child {
+  padding-right: 20px;
+}
+
+/* ============================================================
+   HEADER HOVER
+   ============================================================ */
+
+.mat-mdc-header-cell:hover {
+  background: #f0f4fb;
+}
+
+/*
+ * Don't show hover background on disabled/non-sortable headers
+ * if Material applies pointer interaction.
+ */
+
+.mat-sort-header-disabled {
+  cursor: default;
+}
+
+/* ============================================================
+   SORT HEADER
+   ============================================================ */
+
+.mat-sort-header-container {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.mat-sort-header-arrow {
+  margin-left: 2px;
+
+  opacity: 0.55;
+}
+
+.mat-sort-header-content {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   BODY ROW
+   ============================================================ */
+
+.mat-mdc-row {
+  height: var(--tao-table-row-height);
+
+  background: #fff;
+
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background: var(--tao-table-stripe-bg);
+}
+
+/*
+ * Row hover can be disabled by the config later if required.
+ */
+
+.table-container:not(.table-container--no-hover) .mat-mdc-row:hover {
+  background: var(--tao-table-hover-bg);
+  box-shadow: inset 3px 0 0 var(--tao-table-primary);
+}
+
+/* ============================================================
+   BODY CELL
+   ============================================================ */
+
+.mat-mdc-cell {
+  box-sizing: border-box;
+
+  padding: 0 18px;
+
+  color: var(--tao-table-text);
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 20px;
+
+  white-space: nowrap;
+
+  border-bottom: 1px solid var(--tao-table-border-light);
+
+  /*
+   * Prevent long values from destroying the table layout.
+   */
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.mat-mdc-cell:first-child {
+  padding-left: 24px;
+
+  font-weight: 600;
+}
+
+.mat-mdc-cell:last-child {
+  padding-right: 24px;
+}
+
+.table-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  min-width: 70px;
+  padding: 5px 11px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  text-transform: capitalize;
+}
+
+.table-status__dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.table-status--active {
+  color: #087443;
+  background: #d9f8e9;
+}
+
+.table-status--draft {
+  color: #53627a;
+  background: #e9eef5;
+}
+
+.table-status--processing {
+  color: #b65a00;
+  background: #fff0d9;
+}
+
+.table-status--completed {
+  color: #2458a6;
+  background: #e0ecff;
+}
+
+.table-status--failed {
+  color: #b42318;
+  background: #ffe4e1;
+}
+
+.table-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 128px;
+}
+
+.table-progress__track {
+  display: block;
+  width: 92px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #edf0f7;
+  box-shadow: inset 0 0 0 1px #e1e6f0;
+}
+
+.table-progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #4d37df;
+}
+
+.table-progress__value {
+  color: var(--tao-table-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   LAST ROW
+   ============================================================ */
+
+.mat-mdc-row:last-child .mat-mdc-cell {
+  border-bottom: none;
+}
+
+/* ============================================================
+   ROW CLICK
+   ============================================================ */
+
+.mat-mdc-row {
+  cursor: default;
+}
+
+/*
+ * If your table emits rowClick, you can add a class such as
+ * table-container--clickable from the component later.
+ */
+
+.table-container--clickable .mat-mdc-row {
+  cursor: pointer;
+}
+
+.table-container--clickable .mat-mdc-row:active {
+  background: #f2f4f7;
+}
+
+/* ============================================================
+   STICKY HEADER
+   ============================================================ */
+
+.table-container--sticky-header .mat-mdc-header-row {
+  position: sticky;
+  top: 0;
+
+  z-index: 10;
+
+  background: var(--tao-table-header-bg);
+}
+
+/*
+ * Prevent body content from visually appearing through
+ * a sticky header.
+ */
+
+.table-container--sticky-header .mat-mdc-header-cell {
+  background: var(--tao-table-header-bg);
+}
+
+/* ============================================================
+   STICKY COLUMNS
+   ============================================================ */
+
+.mat-mdc-header-cell[style*="position"],
+.mat-mdc-cell[style*="position"] {
+  background: inherit;
+}
+
+/*
+ * Material handles the actual sticky positioning when
+ * [sticky] is supplied on matColumnDef.
+ *
+ * Give sticky cells a subtle separator.
+ */
+
+.mat-mdc-header-cell.mat-mdc-table-sticky,
+.mat-mdc-cell.mat-mdc-table-sticky {
+  background: #fff;
+
+  box-shadow: 1px 0 0 var(--tao-table-border-light);
+}
+
+.mat-mdc-header-cell.mat-mdc-table-sticky {
+  background: var(--tao-table-header-bg);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.no-data {
+  height: 100px;
+
+  padding: 0 20px !important;
+
+  color: var(--tao-table-muted-text) !important;
+
+  font-size: 13px !important;
+  font-weight: 400 !important;
+
+  text-align: center;
+
+  border-bottom: none !important;
+}
+
+/* ============================================================
+   PAGINATOR
+   ============================================================ */
+
+mat-paginator {
+  min-height: 64px;
+
+  background: #fff;
+
+  border-top: 1px solid var(--tao-table-border-light);
+
+  color: var(--tao-table-text);
+
+  font-family: inherit;
+}
+
+/*
+ * MDC paginator internal elements.
+ */
+
+:host ::ng-deep .mat-mdc-paginator-container {
+  min-height: 64px;
+
+  padding: 0 18px 0 24px;
+}
+
+:host ::ng-deep .mat-mdc-paginator-page-size {
+  align-items: center;
+
+  margin-right: 16px;
+}
+
+:host ::ng-deep .mat-mdc-paginator-page-size-label {
+  color: var(--tao-table-text);
+
   font-size: 13px;
 }
-mat-paginator {
-  border-top: 1px solid #edf0f5;
+
+:host ::ng-deep .mat-mdc-paginator-range-label {
+  margin: 0 16px;
+
+  color: var(--tao-table-header-text);
+
+  font-size: 13px;
+}
+
+/* ============================================================
+   PAGINATOR SELECT
+   ============================================================ */
+
+:host ::ng-deep .mat-mdc-paginator-page-size .mat-mdc-form-field {
+  margin: 0;
+}
+
+:host ::ng-deep .mat-mdc-paginator-page-size .mat-mdc-text-field-wrapper {
+  min-height: 40px;
+}
+
+:host ::ng-deep .mat-mdc-paginator-page-size .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+/* ============================================================
+   PAGINATOR BUTTONS
+   ============================================================ */
+
+:host ::ng-deep .mat-mdc-paginator-navigation-first,
+:host ::ng-deep .mat-mdc-paginator-navigation-previous,
+:host ::ng-deep .mat-mdc-paginator-navigation-next,
+:host ::ng-deep .mat-mdc-paginator-navigation-last {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
+}
+
+:host ::ng-deep .mat-mdc-paginator-navigation-first:hover:not(:disabled),
+:host ::ng-deep .mat-mdc-paginator-navigation-previous:hover:not(:disabled),
+:host ::ng-deep .mat-mdc-paginator-navigation-next:hover:not(:disabled),
+:host ::ng-deep .mat-mdc-paginator-navigation-last:hover:not(:disabled) {
+  background: #f2f4f7;
+}
+
+/* ============================================================
+   SELECTION CHECKBOX
+   ============================================================ */
+
+.mat-column-__select {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+
+  padding-left: 12px !important;
+  padding-right: 8px !important;
+}
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+.table-container--loading {
+  position: relative;
+}
+
+/*
+ * Prevent interaction while loading.
+ */
+
+.table-container--loading .table-scroll {
+  pointer-events: none;
+}
+
+/*
+ * Simple loading overlay.
+
+ * If you later implement a skeleton loader, this can be
+ * replaced by the skeleton component.
+ */
+
+.table-container--loading::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: rgb(255 255 255 / 45%);
+
+  pointer-events: none;
+}
+
+/* ============================================================
+   COMPACT DENSITY
+   ============================================================ */
+
+.table-container--compact {
+  --tao-table-row-height: 44px;
+  --tao-table-header-height: 44px;
+}
+
+.table-container--compact .mat-mdc-cell,
+.table-container--compact .mat-mdc-header-cell {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.table-container--compact .mat-mdc-cell:first-child,
+.table-container--compact .mat-mdc-header-cell:first-child {
+  padding-left: 16px;
+}
+
+.table-container--compact .mat-mdc-cell:last-child,
+.table-container--compact .mat-mdc-header-cell:last-child {
+  padding-right: 16px;
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+.mat-mdc-row:focus-visible {
+  outline: 2px solid var(--tao-table-primary);
+  outline-offset: -2px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .table-container {
+    border-radius: 8px;
+  }
+
+  table {
+    min-width: 640px;
+  }
+
+  .mat-mdc-header-cell {
+    padding: 0 12px;
+
+    font-size: 10px;
+  }
+
+  .mat-mdc-cell {
+    padding: 0 12px;
+
+    font-size: 12px;
+  }
+
+  .mat-mdc-header-cell:first-child,
+  .mat-mdc-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .mat-mdc-header-cell:last-child,
+  .mat-mdc-cell:last-child {
+    padding-right: 16px;
+  }
+
+  :host ::ng-deep .mat-mdc-paginator-container {
+    padding: 0 8px;
+  }
+
+  :host ::ng-deep .mat-mdc-paginator-range-label {
+    margin: 0 8px;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .mat-mdc-row {
+    transition: none;
+  }
 }

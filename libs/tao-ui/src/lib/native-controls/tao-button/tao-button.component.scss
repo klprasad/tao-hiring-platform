@@ -21,3 +21,17 @@ button span {
 mat-spinner {
   display: inline-block;
 }
+.button-primary,
+.button-accent,
+.button-warn {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+.button-accent {
+  background-color: var(--mat-sys-secondary);
+  color: var(--mat-sys-on-secondary);
+}
+.button-warn {
+  background-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+}

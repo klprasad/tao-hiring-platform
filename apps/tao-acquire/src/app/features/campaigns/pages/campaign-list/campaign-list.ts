@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 import { CampaignVm } from '../../models/campaign.models';
 
@@ -9,22 +10,21 @@ import {
   TaoCardComponent,
   TaoDataTableComponent,
   TaoEmptyStateComponent,
-  TaoInputComponent,
-  TaoPageHeaderComponent,
   TaoSelectComponent,
+  TaoTableColumn,
+  TaoTableConfig,
 } from '@tao/ui';
 
 @Component({
   selector: 'tao-campaign-list',
   imports: [
     FormsModule,
-    TaoPageHeaderComponent,
     TaoButtonComponent,
     TaoCardComponent,
-    TaoInputComponent,
     TaoSelectComponent,
     TaoDataTableComponent,
     TaoEmptyStateComponent,
+    MatIconModule,
   ],
   templateUrl: './campaign-list.html',
   styleUrl: './campaign-list.scss',
@@ -58,15 +58,69 @@ export class CampaignListComponent {
   // Table Configuration
   // ---------------------------------------------------------
 
-  readonly columns = [
-    'name',
-    'jobTitle',
-    'candidateCount',
-    'shortlistedCount',
-    'status',
-    'updatedOn',
-  ];
+  readonly columns: TaoTableColumn<CampaignVm>[] = [
+    {
+      key: 'name',
+      label: 'Name',
+      sortable: true,
+    },
 
+    {
+      key: 'jobTitle',
+      label: 'Job Title',
+      sortable: true,
+    },
+
+    {
+      key: 'candidateCount',
+      label: 'Candidates',
+      sortable: true,
+      align: 'center',
+      type: 'number',
+    },
+
+    {
+      key: 'shortlistedCount',
+      label: 'Shortlisted',
+      sortable: true,
+      align: 'center',
+      type: 'number',
+    },
+
+    {
+      key: 'progress',
+      label: 'Progress',
+      sortable: true,
+      type: 'progress',
+    },
+
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      type: 'status',
+    },
+
+    {
+      key: 'updatedOn',
+      label: 'Updated On',
+      sortable: true,
+      type: 'date',
+    },
+  ];
+  readonly tableConfig: TaoTableConfig = {
+    sortable: true,
+    sortMode: 'client',
+    pagination: true,
+    paginationMode: 'client',
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 25, 50],
+    showFirstLastButtons: true,
+    rowHover: true,
+    selectable: false,
+    stickyHeader: false,
+    density: 'comfortable',
+  };
   // ---------------------------------------------------------
   // Campaign Data
   // ---------------------------------------------------------
@@ -77,57 +131,61 @@ export class CampaignListComponent {
 
   readonly campaigns = signal<CampaignVm[]>([
     {
-      id: 'cmp-001',
+      id: '1',
       name: 'Senior .NET Hiring',
       jobTitle: 'Senior .NET Developer',
-      department: 'Engineering',
+      department: 'engineering',
       location: 'Hyderabad',
-      status: 'active',
       candidateCount: 124,
       shortlistedCount: 18,
-      assessmentCount: 12,
+      assessmentCount: 6,
+      progress: 15,
+      status: 'active',
       createdOn: '2026-08-20',
       updatedOn: '2026-09-05',
     },
 
     {
-      id: 'cmp-002',
+      id: '2',
       name: 'Frontend Hiring',
       jobTitle: 'Senior Angular Developer',
-      department: 'Engineering',
-      location: 'Bangalore',
-      status: 'draft',
+      department: 'engineering',
+      location: 'Bengaluru',
       candidateCount: 86,
       shortlistedCount: 10,
-      assessmentCount: 0,
-      createdOn: '2026-08-25',
+      assessmentCount: 4,
+      progress: 12,
+      status: 'draft',
+      createdOn: '2026-08-22',
       updatedOn: '2026-09-04',
     },
 
     {
-      id: 'cmp-003',
+      id: '3',
       name: 'QA Engineering Hiring',
       jobTitle: 'QA Automation Engineer',
-      department: 'Quality Engineering',
+      department: 'quality-engineering',
       location: 'Pune',
-      status: 'active',
       candidateCount: 53,
       shortlistedCount: 9,
-      assessmentCount: 7,
-      createdOn: '2026-08-28',
+      assessmentCount: 3,
+      progress: 17,
+      status: 'active',
+      createdOn: '2026-08-25',
       updatedOn: '2026-09-03',
     },
 
     {
-      id: 'cmp-004',
+      id: '4',
       name: 'Backend Engineering',
       jobTitle: 'Backend Engineer',
-      department: 'Engineering',
-      location: 'Chennai',
-      status: 'processing',
+      department: 'engineering',
+      location: 'Remote',
       candidateCount: 0,
       shortlistedCount: 0,
       assessmentCount: 0,
+      progress: 0,
+      status: 'processing',
       createdOn: '2026-09-01',
       updatedOn: '2026-09-07',
     },
@@ -168,6 +226,10 @@ export class CampaignListComponent {
     this.router.navigate(['/campaigns/create']);
   }
 
+  onSearchInput(event: Event): void {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
+  }
+
   openCampaign(campaign: CampaignVm): void {
     this.router.navigate(['/campaigns', campaign.id]);
   }
@@ -186,6 +248,10 @@ export class CampaignListComponent {
         this.editCampaign(event.row);
         break;
     }
+  }
+
+  onRowClick(event: { row: CampaignVm }): void {
+    this.openCampaign(event.row);
   }
 
   // ---------------------------------------------------------

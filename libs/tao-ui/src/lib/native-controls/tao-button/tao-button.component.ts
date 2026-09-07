@@ -14,7 +14,7 @@ export class TaoButtonComponent {
   readonly label = input('Action');
   readonly icon = input('');
   readonly appearance = input<'filled' | 'outlined' | 'text' | 'icon'>('filled');
-  readonly color = input<'primary' | 'accent' | 'warn'>('primary');
+  readonly color = input<'primary' | 'accent' | 'warn' | 'basic'>('basic');
   readonly disabled = input(false);
   readonly loading = input(false);
   readonly type = input<'button' | 'submit' | 'reset'>('button');
