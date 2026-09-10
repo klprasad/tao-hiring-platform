@@ -96,6 +96,15 @@ nav a.active {
 .nav-icon-reports::before {
   content: "\25A4";
 }
+.nav-icon-invitations::before {
+  content: "\2709";
+}
+.nav-icon-resume-process::before {
+  content: "\25A3";
+}
+.nav-icon-hiring-strategy::before {
+  content: "\2699";
+}
 .sidebar-footer {
   margin-top: auto;
   padding: 16px 8px 4px;

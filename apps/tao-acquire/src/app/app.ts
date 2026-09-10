@@ -13,8 +13,11 @@ export class App {
   protected readonly navigation: NavigationItem[] = [
     { label: 'Dashboard', route: '/', icon: 'dashboard' },
     { label: 'Campaigns', route: '/campaigns', icon: 'campaigns' },
-    { label: 'Candidates', route: '/candidates', icon: 'candidates' },
-    { label: 'Assessments', route: '/assessments', icon: 'assessments' },
+    { label: 'Candidates Screening', route: '/candidates', icon: 'candidates' },
+    { label: 'Assessments Strategy', route: '/assessments', icon: 'assessments' },
     { label: 'Reports', route: '/reports', icon: 'reports' },
+    { label: 'Invitations', route: '/invitations', icon: 'invitations' },
+    { label: 'Resume Process', route: '/resume-process', icon: 'resume-process' },
+    { label: 'Hiring Strategy', route: '/hiring-strategy', icon: 'hiring-strategy' },
   ];
 }

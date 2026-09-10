@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from 'tao-ui';
 
 @Component({
-  selector: 'tao-candidates-page',
+  selector: 'tao-reports',
   imports: [TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent],
-  templateUrl: './candidates.page.html',
-  styleUrl: './candidates.page.scss',
+  templateUrl: './reports.html',
+  styleUrl: './reports.scss',
 })
-export class CandidatesPage {}
+export class Reports {}

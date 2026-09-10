@@ -104,9 +104,21 @@
   box-shadow: 0 0 0 3px rgb(139 125 255 / 24%);
 }
 
-.campaign-actions ::ng-deep .status-filter .mat-mdc-form-field:focus-within .mdc-notched-outline__leading,
-.campaign-actions ::ng-deep .status-filter .mat-mdc-form-field:focus-within .mdc-notched-outline__notch,
-.campaign-actions ::ng-deep .status-filter .mat-mdc-form-field:focus-within .mdc-notched-outline__trailing {
+.campaign-actions
+  ::ng-deep
+  .status-filter
+  .mat-mdc-form-field:focus-within
+  .mdc-notched-outline__leading,
+.campaign-actions
+  ::ng-deep
+  .status-filter
+  .mat-mdc-form-field:focus-within
+  .mdc-notched-outline__notch,
+.campaign-actions
+  ::ng-deep
+  .status-filter
+  .mat-mdc-form-field:focus-within
+  .mdc-notched-outline__trailing {
   border-color: #aab9ff;
 }
 

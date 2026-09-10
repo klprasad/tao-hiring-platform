@@ -83,9 +83,7 @@
                       [style.width.%]="getProgressValue(row, column)"
                     ></span>
                   </span>
-                  <span class="table-progress__value">
-                    {{ getProgressValue(row, column) }}%
-                  </span>
+                  <span class="table-progress__value"> {{ getProgressValue(row, column) }}% </span>
                 </span>
               } @else if (column.type === 'custom' && column.template) {
                 <ng-container

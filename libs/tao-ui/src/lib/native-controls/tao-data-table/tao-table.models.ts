@@ -11,13 +11,7 @@ export type TaoTableAlign = 'left' | 'center' | 'right';
 export type TaoTableDensity = 'comfortable' | 'compact';
 
 export type TaoTableCellType =
-  | 'text'
-  | 'number'
-  | 'date'
-  | 'boolean'
-  | 'status'
-  | 'progress'
-  | 'custom';
+  'text' | 'number' | 'date' | 'boolean' | 'status' | 'progress' | 'custom';
 
 export interface TaoTableColumn<T extends object> {
   /**

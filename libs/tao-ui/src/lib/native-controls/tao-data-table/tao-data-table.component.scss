@@ -208,7 +208,9 @@ table {
 
   background: #fff;
 
-  transition: background-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .mat-mdc-row:nth-child(even) {

@@ -14,7 +14,7 @@ describe('AccessPage', () => {
     expect(fixture.nativeElement.querySelector('h1').textContent).toContain(
       'Enter your assessment',
     );
-    expect(fixture.nativeElement.querySelector('#email')).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('button').textContent).toContain('Continue');
+    expect(fixture.nativeElement.querySelector('tao-input')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('tao-button').textContent).toContain('Continue');
   });
 });
