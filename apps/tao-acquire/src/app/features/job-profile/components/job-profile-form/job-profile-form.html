@@ -1,0 +1,34 @@
+<form class="job-profile-form" [formGroup]="form" (ngSubmit)="submit()">
+  <tao-card class="form-card">
+    <div class="card-header">
+      <h2>Role details</h2>
+      <p>Define the role and the context candidates need to understand.</p>
+    </div>
+
+    <div class="form-grid">
+      <tao-input class="span-2" label="Job title" placeholder="e.g. Senior Angular Developer" formControlName="title" [showErrors]="showValidationErrors()" [required]="true" />
+      <tao-select label="Department" placeholder="Select department" [options]="departmentOptions" formControlName="department" [showErrors]="showValidationErrors()" [required]="true" />
+      <tao-input label="Location" placeholder="e.g. Bengaluru or Remote" formControlName="location" [showErrors]="showValidationErrors()" [required]="true" />
+      <tao-select label="Employment type" placeholder="Select employment type" [options]="employmentTypeOptions" formControlName="employmentType" [showErrors]="showValidationErrors()" [required]="true" />
+      <tao-select label="Experience level" placeholder="Select experience level" [options]="experienceLevelOptions" formControlName="experienceLevel" [showErrors]="showValidationErrors()" [required]="true" />
+    </div>
+  </tao-card>
+
+  <tao-card class="form-card">
+    <div class="card-header">
+      <h2>Role profile</h2>
+      <p>Give the hiring team a clear, useful picture of the opportunity.</p>
+    </div>
+
+    <div class="form-stack">
+      <tao-textarea label="Description" placeholder="Summarize the role and its impact..." formControlName="description" [rows]="6" [showErrors]="showValidationErrors()" [required]="true" />
+      <tao-textarea label="Responsibilities" placeholder="List the outcomes and responsibilities for this role..." formControlName="responsibilities" [rows]="6" [showErrors]="showValidationErrors()" [required]="true" />
+      <tao-textarea label="Required skills" placeholder="Add the essential skills, separated by commas..." formControlName="requiredSkills" [rows]="4" [showErrors]="showValidationErrors()" [required]="true" />
+    </div>
+  </tao-card>
+
+  <div class="form-actions">
+    <tao-button type="button" label="Cancel" appearance="outlined" (click)="cancel()" />
+    <tao-button type="submit" label="Save job profile" appearance="filled" />
+  </div>
+</form>

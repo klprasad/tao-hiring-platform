@@ -1,0 +1,31 @@
+<div class="page">
+  <header class="page-header">
+    <div class="heading">
+      <div class="heading-mark" aria-hidden="true"><mat-icon>work_outline</mat-icon></div>
+      <div>
+        <h1>Job profiles</h1>
+        <p>Shape the roles your hiring team is looking for.</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <label class="search-control">
+        <mat-icon aria-hidden="true">search</mat-icon>
+        <span class="visually-hidden">Search job profiles</span>
+        <input type="search" placeholder="Search profiles..." [value]="searchTerm()" (input)="onSearchInput($event)" />
+      </label>
+      <tao-select label="Status" placeholder="All statuses" [options]="statusOptions" [ngModel]="selectedStatus()" (ngModelChange)="selectedStatus.set($event)" />
+      <tao-button label="Create profile" icon="add" (click)="createProfile()" />
+    </div>
+  </header>
+
+  @if (errorMessage()) {
+    <p class="notice" role="status">{{ errorMessage() }}</p>
+  }
+
+  @if (isLoading()) {
+    <div class="loading" role="status">Loading job profiles...</div>
+  } @else {
+    <tao-job-profile-table [profiles]="filteredProfiles()" (profileSelected)="editProfile($event)" (profileEdited)="editProfile($event)" />
+  }
+</div>

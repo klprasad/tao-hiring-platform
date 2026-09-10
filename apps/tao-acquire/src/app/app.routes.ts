@@ -12,6 +12,13 @@ export const routes: Routes = [
       import('./features/campaigns/campaign.routes').then((module) => module.CAMPAIGN_ROUTES),
   },
   {
+    path: 'job-profiles',
+    loadChildren: () =>
+      import('./features/job-profile/job-profile.routes').then(
+        (module) => module.JOB_PROFILE_ROUTES,
+      ),
+  },
+  {
     path: 'hiring-strategy',
     loadChildren: () =>
       import('./features/hiring-strategy/hiring-strategy.routes').then(

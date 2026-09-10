@@ -1,0 +1,32 @@
+:host {
+  display: inline-block;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 3px 10px;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-transform: capitalize;
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+.status--published {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.status--draft {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.status--archived {
+  color: #475569;
+  background: #e2e8f0;
+}

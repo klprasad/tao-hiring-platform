@@ -19,5 +19,6 @@ export class App {
     { label: 'Invitations', route: '/invitations', icon: 'invitations' },
     { label: 'Resume Process', route: '/resume-process', icon: 'resume-process' },
     { label: 'Hiring Strategy', route: '/hiring-strategy', icon: 'hiring-strategy' },
+    { label: 'Job Profiles', route: '/job-profiles', icon: 'job-profiles' },
   ];
 }

@@ -1,0 +1,16 @@
+<tao-card class="table-card">
+  @if (profiles().length > 0) {
+    <tao-data-table
+      [columns]="columns"
+      [rows]="profiles()"
+      [config]="tableConfig"
+      (rowClick)="selectProfile($event)"
+    />
+  } @else {
+    <div class="empty-state">
+      <mat-icon aria-hidden="true">work_outline</mat-icon>
+      <h2>No job profiles found</h2>
+      <p>Adjust the filters or create a profile for your next role.</p>
+    </div>
+  }
+</tao-card>
