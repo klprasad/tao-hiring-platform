@@ -70,6 +70,31 @@ export interface TaoTableColumn<T extends object> {
   template?: TemplateRef<unknown>;
 
   /**
+   * Allow cell content to wrap onto multiple lines instead of
+   * forcing the column to grow horizontally.
+   *
+   * When enabled the cell no longer truncates with an ellipsis;
+   * long values wrap within the available column width.
+   *
+   * Defaults to `TaoTableConfig.wrap` (or `false` when unset).
+   */
+  wrap?: boolean;
+
+  /**
+   * Maximum number of characters rendered in the cell.
+   *
+   * Longer values are truncated and suffixed with an ellipsis.
+   * The full value is still exposed through the cell `title`
+   * (hover tooltip).
+   *
+   * Combine with `wrap` to keep very long text readable:
+   * the value is truncated first, then wrapped.
+   *
+   * Defaults to `TaoTableConfig.maxLength` (or no limit when unset).
+   */
+  maxLength?: number;
+
+  /**
    * Make column sticky.
    */
   sticky?: boolean;
@@ -155,6 +180,27 @@ export interface TaoTableConfig {
    * Table density.
    */
   density?: TaoTableDensity;
+
+  /**
+   * Default wrapping behaviour applied to every column.
+   *
+   * Individual columns can override it with `TaoTableColumn.wrap`.
+   * Useful for descriptions or any content that must not widen
+   * the table horizontally.
+   *
+   * Default: false
+   */
+  wrap?: boolean;
+
+  /**
+   * Default maximum characters rendered per cell.
+   *
+   * Individual columns can override it with
+   * `TaoTableColumn.maxLength`.
+   *
+   * Default: no limit
+   */
+  maxLength?: number;
 
   /**
    * Show loading state.

@@ -292,6 +292,66 @@ export class TaoDataTableComponent<T extends object = object> {
   // CELL VALUE
   // --------------------------------------------------
 
+  /**
+   * Resolves whether a column should wrap its content onto
+   * multiple lines.
+   *
+   * The column level `wrap` flag wins; otherwise the table level
+   * `config.wrap` default is used.
+   */
+  isWrapped(column: TaoTableColumn<T>): boolean {
+    return column.wrap ?? this.config().wrap ?? false;
+  }
+
+  /**
+   * Resolves the maximum number of characters rendered for a column.
+   *
+   * The column level `maxLength` wins; otherwise the table level
+   * `config.maxLength` default is used. `undefined` means no limit.
+   */
+  getMaxLength(column: TaoTableColumn<T>): number | undefined {
+    return column.maxLength ?? this.config().maxLength;
+  }
+
+  /**
+   * Cell value prepared for display.
+   *
+   * When the resolved `maxLength` is exceeded the value is truncated
+   * and suffixed with an ellipsis. Truncation happens before wrapping,
+   * so `wrap` and `maxLength` can be combined safely.
+   */
+  getDisplayValue(row: T, column: TaoTableColumn<T>): string {
+    const value = this.getCellValue(row, column);
+    const maxLength = this.getMaxLength(column);
+
+    if (maxLength === undefined || maxLength <= 0 || value.length <= maxLength) {
+      return value;
+    }
+
+    return `${value.slice(0, maxLength).trimEnd()}…`;
+  }
+
+  /**
+   * Tooltip for a cell: the full value only when it was truncated,
+   * otherwise `null` so no empty tooltip is rendered.
+   *
+   * Custom templates are responsible for their own content.
+   */
+  getCellTitle(row: T, column: TaoTableColumn<T>): string | null {
+    if (column.type === 'custom') {
+      return null;
+    }
+
+    const value = this.getCellValue(row, column);
+    const maxLength = this.getMaxLength(column);
+
+    if (maxLength === undefined || maxLength <= 0 || value.length <= maxLength) {
+      return null;
+    }
+
+    return value;
+  }
+
   getCellValue(row: T, column: TaoTableColumn<T>): string {
     const value = row[column.key];
 

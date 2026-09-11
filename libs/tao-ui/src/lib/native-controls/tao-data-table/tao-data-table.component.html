@@ -51,6 +51,7 @@
             <th
               mat-header-cell
               *matHeaderCellDef
+              [class.table-cell--wrap]="isWrapped(column)"
               [style.width]="column.width"
               [style.text-align]="column.align ?? 'left'"
               [mat-sort-header]="column.sortable === false ? '' : (column.sortKey ?? column.key)"
@@ -64,8 +65,10 @@
             <td
               mat-cell
               *matCellDef="let row"
+              [class.table-cell--wrap]="isWrapped(column)"
               [style.width]="column.width"
               [style.text-align]="column.align ?? 'left'"
+              [attr.title]="getCellTitle(row, column)"
             >
               @if (column.type === 'status') {
                 <span
@@ -73,7 +76,7 @@
                   [class]="'table-status table-status--' + getCellValue(row, column).toLowerCase()"
                 >
                   <span class="table-status__dot" aria-hidden="true"></span>
-                  {{ getCellValue(row, column) }}
+                  {{ getDisplayValue(row, column) }}
                 </span>
               } @else if (column.type === 'progress') {
                 <span class="table-progress">
@@ -94,7 +97,7 @@
                   }"
                 />
               } @else {
-                {{ getCellValue(row, column) }}
+                {{ getDisplayValue(row, column) }}
               }
             </td>
           </ng-container>

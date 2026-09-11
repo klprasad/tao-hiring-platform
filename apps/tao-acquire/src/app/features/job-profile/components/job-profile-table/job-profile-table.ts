@@ -18,7 +18,14 @@ export class JobProfileTableComponent {
 
   readonly columns: TaoTableColumn<JobProfileVm>[] = [
     { key: 'campaignId', label: 'Campaign', sortable: true },
-    { key: 'originalJobDescription', label: 'Job description', sortable: true },
+    {
+      key: 'originalJobDescription',
+      label: 'Job description',
+      sortable: true,
+      wrap: true,
+      maxLength: 200,
+      width: '40%',
+    },
     { key: 'status', label: 'Status', sortable: true, type: 'status' },
     { key: 'generatedOn', label: 'Generated on', sortable: true, type: 'date' },
   ];

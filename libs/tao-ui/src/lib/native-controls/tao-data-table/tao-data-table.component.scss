@@ -265,6 +265,55 @@ table {
   padding-right: 24px;
 }
 
+/* ============================================================
+   CELL WRAPPING (opt-in via TaoTableColumn.wrap)
+   ============================================================ */
+
+/*
+ * Wrapped columns let long values flow onto multiple lines
+ * instead of widening the table horizontally.
+ *
+ * `overflow-wrap: anywhere` is used (rather than `break-word`)
+ * because it also lowers the column's min-content width, which
+ * is what actually stops the table from growing.
+ */
+
+.mat-mdc-cell.table-cell--wrap,
+.mat-mdc-header-cell.table-cell--wrap {
+  white-space: normal;
+
+  overflow: visible;
+
+  text-overflow: clip;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.mat-mdc-cell.table-cell--wrap {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/*
+ * Material's sort header content truncates by default.
+ * Allow it to wrap when its column is wrapped.
+ */
+
+.mat-mdc-header-cell.table-cell--wrap .mat-sort-header-container {
+  width: 100%;
+}
+
+.mat-mdc-header-cell.table-cell--wrap .mat-sort-header-content {
+  min-width: 0;
+
+  white-space: normal;
+
+  overflow: visible;
+
+  text-overflow: clip;
+}
+
 .table-status {
   display: inline-flex;
   align-items: center;
