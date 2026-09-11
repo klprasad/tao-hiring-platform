@@ -1,0 +1,435 @@
+/* ================================================================
+   CAMPAIGN SUMMARY
+   ================================================================ */
+
+.campaign-summary {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+
+  margin: 0;
+  padding: 4px 0;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding: 16px 18px;
+
+  border: 1px solid var(--mat-sys-outline-variant);
+
+  border-radius: 12px;
+
+  background: var(--mat-sys-surface-container-low);
+}
+
+/* Label */
+
+.summary-item dt {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 0 0 9px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: var(--mat-sys-on-surface-variant);
+
+  mat-icon {
+    width: 17px;
+    height: 17px;
+
+    font-size: 17px;
+
+    color: var(--mat-sys-primary);
+  }
+}
+
+/* Value */
+
+.summary-item dd {
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  color: var(--mat-sys-on-surface);
+
+  overflow-wrap: anywhere;
+}
+
+/* ================================================================
+   OPENINGS
+   ================================================================ */
+
+.summary-item:last-child dd {
+  font-size: 22px;
+  font-weight: 700;
+
+  color: var(--mat-sys-primary);
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 800px) {
+  .campaign-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .campaign-summary {
+    grid-template-columns: 1fr;
+  }
+}
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  gap: 20px;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* ================================================================
+   CAMPAIGN WORKFLOW
+   ================================================================ */
+
+.workflow {
+  width: 100%;
+}
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 22px;
+}
+
+.section-header h2 {
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 650;
+
+  color: var(--mat-sys-on-surface);
+}
+
+.section-header p {
+  margin: 6px 0 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.workflow-progress {
+  flex-shrink: 0;
+
+  padding: 7px 12px;
+
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 999px;
+
+  background: var(--mat-sys-surface-container-low);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* ================================================================
+   WORKFLOW LIST
+   ================================================================ */
+
+.workflow-list {
+  display: grid;
+
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+/* ================================================================
+   WORKFLOW ITEM
+   ================================================================ */
+
+.workflow-item {
+  position: relative;
+
+  min-width: 0;
+}
+
+/* ================================================================
+   WORKFLOW STEP
+   ================================================================ */
+
+.workflow-step {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 174px;
+
+  padding: 20px 18px 16px;
+
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 10px;
+
+  background: var(--mat-sys-surface);
+
+  color: var(--mat-sys-on-surface);
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+
+  box-sizing: border-box;
+
+  &:hover:not(:disabled) {
+    border-color: var(--mat-sys-primary);
+
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ================================================================
+   STATUS ICON
+   ================================================================ */
+
+.workflow-step__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  margin-bottom: 15px;
+
+  border-radius: 50%;
+
+  background: var(--mat-sys-surface-container-high);
+
+  color: var(--mat-sys-on-surface-variant);
+
+  mat-icon {
+    width: 20px;
+    height: 20px;
+
+    font-size: 20px;
+  }
+}
+
+/* ================================================================
+   CONTENT
+   ================================================================ */
+
+.workflow-step__content {
+  flex: 1;
+
+  min-width: 0;
+
+  padding-right: 20px;
+}
+
+.workflow-step__title {
+  margin-bottom: 7px;
+
+  font-size: 15px;
+  line-height: 1.3;
+
+  font-weight: 650;
+
+  color: var(--mat-sys-on-surface);
+}
+
+.workflow-step__description {
+  font-size: 12px;
+  line-height: 1.55;
+
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* ================================================================
+   ARROW
+   ================================================================ */
+
+.workflow-step__arrow {
+  position: absolute;
+
+  right: 12px;
+  bottom: 12px;
+
+  width: 18px;
+  height: 18px;
+
+  font-size: 18px;
+
+  color: var(--mat-sys-outline);
+
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.workflow-step:hover:not(:disabled) .workflow-step__arrow {
+  color: var(--mat-sys-primary);
+
+  transform: translateX(2px);
+}
+
+/* ================================================================
+   COMPLETED
+   ================================================================ */
+
+.workflow-step--completed {
+  background: color-mix(in srgb, var(--mat-sys-primary-container) 45%, var(--mat-sys-surface));
+
+  border-color: color-mix(in srgb, var(--mat-sys-primary) 35%, var(--mat-sys-outline-variant));
+}
+
+.workflow-step--completed .workflow-step__icon {
+  background: var(--mat-sys-primary);
+
+  color: var(--mat-sys-on-primary);
+}
+
+.workflow-step--completed .workflow-step__arrow {
+  color: var(--mat-sys-primary);
+}
+
+/* ================================================================
+   ACTIVE
+   ================================================================ */
+
+.workflow-step--active {
+  border: 2px solid var(--mat-sys-primary);
+
+  background: var(--mat-sys-surface);
+
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+}
+
+.workflow-step--active .workflow-step__icon {
+  background: var(--mat-sys-primary);
+
+  color: var(--mat-sys-on-primary);
+}
+
+.workflow-step--active .workflow-step__title {
+  color: var(--mat-sys-primary);
+}
+
+.workflow-step--active .workflow-step__arrow {
+  color: var(--mat-sys-primary);
+}
+
+/* ================================================================
+   NOT STARTED
+   ================================================================ */
+
+.workflow-step--disabled {
+  cursor: not-allowed;
+
+  background: var(--mat-sys-surface-container-low);
+
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.workflow-step--disabled .workflow-step__icon {
+  background: var(--mat-sys-surface-container);
+
+  color: var(--mat-sys-outline);
+}
+
+.workflow-step--disabled .workflow-step__title,
+.workflow-step--disabled .workflow-step__description {
+  color: var(--mat-sys-on-surface-variant);
+
+  opacity: 0.65;
+}
+
+.workflow-step--disabled .workflow-step__arrow {
+  color: var(--mat-sys-outline);
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 1100px) {
+  .workflow-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .workflow-step {
+    height: 165px;
+  }
+}
+
+@media (max-width: 700px) {
+  .section-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+  .workflow-list {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+  .workflow-step {
+    height: auto;
+    min-height: 120px;
+
+    padding: 16px;
+  }
+}

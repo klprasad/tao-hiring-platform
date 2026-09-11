@@ -1,19 +1,13 @@
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import {
-  TaoButtonComponent,
-  TaoCardComponent,
-  TaoInputComponent,
-  TaoSelectComponent,
-  TaoTextareaComponent,
-} from '@tao/ui';
+import { TaoButtonComponent, TaoCardComponent, TaoTextareaComponent } from '@tao/ui';
 
 import { JobProfileFormValue, JobProfileVm } from '../../models/job-profile.vm';
 
 @Component({
   selector: 'tao-job-profile-form',
-  imports: [ReactiveFormsModule, TaoButtonComponent, TaoCardComponent, TaoInputComponent, TaoSelectComponent, TaoTextareaComponent],
+  imports: [ReactiveFormsModule, TaoButtonComponent, TaoCardComponent, TaoTextareaComponent],
   templateUrl: './job-profile-form.html',
   styleUrl: './job-profile-form.scss',
 })
@@ -26,26 +20,14 @@ export class JobProfileFormComponent {
   private readonly formBuilder = inject(FormBuilder);
 
   readonly form = this.formBuilder.nonNullable.group({
-    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-    department: ['', Validators.required],
-    location: ['', Validators.required],
-    employmentType: ['', Validators.required],
-    experienceLevel: ['', Validators.required],
     description: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(5000)]],
-    responsibilities: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(5000)]],
-    requiredSkills: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(2000)]],
   });
-
-  readonly departmentOptions = ['engineering', 'product', 'design', 'sales', 'marketing', 'quality-engineering'];
-  readonly employmentTypeOptions = ['full-time', 'part-time', 'contract', 'internship'];
-  readonly experienceLevelOptions = ['entry-level', 'mid-level', 'senior', 'lead', 'executive'];
-
   constructor() {
     effect(() => {
       const profile = this.profile();
 
       if (profile) {
-        this.form.patchValue(profile);
+        this.form.patchValue({ description: profile.originalJobDescription });
       }
     });
   }
@@ -59,8 +41,10 @@ export class JobProfileFormComponent {
       this.form.markAsDirty();
       return;
     }
-
-    this.submitted.emit(this.form.getRawValue());
+    const request: JobProfileFormValue = {
+      description: this.form.getRawValue().description.trim(),
+    };
+    this.submitted.emit(request);
   }
 
   cancel(): void {

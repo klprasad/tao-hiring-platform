@@ -21,64 +21,39 @@
       </tao-input>
 
       <tao-input
-        label="Job Title"
-        placeholder="e.g. Senior .NET Developer"
-        formControlName="jobTitle"
+        label="Reference Number"
+        placeholder="dev1"
+        formControlName="referenceNumber"
         [showErrors]="showValidationErrors()"
         [required]="true"
       >
       </tao-input>
-
-      <tao-select
-        label="Department"
-        placeholder="Select department"
-        [options]="departmentOptions"
-        formControlName="department"
-        [showErrors]="showValidationErrors()"
-        [required]="true"
-      >
-      </tao-select>
 
       <tao-input
-        label="Location"
-        placeholder="e.g. Hyderabad"
-        formControlName="location"
+        label="Hiring Manager ID"
+        placeholder="e.g. 019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF"
+        formControlName="hiringManagerId"
         [showErrors]="showValidationErrors()"
         [required]="true"
       >
       </tao-input>
-
-      <tao-select
-        label="Employment Type"
-        placeholder="Select employment type"
-        [options]="employmentTypeOptions"
-        formControlName="employmentType"
+      <tao-input
+        label="Recruiter ID"
+        placeholder="e.g. 019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF"
+        formControlName="recruiterId"
         [showErrors]="showValidationErrors()"
         [required]="true"
       >
-      </tao-select>
+      </tao-input>
+      <tao-input
+        label="Number of Openings"
+        placeholder="e.g. 2"
+        formControlName="openings"
+        [showErrors]="showValidationErrors()"
+        [required]="true"
+      >
+      </tao-input>
     </div>
-  </tao-card>
-
-  <!-- Job Description -->
-
-  <tao-card class="form-card">
-    <div class="card-header">
-      <div>
-        <h2>Job Description</h2>
-        <p>Provide the job description that will be used to understand the role requirements.</p>
-      </div>
-    </div>
-
-    <tao-textarea
-      label="Job Description"
-      placeholder="Describe the responsibilities, required skills, experience and qualifications..."
-      formControlName="jobDescription"
-      [showErrors]="showValidationErrors()"
-      [required]="true"
-      [rows]="10"
-    >
-    </tao-textarea>
   </tao-card>
 
   <!-- Actions -->

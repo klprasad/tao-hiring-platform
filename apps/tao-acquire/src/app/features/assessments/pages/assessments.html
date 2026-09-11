@@ -37,3 +37,31 @@
     <b>100%</b>
   </div></tao-card
 >
+
+@if (errorMessage()) {
+  <p class="error" role="alert">{{ errorMessage() }}</p>
+}
+
+<tao-card title="Assessment strategy">
+  @if (strategyId(); as id) {
+    <p>Strategy created. Id: {{ id }}</p>
+    <div class="actions">
+      <tao-button
+        label="Approve strategy"
+        appearance="filled"
+        [disabled]="isApproving()"
+        (click)="approveStrategy()"
+      />
+    </div>
+  } @else {
+    <p>Generate the AI assessment strategy for this campaign.</p>
+    <div class="actions">
+      <tao-button
+        label="Create assessment strategy"
+        appearance="filled"
+        [disabled]="isCreating() || !campaignId"
+        (click)="createStrategy()"
+      />
+    </div>
+  }
+</tao-card>

@@ -1,37 +1,29 @@
 /**
  * Standard API response returned by the backend.
  *
+ * Every successful response wraps its payload in `value` together with
+ * an optional human-readable `message`.
+ *
  * Example:
  *
  * {
- *   "success": true,
- *   "message": "Campaign retrieved successfully",
- *   "data": {
+ *   "value": {
  *      "id": 1,
  *      "name": "Campaign 1"
- *   }
+ *   },
+ *   "message": "Campaign retrieved successfully"
  * }
  */
 export interface ApiResponse<T> {
   /**
-   * Indicates whether the request was successfully processed.
+   * Response payload.
    */
-  success: boolean;
+  value: T;
 
   /**
    * Optional human-readable message.
    */
   message?: string;
-
-  /**
-   * Response payload.
-   */
-  data: T;
-
-  /**
-   * Optional metadata.
-   */
-  metadata?: ApiMetadata;
 }
 
 /**
@@ -61,14 +53,14 @@ export interface ApiMetadata {
  * Example:
  *
  * {
- *   "success": true,
- *   "data": {
+ *   "value": {
  *      "items": [],
  *      "page": 1,
  *      "pageSize": 20,
  *      "totalCount": 100,
  *      "totalPages": 5
- *   }
+ *   },
+ *   "message": "Campaigns retrieved successfully"
  * }
  */
 export interface PaginatedResponse<T> {
@@ -99,8 +91,20 @@ export interface PaginatedResponse<T> {
 export type ApiPaginatedResponse<T> = ApiResponse<PaginatedResponse<T>>;
 
 /**
- * API response for operations that don't return data.
+ * Response returned by create operations that yield the new resource id.
  *
- * Useful for DELETE and some PUT/POST operations.
+ * Example (Create Campaign):
+ *
+ * {
+ *   "value": "550e8400-e29b-41d4-a716-446655440100",
+ *   "message": "Campaign created successfully"
+ * }
  */
-export type ApiEmptyResponse = ApiResponse<void>;
+export type ApiCreatedResponse = ApiResponse<string>;
+
+/**
+ * Response for operations that don't return data (e.g. 204 No Content).
+ *
+ * The approval endpoints return an empty body.
+ */
+export type ApiEmptyResponse = void;

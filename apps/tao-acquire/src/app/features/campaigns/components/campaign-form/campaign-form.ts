@@ -1,26 +1,13 @@
 import { Component, inject, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import {
-  TaoButtonComponent,
-  TaoCardComponent,
-  TaoInputComponent,
-  TaoSelectComponent,
-  TaoTextareaComponent,
-} from '@tao/ui';
+import { TaoButtonComponent, TaoCardComponent, TaoInputComponent } from '@tao/ui';
 
 import { TaoValidators } from '@tao/utils';
 import { CampaignCreateRequest } from '../../models/campaign.models';
 
 @Component({
-  imports: [
-    ReactiveFormsModule,
-    TaoCardComponent,
-    TaoInputComponent,
-    TaoSelectComponent,
-    TaoTextareaComponent,
-    TaoButtonComponent,
-  ],
+  imports: [ReactiveFormsModule, TaoCardComponent, TaoInputComponent, TaoButtonComponent],
   selector: 'tao-campaign-form',
   styleUrl: './campaign-form.scss',
   templateUrl: './campaign-form.html',
@@ -43,31 +30,14 @@ export class CampaignFormComponent {
       ],
     ],
 
-    jobTitle: ['', [Validators.required, Validators.maxLength(100)]],
+    referenceNumber: ['', [Validators.required, Validators.maxLength(100)]],
 
-    department: ['', Validators.required],
+    hiringManagerId: ['', Validators.required],
 
-    location: ['', Validators.required],
+    openings: [null, [Validators.required, TaoValidators.numeric()]],
 
-    employmentType: ['', Validators.required],
-
-    jobDescription: [
-      '',
-      [Validators.required, Validators.minLength(50), Validators.maxLength(5000)],
-    ],
+    recruiterId: ['', Validators.required],
   });
-
-  readonly departmentOptions = [
-    'engineering',
-    'quality-engineering',
-    'product',
-    'design',
-    'sales',
-    'marketing',
-    'human-resources',
-  ];
-
-  readonly employmentTypeOptions = ['full-time', 'part-time', 'contract', 'internship'];
 
   submit(): void {
     this.showValidationErrors.set(true);
@@ -82,12 +52,12 @@ export class CampaignFormComponent {
     const value = this.campaignForm.getRawValue();
 
     const request: CampaignCreateRequest = {
-      campaignName: value.campaignName.trim(),
-      jobTitle: value.jobTitle.trim(),
-      department: value.department,
-      location: value.location.trim(),
-      employmentType: value.employmentType,
-      jobDescription: value.jobDescription.trim(),
+      name: value.campaignName.trim(),
+      organizationId: '019FA8F7-E474-722F-B476-C07A63658297',
+      referenceNumber: value.referenceNumber.trim(),
+      recruiterId: value.recruiterId.trim(),
+      hiringManagerId: value.hiringManagerId.trim() ?? '019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF',
+      numberOfOpenings: value.openings ?? 0,
     };
 
     this.submitted.emit(request);

@@ -1,3 +1,57 @@
-<main>
-  <h1>Hiring Strategy</h1>
-</main>
+<div class="page">
+  <tao-page-header
+    title="Hiring strategy"
+    description="Generate and approve the recruitment strategy for this campaign."
+  >
+    <tao-button
+      label="Generate strategy"
+      appearance="filled"
+      [disabled]="isLoading() || !campaignId"
+      (click)="generate()"
+    />
+  </tao-page-header>
+
+  @if (errorMessage()) {
+    <p class="error" role="alert">{{ errorMessage() }}</p>
+  }
+
+  @if (isLoading()) {
+    <div class="loading" role="status">Working...</div>
+  }
+
+  @if (strategy(); as currentStrategy) {
+    <tao-card title="Generated strategy">
+      <p>{{ currentStrategy.generatedContent }}</p>
+    </tao-card>
+
+    <tao-card title="Details">
+      <dl class="summary">
+        <div>
+          <dt>Provider</dt>
+          <dd>{{ currentStrategy.providerName }}</dd>
+        </div>
+        <div>
+          <dt>Model</dt>
+          <dd>{{ currentStrategy.modelName }}</dd>
+        </div>
+        <div>
+          <dt>Prompt version</dt>
+          <dd>{{ currentStrategy.promptVersion }}</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>{{ currentStrategy.status === status.Approved ? 'Approved' : 'Generated' }}</dd>
+        </div>
+      </dl>
+    </tao-card>
+
+    @if (currentStrategy.status !== status.Approved) {
+      <tao-button
+        label="Approve strategy"
+        appearance="filled"
+        [disabled]="isApproving()"
+        (click)="approve()"
+      />
+    }
+  }
+</div>

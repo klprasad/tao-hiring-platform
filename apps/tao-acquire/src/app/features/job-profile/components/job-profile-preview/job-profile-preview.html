@@ -1,0 +1,347 @@
+<div class="job-profile-preview">
+  <!-- ========================================================= -->
+  <!-- ORIGINAL JOB DESCRIPTION -->
+  <!-- ========================================================= -->
+
+  @if (jobProfile(); as profile) {
+    <tao-card title="Job Description">
+      <div class="profile-content">
+        <!-- JOB TITLE -->
+
+        <div class="profile-title">
+          <div class="profile-title__icon">
+            <mat-icon>work_outline</mat-icon>
+          </div>
+
+          <div>
+            <h1>
+              {{ profile.jobTitle }}
+            </h1>
+
+            @if (profile.experienceLevel) {
+              <span class="experience-badge">
+                {{ profile.experienceLevel }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- ABOUT THE ROLE -->
+
+        @if (profile.jobProfile) {
+          <section class="content-section">
+            <div class="section-heading">
+              <div class="section-heading__icon">
+                <mat-icon>description</mat-icon>
+              </div>
+
+              <div>
+                <h3>About the Role</h3>
+                <span>Role overview</span>
+              </div>
+            </div>
+
+            <p class="section-description">
+              {{ profile.jobProfile }}
+            </p>
+          </section>
+        }
+
+        <!-- RESPONSIBILITIES -->
+
+        @if (hasResponsibilities()) {
+          <section class="content-section">
+            <div class="section-heading">
+              <div class="section-heading__icon">
+                <mat-icon>task_alt</mat-icon>
+              </div>
+
+              <div>
+                <h3>Key Responsibilities</h3>
+                <span>What the candidate will work on</span>
+              </div>
+            </div>
+
+            <ul class="detail-list">
+              @for (item of profile.responsibilities; track item) {
+                <li>
+                  <span class="list-icon">
+                    <mat-icon>check</mat-icon>
+                  </span>
+
+                  <span>
+                    {{ item }}
+                  </span>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+
+        <!-- SKILLS -->
+
+        @if (hasRequiredSkills() || hasGoodToHave()) {
+          <div class="skills-grid">
+            <!-- REQUIRED SKILLS -->
+
+            @if (hasRequiredSkills()) {
+              <section class="content-section">
+                <div class="section-heading">
+                  <div class="section-heading__icon">
+                    <mat-icon>verified</mat-icon>
+                  </div>
+
+                  <div>
+                    <h3>Required Skills</h3>
+                    <span>Essential capabilities</span>
+                  </div>
+                </div>
+
+                <ul class="skill-list">
+                  @for (skill of profile.requiredSkills; track skill) {
+                    <li>
+                      <span class="skill-bullet">
+                        <mat-icon>check</mat-icon>
+                      </span>
+
+                      <span>{{ skill }}</span>
+                    </li>
+                  }
+                </ul>
+              </section>
+            }
+
+            @if (hasGoodToHave()) {
+              <section class="content-section">
+                <div class="section-heading">
+                  <div class="section-heading__icon preferred">
+                    <mat-icon>star_outline</mat-icon>
+                  </div>
+
+                  <div>
+                    <h3>Preferred Skills</h3>
+                    <span>Additional capabilities</span>
+                  </div>
+                </div>
+
+                <ul class="skill-list">
+                  @for (skill of profile.goodToHave; track skill) {
+                    <li>
+                      <span class="skill-bullet preferred">
+                        <mat-icon>add</mat-icon>
+                      </span>
+
+                      <span>{{ skill }}</span>
+                    </li>
+                  }
+                </ul>
+              </section>
+            }
+          </div>
+        }
+
+        <!-- QUALIFICATIONS -->
+
+        @if (hasQualifications()) {
+          <section class="content-section">
+            <div class="section-heading">
+              <div class="section-heading__icon">
+                <mat-icon>school</mat-icon>
+              </div>
+
+              <div>
+                <h3>Qualifications</h3>
+                <span>Educational requirements</span>
+              </div>
+            </div>
+
+            <ul class="detail-list">
+              @for (qualification of profile.qualifications; track qualification) {
+                <li>
+                  <span class="list-icon">
+                    <mat-icon>school</mat-icon>
+                  </span>
+
+                  <span>
+                    {{ qualification }}
+                  </span>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+
+        <!-- EXPERIENCE -->
+
+        @if (hasExperience()) {
+          <section class="highlight-section">
+            <div class="highlight-icon">
+              <mat-icon>timeline</mat-icon>
+            </div>
+
+            <div>
+              <h3>Experience</h3>
+
+              <p>
+                {{ profile.experience }}
+              </p>
+            </div>
+          </section>
+        }
+
+        <!-- EMPLOYMENT / LOCATION -->
+
+        @if (hasEmploymentType() || hasLocation()) {
+          <div class="metadata-grid">
+            @if (hasEmploymentType()) {
+              <div class="metadata-item">
+                <mat-icon> business_center </mat-icon>
+
+                <div>
+                  <span>Employment Type</span>
+                  <strong>
+                    {{ profile.employmentType }}
+                  </strong>
+                </div>
+              </div>
+            }
+
+            @if (hasLocation()) {
+              <div class="metadata-item">
+                <mat-icon> location_on </mat-icon>
+
+                <div>
+                  <span>Location</span>
+                  <strong>
+                    {{ profile.location }}
+                  </strong>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- IDEAL CANDIDATE -->
+
+        @if (profile.candidateProfile) {
+          <section class="candidate-section">
+            <div class="section-heading">
+              <div class="section-heading__icon">
+                <mat-icon>person_outline</mat-icon>
+              </div>
+
+              <div>
+                <h3>Ideal Candidate</h3>
+                <span>What we're looking for</span>
+              </div>
+            </div>
+
+            <p>
+              {{ profile.candidateProfile }}
+            </p>
+          </section>
+        }
+      </div>
+    </tao-card>
+
+    <!-- ========================================================= -->
+    <!-- AI GENERATED PROFILE -->
+    <!-- ========================================================= -->
+
+    @if (hasGeneratedContent()) {
+<tao-card title="">
+
+  <div class="ai-profile-header">
+
+    <div class="ai-profile-header__icon">
+      <mat-icon>auto_awesome</mat-icon>
+    </div>
+
+    <div class="ai-profile-header__content">
+      <div class="ai-profile-header__title-row">
+        <h2>AI-generated Profile</h2>
+
+        <span class="ai-badge">
+          <mat-icon>auto_awesome</mat-icon>
+          AI Generated
+        </span>
+      </div>
+
+      <p>
+        AI-generated job profile based on the provided job description
+      </p>
+    </div>
+
+  </div>
+
+  <div class="ai-content">
+
+    @for (
+      block of parsedGeneratedContent();
+      track $index
+    ) {
+
+      @switch (block.type) {
+
+        @case ('h1') {
+          <h1 [innerHTML]="block.content"></h1>
+        }
+
+        @case ('h2') {
+          <h2 [innerHTML]="block.content"></h2>
+        }
+
+        @case ('h3') {
+          <h3 [innerHTML]="block.content"></h3>
+        }
+
+        @case ('paragraph') {
+          <p [innerHTML]="block.content"></p>
+        }
+
+        @case ('ul') {
+          <ul>
+            @for (
+              item of block.items;
+              track $index
+            ) {
+              <li [innerHTML]="item"></li>
+            }
+          </ul>
+        }
+
+        @case ('ol') {
+          <ol>
+            @for (
+              item of block.items;
+              track $index
+            ) {
+              <li [innerHTML]="item"></li>
+            }
+          </ol>
+        }
+
+        @case ('spacer') {
+          <div class="content-spacer"></div>
+        }
+
+      }
+
+    }
+
+  </div>
+
+</tao-card>
+    }
+  } @else {
+    <tao-card title="Job Description">
+      <div class="empty-state">
+        <mat-icon> description </mat-icon>
+
+        <h3>Job profile unavailable</h3>
+
+        <p>The job description could not be parsed.</p>
+      </div>
+    </tao-card>
+  }
+</div>

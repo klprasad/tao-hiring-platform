@@ -1,7 +1,20 @@
 <div class="page">
-  <tao-page-header title="Create job profile" subtitle="Define the role requirements for your hiring team.">
-    <tao-button appearance="icon" icon="arrow_back" label="Back to job profiles" tooltip="Back to job profiles" (click)="cancel()" />
+  <tao-page-header
+    title="Create job profile"
+    subtitle="Define the role requirements for your hiring team."
+  >
+    <tao-button
+      appearance="icon"
+      icon="arrow_back"
+      label="Back to job profiles"
+      tooltip="Back to job profiles"
+      (click)="cancel()"
+    />
   </tao-page-header>
-  @if (errorMessage()) { <p class="error" role="alert">{{ errorMessage() }}</p> }
-  <div class="content"><tao-job-profile-form (submitted)="createProfile($event)" (cancelled)="cancel()" /></div>
+  @if (errorMessage()) {
+    <p class="error" role="alert">{{ errorMessage() }}</p>
+  }
+  <div class="content">
+    <tao-job-profile-form (submitted)="createProfile($event)" (cancelled)="cancel()" />
+  </div>
 </div>

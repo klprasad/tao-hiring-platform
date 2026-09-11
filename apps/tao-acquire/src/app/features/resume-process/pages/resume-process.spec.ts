@@ -1,11 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { ResumeProcess } from './resume-process';
 
 describe('ResumeProcess', () => {
   let fixture: ComponentFixture<ResumeProcess>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [ResumeProcess] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [ResumeProcess],
+      providers: [provideRouter([])],
+    }).compileComponents();
     fixture = TestBed.createComponent(ResumeProcess);
     fixture.detectChanges();
   });

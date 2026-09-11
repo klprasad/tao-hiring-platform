@@ -2,31 +2,62 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiClientService } from '../../../core/api/api-client.service';
-import { JobProfileFilters } from '../models/job-profile.filters';
-import { CreateJobProfileDto, JobProfileDto, UpdateJobProfileDto } from '../models/job-profile.dto';
+import { ApiResponse } from '../../../core/api/api-response';
+import {
+  ApproveJobProfileRequest,
+  CreateJobProfileRequest,
+  JobProfileDto,
+} from '../models/job-profile.dto';
 
+/**
+ * Job profile API client.
+ *
+ * Endpoints (see Campaign Endpoints documentation):
+ *  - POST /api/campaigns/{campaignId}/job-profile
+ *  - GET  /api/jobprofiles/{jobProfileId}
+ *  - POST /api/jobprofiles/{jobProfileId}/approve
+ */
 @Injectable({ providedIn: 'root' })
 export class JobProfileService {
   private readonly api = inject(ApiClientService);
-  private readonly baseUrl = '/api/job-profiles';
 
-  getJobProfiles(filters: JobProfileFilters = {}): Observable<JobProfileDto[]> {
-    return this.api.get<JobProfileDto[]>(this.baseUrl, { params: { ...filters } });
+  /**
+   * Generates an AI job profile for a campaign.
+   *
+   * `POST /api/campaigns/{campaignId}/job-profile`
+   *
+   * Returns the id of the newly generated job profile.
+   */
+  createJobProfile(
+    campaignId: string,
+    request: CreateJobProfileRequest,
+  ): Observable<ApiResponse<string>> {
+    return this.api.post<ApiResponse<string>, CreateJobProfileRequest>(
+      `/api/campaigns/${campaignId}/job-profile`,
+      request,
+    );
   }
 
-  getJobProfile(id: string): Observable<JobProfileDto> {
-    return this.api.get<JobProfileDto>(`${this.baseUrl}/${id}`);
+  /**
+   * Gets a job profile by id.
+   *
+   * `GET /api/jobprofiles/{jobProfileId}`
+   */
+  getJobProfile(jobProfileId: string): Observable<ApiResponse<JobProfileDto>> {
+    return this.api.get<ApiResponse<JobProfileDto>>(`/api/jobprofiles/${jobProfileId}`);
   }
 
-  createJobProfile(request: CreateJobProfileDto): Observable<JobProfileDto> {
-    return this.api.post<JobProfileDto, CreateJobProfileDto>(this.baseUrl, request);
-  }
-
-  updateJobProfile(id: string, request: UpdateJobProfileDto): Observable<JobProfileDto> {
-    return this.api.put<JobProfileDto, UpdateJobProfileDto>(`${this.baseUrl}/${id}`, request);
-  }
-
-  deleteJobProfile(id: string): Observable<void> {
-    return this.api.delete<void>(`${this.baseUrl}/${id}`);
+  /**
+   * Approves a generated job profile.
+   *
+   * `POST /api/jobprofiles/{jobProfileId}/approve`
+   *
+   * Returns `204 No Content`.
+   */
+  approveJobProfile(jobProfileId: string, request: ApproveJobProfileRequest): Observable<void> {
+    return this.api.post<void, ApproveJobProfileRequest>(
+      `/api/jobprofiles/${jobProfileId}/approve`,
+      request,
+    );
   }
 }

@@ -1,7 +1,7 @@
 <div class="page">
   <tao-page-header
     title="Create Campaign"
-    subtitle="Set up a hiring campaign and configure the requirements for candidate evaluation"
+    description="Set up a hiring campaign and configure the requirements for candidate evaluation"
   >
     <tao-button
       appearance="icon"
@@ -13,6 +13,10 @@
     >
     </tao-button>
   </tao-page-header>
+
+  @if (errorMessage()) {
+    <p class="error" role="alert">{{ errorMessage() }}</p>
+  }
 
   <div class="content">
     <tao-campaign-form (submitted)="createCampaign($event)" (cancelled)="cancel()">

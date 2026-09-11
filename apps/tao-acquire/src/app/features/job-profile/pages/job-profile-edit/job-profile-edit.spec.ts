@@ -13,15 +13,34 @@ describe('JobProfileEditComponent', () => {
       imports: [JobProfileEditComponent],
       providers: [
         provideRouter([]),
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => 'profile-1' } } } },
-        { provide: JobProfileService, useValue: { getJobProfile: () => of({
-          id: 'profile-1', title: 'Engineer', department: 'engineering', location: 'Remote', employmentType: 'full-time', experienceLevel: 'senior', description: 'A useful role description with enough detail.', responsibilities: 'Build and improve the product experience.', requiredSkills: 'Angular', status: 'draft', updatedAt: '2026-09-01',
-        }) } },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => 'profile-1' } } },
+        },
+        {
+          provide: JobProfileService,
+          useValue: {
+            getJobProfile: () =>
+              of({
+                value: {
+                  id: 'profile-1',
+                  campaignId: 'campaign-1',
+                  originalJobDescription: 'A useful role description with enough detail.',
+                  generatedContent: 'AI-generated job profile content.',
+                  structuredProfile: '{"competencies":[],"qualifications":[]}',
+                  status: 1,
+                  generatedOn: '2026-09-01T00:00:00Z',
+                },
+                message: 'Job profile retrieved successfully',
+              }),
+          },
+        },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(JobProfileEditComponent);
     fixture.detectChanges();
   });
 
-  it('renders the edit form after loading', () => expect(fixture.nativeElement.innerHTML).toContain('Edit job profile'));
+  it('renders the review page after loading', () =>
+    expect(fixture.nativeElement.innerHTML).toContain('Job profile'));
 });

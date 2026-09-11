@@ -1,12 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
-import {
-  TaoCardComponent,
-  TaoDataTableComponent,
-  TaoTableColumn,
-  TaoTableConfig,
-} from '@tao/ui';
+import { TaoCardComponent, TaoDataTableComponent, TaoTableColumn, TaoTableConfig } from '@tao/ui';
 
 import { JobProfileVm } from '../../models/job-profile.vm';
 
@@ -22,13 +17,10 @@ export class JobProfileTableComponent {
   readonly profileEdited = output<JobProfileVm>();
 
   readonly columns: TaoTableColumn<JobProfileVm>[] = [
-    { key: 'title', label: 'Role', sortable: true },
-    { key: 'department', label: 'Department', sortable: true },
-    { key: 'location', label: 'Location', sortable: true },
-    { key: 'employmentType', label: 'Employment', sortable: true },
-    { key: 'experienceLevel', label: 'Experience', sortable: true },
+    { key: 'campaignId', label: 'Campaign', sortable: true },
+    { key: 'originalJobDescription', label: 'Job description', sortable: true },
     { key: 'status', label: 'Status', sortable: true, type: 'status' },
-    { key: 'updatedOn', label: 'Updated', sortable: true, type: 'date' },
+    { key: 'generatedOn', label: 'Generated on', sortable: true, type: 'date' },
   ];
 
   readonly tableConfig: TaoTableConfig = {

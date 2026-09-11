@@ -1,11 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { HiringStrategy } from './hiring-strategy';
 
 describe('HiringStrategy', () => {
   let fixture: ComponentFixture<HiringStrategy>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [HiringStrategy] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [HiringStrategy],
+      providers: [provideRouter([])],
+    }).compileComponents();
     fixture = TestBed.createComponent(HiringStrategy);
     fixture.detectChanges();
   });

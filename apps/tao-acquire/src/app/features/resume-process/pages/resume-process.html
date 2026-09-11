@@ -1,3 +1,30 @@
-<main>
-  <h1>Resume Process</h1>
-</main>
+<div class="page">
+  <tao-page-header
+    title="Resume process"
+    description="Import candidate resumes into this campaign."
+  />
+
+  @if (errorMessage()) {
+    <p class="error" role="alert">{{ errorMessage() }}</p>
+  }
+
+  <tao-card title="Import resumes">
+    <p>
+      Supported formats: {{ acceptedFormats }}. Up to {{ maxFiles }} files per import, 10&nbsp;MB
+      each.
+    </p>
+    <input
+      type="file"
+      multiple
+      [attr.accept]="acceptedFormats"
+      [disabled]="isUploading() || !campaignId"
+      (change)="onFilesSelected($event)"
+    />
+  </tao-card>
+
+  @if (batchId(); as id) {
+    <tao-card title="Import started">
+      <p>Resume import batch: {{ id }}</p>
+    </tao-card>
+  }
+</div>

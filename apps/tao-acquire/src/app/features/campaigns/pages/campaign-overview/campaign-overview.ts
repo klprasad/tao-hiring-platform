@@ -3,14 +3,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-
+import { TaoButtonComponent, TaoCardComponent } from '@tao/ui';
 import { CampaignVm, CampaignStepVm } from '../../models/campaign.models';
 @Component({
   selector: 'tao-campaign-overview',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatCardModule],
+  imports: [MatIconModule, TaoButtonComponent, TaoCardComponent],
   templateUrl: './campaign-overview.html',
   styleUrl: './campaign-overview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,18 +18,15 @@ export class CampaignOverview {
   private readonly router = inject(Router);
 
   readonly campaign = signal<CampaignVm>({
-    id: '',
-    name: 'Senior .NET Hiring',
-    jobTitle: 'Senior .NET Developer',
-    department: 'Engineering',
-    location: 'Hyderabad',
-    status: 'active',
-    candidateCount: 124,
-    shortlistedCount: 18,
-    assessmentCount: 12,
-    progress: 15,
-    createdOn: '2026-08-20',
-    updatedOn: '2026-09-05',
+    id: '01A05E11-5971-755E-A5E9-DFC4BF6DBE46',
+    organisationId: '019FA8F7-E474-722F-B476-C07A63658297',
+    name: 'Fresher .NET profile',
+    referenceNumber: 'FNPP',
+    hiringManagerId: '019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF',
+    recruiterId: '019FA8F7-E53A-7C15-B8CD-3529C4AE7992',
+    status: 1,
+    numberOfOpenings: 3,
+    createdOn: '2026-09-01T17:43:10.4498174',
   });
 
   readonly steps = signal<CampaignStepVm[]>([
@@ -83,7 +78,7 @@ export class CampaignOverview {
   });
 
   constructor() {
-    const campaignId = this.route.snapshot.paramMap.get('id');
+    const campaignId = this.route.snapshot.paramMap.get('campaignId');
 
     if (campaignId) {
       this.campaign.update((c) => ({
@@ -101,7 +96,7 @@ export class CampaignOverview {
     this.router.navigate(['/campaigns', this.campaign().id, step.route]);
   }
 
-  editCampaign(): void {
-    this.router.navigate(['/campaigns', this.campaign().id, 'edit']);
+  backToCampaigns(): void {
+    this.router.navigate(['/campaigns']);
   }
 }

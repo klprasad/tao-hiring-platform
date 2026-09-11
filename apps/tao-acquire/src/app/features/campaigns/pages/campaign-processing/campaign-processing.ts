@@ -28,7 +28,7 @@ export class CampaignProcessing implements OnInit {
   });
 
   ngOnInit(): void {
-    const campaignId = this.route.snapshot.paramMap.get('id') ?? '';
+    const campaignId = this.route.snapshot.paramMap.get('campaignId') ?? '';
 
     this.processing.update((state) => ({
       ...state,

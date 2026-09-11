@@ -10,11 +10,18 @@ describe('JobProfileCreateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [JobProfileCreateComponent],
-      providers: [provideRouter([]), { provide: JobProfileService, useValue: { createJobProfile: () => of({}) } }],
+      providers: [
+        provideRouter([]),
+        {
+          provide: JobProfileService,
+          useValue: { createJobProfile: () => of({ value: 'profile-1', message: 'ok' }) },
+        },
+      ],
     }).compileComponents();
     fixture = TestBed.createComponent(JobProfileCreateComponent);
     fixture.detectChanges();
   });
 
-  it('renders the create form', () => expect(fixture.nativeElement.innerHTML).toContain('Create job profile'));
+  it('renders the create form', () =>
+    expect(fixture.nativeElement.innerHTML).toContain('Create job profile'));
 });

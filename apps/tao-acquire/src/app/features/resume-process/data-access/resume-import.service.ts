@@ -3,33 +3,17 @@ import { Observable } from 'rxjs';
 
 import { ApiClientService } from '../../../core/api/api-client.service';
 import { ApiResponse } from '../../../core/api/api-response';
-import { CampaignCreateRequest } from '../models/campaign.models';
+import { RESUME_IMPORT_FORM_FIELD } from '../models/resume-import.models';
 
 /**
- * Campaign API client.
+ * Resume import API client.
  *
- * Endpoints (see Campaign Endpoints documentation):
- *  - POST /api/campaigns/
+ * Endpoint (see Campaign Endpoints documentation):
  *  - POST /api/campaigns/{campaignId}/resume-imports
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class CampaignService {
+@Injectable({ providedIn: 'root' })
+export class ResumeImportService {
   private readonly api = inject(ApiClientService);
-
-  private readonly baseUrl = '/api/campaigns';
-
-  /**
-   * Creates a new campaign.
-   *
-   * `POST /api/campaigns/`
-   *
-   * Returns the id of the newly created campaign.
-   */
-  createCampaign(request: CampaignCreateRequest): Observable<ApiResponse<string>> {
-    return this.api.post<ApiResponse<string>, CampaignCreateRequest>(`${this.baseUrl}/`, request);
-  }
 
   /**
    * Imports one or more resume files into a campaign.
@@ -43,11 +27,11 @@ export class CampaignService {
     const formData = new FormData();
 
     for (const file of files) {
-      formData.append('Resumes', file, file.name);
+      formData.append(RESUME_IMPORT_FORM_FIELD, file, file.name);
     }
 
     return this.api.post<ApiResponse<string>>(
-      `${this.baseUrl}/${campaignId}/resume-imports`,
+      `/api/campaigns/${campaignId}/resume-imports`,
       formData,
     );
   }
