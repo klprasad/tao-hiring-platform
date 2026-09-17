@@ -128,21 +128,7 @@ export class TaoShellComponent {
    * Dashboard
    * Campaigns
    */
-  protected readonly visibleItems = computed(() => {
-    const items = this.items();
-
-    if (!this.isContextualNavigation()) {
-      return items;
-    }
-
-    const parent = this.activeParent();
-
-    if (!parent) {
-      return items;
-    }
-
-    return items.filter((item) => item.route === '/' || item.route === parent.route);
-  });
+  protected readonly visibleItems = computed(() => this.items());
 
   // ---------------------------------------------------------------------------
   // Child navigation
