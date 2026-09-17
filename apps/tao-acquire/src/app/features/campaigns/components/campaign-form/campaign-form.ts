@@ -20,15 +20,7 @@ export class CampaignFormComponent {
   private readonly fb = inject(FormBuilder);
 
   readonly campaignForm = this.fb.nonNullable.group({
-    campaignName: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100),
-        TaoValidators.alphabeticWithSpaces(),
-      ],
-    ],
+    campaignName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
 
     referenceNumber: ['', [Validators.required, Validators.maxLength(100)]],
 

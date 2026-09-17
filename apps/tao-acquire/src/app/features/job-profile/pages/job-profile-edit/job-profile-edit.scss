@@ -19,3 +19,11 @@
   background: #fee2e2;
   border-radius: 8px;
 }
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-bottom: 24px;
+}

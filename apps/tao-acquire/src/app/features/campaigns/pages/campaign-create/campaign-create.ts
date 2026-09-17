@@ -42,7 +42,7 @@ export class CampaignCreateComponent {
         this.isSubmitting.set(false);
 
         // Continue with the first step of the campaign workflow.
-        this.router.navigate(['/campaigns', response.value, 'job-profile']);
+        this.router.navigate(['/campaigns', response, 'job-profile']);
       });
   }
 }

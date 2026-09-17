@@ -5,7 +5,7 @@ import {
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
@@ -15,6 +15,7 @@ import { routes } from './app.routes';
 
 import { AppConfigService } from './core/config/app-config.service';
 import { initializeAppConfig } from './core/config/app-config-loader';
+import { httpLoadingInterceptor } from './core/http/http-loading.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
 
     provideRouter(routes),
 
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([httpLoadingInterceptor])),
 
     provideAppInitializer(() => {
       const http = inject(HttpClient);

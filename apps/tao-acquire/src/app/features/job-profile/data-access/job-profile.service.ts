@@ -43,8 +43,16 @@ export class JobProfileService {
    *
    * `GET /api/jobprofiles/{jobProfileId}`
    */
-  getJobProfile(jobProfileId: string): Observable<ApiResponse<JobProfileDto>> {
-    return this.api.get<ApiResponse<JobProfileDto>>(`/api/jobprofiles/${jobProfileId}`);
+  getJobProfile(jobProfileId: string): Observable<JobProfileDto> {
+    return this.api.get<JobProfileDto>(`/api/jobprofiles/${jobProfileId}`);
+  }
+  /**
+   * Gets a job profile by campaignId.
+   *
+   * `GET /api/campaigns/{campaignId}/job-profile`
+   */
+  getJobProfileByCampaign(campaignId: string): Observable<JobProfileDto> {
+    return this.api.get<JobProfileDto>(`/api/campaigns/${campaignId}/job-profile`);
   }
 
   /**

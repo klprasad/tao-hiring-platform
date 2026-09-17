@@ -23,14 +23,14 @@ export class ResumeImportService {
    * `multipart/form-data` with a repeated `Resumes` field.
    * Returns the id of the resume import batch.
    */
-  importResumes(campaignId: string, files: readonly File[]): Observable<ApiResponse<string>> {
+  importResumes(campaignId: string, files: readonly File[]): Observable<string> {
     const formData = new FormData();
 
     for (const file of files) {
       formData.append(RESUME_IMPORT_FORM_FIELD, file, file.name);
     }
 
-    return this.api.post<ApiResponse<string>>(
+    return this.api.post<string>(
       `/api/campaigns/${campaignId}/resume-imports`,
       formData,
     );

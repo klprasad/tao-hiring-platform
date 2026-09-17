@@ -7,4 +7,5 @@ import { Component, input } from '@angular/core';
 })
 export class TaoLoadingStateComponent {
   readonly label = input('Loading');
+  readonly loading = input(false);
 }

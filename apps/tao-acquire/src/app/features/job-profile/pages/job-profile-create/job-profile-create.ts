@@ -52,9 +52,9 @@ export class JobProfileCreateComponent {
           return EMPTY;
         }),
       )
-      .subscribe(() => {
+      .subscribe((response) => {
         this.isSubmitting.set(false);
-        this.router.navigate(['/campaigns', this.campaignId]);
+        this.router.navigate(['/campaigns', this.campaignId, 'job-profile', response]);
       });
   }
 

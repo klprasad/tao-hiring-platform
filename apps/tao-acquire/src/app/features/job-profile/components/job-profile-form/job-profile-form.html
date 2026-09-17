@@ -13,12 +13,14 @@
         [rows]="6"
         [showErrors]="showValidationErrors()"
         [required]="true"
+        [disabled]="disabled()"
       />
     </div>
   </tao-card>
-
-  <div class="form-actions">
-    <tao-button type="button" label="Cancel" appearance="outlined" (click)="cancel()" />
-    <tao-button type="submit" label="Save job profile" appearance="filled" />
-  </div>
+  @if (!disabled()) {
+    <div class="form-actions">
+      <tao-button type="button" label="Cancel" appearance="outlined" (click)="cancel()" />
+      <tao-button type="submit" label="Save job profile" appearance="filled" />
+    </div>
+  }
 </form>

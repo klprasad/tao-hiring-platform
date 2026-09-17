@@ -1,42 +1,123 @@
 <div class="shell">
+  <!-- ================================================================
+       SIDEBAR
+       ================================================================ -->
+
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark">T</span><span>TAO</span></div>
-    <p class="eyebrow">{{ product() }}</p>
-    <nav aria-label="Primary navigation">
-      @for (item of items(); track item.route) {
+    <!-- Brand -->
+    <div class="brand">
+      <span class="brand-mark">T</span>
+      <span>TAO</span>
+    </div>
+
+    <!-- Product -->
+    <p class="eyebrow">
+      {{ product() }}
+    </p>
+
+    <!-- Navigation -->
+    <nav class="navigation" aria-label="Primary navigation">
+      <!-- ============================================================
+           PRIMARY NAVIGATION
+           ============================================================ -->
+
+      @for (item of visibleItems(); track item.route) {
         <a
+          class="nav-item"
           [routerLink]="item.route"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActiveOptions]="{
+            exact: item.route === '/',
+          }"
         >
           <span
             class="nav-icon"
             [class]="'nav-icon nav-icon-' + item.icon"
             aria-hidden="true"
-          ></span
-          ><span>{{ item.label }}</span>
+          ></span>
+
+          <span class="nav-label">
+            {{ item.label }}
+          </span>
         </a>
       }
+
+      <!-- ============================================================
+           CONTEXTUAL NAVIGATION
+           ============================================================ -->
+
+      @if (isContextualNavigation()) {
+        <div class="navigation-divider" aria-hidden="true"></div>
+
+        <p class="navigation-section-title">
+          {{ activeParent()?.label }}
+        </p>
+
+        @for (item of childItems(); track item.route) {
+          <a
+            class="nav-item child-nav-item"
+            [routerLink]="childRoute(item)"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{
+              exact: item.route === '',
+            }"
+          >
+            <span
+              class="nav-icon"
+              [class]="'nav-icon nav-icon-' + item.icon"
+              aria-hidden="true"
+            ></span>
+
+            <span class="nav-label">
+              {{ item.label }}
+            </span>
+          </a>
+        }
+      }
     </nav>
+
+    <!-- ================================================================
+         SIDEBAR FOOTER
+         ================================================================ -->
+
     <div class="sidebar-footer">
-      <span class="avatar">AM</span
-      ><span><strong>Alex Morgan</strong><small>Talent Operations</small></span>
+      <span class="avatar"> AM </span>
+
+      <span class="user-info">
+        <strong>Alex Morgan</strong>
+        <small>Talent Operations</small>
+      </span>
     </div>
   </aside>
+
+  <!-- ================================================================
+       MAIN CONTENT
+       ================================================================ -->
+
   <main class="main">
+    <!-- Top Bar -->
     <header class="topbar">
-      <span class="context">{{ context() }}</span>
+      <span class="context">
+        {{ context() }}
+      </span>
+
       <div class="top-actions">
-        <tao-button appearance="icon" label="Help" tooltip="Help" icon="help"></tao-button>
+        <tao-button appearance="icon" label="Help" tooltip="Help" icon="help" />
+
         <tao-button
           appearance="icon"
           label="Notifications"
           tooltip="Notifications"
           icon="notifications"
-        ></tao-button>
-        <span class="user-initials">AM</span>
+        />
+
+        <span class="user-initials"> AM </span>
       </div>
     </header>
-    <section class="content"><ng-content /></section>
+
+    <!-- Page -->
+    <section class="content">
+      <ng-content />
+    </section>
   </main>
 </div>

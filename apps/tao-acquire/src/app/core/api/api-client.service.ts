@@ -10,6 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ApiError, ApiException } from './api-error';
 import { AppConfigService } from '../config/app-config.service';
+import { SKIP_LOADING } from '../http/http-context.tokens';
 /**
  * Generic options supported by all API requests.
  */
@@ -41,6 +42,10 @@ export interface ApiRequestOptions {
    * Whether credentials such as cookies should be sent.
    */
   withCredentials?: boolean;
+  /**
+   * Whether to skip default loading indicator
+   */
+  skipLoading?: boolean;
 }
 
 /**
@@ -129,7 +134,7 @@ export class ApiClientService {
     return {
       params: this.buildParams(options?.params),
       headers: this.buildHeaders(options?.headers),
-      context: options?.context,
+      context: this.buildContext(options),
       withCredentials: options?.withCredentials,
       signal: options?.signal,
     };
@@ -168,7 +173,9 @@ export class ApiClientService {
 
     return new HttpHeaders(headers);
   }
-
+  private buildContext(options?: ApiRequestOptions): HttpContext {
+    return (options?.context ?? new HttpContext()).set(SKIP_LOADING, options?.skipLoading ?? false);
+  }
   /**
    * Centralized HTTP error handling.
    *

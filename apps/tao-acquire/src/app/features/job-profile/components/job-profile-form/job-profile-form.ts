@@ -13,6 +13,7 @@ import { JobProfileFormValue, JobProfileVm } from '../../models/job-profile.vm';
 })
 export class JobProfileFormComponent {
   readonly profile = input<JobProfileVm>();
+  readonly disabled = input<boolean>(false);
   readonly submitted = output<JobProfileFormValue>();
   readonly cancelled = output<void>();
   readonly showValidationErrors = signal(false);

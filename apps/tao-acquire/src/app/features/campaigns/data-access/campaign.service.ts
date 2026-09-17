@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ApiClientService } from '../../../core/api/api-client.service';
 import { ApiResponse } from '../../../core/api/api-response';
-import { CampaignCreateRequest } from '../models/campaign.models';
+import { CampaignCreateRequest, CampaignDto, CampaignWorkflowDto } from '../models/campaign.models';
 
 /**
  * Campaign API client.
@@ -19,6 +19,39 @@ export class CampaignService {
   private readonly api = inject(ApiClientService);
 
   private readonly baseUrl = '/api/campaigns';
+
+  /**
+   * Get All campaigns.
+   *
+   * `Get /api/campaigns/`
+   *
+   * Returns all campaigns.
+   */
+  getAllCampaigns(): Observable<CampaignDto[]> {
+    return this.api.get<CampaignDto[]>(`${this.baseUrl}`);
+  }
+
+  /**
+   * Get campaign by campaignId.
+   *
+   * `Get /api/campaigns/{campaignId}`
+   *
+   * Returns the campaign.
+   */
+  getCampaignById(campaignId: string): Observable<CampaignDto> {
+    return this.api.get<CampaignDto>(`${this.baseUrl}/${campaignId}`);
+  }
+
+  /**
+   * Get campaign workflows by campaignId.
+   *
+   * `Get /api/campaigns/{campaignId}/workflow-state`
+   *
+   * Returns the campaign workflows.
+   */
+  getCampaignWorkflows(campaignId: string): Observable<CampaignWorkflowDto> {
+    return this.api.get<CampaignWorkflowDto>(`${this.baseUrl}/${campaignId}/workflow-state`);
+  }
 
   /**
    * Creates a new campaign.

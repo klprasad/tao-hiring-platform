@@ -38,14 +38,14 @@ export const CAMPAIGN_ROUTES: Routes = [
           import('./pages/campaign-overview/campaign-overview').then((m) => m.CampaignOverview),
       },
       {
-        path: 'processing',
+        path: 'job-profile',
         loadComponent: () =>
-          import('./pages/campaign-processing/campaign-processing').then(
-            (m) => m.CampaignProcessing,
+          import('../job-profile/pages/job-profile-edit/job-profile-edit').then(
+            (m) => m.JobProfileEditComponent,
           ),
       },
       {
-        path: 'job-profile',
+        path: 'job-profile/create',
         loadComponent: () =>
           import('../job-profile/pages/job-profile-create/job-profile-create').then(
             (m) => m.JobProfileCreateComponent,

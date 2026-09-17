@@ -1,3 +1,5 @@
+import { CampaignWorkflowVm } from './campaign-workflow.model';
+
 /**
  * Campaign status values as defined by the campaign API.
  *
@@ -31,8 +33,8 @@ export interface CampaignDto {
   organizationId: string;
   name: string;
   referenceNumber: string;
-  recruiterId: string;
-  hiringManagerId: string;
+  recruiterName: string;
+  hiringManagerName: string;
   numberOfOpenings: number;
   status: CampaignStatus;
   createdOn: string;
@@ -46,8 +48,8 @@ export interface CampaignVm {
   organisationId: string;
   name: string;
   referenceNumber: string;
-  hiringManagerId: string;
-  recruiterId: string;
+  hiringManagerName: string;
+  recruiterName: string;
   status: CampaignStatus;
   numberOfOpenings: number;
   createdOn: string;
@@ -59,8 +61,8 @@ export function mapCampaignDtoToVm(dto: CampaignDto): CampaignVm {
     organisationId: dto.organizationId,
     name: dto.name,
     referenceNumber: dto.referenceNumber,
-    hiringManagerId: dto.hiringManagerId,
-    recruiterId: dto.recruiterId,
+    hiringManagerName: dto.hiringManagerName,
+    recruiterName: dto.recruiterName,
     status: dto.status,
     numberOfOpenings: dto.numberOfOpenings,
     createdOn: dto.createdOn,
@@ -93,4 +95,73 @@ export interface CampaignCreateRequest {
   recruiterId: string;
   hiringManagerId: string;
   numberOfOpenings: number;
+}
+
+export interface CampaignWorkflowDto {
+  campaignId: string;
+  campaignName: string;
+  currentStage: string;
+  completionPercentage: number;
+
+  hasJobProfile: boolean;
+  jobProfileStatus: string | null;
+  jobProfileCreatedOn: string | null;
+  jobProfileApprovedOn: string | null;
+
+  hasHiringStrategy: boolean;
+  hiringStrategyStatus: string | null;
+  hiringStrategyCreatedOn: string | null;
+  hiringStrategyApprovedOn: string | null;
+
+  hasAssessmentStrategy: boolean;
+  assessmentStrategyStatus: string | null;
+  assessmentStrategyCreatedOn: string | null;
+  assessmentStrategyApprovedOn: string | null;
+
+  hasResumeImport: boolean;
+  resumeImportStatus: string | null;
+  totalResumes: number;
+  successfulResumes: number;
+  failedResumes: number;
+  resumeImportCompletedOn: string | null;
+}
+export function mapCampaignWorkflowDtoToVm(dto: CampaignWorkflowDto): CampaignWorkflowVm {
+  return new CampaignWorkflowVm({
+    campaignId: dto.campaignId,
+    campaignName: dto.campaignName,
+    currentStage: dto.currentStage,
+    completionPercentage: dto.completionPercentage,
+
+    hasJobProfile: dto.hasJobProfile,
+    jobProfileStatus: dto.jobProfileStatus,
+    jobProfileCreatedOn: dto.jobProfileCreatedOn ? new Date(dto.jobProfileCreatedOn) : null,
+    jobProfileApprovedOn: dto.jobProfileApprovedOn ? new Date(dto.jobProfileApprovedOn) : null,
+
+    hasHiringStrategy: dto.hasHiringStrategy,
+    hiringStrategyStatus: dto.hiringStrategyStatus,
+    hiringStrategyCreatedOn: dto.hiringStrategyCreatedOn
+      ? new Date(dto.hiringStrategyCreatedOn)
+      : null,
+    hiringStrategyApprovedOn: dto.hiringStrategyApprovedOn
+      ? new Date(dto.hiringStrategyApprovedOn)
+      : null,
+
+    hasAssessmentStrategy: dto.hasAssessmentStrategy,
+    assessmentStrategyStatus: dto.assessmentStrategyStatus,
+    assessmentStrategyCreatedOn: dto.assessmentStrategyCreatedOn
+      ? new Date(dto.assessmentStrategyCreatedOn)
+      : null,
+    assessmentStrategyApprovedOn: dto.assessmentStrategyApprovedOn
+      ? new Date(dto.assessmentStrategyApprovedOn)
+      : null,
+
+    hasResumeImport: dto.hasResumeImport,
+    resumeImportStatus: dto.resumeImportStatus,
+    totalResumes: dto.totalResumes,
+    successfulResumes: dto.successfulResumes,
+    failedResumes: dto.failedResumes,
+    resumeImportCompletedOn: dto.resumeImportCompletedOn
+      ? new Date(dto.resumeImportCompletedOn)
+      : null,
+  });
 }

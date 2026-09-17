@@ -16,10 +16,10 @@
   }
   @if (isLoading()) {
     <div class="loading" role="status">Loading job profile...</div>
-  } @else if (currentProfile(); as currentProfile) {
+  } @else if (loadedProfile(); as currentProfile) {
     <div class="content">
       <tao-job-profile-preview
-        [originalJobDescription]="currentProfile.originalJobDescription"
+        [profile]="currentProfile"
         [generatedContent]="currentProfile.generatedContent"
       >
       </tao-job-profile-preview>
@@ -35,8 +35,6 @@
             [disabled]="isApproving()"
             (click)="approve()"
           />
-        } @else {
-          <span class="approved">Approved</span>
         }
       </div>
     </div>

@@ -21,17 +21,6 @@
           (input)="onSearchInput($event)"
         />
       </label>
-
-      <tao-select
-        class="status-filter"
-        label="Status"
-        placeholder="All statuses"
-        [options]="statusOptions"
-        [ngModel]="selectedStatus()"
-        (ngModelChange)="selectedStatus.set($event)"
-      >
-      </tao-select>
-
       <tao-button label="Create Campaign" icon="add" (click)="createCampaign()"> </tao-button>
     </div>
   </header>
@@ -54,7 +43,6 @@
         title="No campaigns found"
         message="Try changing your search or create a new campaign."
       >
-        <tao-button label="Create Campaign" (click)="createCampaign()"> </tao-button>
       </tao-empty-state>
     }
   </tao-card>

@@ -4,20 +4,13 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 import { TaoSelectComponent } from '@tao/ui';
-import { JobProfileEditComponent } from '../job-profile-edit/job-profile-edit';
 import { JobProfileTableComponent } from '../../components/job-profile-table/job-profile-table';
 import { JOB_PROFILE_STATUS_LABELS } from '../../models/job-profile.dto';
 import { JobProfileVm } from '../../models/job-profile.vm';
 
 @Component({
   selector: 'tao-job-profile-list',
-  imports: [
-    FormsModule,
-    MatIconModule,
-    TaoSelectComponent,
-    JobProfileTableComponent,
-    JobProfileEditComponent,
-  ],
+  imports: [FormsModule, MatIconModule, TaoSelectComponent, JobProfileTableComponent],
   templateUrl: './job-profile-list.html',
   styleUrl: './job-profile-list.scss',
 })
@@ -28,9 +21,6 @@ export class JobProfileListComponent {
   readonly selectedStatus = signal('all');
   readonly isLoading = signal(false);
   readonly errorMessage = signal('');
-
-  /** Profile currently opened in the inline editor, if any. */
-  readonly editingProfile = signal<JobProfileVm | undefined>(undefined);
 
   readonly statusOptions = ['all', 'Generated', 'Approved'];
 
@@ -93,19 +83,6 @@ export class JobProfileListComponent {
    * reviewer keeps the list context.
    */
   editProfile(profile: JobProfileVm): void {
-    this.editingProfile.set(profile);
-  }
-
-  /** Returns to the list from the inline editor. */
-  closeEditor(): void {
-    this.editingProfile.set(undefined);
-  }
-
-  /** Keeps the list in sync when a profile is approved from the inline editor. */
-  onProfileApproved(profile: JobProfileVm): void {
-    this.profiles.update((profiles) =>
-      profiles.map((current) => (current.id === profile.id ? profile : current)),
-    );
-    this.editingProfile.set(profile);
+    this.router.navigate(['/campaigns', profile.campaignId, 'job-profile', profile.id]);
   }
 }

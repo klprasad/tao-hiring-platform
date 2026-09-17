@@ -2,14 +2,15 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from 'tao-ui';
+import { TaoButtonComponent, TaoPageHeaderComponent } from 'tao-ui';
 import { AuthStore } from 'tao-core';
 import { HiringStrategyService } from '../data-access/hiring-strategy.service';
 import { HiringStrategyDto, HiringStrategyStatus } from '../models/hiring-strategy.models';
+import { HiringStrategyEdit } from './hiring-strategy-edit/hiring-strategy-edit';
 
 @Component({
   selector: 'tao-hiring-strategy',
-  imports: [TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent],
+  imports: [TaoButtonComponent, TaoPageHeaderComponent, HiringStrategyEdit],
   templateUrl: './hiring-strategy.html',
   styleUrl: './hiring-strategy.scss',
 })
@@ -21,9 +22,6 @@ export class HiringStrategy implements OnInit {
   readonly strategy = signal<HiringStrategyDto | undefined>(undefined);
   readonly errorMessage = signal('');
   readonly isLoading = signal(false);
-  readonly isApproving = signal(false);
-
-  readonly status = HiringStrategyStatus;
 
   /**
    * Campaign the hiring strategy belongs to.
@@ -57,42 +55,9 @@ export class HiringStrategy implements OnInit {
           return EMPTY;
         }),
       )
-      .subscribe(() => {
+      .subscribe((response) => {
         this.isLoading.set(false);
-        this.loadStrategy();
-      });
-  }
-
-  approve(): void {
-    const strategy = this.strategy();
-    const approvedByUserId = this.authStore.user()?.id;
-
-    if (!strategy || this.isApproving()) {
-      return;
-    }
-
-    if (!approvedByUserId) {
-      this.errorMessage.set('You must be signed in to approve a hiring strategy.');
-      return;
-    }
-
-    this.isApproving.set(true);
-    this.errorMessage.set('');
-
-    this.service
-      .approveHiringStrategy(strategy.id, { approvedByUserId })
-      .pipe(
-        catchError(() => {
-          this.errorMessage.set('The hiring strategy could not be approved. Please try again.');
-          this.isApproving.set(false);
-          return EMPTY;
-        }),
-      )
-      .subscribe(() => {
-        this.strategy.update((current) =>
-          current ? { ...current, status: HiringStrategyStatus.Approved } : current,
-        );
-        this.isApproving.set(false);
+        this.strategy.set(response);
       });
   }
 
@@ -106,7 +71,7 @@ export class HiringStrategy implements OnInit {
         }),
       )
       .subscribe((response) => {
-        this.strategy.set(response.value);
+        this.strategy.set(response);
         this.isLoading.set(false);
       });
   }

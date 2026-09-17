@@ -1,0 +1,114 @@
+.hiring-profile-preview {
+  display: flex;
+  flex-direction: column;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.metric-card {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.metric-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.metric-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.metric-subtitle {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.section-card {
+  padding: 15px 22px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section-title {
+  min-width: 0;
+
+  h3 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 600;
+    color: var(--mat-sys-on-surface);
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+/* Skill count */
+.skill-count {
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 30px;
+  height: 26px;
+  padding: 0 9px;
+
+  border-radius: 13px;
+
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Skills */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Material chips */
+.skills mat-chip {
+  --mdc-chip-container-height: 32px;
+
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-bottom: 24px;
+}

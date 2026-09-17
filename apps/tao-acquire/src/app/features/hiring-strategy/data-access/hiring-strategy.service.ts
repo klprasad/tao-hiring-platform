@@ -24,8 +24,8 @@ export class HiringStrategyService {
    *
    * Returns the id of the newly generated hiring strategy.
    */
-  createHiringStrategy(campaignId: string): Observable<ApiResponse<string>> {
-    return this.api.post<ApiResponse<string>>(`/api/campaigns/${campaignId}/hiring-strategy`);
+  createHiringStrategy(campaignId: string): Observable<HiringStrategyDto> {
+    return this.api.post<HiringStrategyDto>(`/api/campaigns/${campaignId}/hiring-strategy`);
   }
 
   /**
@@ -33,10 +33,8 @@ export class HiringStrategyService {
    *
    * `GET /api/campaigns/{campaignId}/hiring-strategy`
    */
-  getHiringStrategy(campaignId: string): Observable<ApiResponse<HiringStrategyDto>> {
-    return this.api.get<ApiResponse<HiringStrategyDto>>(
-      `/api/campaigns/${campaignId}/hiring-strategy`,
-    );
+  getHiringStrategy(campaignId: string): Observable<HiringStrategyDto> {
+    return this.api.get<HiringStrategyDto>(`/api/campaigns/${campaignId}/hiring-strategy`);
   }
 
   /**

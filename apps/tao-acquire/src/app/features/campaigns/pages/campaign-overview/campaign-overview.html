@@ -14,30 +14,8 @@
         <div class="eyebrow">Hiring Campaign</div>
 
         <h1>
-          {{ campaign().name }}
+          {{ campaignWorkflow()?.campaignName }}
         </h1>
-
-        <!-- <div class="campaign-meta">
-          <span>
-            {{ campaign().organisationId }}
-          </span>
-
-          <span>•</span>
-
-          <span>
-            {{ campaign().hiringManagerId }}
-          </span>
-
-          <span>•</span>
-
-          <span>
-            {{ campaign().recruiterId }}
-          </span>
-
-          <span class="status status--active">
-            {{ campaign().status }}
-          </span>
-        </div> -->
       </div>
     </div>
   </header>
@@ -105,11 +83,11 @@
           <div class="summary-item">
             <dt>
               <mat-icon>event</mat-icon>
-              Created
+              Current Stage
             </dt>
 
             <dd>
-              {{ campaign().createdOn }}
+              {{ campaignWorkflow()?.currentStage }}
             </dd>
           </div>
 
@@ -120,18 +98,18 @@
             </dt>
 
             <dd>
-              {{ campaign().name }}
+              {{ campaignWorkflow()?.campaignName }}
             </dd>
           </div>
 
           <div class="summary-item">
             <dt>
               <mat-icon>people_outline</mat-icon>
-              Openings
+              Completion %
             </dt>
 
             <dd>
-              {{ campaign().numberOfOpenings }}
+              {{ campaignWorkflow()?.completionPercentage }}
             </dd>
           </div>
         </dl>

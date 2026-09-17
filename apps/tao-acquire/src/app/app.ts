@@ -1,24 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { NavigationItem } from 'tao-contracts';
-import { TaoShellComponent } from 'tao-ui';
+import { TaoLoadingStateComponent, TaoShellComponent } from '@tao/ui';
+import { HttpLoadingService } from './core/http/loading.service';
 
 @Component({
-  imports: [RouterOutlet, TaoShellComponent],
+  imports: [RouterOutlet, TaoShellComponent, TaoLoadingStateComponent],
   selector: 'tao-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
 export class App {
+  protected loadingService = inject(HttpLoadingService);
+  readonly loading = this.loadingService.isLoading;
   protected readonly navigation: NavigationItem[] = [
-    { label: 'Dashboard', route: '/', icon: 'dashboard' },
-    { label: 'Campaigns', route: '/campaigns', icon: 'campaigns' },
-    { label: 'Job Profiles', route: '/job-profiles', icon: 'job-profiles' },
-    { label: 'Hiring Strategy', route: '/hiring-strategy', icon: 'hiring-strategy' },
-    { label: 'Resume Process', route: '/resume-process', icon: 'resume-process' },
-    { label: 'Candidates Screening', route: '/candidates', icon: 'candidates' },
-    { label: 'Assessments Strategy', route: '/assessments', icon: 'assessments' },
-    { label: 'Invitations', route: '/invitations', icon: 'invitations' },
-    { label: 'Reports', route: '/reports', icon: 'reports' },
+    {
+      label: 'Dashboard',
+      route: '/',
+      icon: 'dashboard',
+    },
+    {
+      label: 'Reports',
+      route: '/reports',
+      icon: 'reports',
+    },
+    {
+      label: 'Campaigns',
+      route: '/campaigns',
+      icon: 'campaigns',
+      contextRoute: '/campaigns/:campaignId',
+
+      children: [
+        {
+          label: 'Overview',
+          route: '',
+          icon: 'campaigns',
+        },
+        {
+          label: 'Job Profile',
+          route: 'job-profile',
+          icon: 'job-profiles',
+        },
+        {
+          label: 'Hiring Strategy',
+          route: 'hiring-strategy',
+          icon: 'hiring-strategy',
+        },
+        {
+          label: 'Resume Imports',
+          route: 'resume-imports',
+          icon: 'resume-process',
+        },
+        {
+          label: 'Assessment Strategy',
+          route: 'assessment-strategy',
+          icon: 'assessments',
+        },
+        {
+          label: 'Candidates',
+          route: 'candidates',
+          icon: 'candidates',
+        },
+        {
+          label: 'Invitations',
+          route: 'invitations',
+          icon: 'invitations',
+        },
+      ],
+    },
   ];
 }

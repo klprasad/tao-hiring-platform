@@ -41,3 +41,15 @@ export interface HiringStrategyDto {
   promptVersion: number;
   createdOnUtc: string;
 }
+
+export interface JobProfileSkill {
+  name: string;
+}
+
+export interface JobProfileContent {
+  minimumExperienceYears: number;
+  recommendedResumeMatchThreshold: number;
+  requiredSkills: JobProfileSkill[];
+  preferredSkills: JobProfileSkill[];
+  recruiterGuidance: string[];
+}

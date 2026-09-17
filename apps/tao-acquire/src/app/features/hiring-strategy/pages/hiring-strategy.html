@@ -3,12 +3,14 @@
     title="Hiring strategy"
     description="Generate and approve the recruitment strategy for this campaign."
   >
-    <tao-button
-      label="Generate strategy"
-      appearance="filled"
-      [disabled]="isLoading() || !campaignId"
-      (click)="generate()"
-    />
+    @if (!strategy()) {
+      <tao-button
+        label="Generate strategy"
+        appearance="filled"
+        [disabled]="isLoading() || !campaignId"
+        (click)="generate()"
+      />
+    }
   </tao-page-header>
 
   @if (errorMessage()) {
@@ -20,38 +22,6 @@
   }
 
   @if (strategy(); as currentStrategy) {
-    <tao-card title="Generated strategy">
-      <p>{{ currentStrategy.generatedContent }}</p>
-    </tao-card>
-
-    <tao-card title="Details">
-      <dl class="summary">
-        <div>
-          <dt>Provider</dt>
-          <dd>{{ currentStrategy.providerName }}</dd>
-        </div>
-        <div>
-          <dt>Model</dt>
-          <dd>{{ currentStrategy.modelName }}</dd>
-        </div>
-        <div>
-          <dt>Prompt version</dt>
-          <dd>{{ currentStrategy.promptVersion }}</dd>
-        </div>
-        <div>
-          <dt>Status</dt>
-          <dd>{{ currentStrategy.status === status.Approved ? 'Approved' : 'Generated' }}</dd>
-        </div>
-      </dl>
-    </tao-card>
-
-    @if (currentStrategy.status !== status.Approved) {
-      <tao-button
-        label="Approve strategy"
-        appearance="filled"
-        [disabled]="isApproving()"
-        (click)="approve()"
-      />
-    }
+    <tao-hiring-strategy-edit [profile]="currentStrategy" />
   }
 </div>

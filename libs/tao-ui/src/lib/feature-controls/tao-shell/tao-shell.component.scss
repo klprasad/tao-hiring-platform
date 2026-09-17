@@ -170,3 +170,352 @@ nav a.active {
   max-width: 1360px;
   padding: 38px 42px 56px;
 }
+.navigation-divider {
+  height: 1px;
+  margin: 16px 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navigation-section-title {
+  margin: 18px 12px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.child-nav-item {
+  margin-left: 8px;
+  padding-left: 16px;
+  border-left: 2px solid transparent;
+}
+
+.child-nav-item.active {
+  border-left-color: #67dfb0;
+}
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  width: 246px;
+  min-width: 246px;
+
+  background: #0f1929;
+  color: #fff;
+}
+
+/* ==========================================================================
+   BRAND
+   ========================================================================== */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 76px;
+  padding: 0 16px;
+
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 7px;
+
+  background: #69dfb0;
+  color: #0f1929;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   PRODUCT
+   ========================================================================== */
+
+.eyebrow {
+  margin: 14px 28px 14px;
+
+  color: #7f91ad;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+}
+
+.nav-item {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 40px;
+
+  padding: 0 14px;
+
+  border-radius: 8px;
+
+  color: #aab8cc;
+  text-decoration: none;
+
+  font-size: 14px;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: #1d2b43;
+  color: #fff;
+}
+
+.nav-item.active::before {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+
+  width: 3px;
+
+  border-radius: 0 4px 4px 0;
+
+  background: #69dfb0;
+
+  content: "";
+}
+
+.nav-label {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   ICON
+   ========================================================================== */
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  min-width: 20px;
+
+  margin-right: 12px;
+}
+
+/* ==========================================================================
+   CONTEXTUAL NAVIGATION
+   ========================================================================== */
+
+.navigation-divider {
+  height: 1px;
+
+  margin: 18px 8px 14px;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navigation-section-title {
+  margin: 0 12px 8px;
+
+  color: #71839f;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.child-nav-item {
+  margin-left: 8px;
+
+  padding-left: 16px;
+
+  border-left: 2px solid transparent;
+
+  border-radius: 0 7px 7px 0;
+}
+
+.child-nav-item.active {
+  border-left-color: #69dfb0;
+
+  background: #1d2b43;
+}
+
+.child-nav-item.active::before {
+  display: none;
+}
+
+/* ==========================================================================
+   SIDEBAR FOOTER
+   ========================================================================== */
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: auto;
+
+  padding: 18px 20px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: #e8c89f;
+  color: #293241;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.user-info strong {
+  overflow: hidden;
+
+  color: #fff;
+
+  font-size: 12px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-info small {
+  margin-top: 2px;
+
+  color: #7f91ad;
+
+  font-size: 10px;
+}
+
+/* ==========================================================================
+   MAIN
+   ========================================================================== */
+
+.main {
+  display: flex;
+  flex: 1;
+
+  min-width: 0;
+
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   TOP BAR
+   ========================================================================== */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 76px;
+
+  padding: 0 28px;
+
+  border-bottom: 1px solid #e2e7ef;
+
+  background: #fff;
+}
+
+.context {
+  color: #53647c;
+
+  font-size: 13px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.user-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #e8c89f;
+  color: #293241;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.content {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 24px;
+}

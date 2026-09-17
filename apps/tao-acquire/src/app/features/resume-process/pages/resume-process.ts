@@ -60,9 +60,10 @@ export class ResumeProcess {
         }),
       )
       .subscribe((response) => {
-        this.batchId.set(response.value);
+        this.batchId.set(response);
         this.isUploading.set(false);
         input.value = '';
+        //this.router.navigate(['/campaigns', campaignId, 'resume-imports']);
       });
   }
 
