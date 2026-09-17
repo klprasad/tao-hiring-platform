@@ -14,13 +14,12 @@
   @if (errorMessage()) {
     <p class="error" role="alert">{{ errorMessage() }}</p>
   }
-  @if (isLoading()) {
-    <div class="loading" role="status">Loading job profile...</div>
-  } @else if (loadedProfile(); as currentProfile) {
+  @if (loadedProfile(); as currentProfile) {
     <div class="content">
       <tao-job-profile-preview
         [profile]="currentProfile"
         [generatedContent]="currentProfile.generatedContent"
+        (refresh)="reloadJobProfile()"
       >
       </tao-job-profile-preview>
 

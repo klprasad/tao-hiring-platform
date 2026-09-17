@@ -1,7 +1,5 @@
 import type { JobProfileStatus } from './job-profile.dto';
 
-export type { JobProfileStatus } from './job-profile.dto';
-
 /**
  * View model consumed by the job profile screens.
  */
@@ -24,5 +22,10 @@ export interface JobProfileVm {
  * Value emitted by the job profile form.
  */
 export interface JobProfileFormValue {
+  description: string;
+}
+
+export interface RegenerateJobProfileForm {
+  id: string;
   description: string;
 }

@@ -5,7 +5,12 @@
 
   <tao-card title="Job Description">
     <div class="profile-content">
-      <tao-job-profile-form [profile]="profile()" [disabled]="true" />
+      <tao-job-profile-form
+        [profile]="profile()"
+        [disabled]="profile().status !== status.Generated"
+        (resubmitted)="regenerateProfile($event)"
+        (cancelled)="cancel()"
+      />
     </div>
   </tao-card>
 

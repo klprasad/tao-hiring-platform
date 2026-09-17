@@ -3,7 +3,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { TaoButtonComponent, TaoCardComponent, TaoTextareaComponent } from '@tao/ui';
 
-import { JobProfileFormValue, JobProfileVm } from '../../models/job-profile.vm';
+import {
+  JobProfileFormValue,
+  JobProfileVm,
+  RegenerateJobProfileForm,
+} from '../../models/job-profile.vm';
 
 @Component({
   selector: 'tao-job-profile-form',
@@ -15,6 +19,7 @@ export class JobProfileFormComponent {
   readonly profile = input<JobProfileVm>();
   readonly disabled = input<boolean>(false);
   readonly submitted = output<JobProfileFormValue>();
+  readonly resubmitted = output<RegenerateJobProfileForm>();
   readonly cancelled = output<void>();
   readonly showValidationErrors = signal(false);
 
@@ -42,10 +47,19 @@ export class JobProfileFormComponent {
       this.form.markAsDirty();
       return;
     }
-    const request: JobProfileFormValue = {
-      description: this.form.getRawValue().description.trim(),
-    };
-    this.submitted.emit(request);
+    const profile = this.profile();
+    if (profile) {
+      const request: RegenerateJobProfileForm = {
+        id: profile.id,
+        description: this.form.getRawValue().description.trim(),
+      };
+      this.resubmitted.emit(request);
+    } else {
+      const request: JobProfileFormValue = {
+        description: this.form.getRawValue().description.trim(),
+      };
+      this.submitted.emit(request);
+    }
   }
 
   cancel(): void {

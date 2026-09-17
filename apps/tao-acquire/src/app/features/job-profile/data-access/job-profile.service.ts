@@ -37,6 +37,22 @@ export class JobProfileService {
       request,
     );
   }
+  /**
+   * Regenerates an AI job profile for a campaign.
+   *
+   * `PUT /api/jobprofiles/{jobProfileId}/regenerate`
+   *
+   * Returns the id of the newly generated job profile.
+   */
+  regenerateJobProfile(
+    jobProfileId: string,
+    request: CreateJobProfileRequest,
+  ): Observable<ApiResponse<string>> {
+    return this.api.put<ApiResponse<string>, CreateJobProfileRequest>(
+      `/api/jobprofiles/${jobProfileId}/regenerate`,
+      request,
+    );
+  }
 
   /**
    * Gets a job profile by id.

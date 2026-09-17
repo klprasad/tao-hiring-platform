@@ -1,5 +1,9 @@
 import { CreateJobProfileRequest } from '../models/job-profile.dto';
-import { JobProfileFormValue, JobProfileVm } from '../models/job-profile.vm';
+import {
+  JobProfileFormValue,
+  JobProfileVm,
+  RegenerateJobProfileForm,
+} from '../models/job-profile.vm';
 import { JobProfileDto } from '../models/job-profile.dto';
 
 /**
@@ -10,7 +14,16 @@ export function mapJobProfileFormToCreateDto(value: JobProfileFormValue): Create
     originalJobDescription: value.description,
   };
 }
-
+/**
+ * Maps the job profile form value to the create job profile request body.
+ */
+export function mapJobProfileFormToRegenerateDto(
+  value: RegenerateJobProfileForm,
+): CreateJobProfileRequest {
+  return {
+    originalJobDescription: value.description,
+  };
+}
 /**
  * Maps a job profile DTO to the job profile view model.
  */

@@ -24,12 +24,16 @@ export class JobProfileEditComponent implements OnInit {
   readonly loadedProfile = signal<JobProfileVm | undefined>(undefined);
 
   readonly errorMessage = signal('');
-  readonly isLoading = signal(true);
   readonly isApproving = signal(false);
-
   readonly status = JobProfileStatus;
 
   ngOnInit(): void {
+    this.loadJobProfile();
+  }
+  reloadJobProfile() {
+    this.loadJobProfile();
+  }
+  loadJobProfile() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) this.loadProfile(id);
     else {
@@ -85,13 +89,11 @@ export class JobProfileEditComponent implements OnInit {
       .pipe(
         catchError((error: unknown) => {
           this.errorMessage.set(this.describeError(error, 'The job profile could not be loaded.'));
-          this.isLoading.set(false);
           return EMPTY;
         }),
       )
       .subscribe((response: JobProfileDto) => {
         this.loadedProfile.set(mapJobProfileDtoToVm(response));
-        this.isLoading.set(false);
       });
   }
   private loadProfileByCampaign(id: string): void {
@@ -100,13 +102,11 @@ export class JobProfileEditComponent implements OnInit {
       .pipe(
         catchError((error: unknown) => {
           this.errorMessage.set(this.describeError(error, 'The job profile could not be loaded.'));
-          this.isLoading.set(false);
           return EMPTY;
         }),
       )
       .subscribe((response: JobProfileDto) => {
         this.loadedProfile.set(mapJobProfileDtoToVm(response));
-        this.isLoading.set(false);
       });
   }
   private describeError(error: unknown, fallback: string): string {
