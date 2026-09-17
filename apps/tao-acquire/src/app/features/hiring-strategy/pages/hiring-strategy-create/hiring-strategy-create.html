@@ -4,7 +4,6 @@
     description="Generate and approve the recruitment strategy for this campaign."
   >
   </tao-page-header>
-
   @if (strategy(); as currentStrategy) {
     <tao-hiring-strategy-edit [profile]="currentStrategy" />
   }

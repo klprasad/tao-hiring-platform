@@ -1,27 +1,27 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
 import { TaoPageHeaderComponent } from 'tao-ui';
 import { AuthStore } from 'tao-core';
-import { HiringStrategyService } from '../data-access/hiring-strategy.service';
-import { HiringStrategyDto, HiringStrategyStatus } from '../models/hiring-strategy.models';
-import { HiringStrategyEdit } from './hiring-strategy-edit/hiring-strategy-edit';
+import { HiringStrategyService } from '../../data-access/hiring-strategy.service';
+import { HiringStrategyEdit } from '../hiring-strategy-edit/hiring-strategy-edit';
+import { HiringStrategyDto } from '../../models/hiring-strategy.models';
 
 @Component({
-  selector: 'tao-hiring-strategy',
   imports: [TaoPageHeaderComponent, HiringStrategyEdit],
-  templateUrl: './hiring-strategy.html',
-  styleUrl: './hiring-strategy.scss',
+  selector: 'tao-hiring-strategy-create',
+  styleUrl: './hiring-strategy-create.scss',
+  templateUrl: './hiring-strategy-create.html',
 })
-export class HiringStrategy implements OnInit {
+export class HiringStrategyCreate implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly service = inject(HiringStrategyService);
   private readonly authStore = inject(AuthStore);
 
   readonly strategy = signal<HiringStrategyDto | undefined>(undefined);
   readonly errorMessage = signal('');
-  readonly isLoading = signal(false);
 
   /**
    * Campaign the hiring strategy belongs to.
@@ -32,25 +32,30 @@ export class HiringStrategy implements OnInit {
   readonly campaignId = this.resolveCampaignId();
 
   ngOnInit(): void {
-    if (this.campaignId) {
-      this.loadStrategy();
-    }
+    this.generate();
   }
-  private loadStrategy(): void {
+
+  generate(): void {
+    if (!this.campaignId) {
+      this.errorMessage.set('A campaign is required to generate a hiring strategy.');
+      return;
+    }
+
+    this.errorMessage.set('');
+
     this.service
-      .getHiringStrategy(this.campaignId)
+      .createHiringStrategy(this.campaignId)
       .pipe(
         catchError(() => {
-          this.isLoading.set(false);
+          this.errorMessage.set('The hiring strategy could not be generated. Please try again.');
           return EMPTY;
         }),
       )
       .subscribe((response) => {
-        this.strategy.set(response);
-        this.isLoading.set(false);
+        //this.strategy.set(response);
+        this.router.navigate(['/campaigns', this.campaignId, 'hiring-strategy']);
       });
   }
-
   private resolveCampaignId(): string {
     return (
       this.route.snapshot.paramMap.get('campaignId') ??

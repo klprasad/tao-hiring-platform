@@ -79,7 +79,7 @@ export class JobProfileEditComponent implements OnInit {
 
         this.loadedProfile.set(updatedProfile);
         this.isApproving.set(false);
-        this.router.navigate(['/campaigns', profile.campaignId, 'hiring-strategy']);
+        this.router.navigate(['/campaigns', profile.campaignId, 'hiring-strategy-create']);
       });
   }
 

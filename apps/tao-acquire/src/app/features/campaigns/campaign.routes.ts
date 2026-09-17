@@ -45,7 +45,7 @@ export const CAMPAIGN_ROUTES: Routes = [
           ),
       },
       {
-        path: 'job-profile/create',
+        path: 'job-profile-create',
         loadComponent: () =>
           import('../job-profile/pages/job-profile-create/job-profile-create').then(
             (m) => m.JobProfileCreateComponent,
@@ -62,6 +62,13 @@ export const CAMPAIGN_ROUTES: Routes = [
         path: 'hiring-strategy',
         loadComponent: () =>
           import('../hiring-strategy/pages/hiring-strategy').then((m) => m.HiringStrategy),
+      },
+      {
+        path: 'hiring-strategy-create',
+        loadComponent: () =>
+          import('../hiring-strategy/pages/hiring-strategy-create/hiring-strategy-create').then(
+            (m) => m.HiringStrategyCreate,
+          ),
       },
       {
         path: 'assessment-strategy',

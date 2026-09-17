@@ -6,11 +6,4 @@ export const JOB_PROFILE_ROUTES: Routes = [
     loadComponent: () =>
       import('./pages/job-profile-list/job-profile-list').then((m) => m.JobProfileListComponent),
   },
-  {
-    path: '/create',
-    loadComponent: () =>
-      import('./pages/job-profile-create/job-profile-create').then(
-        (m) => m.JobProfileCreateComponent,
-      ),
-  },
 ];
