@@ -41,8 +41,14 @@ export class CampaignOverview {
       route: 'hiring-strategy',
     },
     {
+      id: 'resume-imports',
+      name: 'Resume Imports',
+      description: 'Upload candidates resumes for screening',
+      route: 'resume-imports',
+    },
+    {
       id: 'candidates',
-      name: 'Candidates',
+      name: 'Candidates Screening',
       description: 'Import and screen candidates.',
       route: 'candidates',
     },
@@ -67,12 +73,56 @@ export class CampaignOverview {
       return [];
     }
 
-    return this.stepDefinitions.map((step) => ({
-      ...step,
-      status: this.getStepStatus(step.id, workflow),
-    }));
-  });
+    const completed = this.getCompletedStepIds(workflow);
 
+    const firstIncompleteIndex = this.stepDefinitions.findIndex((step) => !completed.has(step.id));
+
+    return this.stepDefinitions.map((step, index) => {
+      let status: CampaignStepStatus;
+
+      if (completed.has(step.id)) {
+        status = 'completed';
+      } else if (index === firstIncompleteIndex) {
+        status = 'in-progress';
+      } else {
+        status = 'not-started';
+      }
+
+      return {
+        ...step,
+        status,
+      };
+    });
+  });
+  private getCompletedStepIds(workflow: CampaignWorkflowVm): Set<string> {
+    const completed = new Set<string>();
+
+    if (workflow.jobProfileApprovedOn) {
+      completed.add('job-profile');
+    }
+
+    if (workflow.hiringStrategyApprovedOn) {
+      completed.add('hiring-strategy');
+    }
+
+    if (workflow.resumeImportCompletedOn) {
+      completed.add('resume-imports');
+    }
+
+    if (workflow.candidatesScreeningCompletedOn) {
+      completed.add('candidates');
+    }
+
+    if (workflow.assessmentStrategyApprovedOn) {
+      completed.add('assessment-strategy');
+    }
+
+    if (workflow.invitationsCompletedOn) {
+      completed.add('invitations');
+    }
+
+    return completed;
+  }
   readonly completedSteps = computed(
     () => this.steps().filter((step) => step.status === 'completed').length,
   );
@@ -102,14 +152,23 @@ export class CampaignOverview {
 
         return workflow.hasHiringStrategy ? 'in-progress' : 'not-started';
 
-      case 'candidates':
+      case 'resume-imports':
         if (workflow.resumeImportCompletedOn) {
           return 'completed';
         }
 
-        return workflow.hasResumeImport || workflow.resumeImportStatus || workflow.totalResumes > 0
+        return workflow.hasResumeImport ||
+          !!workflow.resumeImportStatus ||
+          workflow.totalResumes > 0
           ? 'in-progress'
           : 'not-started';
+
+      case 'candidates':
+        if (workflow.candidatesScreeningCompletedOn) {
+          return 'completed';
+        }
+
+        return workflow.hasCandidatesScreening ? 'in-progress' : 'not-started';
 
       case 'assessment-strategy':
         if (workflow.assessmentStrategyApprovedOn) {
@@ -119,7 +178,11 @@ export class CampaignOverview {
         return workflow.hasAssessmentStrategy ? 'in-progress' : 'not-started';
 
       case 'invitations':
-        return 'not-started';
+        if (workflow.invitationsCompletedOn) {
+          return 'completed';
+        }
+
+        return workflow.hasInvitations ? 'in-progress' : 'not-started';
 
       default:
         return 'not-started';

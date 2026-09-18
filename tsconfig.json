@@ -13,10 +13,6 @@
     "importHelpers": true,
     "target": "ES2022",
     "paths": {
-      "tao-contracts": ["./dist/tao-contracts"],
-      "tao-core": ["./dist/tao-core"],
-      "tao-ui": ["./dist/tao-ui"],
-      "tao-utils": ["./dist/tao-utils"],
       "@tao/contracts": ["./dist/tao-contracts"],
       "@tao/core": ["./dist/tao-core"],
       "@tao/ui": ["./dist/tao-ui"],

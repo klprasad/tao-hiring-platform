@@ -219,10 +219,6 @@
   box-sizing: border-box;
 
   &:hover:not(:disabled) {
-    border-color: var(--mat-sys-primary);
-
-    box-shadow: 0 4px 12px color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
-
     transform: translateY(-1px);
   }
 
@@ -325,21 +321,28 @@
    ================================================================ */
 
 .workflow-step--completed {
-  background: color-mix(in srgb, var(--mat-sys-primary-container) 45%, var(--mat-sys-surface));
+  background: color-mix(in srgb, #16a34a 6%, var(--mat-sys-surface));
 
-  border-color: color-mix(in srgb, var(--mat-sys-primary) 35%, var(--mat-sys-outline-variant));
+  border: 1px solid #16a34a;
 }
 
 .workflow-step--completed .workflow-step__icon {
-  background: var(--mat-sys-primary);
-
-  color: var(--mat-sys-on-primary);
+  background: #16a34a;
+  color: #ffffff;
 }
 
 .workflow-step--completed .workflow-step__arrow {
-  color: var(--mat-sys-primary);
+  color: #16a34a;
 }
 
+.workflow-step--completed .workflow-step__title {
+  color: var(--mat-sys-on-surface);
+}
+.workflow-step--completed:hover:not(:disabled) {
+  border-color: #16a34a;
+
+  box-shadow: 0 4px 12px color-mix(in srgb, #16a34a 10%, transparent);
+}
 /* ================================================================
    ACTIVE
    ================================================================ */
@@ -365,7 +368,11 @@
 .workflow-step--active .workflow-step__arrow {
   color: var(--mat-sys-primary);
 }
+.workflow-step--active:hover:not(:disabled) {
+  border-color: var(--mat-sys-primary);
 
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}
 /* ================================================================
    NOT STARTED
    ================================================================ */

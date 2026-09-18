@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from 'tao-ui';
+import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
 
 @Component({
   selector: 'tao-dashboard',

@@ -11,16 +11,10 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 
 import { TaoCardComponent } from '@tao/ui';
-import { JobProfileFormComponent } from '../job-profile-form/job-profile-form';
-import { JobProfileVm, RegenerateJobProfileForm } from '../../models/job-profile.vm';
+import { JobProfileVm } from '../../models/job-profile.vm';
 import { JobProfileStatus } from '../../models/job-profile.dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobProfileService } from '../../data-access/job-profile.service';
-import { catchError, EMPTY } from 'rxjs';
-import {
-  mapJobProfileFormToCreateDto,
-  mapJobProfileFormToRegenerateDto,
-} from '../../data-access/job-profile.mapper';
 
 export interface JobProfileContent {
   jobTitle: string;
@@ -48,18 +42,13 @@ interface ParsedMarkdownBlock {
 @Component({
   selector: 'tao-job-profile-preview',
   standalone: true,
-  imports: [MatIconModule, TaoCardComponent, JobProfileFormComponent],
+  imports: [MatIconModule, TaoCardComponent],
   templateUrl: './job-profile-preview.html',
   styleUrl: './job-profile-preview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobProfilePreviewComponent {
   private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly service = inject(JobProfileService);
-  readonly profile = input.required<JobProfileVm>();
-  readonly refresh = output<boolean>();
-  readonly status = JobProfileStatus;
   readonly generatedContent = input<string>('');
   readonly errorMessage = signal('');
   readonly parsedGeneratedContent = computed<ParsedMarkdownBlock[]>(() =>
@@ -74,30 +63,6 @@ export class JobProfilePreviewComponent {
       this.route.snapshot.queryParamMap.get('campaignId') ??
       ''
     );
-  }
-  cancel(): void {
-    this.router.navigate(this.campaignId ? ['/campaigns', this.campaignId] : ['/job-profiles']);
-  }
-
-  regenerateProfile(value: RegenerateJobProfileForm): void {
-    if (!value.id) {
-      this.errorMessage.set('A Job Profile Id is required before regenerating a job profile.');
-      return;
-    }
-
-    this.errorMessage.set('');
-
-    this.service
-      .regenerateJobProfile(value.id, mapJobProfileFormToRegenerateDto(value))
-      .pipe(
-        catchError(() => {
-          this.errorMessage.set('The job profile could not be generated. Please try again.');
-          return EMPTY;
-        }),
-      )
-      .subscribe(() => {
-        this.refresh.emit(true);
-      });
   }
 
   // ==============================================================

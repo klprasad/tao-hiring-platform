@@ -1,0 +1,42 @@
+@if (!isEditing()) {
+  <div class="page">
+    <tao-page-header
+      title="Job profile"
+      description="Review the AI-generated job profile and approve it for the hiring workflow."
+    >
+    </tao-page-header>
+    @if (loadedProfile(); as currentProfile) {
+      <div class="content">
+        <tao-job-profile-preview [generatedContent]="currentProfile.generatedContent">
+        </tao-job-profile-preview>
+
+        <div class="form-actions">
+          <tao-button type="button" label="Back" appearance="outlined" (click)="cancel()" />
+
+          @if (currentProfile.status === status.Generated) {
+            <tao-button
+              type="button"
+              label="Edit Profile"
+              appearance="filled"
+              (click)="editProfile()"
+            ></tao-button>
+            <tao-button
+              type="button"
+              label="Approve job profile"
+              appearance="filled"
+              [disabled]="isApproving()"
+              (click)="approve()"
+            />
+          }
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  @if (loadedProfile(); as currentProfile) {
+    <tao-job-profile-edit
+      [profile]="currentProfile"
+      (refresh)="reloadJobProfile()"
+    ></tao-job-profile-edit>
+  }
+}

@@ -8,53 +8,94 @@ export const routes: Routes = [
   },
   {
     path: 'campaigns',
-    loadChildren: () =>
-      import('./features/campaigns/campaign.routes').then((module) => module.CAMPAIGN_ROUTES),
-  },
-  {
-    path: 'job-profiles',
-    loadChildren: () =>
-      import('./features/job-profile/job-profile.routes').then(
-        (module) => module.JOB_PROFILE_ROUTES,
-      ),
-  },
-  {
-    path: 'hiring-strategy',
-    loadChildren: () =>
-      import('./features/hiring-strategy/hiring-strategy.routes').then(
-        (module) => module.HIRING_STRATEGY_ROUTES,
-      ),
-  },
-  {
-    path: 'resume-process',
-    loadChildren: () =>
-      import('./features/resume-process/resume-process.routes').then(
-        (module) => module.RESUME_PROCESS_ROUTES,
-      ),
-  },
-  {
-    path: 'invitations',
-    loadChildren: () =>
-      import('./features/invitations/invitations.routes').then(
-        (module) => module.INVITATIONS_ROUTES,
-      ),
-  },
-  {
-    path: 'candidates',
-    loadChildren: () =>
-      import('./features/candidates/candidates.routes').then((module) => module.CANDIDATES_ROUTES),
-  },
-  {
-    path: 'assessments',
-    loadChildren: () =>
-      import('./features/assessments/assessments.routes').then(
-        (module) => module.ASSESSMENTS_ROUTES,
-      ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/campaigns/pages/campaign-list/campaign-list').then(
+            (m) => m.CampaignListComponent,
+          ),
+      },
+      {
+        path: 'create',
+        loadComponent: () =>
+          import('./features/campaigns/pages/campaign-create/campaign-create').then(
+            (m) => m.CampaignCreateComponent,
+          ),
+      },
+      {
+        path: ':campaignId',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/campaigns/pages/campaign-overview/campaign-overview').then(
+                (m) => m.CampaignOverview,
+              ),
+          },
+          {
+            path: 'job-profile',
+            loadComponent: () =>
+              import('./features/job-profile/pages/job-profile-overview/job-profile-overview').then(
+                (m) => m.JobProfileOverview,
+              ),
+          },
+          {
+            path: 'job-profile-create',
+            loadComponent: () =>
+              import('./features/job-profile/pages/job-profile-create/job-profile-create').then(
+                (m) => m.JobProfileCreateComponent,
+              ),
+          },
+          {
+            path: 'job-profile/:id',
+            loadComponent: () =>
+              import('./features/job-profile/pages/job-profile-edit/job-profile-edit').then(
+                (m) => m.JobProfileEditComponent,
+              ),
+          },
+          {
+            path: 'hiring-strategy',
+            loadComponent: () =>
+              import('./features/hiring-strategy/pages/hiring-strategy').then(
+                (m) => m.HiringStrategy,
+              ),
+          },
+          {
+            path: 'hiring-strategy-create',
+            loadComponent: () =>
+              import('./features/hiring-strategy/pages/hiring-strategy-create/hiring-strategy-create').then(
+                (m) => m.HiringStrategyCreate,
+              ),
+          },
+          {
+            path: 'assessment-strategy',
+            loadComponent: () =>
+              import('./features/assessments/pages/assessments').then((m) => m.Assessments),
+          },
+          {
+            path: 'candidates',
+            loadComponent: () =>
+              import('./features/candidates/pages/candidates').then((m) => m.Candidates),
+          },
+          {
+            path: 'invitations',
+            loadComponent: () =>
+              import('./features/invitations/pages/invitations').then((m) => m.Invitations),
+          },
+          {
+            path: 'resume-imports',
+            loadComponent: () =>
+              import('./features/resume-process/pages/resume-process').then((m) => m.ResumeProcess),
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'reports',
-    loadChildren: () =>
-      import('./features/reports/reports.routes').then((module) => module.REPORTS_ROUTES),
+    loadComponent: () =>
+      import('./features/reports/pages/reports').then((module) => module.Reports),
   },
   { path: '**', redirectTo: '' },
 ];

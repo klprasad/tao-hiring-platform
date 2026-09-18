@@ -2,8 +2,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoPageHeaderComponent } from 'tao-ui';
-import { AuthStore } from 'tao-core';
+import { TaoPageHeaderComponent } from '@tao/ui';
+import { AuthStore } from '@tao/core';
 import { HiringStrategyService } from '../data-access/hiring-strategy.service';
 import { HiringStrategyDto, HiringStrategyStatus } from '../models/hiring-strategy.models';
 import { HiringStrategyEdit } from './hiring-strategy-edit/hiring-strategy-edit';

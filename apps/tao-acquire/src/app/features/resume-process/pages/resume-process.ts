@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoCardComponent, TaoPageHeaderComponent } from 'tao-ui';
+import { TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
 import { ResumeImportService } from '../data-access/resume-import.service';
 import {
   RESUME_IMPORT_ALLOWED_EXTENSIONS,

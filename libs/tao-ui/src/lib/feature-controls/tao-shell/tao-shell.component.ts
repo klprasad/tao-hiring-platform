@@ -6,7 +6,7 @@ import { filter, map, startWith } from 'rxjs';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { NavigationItem } from 'tao-contracts';
+import { NavigationItem } from '@tao/contracts';
 
 import { TaoButtonComponent } from '../../native-controls/tao-button/tao-button.component';
 

@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NavigationItem } from 'tao-contracts';
+import { NavigationItem } from '@tao/contracts';
 import { TaoLoadingStateComponent, TaoShellComponent } from '@tao/ui';
 import { HttpLoadingService } from './core/http/loading.service';
 
@@ -53,14 +53,14 @@ export class App {
           icon: 'resume-process',
         },
         {
+          label: 'Candidates Screening',
+          route: 'candidates',
+          icon: 'candidates',
+        },
+        {
           label: 'Assessment Strategy',
           route: 'assessment-strategy',
           icon: 'assessments',
-        },
-        {
-          label: 'Candidates',
-          route: 'candidates',
-          icon: 'candidates',
         },
         {
           label: 'Invitations',

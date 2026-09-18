@@ -25,6 +25,10 @@ export class CampaignWorkflowVm {
   successfulResumes = 0;
   failedResumes = 0;
   resumeImportCompletedOn: Date | null = null;
+  hasInvitations = false;
+  invitationsCompletedOn: Date | null = null;
+  hasCandidatesScreening = false;
+  candidatesScreeningCompletedOn: Date | null = null;
 
   constructor(data?: Partial<CampaignWorkflowVm>) {
     if (data) {

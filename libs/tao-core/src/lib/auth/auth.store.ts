@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { UserSummary } from 'tao-contracts';
+import { UserSummary } from '@tao/contracts';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {

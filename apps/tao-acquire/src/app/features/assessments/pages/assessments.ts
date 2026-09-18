@@ -2,8 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from 'tao-ui';
-import { AuthStore } from 'tao-core';
+import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
+import { AuthStore } from '@tao/core';
 import { AssessmentStrategyService } from '../data-access/assessment-strategy.service';
 
 @Component({

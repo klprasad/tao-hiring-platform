@@ -3,39 +3,15 @@
     title="Job profile"
     description="Review the AI-generated job profile and approve it for the hiring workflow."
   >
-    <tao-button
-      appearance="icon"
-      icon="arrow_back"
-      label="Back"
-      tooltip="Back"
-      (click)="cancel()"
-    />
   </tao-page-header>
-  @if (errorMessage()) {
-    <p class="error" role="alert">{{ errorMessage() }}</p>
-  }
-  @if (loadedProfile(); as currentProfile) {
-    <div class="content">
-      <tao-job-profile-preview
-        [profile]="currentProfile"
-        [generatedContent]="currentProfile.generatedContent"
-        (refresh)="reloadJobProfile()"
-      >
-      </tao-job-profile-preview>
-
-      <div class="form-actions">
-        <tao-button type="button" label="Back" appearance="outlined" (click)="cancel()" />
-
-        @if (currentProfile.status === status.Generated) {
-          <tao-button
-            type="button"
-            label="Approve job profile"
-            appearance="filled"
-            [disabled]="isApproving()"
-            (click)="approve()"
-          />
-        }
-      </div>
+  <div class="content">
+    <div class="profile-content">
+      <tao-job-profile-form
+        [profile]="profile()"
+        [disabled]="profile().status !== status.Generated"
+        (resubmitted)="regenerateProfile($event)"
+        (cancelled)="cancel()"
+      />
     </div>
-  }
+  </div>
 </div>
