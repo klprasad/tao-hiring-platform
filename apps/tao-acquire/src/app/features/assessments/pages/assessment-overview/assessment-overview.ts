@@ -1,21 +1,29 @@
-import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { catchError, EMPTY } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 
-import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
-import { AuthStore } from '@tao/core';
-import { AssessmentStrategyService } from '../data-access/assessment-strategy.service';
+import { MatIconModule } from '@angular/material/icon';
+import { AssessmentVm, mapAssessmentToVm } from '../../models/assessment-strategy.models';
+import { AssessmentRound } from '../../components/assessment-round/assessment-round';
+import { ActivatedRoute } from '@angular/router';
+import { AssessmentStrategyService } from '../../data-access/assessment-strategy.service';
+import { catchError, EMPTY, map } from 'rxjs';
 
 @Component({
-  selector: 'tao-assessments',
-  imports: [TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent],
-  templateUrl: './assessments.html',
-  styleUrl: './assessments.scss',
+  imports: [MatIconModule, AssessmentRound],
+  selector: 'tao-assessment-overview',
+  styleUrl: './assessment-overview.scss',
+  templateUrl: './assessment-overview.html',
 })
-export class Assessments {
+export class AssessmentOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(AssessmentStrategyService);
-  private readonly authStore = inject(AuthStore);
 
   readonly errorMessage = signal('');
   readonly isCreating = signal(false);
@@ -30,33 +38,70 @@ export class Assessments {
    */
   readonly campaignId = this.resolveCampaignId();
 
+  readonly assessment = signal<AssessmentVm | null>(null);
+  readonly statusLabel = computed(() => {
+    switch (this.assessment()?.status) {
+      case 1:
+        return 'Active';
+
+      case 2:
+        return 'Completed';
+
+      default:
+        return 'Draft';
+    }
+  });
+
+  readonly totalDurationLabel = computed(() => {
+    const assessment = this.assessment();
+
+    if (!assessment) {
+      return '';
+    }
+    const minutes = assessment.totalDurationInMinutes;
+
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    if (hours === 0) {
+      return `${remainingMinutes} min`;
+    }
+
+    if (remainingMinutes === 0) {
+      return `${hours} hr`;
+    }
+
+    return `${hours} hr ${remainingMinutes} min`;
+  });
+
+  ngOnInit(): void {
+    this.createStrategy();
+  }
   createStrategy(): void {
     if (!this.campaignId) {
       this.errorMessage.set('A campaign is required to create an assessment strategy.');
       return;
     }
 
-    this.isCreating.set(true);
     this.errorMessage.set('');
 
     this.service
       .createAssessmentStrategy(this.campaignId)
       .pipe(
+        map(mapAssessmentToVm),
         catchError(() => {
           this.errorMessage.set('The assessment strategy could not be created. Please try again.');
-          this.isCreating.set(false);
           return EMPTY;
         }),
       )
       .subscribe((response) => {
-        this.strategyId.set(response.value);
-        this.isCreating.set(false);
+        this.assessment.set(response);
       });
   }
 
   approveStrategy(): void {
     const id = this.strategyId();
-    const approvedByUserId = this.authStore.user()?.id;
+    const approvedByUserId = ''; //this.authStore.user()?.id;
 
     if (!id || this.isApproving()) {
       return;

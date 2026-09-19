@@ -71,7 +71,9 @@ export const routes: Routes = [
           {
             path: 'assessment-strategy',
             loadComponent: () =>
-              import('./features/assessments/pages/assessments').then((m) => m.Assessments),
+              import('./features/assessments/pages/assessment-overview/assessment-overview').then(
+                (m) => m.AssessmentOverview,
+              ),
           },
           {
             path: 'candidates',

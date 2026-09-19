@@ -3,7 +3,10 @@ import { Observable } from 'rxjs';
 
 import { ApiClientService } from '../../../core/api/api-client.service';
 import { ApiResponse } from '../../../core/api/api-response';
-import { ApproveAssessmentStrategyRequest } from '../models/assessment-strategy.models';
+import {
+  ApproveAssessmentStrategyRequest,
+  AssessmentResponse,
+} from '../models/assessment-strategy.models';
 
 /**
  * Assessment strategy API client.
@@ -23,8 +26,8 @@ export class AssessmentStrategyService {
    *
    * Returns the id of the newly created assessment strategy.
    */
-  createAssessmentStrategy(campaignId: string): Observable<ApiResponse<string>> {
-    return this.api.post<ApiResponse<string>>(`/api/campaigns/${campaignId}/assessment-strategy`);
+  createAssessmentStrategy(campaignId: string): Observable<AssessmentResponse> {
+    return this.api.post<AssessmentResponse>(`/api/campaigns/${campaignId}/assessment-strategy`);
   }
 
   /**

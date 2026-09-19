@@ -1,0 +1,234 @@
+.round-card {
+  background: #fff;
+  border: 1px solid #e0e6e2;
+  border-radius: 14px;
+  overflow: hidden;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.round-card:hover {
+  border-color: #cbd8d1;
+  box-shadow: 0 4px 18px rgba(30, 50, 40, 0.06);
+}
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+
+.round-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 20px 22px;
+
+  background: #fafcfb;
+  border-bottom: 1px solid #e8ecea;
+}
+
+.round-number {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: #edf8f2;
+  color: #319667;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.round-info {
+  flex: 1;
+}
+
+.round-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.round-title-row h3 {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 650;
+  color: #202a26;
+}
+
+/* ================================================================
+   DIFFICULTY
+   ================================================================ */
+
+.difficulty {
+  padding: 4px 9px;
+  border-radius: 5px;
+
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.difficulty--medium {
+  background: #fff5df;
+  color: #a06c13;
+}
+
+.difficulty--hard {
+  background: #fdeceb;
+  color: #b34a43;
+}
+
+.difficulty--easy {
+  background: #eaf7ef;
+  color: #34865a;
+}
+
+/* ================================================================
+   META
+   ================================================================ */
+
+.round-meta {
+  display: flex;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.round-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #77827d;
+  font-size: 12px;
+}
+
+.round-meta mat-icon {
+  width: 15px;
+  height: 15px;
+  font-size: 15px;
+}
+
+/* ================================================================
+   COMPETENCIES
+   ================================================================ */
+
+.competency-section {
+  padding: 20px 22px;
+}
+
+.competency-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.competency-header h4 {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 700;
+  color: #596660;
+
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.competency-header > span {
+  min-width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #f0f3f1;
+  color: #66726d;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.competency-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.competency {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 46px;
+
+  border-bottom: 1px solid #edf0ee;
+}
+
+.competency:last-child {
+  border-bottom: none;
+}
+
+.competency__name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 13px;
+  color: #303a36;
+}
+
+.competency-icon {
+  width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #edf8f2;
+  color: #3ea371;
+}
+
+.competency-icon mat-icon {
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+}
+
+.competency__requirements {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priority {
+  padding: 4px 8px;
+
+  border-radius: 5px;
+
+  background: #eef7f2;
+  color: #35845c;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.pass-score {
+  min-width: 64px;
+  text-align: right;
+
+  color: #68746f;
+  font-size: 11px;
+}

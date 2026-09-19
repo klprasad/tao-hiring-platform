@@ -1,0 +1,103 @@
+@if (assessment(); as assessment) {
+  <div class="assessment">
+    <!-- Header -->
+    <section class="assessment-header">
+      <div class="assessment-header__content">
+        <div class="assessment-header__eyebrow">ASSESSMENT</div>
+
+        <div class="assessment-title-row">
+          <div>
+            <h1>
+              {{ assessment.assessmentName }}
+            </h1>
+
+            <p>
+              Technical assessment designed to evaluate candidate capabilities across multiple
+              rounds.
+            </p>
+          </div>
+
+          <span class="status-badge" [class.status-badge--active]="assessment.status === 1">
+            <span class="status-dot"></span>
+
+            {{ statusLabel() }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="summary-grid">
+      <!-- Rounds -->
+      <div class="summary-card">
+        <div class="summary-card__icon">
+          <mat-icon>layers</mat-icon>
+        </div>
+
+        <div>
+          <span>Rounds</span>
+          <strong>{{ assessment.totalRounds }}</strong>
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div class="summary-card">
+        <div class="summary-card__icon">
+          <mat-icon>schedule</mat-icon>
+        </div>
+
+        <div>
+          <span>Total Duration</span>
+          <strong>{{ totalDurationLabel() }}</strong>
+        </div>
+      </div>
+
+      <!-- Questions -->
+      <div class="summary-card">
+        <div class="summary-card__icon">
+          <mat-icon>quiz</mat-icon>
+        </div>
+
+        <div>
+          <span>Questions</span>
+          <strong>{{ assessment.totalQuestions }}</strong>
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="summary-card">
+        <div class="summary-card__icon">
+          <mat-icon>tune</mat-icon>
+        </div>
+
+        <div>
+          <span>Difficulty</span>
+          <strong>Medium–Hard</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assessment Rounds -->
+    <section class="rounds-section">
+      <div class="section-header">
+        <div>
+          <h2>Assessment Rounds</h2>
+
+          <p>Evaluation structure and competency requirements</p>
+        </div>
+
+        <span class="round-count">
+          {{ assessment.totalRounds }}
+          {{ assessment.totalRounds === 1 ? 'round' : 'rounds' }}
+        </span>
+      </div>
+
+      <!-- Rounds -->
+      <div class="round-list">
+        @for (round of assessment.rounds; track round.id) {
+          <tao-assessment-round [round]="round" />
+        }
+      </div>
+    </section>
+  </div>
+}

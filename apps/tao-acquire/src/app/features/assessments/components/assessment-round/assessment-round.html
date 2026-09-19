@@ -1,0 +1,73 @@
+<article class="round-card">
+  <!-- Round Header -->
+  <header class="round-card__header">
+    <div class="round-number">
+      {{ round().order }}
+    </div>
+
+    <div class="round-info">
+      <div class="round-title-row">
+        <h3>
+          {{ round().displayType }}
+        </h3>
+
+        <span
+          class="difficulty"
+          [class.difficulty--medium]="round().difficulty === 'Medium'"
+          [class.difficulty--hard]="round().difficulty === 'Hard'"
+          [class.difficulty--easy]="round().difficulty === 'Easy'"
+        >
+          {{ round().difficulty }}
+        </span>
+      </div>
+
+      <div class="round-meta">
+        <span>
+          <mat-icon>schedule</mat-icon>
+          {{ round().durationInMinutes }} min
+        </span>
+
+        <span>
+          <mat-icon>quiz</mat-icon>
+          {{ round().targetQuestionCount }}
+          {{ round().targetQuestionCount === 1 ? 'Question' : 'Questions' }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Competencies -->
+  <div class="competency-section">
+    <div class="competency-header">
+      <h4>Competencies</h4>
+
+      <span>
+        {{ round().competencies.length }}
+      </span>
+    </div>
+
+    <div class="competency-list">
+      @for (competency of round().competencies; track competency.name) {
+        <div class="competency">
+          <div class="competency__name">
+            <span class="competency-icon">
+              <mat-icon>check</mat-icon>
+            </span>
+
+            <span>
+              {{ competency.name }}
+            </span>
+          </div>
+
+          <div class="competency__requirements">
+            <span class="priority">
+              {{ competency.priority }}
+            </span>
+
+            <span class="pass-score"> Pass {{ competency.minimumPassPercentage }}% </span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</article>

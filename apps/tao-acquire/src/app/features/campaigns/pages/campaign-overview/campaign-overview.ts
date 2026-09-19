@@ -105,7 +105,7 @@ export class CampaignOverview {
       completed.add('hiring-strategy');
     }
 
-    if (workflow.resumeImportCompletedOn) {
+    if (workflow.resumeImportCompletedOn || workflow.resumeImportStatus === 'Completed') {
       completed.add('resume-imports');
     }
 
@@ -136,58 +136,7 @@ export class CampaignOverview {
 
     return Math.round((this.completedSteps() / steps.length) * 100);
   });
-  private getStepStatus(stepId: string, workflow: CampaignWorkflowVm): CampaignStepStatus {
-    switch (stepId) {
-      case 'job-profile':
-        if (workflow.jobProfileApprovedOn) {
-          return 'completed';
-        }
 
-        return workflow.hasJobProfile ? 'in-progress' : 'not-started';
-
-      case 'hiring-strategy':
-        if (workflow.hiringStrategyApprovedOn) {
-          return 'completed';
-        }
-
-        return workflow.hasHiringStrategy ? 'in-progress' : 'not-started';
-
-      case 'resume-imports':
-        if (workflow.resumeImportCompletedOn) {
-          return 'completed';
-        }
-
-        return workflow.hasResumeImport ||
-          !!workflow.resumeImportStatus ||
-          workflow.totalResumes > 0
-          ? 'in-progress'
-          : 'not-started';
-
-      case 'candidates':
-        if (workflow.candidatesScreeningCompletedOn) {
-          return 'completed';
-        }
-
-        return workflow.hasCandidatesScreening ? 'in-progress' : 'not-started';
-
-      case 'assessment-strategy':
-        if (workflow.assessmentStrategyApprovedOn) {
-          return 'completed';
-        }
-
-        return workflow.hasAssessmentStrategy ? 'in-progress' : 'not-started';
-
-      case 'invitations':
-        if (workflow.invitationsCompletedOn) {
-          return 'completed';
-        }
-
-        return workflow.hasInvitations ? 'in-progress' : 'not-started';
-
-      default:
-        return 'not-started';
-    }
-  }
   constructor() {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');
 
