@@ -3,27 +3,81 @@
   description="Review candidate progress across your active campaigns."
 >
 </tao-page-header>
+
+<!-- Metrics -->
 <div class="metrics">
-  <tao-card title="Total candidates"
-    ><strong>248</strong><small>Across 12 campaigns</small></tao-card
-  ><tao-card title="Not Recommended"
-    ><strong>18</strong><small>Ready for your attention</small></tao-card
-  ><tao-card title="Recommended"><strong>64</strong><small>26% of all candidates</small></tao-card>
+  <!-- Total -->
+  <tao-card title="Total candidates" class="metric-card" (click)="selectFilter('all')">
+    <strong>{{ candidates().length }}</strong>
+    <small>All candidates</small>
+  </tao-card>
+
+  <!-- Rejected -->
+  <tao-card
+    title="Not Recommended"
+    class="metric-card"
+    [class.active]="selectedFilter() === 'rejected'"
+    (click)="selectFilter('rejected')"
+  >
+    <strong>{{ rejectedCandidates().length }}</strong>
+    <small>Ready for your attention</small>
+  </tao-card>
+
+  <!-- Recommended -->
+  <tao-card
+    title="Recommended"
+    class="metric-card"
+    [class.active]="selectedFilter() === 'recommended'"
+    (click)="selectFilter('recommended')"
+  >
+    <strong>{{ recommendedCandidates().length }}</strong>
+    <small> {{ recommendedPercentage() }}% of all candidates </small>
+  </tao-card>
 </div>
-<tao-card title="Recent candidate activity"
-  ><div class="candidate">
-    <span class="avatar">JM</span>
-    <div><strong>Jordan Mitchell</strong><small>Senior Product Designer</small></div>
-    <b class="shortlisted">Shortlisted</b><span>Today</span>
-  </div>
-  <div class="candidate">
-    <span class="avatar">RK</span>
-    <div><strong>Riley Kim</strong><small>Backend Engineer</small></div>
-    <b class="review">Needs review</b><span>Yesterday</span>
-  </div>
-  <div class="candidate">
-    <span class="avatar">PS</span>
-    <div><strong>Priya Shah</strong><small>Customer Success Lead</small></div>
-    <b class="screening">Screening</b><span>Aug 29</span>
-  </div></tao-card
->
+
+<!-- Candidate list -->
+<tao-card [title]="selectedFilterTitle()" class="candidate-card">
+  @if (filteredCandidates().length > 0) {
+    @for (candidate of filteredCandidates(); track candidate.id) {
+      <div class="candidate">
+        <!-- Avatar -->
+        <span class="avatar">
+          {{ getInitials(candidate.candidateName) }}
+        </span>
+
+        <!-- Candidate details -->
+        <div class="candidate-info">
+          <strong>{{ candidate.candidateName }}</strong>
+
+          <small>
+            {{ candidate.currentCompany || 'Company not available' }}
+            @if (candidate.currentLocation) {
+              · {{ candidate.currentLocation }}
+            }
+          </small>
+
+          <small> Match: {{ candidate.overallMatchPercentage }}% </small>
+        </div>
+
+        <!-- Status -->
+        <b
+          class="status"
+          [class.rejected]="candidate.status === 'Rejected'"
+          [class.recommended]="
+            candidate.status === 'Shortlisted' || candidate.status === 'Recommended'
+          "
+          [class.screening]="candidate.status === 'Screening'"
+        >
+          {{ candidate.status }}
+        </b>
+
+        <!-- Date -->
+        <span class="candidate-date">
+          {{ formatCandidateDate(candidate) }}
+        </span>
+      </div>
+    }
+  } @else {
+    <div class="empty-state">No candidates found.</div>
+  }
+</tao-card>
