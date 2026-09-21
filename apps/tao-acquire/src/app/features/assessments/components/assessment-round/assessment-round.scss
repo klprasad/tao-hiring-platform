@@ -3,7 +3,6 @@
   border: 1px solid #e0e6e2;
   border-radius: 14px;
   overflow: hidden;
-
   transition:
     border-color 160ms ease,
     box-shadow 160ms ease;
@@ -22,9 +21,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-
   padding: 20px 22px;
-
   background: #fafcfb;
   border-bottom: 1px solid #e8ecea;
 }
@@ -36,8 +33,9 @@
   display: grid;
   place-items: center;
 
-  border-radius: 10px;
+  flex: 0 0 42px;
 
+  border-radius: 10px;
   background: #edf8f2;
   color: #319667;
 
@@ -47,6 +45,7 @@
 
 .round-info {
   flex: 1;
+  min-width: 0;
 }
 
 .round-title-row {
@@ -69,6 +68,7 @@
 
 .difficulty {
   padding: 4px 9px;
+
   border-radius: 5px;
 
   font-size: 10px;
@@ -138,6 +138,7 @@
 
   font-size: 12px;
   font-weight: 700;
+
   color: #596660;
 
   text-transform: uppercase;
@@ -152,7 +153,6 @@
   place-items: center;
 
   border-radius: 50%;
-
   background: #f0f3f1;
   color: #66726d;
 
@@ -196,7 +196,6 @@
   place-items: center;
 
   border-radius: 50%;
-
   background: #edf8f2;
   color: #3ea371;
 }
@@ -227,8 +226,322 @@
 
 .pass-score {
   min-width: 64px;
+
   text-align: right;
 
   color: #68746f;
   font-size: 11px;
+}
+
+/* ================================================================
+   EDIT MODE
+   ================================================================ */
+
+.round-card__header--editing {
+  align-items: center;
+  background: #f8fbf9;
+  padding: 18px 22px;
+}
+
+.round-edit-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.round-edit-title h3 {
+  margin: 0;
+
+  color: #202a26;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.round-edit-title p {
+  margin: 4px 0 0;
+
+  color: #7a8580;
+  font-size: 12px;
+}
+
+/* ================================================================
+   EDIT ACTIONS
+   ================================================================ */
+
+.round-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   ROUND EDIT FORM
+   ================================================================ */
+
+.round-edit-form {
+  background: #fff;
+}
+
+/* ================================================================
+   BASIC ROUND FIELDS
+   ================================================================ */
+
+.round-fields {
+  display: grid;
+
+  grid-template-columns:
+    minmax(180px, 1.5fr)
+    minmax(130px, 0.8fr)
+    minmax(120px, 0.7fr)
+    minmax(120px, 0.7fr);
+
+  gap: 16px;
+
+  padding: 22px;
+
+  border-bottom: 1px solid #edf0ee;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  color: #596660;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  height: 38px;
+
+  box-sizing: border-box;
+
+  padding: 0 10px;
+
+  border: 1px solid #d5ded9;
+  border-radius: 6px;
+
+  background: #fff;
+  color: #26332e;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #54a87d;
+  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1);
+}
+
+.form-field input:hover,
+.form-field select:hover {
+  border-color: #b8c8c0;
+}
+
+.form-field small {
+  color: #bd514a;
+  font-size: 10px;
+}
+
+/* ================================================================
+   INPUT WITH SUFFIX
+   ================================================================ */
+
+.input-with-suffix {
+  position: relative;
+}
+
+.input-with-suffix input {
+  padding-right: 42px;
+}
+
+.input-with-suffix span {
+  position: absolute;
+
+  top: 50%;
+  right: 10px;
+
+  transform: translateY(-50%);
+
+  color: #7a8580;
+  font-size: 11px;
+
+  pointer-events: none;
+}
+
+/* ================================================================
+   COMPETENCY EDIT SECTION
+   ================================================================ */
+
+.competency-edit-section {
+  padding: 22px;
+}
+
+.competency-edit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.competency-edit-header h4 {
+  margin: 0;
+
+  color: #596660;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.competency-edit-header p {
+  margin: 4px 0 0;
+
+  color: #89938f;
+  font-size: 11px;
+}
+
+/* ================================================================
+   COMPETENCY EDIT ROW
+   ================================================================ */
+
+.competency-edit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.competency-edit-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1fr)
+    130px
+    100px
+    36px;
+
+  align-items: center;
+
+  gap: 10px;
+  padding: 12px;
+
+  border: 1px solid #e4eae7;
+  border-radius: 8px;
+  background: #fafcfb;
+}
+
+.competency-name {
+  min-width: 0;
+}
+
+.competency-priority {
+  min-width: 0;
+}
+
+.competency-pass {
+  min-width: 0;
+}
+
+/* ================================================================
+   VALIDATION
+   ================================================================ */
+
+.form-field input.ng-invalid.ng-touched,
+.form-field select.ng-invalid.ng-touched {
+  border-color: #d36b63;
+}
+
+.form-field input.ng-invalid.ng-touched:focus,
+.form-field select.ng-invalid.ng-touched:focus {
+  box-shadow: 0 0 0 3px rgba(211, 107, 99, 0.1);
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 900px) {
+  .round-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .competency-edit-row {
+    grid-template-columns:
+      minmax(160px, 1fr)
+      120px
+      90px
+      36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .round-card__header--editing {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .round-edit-title {
+    min-width: calc(100% - 58px);
+  }
+
+  .round-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  .round-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .competency-edit-header {
+    align-items: flex-start;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .competency-edit-row {
+    grid-template-columns: 1fr;
+  }
+
+  .remove-button {
+    width: 100%;
+  }
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.form-field > label {
+  height: 16px;
+  margin: 0;
+
+  color: #596660;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }

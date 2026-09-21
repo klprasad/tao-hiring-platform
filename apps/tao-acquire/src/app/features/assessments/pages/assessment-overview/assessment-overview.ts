@@ -3,62 +3,82 @@ import {
   Component,
   computed,
   inject,
-  input,
   OnInit,
   signal,
 } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
-import { AssessmentVm, mapAssessmentToVm } from '../../models/assessment-strategy.models';
+
 import { AssessmentRound } from '../../components/assessment-round/assessment-round';
 import { ActivatedRoute } from '@angular/router';
 import { AssessmentStrategyService } from '../../data-access/assessment-strategy.service';
 import { catchError, EMPTY, map } from 'rxjs';
+import {
+  AssessmentRoundVm,
+  AssessmentVm,
+  mapAssessmentDtoToVm,
+} from '../../models/assessment-strategy.models';
 
 @Component({
-  imports: [MatIconModule, AssessmentRound],
   selector: 'tao-assessment-overview',
-  styleUrl: './assessment-overview.scss',
+  imports: [MatIconModule, AssessmentRound],
   templateUrl: './assessment-overview.html',
+  styleUrl: './assessment-overview.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssessmentOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(AssessmentStrategyService);
-
+  readonly editingRoundOrder = signal<number | null>(null);
   readonly errorMessage = signal('');
-  readonly isCreating = signal(false);
-  readonly isApproving = signal(false);
-  readonly strategyId = signal<string | undefined>(undefined);
+
+  readonly assessment = signal<AssessmentVm | null>(null);
 
   /**
    * Campaign the assessment strategy belongs to.
-   *
-   * Comes from `/campaigns/:campaignId/assessment-strategy` (route param), or
-   * from the `campaignId` query parameter when opened standalone.
    */
   readonly campaignId = this.resolveCampaignId();
 
-  readonly assessment = signal<AssessmentVm | null>(null);
-  readonly statusLabel = computed(() => {
-    switch (this.assessment()?.status) {
-      case 1:
-        return 'Active';
+  /**
+   * Assessment strategy ID.
+   */
+  readonly strategyId = computed(() => this.assessment()?.id);
 
-      case 2:
-        return 'Completed';
+  /**
+   * Assessment rounds.
+   */
+  readonly rounds = computed(() => this.assessment()?.rounds ?? []);
 
-      default:
-        return 'Draft';
-    }
+  /**
+   * Total number of rounds.
+   */
+  readonly totalRounds = computed(() => {
+    return this.rounds().length;
   });
 
-  readonly totalDurationLabel = computed(() => {
-    const assessment = this.assessment();
+  /**
+   * Total duration across all rounds.
+   */
+  readonly totalDurationInMinutes = computed(() => {
+    return this.rounds().reduce((total, round) => total + round.durationInMinutes, 0);
+  });
 
-    if (!assessment) {
-      return '';
+  /**
+   * Total number of questions across all rounds.
+   */
+  readonly totalQuestions = computed(() => {
+    return this.rounds().reduce((total, round) => total + round.targetQuestionCount, 0);
+  });
+
+  /**
+   * Human-readable duration.
+   */
+  readonly totalDurationLabel = computed(() => {
+    const minutes = this.totalDurationInMinutes();
+
+    if (minutes === 0) {
+      return '0 min';
     }
-    const minutes = assessment.totalDurationInMinutes;
 
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
@@ -74,9 +94,58 @@ export class AssessmentOverview implements OnInit {
     return `${hours} hr ${remainingMinutes} min`;
   });
 
-  ngOnInit(): void {
-    this.createStrategy();
+  /**
+   * Overall difficulty based on the assessment rounds.
+   */
+  readonly difficultyLabel = computed(() => {
+    const difficulties = this.rounds().map((round) => round.difficulty);
+
+    const uniqueDifficulties = [...new Set(difficulties)];
+
+    const order: Record<string, number> = {
+      Easy: 1,
+      Medium: 2,
+      Hard: 3,
+    };
+
+    return uniqueDifficulties.sort((a, b) => (order[a] ?? 0) - (order[b] ?? 0)).join('–');
+  });
+
+  /**
+   * Status displayed in the UI.
+   */
+  readonly statusLabel = computed(() => {
+    switch (this.assessment()?.status) {
+      case 'Generated':
+        return 'Generated';
+
+      case 'Approved':
+        return 'Approved';
+
+      case 'Rejected':
+        return 'Rejected';
+
+      case 'Draft':
+        return 'Draft';
+
+      default:
+        return 'Draft';
+    }
+  });
+
+  /**
+   * Whether the assessment is approved.
+   */
+  readonly isApproved = computed(() => {
+    return this.assessment()?.status === 'Approved';
+  });
+  startEditingRound(order: number): void {
+    this.editingRoundOrder.set(order);
   }
+  ngOnInit(): void {
+    this.loadAssessmentStrategy();
+  }
+
   createStrategy(): void {
     if (!this.campaignId) {
       this.errorMessage.set('A campaign is required to create an assessment strategy.');
@@ -88,22 +157,41 @@ export class AssessmentOverview implements OnInit {
     this.service
       .createAssessmentStrategy(this.campaignId)
       .pipe(
-        map(mapAssessmentToVm),
+        map(mapAssessmentDtoToVm),
         catchError(() => {
           this.errorMessage.set('The assessment strategy could not be created. Please try again.');
           return EMPTY;
         }),
       )
       .subscribe((response) => {
-        this.assessment.set(response);
+        if (response) this.assessment.set(response);
+        else {
+          this.loadAssessmentStrategy();
+        }
       });
   }
 
+  loadAssessmentStrategy() {
+    this.service
+      .getAssessmentStrategy(this.campaignId)
+      .pipe(
+        map(mapAssessmentDtoToVm),
+        catchError(() => {
+          this.errorMessage.set('The assessment strategy could not be created. Please try again.');
+          return EMPTY;
+        }),
+      )
+      .subscribe((response) => {
+        if (response) this.assessment.set(response);
+      });
+  }
   approveStrategy(): void {
     const id = this.strategyId();
-    const approvedByUserId = ''; //this.authStore.user()?.id;
 
-    if (!id || this.isApproving()) {
+    // Replace this with your auth store.
+    const approvedByUserId = ''; // this.authStore.user()?.id;
+
+    if (!id) {
       return;
     }
 
@@ -112,7 +200,6 @@ export class AssessmentOverview implements OnInit {
       return;
     }
 
-    this.isApproving.set(true);
     this.errorMessage.set('');
 
     this.service
@@ -120,13 +207,20 @@ export class AssessmentOverview implements OnInit {
       .pipe(
         catchError(() => {
           this.errorMessage.set('The assessment strategy could not be approved. Please try again.');
-          this.isApproving.set(false);
           return EMPTY;
         }),
       )
       .subscribe(() => {
-        this.strategyId.set(undefined);
-        this.isApproving.set(false);
+        const currentAssessment = this.assessment();
+
+        if (currentAssessment) {
+          this.assessment.set({
+            ...currentAssessment,
+            status: 'Approved',
+            approvedByUserId,
+            approvedOn: new Date().toISOString(),
+          });
+        }
       });
   }
 
@@ -137,5 +231,26 @@ export class AssessmentOverview implements OnInit {
       this.route.snapshot.queryParamMap.get('campaignId') ??
       ''
     );
+  }
+  saveRound(updatedRound: AssessmentRoundVm): void {
+    const assessment = this.assessment();
+
+    if (!assessment) {
+      return;
+    }
+
+    const updatedRounds = assessment.rounds.map((round) =>
+      round.order === updatedRound.order ? updatedRound : round,
+    );
+
+    this.assessment.set({
+      ...assessment,
+      rounds: updatedRounds,
+    });
+
+    this.editingRoundOrder.set(null);
+  }
+  cancelEditingRound(): void {
+    this.editingRoundOrder.set(null);
   }
 }

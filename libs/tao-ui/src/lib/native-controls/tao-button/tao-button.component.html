@@ -2,71 +2,128 @@
   @case ('outlined') {
     <button
       mat-stroked-button
-      [class]="'button button-' + size()"
-      [class.full-width]="fullWidth()"
-      [color]="color()"
-      [disabled]="disabled() || loading()"
+      [color]="color() === 'basic' ? undefined : color()"
+      [disabled]="isDisabled()"
       [type]="type()"
       [matTooltip]="tooltip()"
+      [class]="'tao-button tao-button--outlined tao-button--' + size()"
+      [class.tao-button--basic]="color() === 'basic'"
+      [class.tao-button--primary]="color() === 'primary'"
+      [class.tao-button--accent]="color() === 'accent'"
+      [class.tao-button--warn]="color() === 'warn'"
+      [class.tao-button--full-width]="fullWidth()"
     >
       @if (loading()) {
-        <mat-spinner diameter="18" />
+        <mat-spinner class="tao-button__spinner" [diameter]="size() === 'small' ? 14 : 18" />
       } @else {
-        <ng-content /><span>{{ label() }}</span>
+        @if (icon()) {
+          <mat-icon class="tao-button__icon" aria-hidden="true">
+            {{ icon() }}
+          </mat-icon>
+        }
+
+        @if (label()) {
+          <span class="tao-button__label">
+            {{ label() }}
+          </span>
+        }
+
+        <ng-content />
       }
     </button>
   }
+
   @case ('text') {
     <button
       mat-button
-      [class]="'button button-' + size()"
-      [class.full-width]="fullWidth()"
-      [color]="color()"
-      [disabled]="disabled() || loading()"
+      [color]="color() === 'basic' ? undefined : color()"
+      [disabled]="isDisabled()"
       [type]="type()"
       [matTooltip]="tooltip()"
+      [class]="'tao-button tao-button--text tao-button--' + size()"
+      [class.tao-button--basic]="color() === 'basic'"
+      [class.tao-button--primary]="color() === 'primary'"
+      [class.tao-button--accent]="color() === 'accent'"
+      [class.tao-button--warn]="color() === 'warn'"
+      [class.tao-button--full-width]="fullWidth()"
     >
       @if (loading()) {
-        <mat-spinner diameter="18" />
+        <mat-spinner class="tao-button__spinner" [diameter]="size() === 'small' ? 14 : 18" />
       } @else {
-        <ng-content /><span>{{ label() }}</span>
+        @if (icon()) {
+          <mat-icon class="tao-button__icon" aria-hidden="true">
+            {{ icon() }}
+          </mat-icon>
+        }
+
+        @if (label()) {
+          <span class="tao-button__label">
+            {{ label() }}
+          </span>
+        }
+
+        <ng-content />
       }
     </button>
   }
+
   @case ('icon') {
     <button
       mat-icon-button
-      [class]="'button button-' + size()"
-      [class.button-primary]="color() === 'primary'"
-      [class.button-accent]="color() === 'accent'"
-      [class.button-warn]="color() === 'warn'"
-      [disabled]="disabled() || loading()"
+      [disabled]="isDisabled()"
       [type]="type()"
-      [matTooltip]="tooltip()"
+      [matTooltip]="tooltip() || label()"
       [attr.aria-label]="label()"
+      [class]="'tao-button tao-button--icon tao-button--' + size()"
+      [class.tao-button--basic]="color() === 'basic'"
+      [class.tao-button--primary]="color() === 'primary'"
+      [class.tao-button--accent]="color() === 'accent'"
+      [class.tao-button--warn]="color() === 'warn'"
     >
       @if (loading()) {
-        <mat-spinner diameter="18" />
-      }
-      @if (icon()) {
-        <mat-icon aria-hidden="true">{{ icon() }}</mat-icon>
+        <mat-spinner class="tao-button__spinner" [diameter]="14" />
+      } @else {
+        @if (icon()) {
+          <mat-icon class="tao-button__icon" aria-hidden="true">
+            {{ icon() }}
+          </mat-icon>
+        }
+
+        <ng-content />
       }
     </button>
   }
+
   @default {
     <button
       mat-flat-button
-      [class]="'button button-' + size()"
-      [class.full-width]="fullWidth()"
-      [color]="color()"
-      [disabled]="disabled() || loading()"
+      [color]="color() === 'basic' ? undefined : color()"
+      [disabled]="isDisabled()"
       [type]="type()"
       [matTooltip]="tooltip()"
+      [class]="'tao-button tao-button--filled tao-button--' + size()"
+      [class.tao-button--basic]="color() === 'basic'"
+      [class.tao-button--primary]="color() === 'primary'"
+      [class.tao-button--accent]="color() === 'accent'"
+      [class.tao-button--warn]="color() === 'warn'"
+      [class.tao-button--full-width]="fullWidth()"
     >
       @if (loading()) {
-        <mat-spinner diameter="18" />
+        <mat-spinner class="tao-button__spinner" [diameter]="size() === 'small' ? 14 : 18" />
       } @else {
-        <ng-content /><span>{{ label() }}</span>
+        @if (icon()) {
+          <mat-icon class="tao-button__icon" aria-hidden="true">
+            {{ icon() }}
+          </mat-icon>
+        }
+
+        @if (label()) {
+          <span class="tao-button__label">
+            {{ label() }}
+          </span>
+        }
+
+        <ng-content />
       }
     </button>
   }

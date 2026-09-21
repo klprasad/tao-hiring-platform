@@ -23,38 +23,8 @@ export const ASSESSMENT_STRATEGY_STATUS_LABELS: Record<AssessmentStrategyStatus,
 export interface ApproveAssessmentStrategyRequest {
   approvedByUserId: string;
 }
-
-/**
- * Assessment strategy resource.
- */
-export interface AssessmentStrategyDto {
-  id: string;
-  campaignId: string;
-  generatedContent: string;
-
-  /**
-   * Structured JSON with questions, competency criteria and scoring.
-   */
-  structuredContent: string;
-
-  status: AssessmentStrategyStatus;
-  createdOnUtc: string;
-}
-export interface AssessmentVm {
-  id: string;
-  assessmentName: string;
-  status: number;
-  generatedOn: string;
-  totalRounds: number;
-  totalDurationInMinutes: number;
-  totalQuestions: number;
-  rounds: AssessmentRoundVm[];
-}
-
 export interface AssessmentRoundVm {
-  id: string;
   order: number;
-  type: string;
   displayType: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   durationInMinutes: number;
@@ -64,42 +34,23 @@ export interface AssessmentRoundVm {
 
 export interface AssessmentCompetencyVm {
   name: string;
-  priority: AssessmentPriority;
+  priority: 'Low' | 'Medium' | 'High';
   minimumPassPercentage: number;
 }
-export function mapAssessmentToVm(response: AssessmentResponse): AssessmentVm {
-  const rounds = response.rounds ?? [];
-
+export function mapAssessmentRoundToVm(round: AssessmentRoundDto): AssessmentRoundVm {
   return {
-    id: response.id,
-    assessmentName: response.assessmentName,
-    status: response.status,
-    generatedOn: response.generatedOn,
-    totalRounds: rounds.length,
-
-    totalDurationInMinutes: rounds.reduce((sum, round) => sum + round.durationInMinutes, 0),
-
-    totalQuestions: rounds.reduce((sum, round) => sum + round.targetQuestionCount, 0),
-
-    rounds: rounds
-      .sort((a, b) => a.order - b.order)
-      .map((round) => ({
-        id: round.id,
-        order: round.order,
-
-        type: round.type,
-        displayType: formatRoundType(round.type),
-
-        difficulty: round.difficulty,
-
-        durationInMinutes: round.durationInMinutes,
-        targetQuestionCount: round.targetQuestionCount,
-
-        competencies: round.competencies,
-      })),
+    order: round.Order,
+    displayType: formatRoundType(round.Type),
+    difficulty: round.Difficulty,
+    durationInMinutes: round.DurationInMinutes,
+    targetQuestionCount: round.QuestionCount,
+    competencies: round.Competencies.map((competency) => ({
+      name: competency.Name,
+      priority: competency.Priority,
+      minimumPassPercentage: competency.MinimumPassPercentage,
+    })),
   };
 }
-
 function formatRoundType(type: AssessmentRoundType): string {
   switch (type) {
     case 'TechnicalDiscussion':
@@ -115,40 +66,82 @@ function formatRoundType(type: AssessmentRoundType): string {
       return type;
   }
 }
-export interface AssessmentResponse {
+export interface AssessmentVm {
   id: string;
   organizationId: string;
   campaignId: string;
-
   assessmentName: string;
-
-  content: AssessmentContent;
-  structuredContent: AssessmentContent;
-
-  status: number;
+  content: string;
+  structuredContent: StructuredAssessment;
+  status: AssessmentStatus;
   generatedOn: string;
+  approvedByUserId: string | null;
+  approvedOn: string | null;
 
-  rounds: AssessmentRoundResponse[];
+  // UI-specific mapped data
+  rounds: AssessmentRoundVm[];
 }
 
-export interface AssessmentContent {
+export function mapAssessmentDtoToVm(dto: AssessmentDto): AssessmentVm {
+  const structuredContent = JSON.parse(dto.structuredContent.value) as StructuredAssessment;
+
+  return {
+    id: dto.id,
+    organizationId: dto.organizationId,
+    campaignId: dto.campaignId,
+    assessmentName: dto.assessmentName,
+    content: dto.content.value,
+    structuredContent,
+    status: dto.status,
+    generatedOn: dto.generatedOn,
+    approvedByUserId: dto.approvedByUserId,
+    approvedOn: dto.approvedOn,
+
+    rounds: structuredContent.Rounds.map(mapAssessmentRoundToVm),
+  };
+}
+
+export interface AssessmentDto {
+  id: string;
+  organizationId: string;
+  campaignId: string;
+  assessmentName: string;
+  content: AssessmentContentDto;
+  structuredContent: AssessmentStructuredContentDto;
+  status: AssessmentStatus;
+  generatedOn: string;
+  approvedByUserId: string | null;
+  approvedOn: string | null;
+}
+
+export interface AssessmentContentDto {
   value: string;
 }
 
-export interface AssessmentRoundResponse {
-  id: string;
-  order: number;
-  type: AssessmentRoundType;
-  difficulty: AssessmentDifficulty;
-  durationInMinutes: number;
-  targetQuestionCount: number;
-  competencies: AssessmentCompetencyResponse[];
+export interface AssessmentStructuredContentDto {
+  value: string;
 }
 
-export interface AssessmentCompetencyResponse {
-  name: string;
-  priority: AssessmentPriority;
-  minimumPassPercentage: number;
+export type AssessmentStatus = 'Generated' | 'Approved' | 'Draft' | 'Rejected';
+
+export interface StructuredAssessment {
+  AssessmentName: string;
+  Rounds: AssessmentRoundDto[];
+}
+
+export interface AssessmentRoundDto {
+  Order: number;
+  Type: AssessmentRoundType;
+  Difficulty: AssessmentDifficulty;
+  DurationInMinutes: number;
+  QuestionCount: number;
+  Competencies: AssessmentCompetencyDto[];
+}
+
+export interface AssessmentCompetencyDto {
+  Name: string;
+  Priority: AssessmentPriority;
+  MinimumPassPercentage: number;
 }
 
 export type AssessmentRoundType = 'Coding' | 'TechnicalDiscussion' | 'SystemDesign';

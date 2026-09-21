@@ -5,7 +5,7 @@ import { ApiClientService } from '../../../core/api/api-client.service';
 import { ApiResponse } from '../../../core/api/api-response';
 import {
   ApproveAssessmentStrategyRequest,
-  AssessmentResponse,
+  AssessmentDto,
 } from '../models/assessment-strategy.models';
 
 /**
@@ -26,10 +26,13 @@ export class AssessmentStrategyService {
    *
    * Returns the id of the newly created assessment strategy.
    */
-  createAssessmentStrategy(campaignId: string): Observable<AssessmentResponse> {
-    return this.api.post<AssessmentResponse>(`/api/campaigns/${campaignId}/assessment-strategy`);
+  createAssessmentStrategy(campaignId: string): Observable<AssessmentDto> {
+    return this.api.post<AssessmentDto>(`/api/campaigns/${campaignId}/assessment-strategy`);
   }
 
+  getAssessmentStrategy(campaignId: string): Observable<AssessmentDto> {
+    return this.api.get<AssessmentDto>(`/api/campaigns/${campaignId}/assessment-strategy`);
+  }
   /**
    * Approves an assessment strategy.
    *

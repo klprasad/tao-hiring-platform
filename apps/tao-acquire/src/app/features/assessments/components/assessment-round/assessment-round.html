@@ -1,73 +1,240 @@
 <article class="round-card">
-  <!-- Round Header -->
-  <header class="round-card__header">
-    <div class="round-number">
-      {{ round().order }}
-    </div>
+  @if (!editing()) {
+    <!-- ==========================================================
+         READ ONLY
+         ========================================================== -->
 
-    <div class="round-info">
-      <div class="round-title-row">
-        <h3>
-          {{ round().displayType }}
-        </h3>
-
-        <span
-          class="difficulty"
-          [class.difficulty--medium]="round().difficulty === 'Medium'"
-          [class.difficulty--hard]="round().difficulty === 'Hard'"
-          [class.difficulty--easy]="round().difficulty === 'Easy'"
-        >
-          {{ round().difficulty }}
-        </span>
+    <header class="round-card__header">
+      <div class="round-number">
+        {{ round().order }}
       </div>
 
-      <div class="round-meta">
-        <span>
-          <mat-icon>schedule</mat-icon>
-          {{ round().durationInMinutes }} min
-        </span>
+      <div class="round-info">
+        <div class="round-title-row">
+          <h3>
+            {{ round().displayType }}
+          </h3>
 
-        <span>
-          <mat-icon>quiz</mat-icon>
-          {{ round().targetQuestionCount }}
-          {{ round().targetQuestionCount === 1 ? 'Question' : 'Questions' }}
-        </span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Competencies -->
-  <div class="competency-section">
-    <div class="competency-header">
-      <h4>Competencies</h4>
-
-      <span>
-        {{ round().competencies.length }}
-      </span>
-    </div>
-
-    <div class="competency-list">
-      @for (competency of round().competencies; track competency.name) {
-        <div class="competency">
-          <div class="competency__name">
-            <span class="competency-icon">
-              <mat-icon>check</mat-icon>
-            </span>
-
-            <span>
-              {{ competency.name }}
-            </span>
-          </div>
-
-          <div class="competency__requirements">
-            <span class="priority">
-              {{ competency.priority }}
-            </span>
-
-            <span class="pass-score"> Pass {{ competency.minimumPassPercentage }}% </span>
-          </div>
+          <span
+            class="difficulty"
+            [class.difficulty--medium]="round().difficulty === 'Medium'"
+            [class.difficulty--hard]="round().difficulty === 'Hard'"
+            [class.difficulty--easy]="round().difficulty === 'Easy'"
+          >
+            {{ round().difficulty }}
+          </span>
         </div>
-      }
+
+        <div class="round-meta">
+          <span>
+            <mat-icon>schedule</mat-icon>
+            {{ round().durationInMinutes }} min
+          </span>
+
+          <span>
+            <mat-icon>quiz</mat-icon>
+            {{ round().targetQuestionCount }}
+            {{ round().targetQuestionCount === 1 ? 'Question' : 'Questions' }}
+          </span>
+        </div>
+      </div>
+
+      <tao-button
+        label="Edit"
+        icon="edit"
+        appearance="outlined"
+        color="basic"
+        size="small"
+        tooltip="Edit round"
+        (click)="onEdit()"
+      />
+    </header>
+
+    <!-- Competencies -->
+
+    <div class="competency-section">
+      <div class="competency-header">
+        <h4>Competencies</h4>
+
+        <span>
+          {{ round().competencies.length }}
+        </span>
+      </div>
+
+      <div class="competency-list">
+        @for (competency of round().competencies; track competency.name) {
+          <div class="competency">
+            <div class="competency__name">
+              <span class="competency-icon">
+                <mat-icon>check</mat-icon>
+              </span>
+
+              <span>
+                {{ competency.name }}
+              </span>
+            </div>
+
+            <div class="competency__requirements">
+              <span class="priority">
+                {{ competency.priority }}
+              </span>
+
+              <span class="pass-score"> Pass {{ competency.minimumPassPercentage }}% </span>
+            </div>
+          </div>
+        }
+      </div>
     </div>
-  </div>
+  } @else {
+    <!-- ==========================================================
+         EDIT MODE
+         ========================================================== -->
+
+    <form class="round-edit-form" [formGroup]="roundForm" (ngSubmit)="onSave()">
+      <header class="round-card__header round-card__header--editing">
+        <div class="round-number">
+          {{ round().order }}
+        </div>
+
+        <div class="round-edit-title">
+          <h3>Edit Round {{ round().order }}</h3>
+
+          <p>Update the evaluation requirements for this round.</p>
+        </div>
+
+        <div class="round-actions">
+          <tao-button
+            label="Cancel"
+            appearance="text"
+            color="basic"
+            size="small"
+            type="button"
+            (click)="onCancel()"
+          />
+
+          <tao-button
+            label="Save"
+            icon="check"
+            appearance="filled"
+            color="primary"
+            size="small"
+            type="submit"
+            [disabled]="roundForm.invalid"
+          />
+        </div>
+      </header>
+
+      <!-- Basic Details -->
+
+      <div class="round-fields">
+        <div class="form-field">
+          <tao-input
+            label="Round Type"
+            [labelAbove]="true"
+            type="text"
+            formControlName="displayType"
+          />
+          @if (roundForm.controls.displayType.invalid && roundForm.controls.displayType.touched) {
+            <small> Round type is required. </small>
+          }
+        </div>
+
+        <div class="form-field">
+          <tao-select
+            label="Difficulty"
+            [labelAbove]="true"
+            [options]="difficulties"
+            formControlName="difficulty"
+          >
+          </tao-select>
+        </div>
+
+        <div class="form-field">
+          <tao-input
+            label="Duration"
+            [labelAbove]="true"
+            type="number"
+            suffix="min"
+            formControlName="durationInMinutes"
+          />
+        </div>
+
+        <div class="form-field">
+          <tao-input
+            label="Questions"
+            [labelAbove]="true"
+            type="number"
+            formControlName="targetQuestionCount"
+          />
+        </div>
+      </div>
+
+      <!-- Competencies -->
+
+      <section class="competency-edit-section" formArrayName="competencies">
+        <div class="competency-edit-header">
+          <div>
+            <h4>Competencies</h4>
+
+            <p>Define the skills and minimum passing score.</p>
+          </div>
+
+          <tao-button
+            label="Add competency"
+            icon="add"
+            appearance="outlined"
+            color="primary"
+            size="small"
+            type="button"
+            (click)="addCompetency()"
+          />
+        </div>
+
+        <div class="competency-edit-list">
+          @for (competency of competencyForms.controls; track $index; let i = $index) {
+            <div class="competency-edit-row" [formGroupName]="i">
+              <div class="form-field competency-name">
+                <tao-input
+                  label="Competency"
+                  [labelAbove]="true"
+                  placeholder="e.g. SQL Server"
+                  formControlName="name"
+                />
+              </div>
+
+              <div class="form-field competency-priority">
+                <tao-select
+                  label="Priority"
+                  [labelAbove]="true"
+                  [options]="priorities"
+                  formControlName="priority"
+                >
+                </tao-select>
+              </div>
+
+              <div class="form-field competency-pass">
+                <tao-input
+                  label="Pass %"
+                  type="number"
+                  [labelAbove]="true"
+                  formControlName="minimumPassPercentage"
+                />
+              </div>
+
+              <tao-button
+                label="Remove competency"
+                icon="delete"
+                appearance="icon"
+                color="warn"
+                size="small"
+                tooltip="Remove competency"
+                type="button"
+                (click)="removeCompetency(i)"
+              />
+            </div>
+          }
+        </div>
+      </section>
+    </form>
+  }
 </article>

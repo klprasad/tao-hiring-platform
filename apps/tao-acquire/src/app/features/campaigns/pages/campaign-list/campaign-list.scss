@@ -2,286 +2,409 @@
   display: block;
 }
 
+/* ================================================================
+   PAGE
+   ================================================================ */
+
 .page {
-  padding: 12px;
+  padding: 20px;
+  background: #f7faf8;
 }
+
+/* ================================================================
+   CAMPAIGN HEADER
+   ================================================================ */
 
 .campaign-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 28px;
-  min-height: 110px;
-  padding: 18px 24px;
-  color: #f8fbff;
-  background: linear-gradient(115deg, #1b3154 0%, #233d65 100%);
-  border-radius: 14px 14px 0 0;
-  box-shadow: 0 8px 20px rgb(29 52 87 / 16%);
+
+  min-height: 96px;
+
+  padding: 18px 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e6e2;
+  border-radius: 14px;
+
+  box-shadow: 0 4px 16px rgba(30, 50, 40, 0.05);
 }
 
-.campaign-heading,
-.campaign-actions {
-  display: flex;
-  align-items: center;
-}
+/* ================================================================
+   HEADING
+   ================================================================ */
 
 .campaign-heading {
-  gap: 18px;
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  min-width: 0;
 }
 
-.campaign-mark {
-  display: grid;
-  width: 50px;
-  height: 50px;
-  place-items: center;
-  color: #8474ff;
-  background: rgb(88 103 218 / 35%);
-  border-radius: 10px;
-}
-
-.campaign-mark mat-icon {
-  font-size: 28px;
-  width: 28px;
-  height: 28px;
+.campaign-title {
+  min-width: 0;
 }
 
 .campaign-header h1 {
   margin: 0;
+
+  color: #202a26;
+
   font-size: 24px;
   font-weight: 700;
   line-height: 30px;
 }
 
 .campaign-header p {
-  margin: 3px 0 0;
-  color: #b7c6db;
-  font-size: 14px;
+  margin: 4px 0 0;
+
+  color: #7a8580;
+
+  font-size: 13px;
   line-height: 20px;
 }
 
+/* ================================================================
+   CAMPAIGN ICON
+   ================================================================ */
+
+.campaign-mark {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 46px;
+
+  width: 46px;
+  height: 46px;
+
+  color: #319667;
+
+  background: #edf8f2;
+
+  border: 1px solid #cce8d8;
+  border-radius: 10px;
+}
+
+.campaign-mark mat-icon {
+  width: 24px;
+  height: 24px;
+
+  font-size: 24px;
+}
+
+/* ================================================================
+   ACTIONS
+   ================================================================ */
+
 .campaign-actions {
-  gap: 16px;
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-shrink: 0;
 }
 
-.campaign-actions .status-filter {
-  width: 150px;
-  height: 44px;
-}
-
-.campaign-actions ::ng-deep .status-filter .mat-mdc-form-field {
-  width: 100%;
-  height: 44px;
-}
-
-.campaign-actions ::ng-deep .status-filter .mat-mdc-text-field-wrapper {
-  height: 44px;
-  padding: 0 12px;
-  background: rgb(255 255 255 / 10%);
-  border-radius: 8px;
-}
-
-.campaign-actions ::ng-deep .status-filter .mdc-notched-outline__leading,
-.campaign-actions ::ng-deep .status-filter .mdc-notched-outline__notch,
-.campaign-actions ::ng-deep .status-filter .mdc-notched-outline__trailing {
-  border-color: rgb(210 222 242 / 35%);
-}
-
-.campaign-actions ::ng-deep .status-filter .mat-mdc-floating-label,
-.campaign-actions ::ng-deep .status-filter .mat-mdc-select-value,
-.campaign-actions ::ng-deep .status-filter .mat-mdc-select-placeholder {
-  color: #d5deed;
-}
-
-.campaign-actions ::ng-deep .status-filter .mat-mdc-select-arrow {
-  color: #c1cee1;
-}
-
-.campaign-actions ::ng-deep .status-filter .mat-mdc-form-field-subscript-wrapper {
-  display: none;
-}
-
-.campaign-actions ::ng-deep .status-filter .mat-mdc-form-field:focus-within {
-  box-shadow: 0 0 0 3px rgb(139 125 255 / 24%);
-}
-
-.campaign-actions
-  ::ng-deep
-  .status-filter
-  .mat-mdc-form-field:focus-within
-  .mdc-notched-outline__leading,
-.campaign-actions
-  ::ng-deep
-  .status-filter
-  .mat-mdc-form-field:focus-within
-  .mdc-notched-outline__notch,
-.campaign-actions
-  ::ng-deep
-  .status-filter
-  .mat-mdc-form-field:focus-within
-  .mdc-notched-outline__trailing {
-  border-color: #aab9ff;
-}
+/* ================================================================
+   SEARCH
+   ================================================================ */
 
 .search-control {
   display: flex;
   align-items: center;
-  gap: 9px;
+
+  gap: 8px;
+
   width: 245px;
-  height: 44px;
-  padding: 0 13px;
-  color: #d5deed;
-  background: rgb(255 255 255 / 10%);
-  border: 1px solid rgb(210 222 242 / 35%);
-  border-radius: 8px;
+  height: 36px;
+
+  padding: 0 11px;
+
+  box-sizing: border-box;
+
+  color: #68746f;
+
+  background: #fff;
+
+  border: 1px solid #d5ded9;
+  border-radius: 6px;
+
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease;
+}
+
+.search-control:hover {
+  border-color: #b8c8c0;
 }
 
 .search-control:focus-within {
-  border-color: #aab9ff;
-  box-shadow: 0 0 0 3px rgb(139 125 255 / 24%);
+  border-color: #54a87d;
+
+  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1);
 }
 
 .search-control mat-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  color: #7a8580;
+
+  font-size: 18px;
 }
 
 .search-control input {
   width: 100%;
   min-width: 0;
+
+  height: 34px;
+
   padding: 0;
-  color: #fff;
-  font: inherit;
+
+  color: #26332e;
+
+  font-family: inherit;
+  font-size: 13px;
+
   background: transparent;
+
   border: 0;
   outline: 0;
 }
 
 .search-control input::placeholder {
-  color: #c1cee1;
+  color: #89938f;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
+/* ================================================================
+   CAMPAIGN LIST CARD
+   ================================================================ */
+
+.campaign-list-card {
+  display: block;
+
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+
+  background: #fff;
+
+  border: 1px solid #e0e6e2;
+
+  border-radius: 14px;
+
+  box-shadow: 0 3px 14px rgba(30, 50, 40, 0.04);
 }
 
-.page__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-
-  h1 {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 700;
-  }
-
-  p {
-    margin: 6px 0 0;
-    font-size: 14px;
-  }
-}
-
-.table-card {
-  overflow: hidden;
-  background: var(--tao-surface);
-  border: 1px solid var(--tao-border);
-  border-radius: 12px;
-}
+/* ================================================================
+   TABLE
+   ================================================================ */
 
 table {
   width: 100%;
 }
 
+/* ================================================================
+   CAMPAIGN NAME
+   ================================================================ */
+
 .campaign-name {
   padding: 0;
+
   border: 0;
+
   background: transparent;
+
+  color: #26332e;
+
   cursor: pointer;
 
+  font-family: inherit;
   font-weight: 600;
+
   text-align: left;
+
+  transition: color 140ms ease;
 }
+
+.campaign-name:hover {
+  color: #319667;
+}
+
+/* ================================================================
+   STATUS
+   ================================================================ */
 
 .status {
   display: inline-flex;
   align-items: center;
 
+  min-height: 24px;
+
   padding: 4px 10px;
+
   border-radius: 999px;
 
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
+
   text-transform: capitalize;
-
-  &--active {
-    background: #dcfce7;
-    color: #166534;
-  }
-
-  &--draft {
-    background: #f1f5f9;
-    color: #475569;
-  }
-
-  &--processing {
-    background: #ede9fe;
-    color: #6d28d9;
-  }
-
-  &--completed {
-    background: #dbeafe;
-    color: #1d4ed8;
-  }
-
-  &--failed {
-    background: #fee2e2;
-    color: #b91c1c;
-  }
 }
+
+/* Active */
+
+.status--active {
+  background: #eaf7ef;
+  color: #34865a;
+}
+
+/* Draft */
+
+.status--draft {
+  background: #f1f3f2;
+  color: #596660;
+}
+
+/* Processing */
+
+.status--processing {
+  background: #fff5df;
+  color: #a06c13;
+}
+
+/* Completed */
+
+.status--completed {
+  background: #eaf7ef;
+  color: #319667;
+}
+
+/* Failed */
+
+.status--failed {
+  background: #fdeceb;
+  color: #b34a43;
+}
+
+/* ================================================================
+   EMPTY STATE
+   ================================================================ */
 
 .empty-state {
   padding: 64px;
+
+  color: #596660;
+
   text-align: center;
-
-  mat-icon {
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-  }
-
-  h3 {
-    margin: 16px 0 4px;
-  }
-
-  p {
-    margin: 0;
-  }
 }
 
-@media (max-width: 760px) {
+.empty-state mat-icon {
+  width: 40px;
+  height: 40px;
+
+  color: #7a8580;
+
+  font-size: 40px;
+}
+
+.empty-state h3 {
+  margin: 16px 0 4px;
+
+  color: #26332e;
+
+  font-size: 16px;
+}
+
+.empty-state p {
+  margin: 0;
+
+  color: #89938f;
+
+  font-size: 13px;
+}
+
+/* ================================================================
+   VISUALLY HIDDEN
+   ================================================================ */
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 900px) {
   .campaign-header {
     align-items: flex-start;
+
     flex-direction: column;
+
+    gap: 16px;
   }
 
   .campaign-actions {
     width: 100%;
   }
 
-  .campaign-actions .status-filter {
-    width: 150px;
+  .search-control {
+    flex: 1;
+
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 12px;
+  }
+
+  .campaign-header {
+    padding: 16px;
+  }
+
+  .campaign-heading {
+    align-items: flex-start;
+  }
+
+  .campaign-header h1 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .campaign-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    width: 100%;
   }
 
   .search-control {
-    flex: 1;
+    width: 100%;
+  }
+
+  .campaign-actions tao-button {
+    width: 100%;
   }
 }

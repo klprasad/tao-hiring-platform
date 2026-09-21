@@ -1,3 +1,11 @@
+@if (labelAbove()) {
+  <label class="field-label">
+    {{ label() }}
+    @if (required()) {
+      <span class="required-mark">*</span>
+    }
+  </label>
+}
 <mat-form-field
   appearance="outline"
   class="field"
@@ -5,12 +13,14 @@
     ngControl?.invalid && (ngControl?.touched || ngControl?.dirty || showErrors())
   "
 >
-  <mat-label
-    >{{ label() }}
-    @if (required()) {
-      *
-    }
-  </mat-label>
+  @if (!labelAbove()) {
+    <mat-label>
+      {{ label() }}
+      @if (required()) {
+        *
+      }
+    </mat-label>
+  }
   @if (prefix()) {
     <span matTextPrefix>{{ prefix() }}&nbsp;</span>
   }

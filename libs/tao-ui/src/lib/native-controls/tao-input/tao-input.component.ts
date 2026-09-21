@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './tao-input.component.scss',
 })
 export class TaoInputComponent implements ControlValueAccessor {
+  readonly labelAbove = input(false);
   readonly label = input('');
   readonly placeholder = input('');
   readonly required = input(false);

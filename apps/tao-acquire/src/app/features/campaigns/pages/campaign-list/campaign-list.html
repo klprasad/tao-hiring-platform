@@ -4,7 +4,8 @@
       <div class="campaign-mark" aria-hidden="true">
         <mat-icon>workspaces</mat-icon>
       </div>
-      <div>
+
+      <div class="campaign-title">
         <h1>Hiring Campaigns</h1>
         <p>Track progress and manage your open roles.</p>
       </div>
@@ -13,7 +14,9 @@
     <div class="campaign-actions">
       <label class="search-control">
         <mat-icon aria-hidden="true">search</mat-icon>
-        <span class="visually-hidden">Search campaigns</span>
+
+        <span class="visually-hidden"> Search campaigns </span>
+
         <input
           type="search"
           placeholder="Search campaigns..."
@@ -21,12 +24,19 @@
           (input)="onSearchInput($event)"
         />
       </label>
-      <tao-button label="Create Campaign" icon="add" (click)="createCampaign()"> </tao-button>
+
+      <tao-button
+        label="Create Campaign"
+        icon="add"
+        appearance="filled"
+        color="primary"
+        size="small"
+        (click)="createCampaign()"
+      />
     </div>
   </header>
 
-  <tao-card class="campaign-list-card">
-    <!-- Campaign Table -->
+  <div class="campaign-list-card">
     @if (filteredCampaigns().length > 0) {
       <tao-data-table
         [columns]="columns"
@@ -36,14 +46,12 @@
       />
     }
 
-    <!-- Empty State -->
     @if (filteredCampaigns().length === 0) {
       <tao-empty-state
         icon="search_off"
         title="No campaigns found"
         message="Try changing your search or create a new campaign."
-      >
-      </tao-empty-state>
+      />
     }
-  </tao-card>
+  </div>
 </div>

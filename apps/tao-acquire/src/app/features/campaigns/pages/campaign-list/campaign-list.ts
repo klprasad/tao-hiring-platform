@@ -7,7 +7,6 @@ import { CampaignVm, mapCampaignDtoToVm } from '../../models/campaign.models';
 
 import {
   TaoButtonComponent,
-  TaoCardComponent,
   TaoDataTableComponent,
   TaoEmptyStateComponent,
   TaoTableColumn,
@@ -20,7 +19,6 @@ import { CampaignService } from '../../data-access/campaign.service';
   imports: [
     FormsModule,
     TaoButtonComponent,
-    TaoCardComponent,
     TaoDataTableComponent,
     TaoEmptyStateComponent,
     MatIconModule,

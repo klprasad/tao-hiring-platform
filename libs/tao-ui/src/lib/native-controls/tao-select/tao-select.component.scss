@@ -2,20 +2,257 @@
   display: block;
   width: 100%;
 }
+
+/* ==========================================================
+   FIELD
+   ========================================================== */
+
 .field {
   width: 100%;
+  margin: 0;
+
+  --mdc-outlined-text-field-outline-color: #d5ded9;
+  --mdc-outlined-text-field-hover-outline-color: #b8c8c0;
+  --mdc-outlined-text-field-focus-outline-color: #54a87d;
 }
+
+/* ==========================================================
+   LABEL ABOVE
+   ========================================================== */
+
+.field-label {
+  display: block;
+
+  height: 16px;
+  margin: 0 0 6px;
+
+  color: #596660;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.required-mark {
+  margin-left: 2px;
+  color: #b3261e;
+}
+
+/* ==========================================================
+   MATERIAL FORM FIELD
+   ========================================================== */
+
+:host ::ng-deep .field.mat-mdc-form-field {
+  width: 100%;
+  margin: 0;
+}
+
+/* ==========================================================
+   SELECT CONTAINER
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-text-field-wrapper {
+  width: 100%;
+
+  height: 38px;
+  min-height: 38px;
+
+  padding: 0;
+
+  background: #fff;
+
+  border-radius: 6px;
+}
+
+/* ==========================================================
+   FORM FIELD FLEX
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-form-field-flex {
+  height: 38px;
+  min-height: 38px;
+
+  align-items: center;
+}
+
+/* ==========================================================
+   INFIX
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-form-field-infix {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  height: 38px;
+  min-height: 38px;
+
+  padding: 0;
+}
+
+/* ==========================================================
+   SELECT
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-select {
+  width: 100%;
+
+  height: 38px;
+  min-height: 38px;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding: 0 10px;
+
+  color: #26332e;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+/* ==========================================================
+   SELECT TRIGGER
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-select-trigger {
+  width: 100%;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================
+   SELECT VALUE
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-select-value {
+  color: #26332e;
+  font-size: 13px;
+}
+
+/* ==========================================================
+   OUTLINE - NORMAL
+   ========================================================== */
+
+:host ::ng-deep .field .mdc-notched-outline__leading,
+:host ::ng-deep .field .mdc-notched-outline__notch,
+:host ::ng-deep .field .mdc-notched-outline__trailing {
+  border-color: #d5ded9 !important;
+  border-width: 1px !important;
+}
+
+/* ==========================================================
+   OUTLINE RADIUS
+   ========================================================== */
+
+:host ::ng-deep .field .mdc-notched-outline {
+  border-radius: 6px;
+}
+
+/* ==========================================================
+   HOVER
+   ========================================================== */
+
+:host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__leading,
+:host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__notch,
+:host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__trailing {
+  border-color: #b8c8c0 !important;
+  border-width: 1px !important;
+}
+
+/* ==========================================================
+   FOCUS
+   ========================================================== */
+
+:host ::ng-deep .field.mat-focused .mdc-notched-outline__leading,
+:host ::ng-deep .field.mat-focused .mdc-notched-outline__notch,
+:host ::ng-deep .field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #54a87d !important;
+  border-width: 1px !important;
+}
+
+/* ==========================================================
+   FOCUS GLOW
+   Same as tao-input
+   ========================================================== */
+
+:host ::ng-deep .field.mat-focused .mat-mdc-text-field-wrapper {
+  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1);
+  border-radius: 6px;
+}
+
+/* ==========================================================
+   SELECT ARROW
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-select-arrow {
+  color: #26332e;
+}
+
+/* ==========================================================
+   FLOATING LABEL
+   ========================================================== */
+
+:host ::ng-deep .field .mdc-floating-label {
+  color: #596660;
+  font-size: 13px;
+}
+
+:host ::ng-deep .field.mat-focused .mdc-floating-label {
+  color: #54a87d;
+}
+
+/* ==========================================================
+   HINT
+   ========================================================== */
+
+mat-hint {
+  color: #6e7a8e;
+  font-size: 12px;
+}
+
+/* ==========================================================
+   ERROR STATE
+   ========================================================== */
+
 .field.mat-form-field-invalid {
-  --mat-form-field-outlined-error-outline-color: #b3261e;
-  --mat-form-field-outlined-error-hover-outline-color: #b3261e;
-  --mat-form-field-outlined-error-focus-outline-color: #b3261e;
+  --mdc-outlined-text-field-outline-color: #b3261e;
+  --mdc-outlined-text-field-hover-outline-color: #b3261e;
+  --mdc-outlined-text-field-focus-outline-color: #b3261e;
 }
-::ng-deep .field.mat-form-field-invalid .mdc-text-field--outlined .mat-mdc-notch-piece {
+
+/* Error border */
+
+:host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__leading,
+:host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__notch,
+:host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__trailing {
+  border-color: #b3261e !important;
+  border-width: 1px !important;
+}
+
+/* Error + focus */
+
+:host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__leading,
+:host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__notch,
+:host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__trailing {
   border-color: #b3261e !important;
 }
+
+/* ==========================================================
+   ERROR MESSAGE
+   ========================================================== */
+
 .field-error {
   color: #b3261e;
+
   font-size: 12px;
   line-height: 16px;
-  margin: -16px 16px 8px;
+
+  margin: 4px 16px 8px;
 }

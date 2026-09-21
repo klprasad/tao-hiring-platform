@@ -1,6 +1,8 @@
 @if (assessment(); as assessment) {
   <div class="assessment">
-    <!-- Header -->
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
     <section class="assessment-header">
       <div class="assessment-header__content">
         <div class="assessment-header__eyebrow">ASSESSMENT</div>
@@ -17,7 +19,7 @@
             </p>
           </div>
 
-          <span class="status-badge" [class.status-badge--active]="assessment.status === 1">
+          <span class="status-badge" [class.status-badge--active]="isApproved()">
             <span class="status-dot"></span>
 
             {{ statusLabel() }}
@@ -26,7 +28,9 @@
       </div>
     </section>
 
-    <!-- Summary -->
+    <!-- ============================================================
+         SUMMARY
+         ============================================================ -->
     <section class="summary-grid">
       <!-- Rounds -->
       <div class="summary-card">
@@ -36,7 +40,10 @@
 
         <div>
           <span>Rounds</span>
-          <strong>{{ assessment.totalRounds }}</strong>
+
+          <strong>
+            {{ totalRounds() }}
+          </strong>
         </div>
       </div>
 
@@ -48,7 +55,10 @@
 
         <div>
           <span>Total Duration</span>
-          <strong>{{ totalDurationLabel() }}</strong>
+
+          <strong>
+            {{ totalDurationLabel() }}
+          </strong>
         </div>
       </div>
 
@@ -60,7 +70,10 @@
 
         <div>
           <span>Questions</span>
-          <strong>{{ assessment.totalQuestions }}</strong>
+
+          <strong>
+            {{ totalQuestions() }}
+          </strong>
         </div>
       </div>
 
@@ -72,12 +85,17 @@
 
         <div>
           <span>Difficulty</span>
-          <strong>Medium–Hard</strong>
+
+          <strong>
+            {{ difficultyLabel() }}
+          </strong>
         </div>
       </div>
     </section>
 
-    <!-- Assessment Rounds -->
+    <!-- ============================================================
+         ASSESSMENT ROUNDS
+         ============================================================ -->
     <section class="rounds-section">
       <div class="section-header">
         <div>
@@ -87,15 +105,21 @@
         </div>
 
         <span class="round-count">
-          {{ assessment.totalRounds }}
-          {{ assessment.totalRounds === 1 ? 'round' : 'rounds' }}
+          {{ totalRounds() }}
+          {{ totalRounds() === 1 ? 'round' : 'rounds' }}
         </span>
       </div>
 
       <!-- Rounds -->
       <div class="round-list">
-        @for (round of assessment.rounds; track round.id) {
-          <tao-assessment-round [round]="round" />
+        @for (round of rounds(); track round.order) {
+          <tao-assessment-round
+            [round]="round"
+            [editing]="editingRoundOrder() === round.order"
+            (edit)="startEditingRound($event)"
+            (save)="saveRound($event)"
+            (cancel)="cancelEditingRound()"
+          />
         }
       </div>
     </section>

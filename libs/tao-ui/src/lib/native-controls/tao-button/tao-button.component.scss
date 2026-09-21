@@ -1,37 +1,397 @@
 :host {
-  display: inline-block;
+  display: inline-flex;
+  vertical-align: middle;
 }
-.button {
-  min-height: 40px;
-}
-.button-small {
-  min-height: 32px;
-  font-size: 12px;
-}
-.button-large {
-  min-height: 48px;
-  font-size: 15px;
-}
-.full-width {
+
+:host(.full-width) {
+  display: flex;
   width: 100%;
 }
-button span {
-  margin-left: 6px;
+
+/* ================================================================
+   DESIGN TOKENS
+   ================================================================ */
+
+.tao-button {
+  --tao-border: #d5ded9;
+  --tao-border-hover: #b8c8c0;
+  --tao-focus: #54a87d;
+  --tao-focus-ring: rgba(84, 168, 125, 0.1);
+
+  box-sizing: border-box !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  min-width: 0 !important;
+  margin: 0 !important;
+
+  gap: 8px !important;
+
+  padding: 0 !important;
+
+  border-width: 1px !important;
+  border-style: solid !important;
+
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+
+  line-height: 1 !important;
+
+  white-space: nowrap;
+  vertical-align: middle;
+
+  box-shadow: none !important;
+
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    box-shadow 140ms ease,
+    opacity 140ms ease;
 }
-mat-spinner {
-  display: inline-block;
+
+/* ================================================================
+   SMALL
+   ================================================================ */
+
+.tao-button--small {
+  height: 34px !important;
+  min-height: 34px !important;
+
+  padding: 0 12px !important;
+
+  border-radius: 6px !important;
+
+  font-size: 12px !important;
 }
-.button-primary,
-.button-accent,
-.button-warn {
-  background-color: var(--mat-sys-primary);
-  color: var(--mat-sys-on-primary);
+
+/* ================================================================
+   MEDIUM
+   ================================================================ */
+
+.tao-button--medium {
+  height: 38px !important;
+  min-height: 38px !important;
+
+  padding: 0 14px !important;
+
+  border-radius: 7px !important;
+
+  font-size: 13px !important;
 }
-.button-accent {
-  background-color: var(--mat-sys-secondary);
-  color: var(--mat-sys-on-secondary);
+
+/* ================================================================
+   LARGE
+   ================================================================ */
+
+.tao-button--large {
+  height: 44px !important;
+  min-height: 44px !important;
+
+  padding: 0 18px !important;
+
+  border-radius: 8px !important;
+
+  font-size: 14px !important;
 }
-.button-warn {
-  background-color: var(--mat-sys-error);
-  color: var(--mat-sys-on-error);
+
+/* ================================================================
+   EDIT / OUTLINED BASIC
+   ================================================================ */
+
+button.tao-button--outlined.tao-button--basic {
+  border: 1px solid #d5ded9 !important;
+  background: #fff !important;
+  color: #34433d !important;
+}
+
+button.tao-button--outlined.tao-button--basic:hover:not(:disabled) {
+  border-color: #54a87d !important;
+  background: #edf8f2 !important;
+  color: #247d55 !important;
+}
+
+/* ================================================================
+   OUTLINED PRIMARY
+   ================================================================ */
+
+button.tao-button--outlined.tao-button--primary {
+  border: 1px solid #8bc4a6 !important;
+
+  background: #fff !important;
+
+  color: #24865a !important;
+}
+
+button.tao-button--outlined.tao-button--primary:hover:not(:disabled) {
+  border-color: #54a87d !important;
+
+  background: #f2faf5 !important;
+
+  color: #247d55 !important;
+}
+
+/* ================================================================
+   TEXT / CANCEL
+   ================================================================ */
+
+button.tao-button--text {
+  border: 1px solid transparent !important;
+
+  background: transparent !important;
+
+  color: #34433d !important;
+
+  box-shadow: none !important;
+}
+
+button.tao-button--text:hover:not(:disabled) {
+  border-color: transparent !important;
+
+  background: #f3f6f4 !important;
+
+  color: #247d55 !important;
+}
+
+button.tao-button--text.tao-button--small {
+  height: 34px !important;
+
+  padding: 0 10px !important;
+}
+
+/* ================================================================
+   FILLED PRIMARY
+   ================================================================ */
+
+button.tao-button--filled.tao-button--primary {
+  border: 1px solid #319667 !important;
+
+  background: #319667 !important;
+
+  color: #fff !important;
+}
+
+button.tao-button--filled.tao-button--primary:hover:not(:disabled) {
+  border-color: #287f57 !important;
+
+  background: #287f57 !important;
+}
+
+/* ================================================================
+   FILLED BASIC
+   ================================================================ */
+
+button.tao-button--filled.tao-button--basic {
+  border: 1px solid #34433d !important;
+
+  background: #34433d !important;
+
+  color: #fff !important;
+}
+
+/* ================================================================
+   ICON BUTTON
+   ================================================================ */
+
+button.tao-button--icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  min-width: 0 !important;
+
+  padding: 0 !important;
+
+  border-radius: 6px !important;
+
+  box-shadow: none !important;
+}
+
+button.tao-button--icon.tao-button--small {
+  width: 34px !important;
+  height: 34px !important;
+}
+
+/* ================================================================
+   DELETE / WARN ICON
+   ================================================================ */
+
+button.tao-button--icon.tao-button--warn {
+  border: 1px solid #efc5c2 !important;
+
+  background: #fff !important;
+
+  color: #c95c54 !important;
+}
+
+button.tao-button--icon.tao-button--warn:hover:not(:disabled) {
+  border-color: #d98f89 !important;
+
+  background: #fdf2f1 !important;
+
+  color: #ae4942 !important;
+}
+
+/* ================================================================
+   PRIMARY ICON
+   ================================================================ */
+
+button.tao-button--icon.tao-button--primary {
+  border: 1px solid #b8dcca !important;
+
+  background: #fff !important;
+
+  color: #319667 !important;
+}
+
+button.tao-button--icon.tao-button--primary:hover:not(:disabled) {
+  border-color: #54a87d !important;
+
+  background: #edf8f2 !important;
+
+  color: #247d55 !important;
+}
+
+/* ================================================================
+   BASIC ICON
+   ================================================================ */
+
+button.tao-button--icon.tao-button--basic {
+  border: 1px solid #d5ded9 !important;
+
+  background: #fff !important;
+
+  color: #66726d !important;
+}
+
+button.tao-button--icon.tao-button--basic:hover:not(:disabled) {
+  border-color: #b8c8c0 !important;
+
+  background: #f3f6f4 !important;
+
+  color: #34433d !important;
+}
+
+/* ================================================================
+   LABEL
+   ================================================================ */
+
+.tao-button__label {
+  display: inline-flex;
+  align-items: center;
+
+  line-height: 1 !important;
+}
+
+/* ================================================================
+   ICON
+   ================================================================ */
+
+.tao-button__icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  flex: 0 0 auto;
+
+  width: 16px !important;
+  height: 16px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-size: 16px !important;
+  line-height: 16px !important;
+
+  vertical-align: middle;
+}
+
+.tao-button--medium .tao-button__icon {
+  width: 18px !important;
+  height: 18px !important;
+
+  font-size: 18px !important;
+  line-height: 18px !important;
+}
+
+.tao-button--large .tao-button__icon {
+  width: 20px !important;
+  height: 20px !important;
+
+  font-size: 20px !important;
+  line-height: 20px !important;
+}
+
+/* ================================================================
+   ACCENT
+   ================================================================ */
+
+button.tao-button--accent {
+  color: #a06c13 !important;
+}
+
+/* ================================================================
+   DISABLED
+   ================================================================ */
+
+button.tao-button:disabled {
+  cursor: not-allowed !important;
+
+  opacity: 0.5 !important;
+}
+
+/* ================================================================
+   FOCUS
+   ================================================================ */
+
+button.tao-button:focus-visible {
+  outline: 2px solid #54a87d !important;
+
+  outline-offset: 2px;
+
+  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1) !important;
+}
+
+/* ================================================================
+   FULL WIDTH
+   ================================================================ */
+
+button.tao-button--full-width {
+  width: 100% !important;
+}
+
+/* ================================================================
+   LOADING
+   ================================================================ */
+
+.tao-button__spinner {
+  flex: 0 0 auto;
+}
+
+/* ================================================================
+   MATERIAL MDC OVERRIDES
+   ================================================================ */
+
+button.tao-button.mat-mdc-button-base {
+  min-width: 0 !important;
+
+  border-width: 1px !important;
+}
+
+button.tao-button.mat-mdc-outlined-button {
+  padding-left: 11px !important;
+  padding-right: 11px !important;
+}
+
+button.tao-button.mat-mdc-unelevated-button {
+  padding-left: 11px !important;
+  padding-right: 11px !important;
+}
+
+button.tao-button.mat-mdc-button {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
