@@ -17,9 +17,3 @@ export interface NavigationItem {
    */
   children?: NavigationItem[];
 }
-
-export interface UserSummary {
-  id: string;
-  displayName: string;
-  role: string;
-}

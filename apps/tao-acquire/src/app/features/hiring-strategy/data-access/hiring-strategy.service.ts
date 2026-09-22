@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ApiClientService } from '../../../core/api/api-client.service';
-import { ApiResponse } from '../../../core/api/api-response';
+import { ApiClientService, ApiResponse } from '@tao/core';
 import { ApproveHiringStrategyRequest, HiringStrategyDto } from '../models/hiring-strategy.models';
 
 /**

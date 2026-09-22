@@ -1,13 +1,28 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './core/auth/auth.guard';
+import { guestGuard } from './core/auth/guest.guard';
+
 export const routes: Routes = [
+  /**
+   * Public entry screen. Every other route is guarded by `authGuard`, so an
+   * unauthenticated visitor always lands here first; `guestGuard` keeps
+   * signed-in users away from it.
+   */
+  {
+    path: 'login',
+    canActivate: [guestGuard],
+    loadComponent: () => import('./features/login/pages/login').then((module) => module.Login),
+  },
   {
     path: '',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./features/dashboard/pages/dashboard').then((module) => module.Dashboard),
   },
   {
     path: 'campaigns',
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -96,6 +111,7 @@ export const routes: Routes = [
   },
   {
     path: 'reports',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./features/reports/pages/reports').then((module) => module.Reports),
   },

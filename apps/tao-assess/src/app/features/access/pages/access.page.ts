@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TaoButtonComponent, TaoInputComponent } from 'tao-ui';
+import { TaoButtonComponent, TaoInputComponent } from '@tao/ui';
 
 @Component({
   selector: 'tao-access-page',

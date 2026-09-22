@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ApiClientService } from '../../../core/api/api-client.service';
-import { ApiResponse } from '../../../core/api/api-response';
+import { ApiClientService, ApiResponse } from '@tao/core';
 import { RESUME_IMPORT_FORM_FIELD } from '../models/resume-import.models';
 
 /**
@@ -30,9 +29,6 @@ export class ResumeImportService {
       formData.append(RESUME_IMPORT_FORM_FIELD, file, file.name);
     }
 
-    return this.api.post<string>(
-      `/api/campaigns/${campaignId}/resume-imports`,
-      formData,
-    );
+    return this.api.post<string>(`/api/campaigns/${campaignId}/resume-imports`, formData);
   }
 }

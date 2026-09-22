@@ -1,4 +1,8 @@
-<tao-shell [items]="navigation" context="Workspace / Overview">
-  <tao-loading-state [loading]="loading()"></tao-loading-state>
+@if (isAuthenticated()) {
+  <tao-shell [items]="navigation" context="Workspace / Overview">
+    <tao-loading-state [loading]="loading()"></tao-loading-state>
+    <router-outlet />
+  </tao-shell>
+} @else {
   <router-outlet />
-</tao-shell>
+}

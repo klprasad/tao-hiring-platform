@@ -80,14 +80,16 @@
          SIDEBAR FOOTER
          ================================================================ -->
 
-    <div class="sidebar-footer">
-      <span class="avatar"> AM </span>
+    @if (user(); as currentUser) {
+      <div class="sidebar-footer">
+        <span class="avatar" aria-hidden="true">{{ userInitials() }}</span>
 
-      <span class="user-info">
-        <strong>Alex Morgan</strong>
-        <small>Talent Operations</small>
-      </span>
-    </div>
+        <span class="user-info">
+          <strong>{{ userName() }}</strong>
+          <small>{{ currentUser.email }}</small>
+        </span>
+      </div>
+    }
   </aside>
 
   <!-- ================================================================
@@ -111,7 +113,11 @@
           icon="notifications"
         />
 
-        <span class="user-initials"> AM </span>
+        @if (user()) {
+          <span class="user-initials" [attr.aria-label]="userName()" [attr.title]="userName()">
+            {{ userInitials() }}
+          </span>
+        }
       </div>
     </header>
 

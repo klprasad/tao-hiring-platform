@@ -1,0 +1,63 @@
+<section class="login">
+  <form class="login-card" novalidate (submit)="onSubmit($event)">
+    <header class="login-header">
+      <p class="eyebrow">TAO Hiring Platform</p>
+      <h1 class="title">{{ heading() }}</h1>
+      <p class="description">{{ description() }}</p>
+    </header>
+
+    @if (errorMessage(); as message) {
+      <p class="form-error" role="alert">{{ message }}</p>
+    }
+
+    <div class="field">
+      <label class="field-label" for="tao-login-username">User name or email</label>
+
+      <input
+        id="tao-login-username"
+        class="field-input"
+        type="text"
+        autocomplete="username"
+        placeholder="firstname.lastname or you@example.com"
+        [formField]="loginForm.username"
+        (blur)="normalizeUsername()"
+        [attr.aria-invalid]="showUsernameErrors()"
+        [attr.aria-describedby]="showUsernameErrors() ? 'tao-login-username-errors' : null"
+      />
+
+      @if (showUsernameErrors()) {
+        <ul class="field-errors" id="tao-login-username-errors">
+          @for (message of usernameErrors(); track message) {
+            <li>{{ message }}</li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="tao-login-password">Password</label>
+
+      <input
+        id="tao-login-password"
+        class="field-input"
+        type="password"
+        autocomplete="current-password"
+        [formField]="loginForm.password"
+        [attr.aria-invalid]="showPasswordErrors()"
+        [attr.aria-describedby]="showPasswordErrors() ? 'tao-login-password-errors' : null"
+      />
+
+      @if (showPasswordErrors()) {
+        <ul class="field-errors" id="tao-login-password-errors">
+          @for (message of passwordErrors(); track message) {
+            <li>{{ message }}</li>
+          }
+        </ul>
+      }
+    </div>
+
+    <button class="submit" type="submit" [disabled]="!canSubmit()" [attr.aria-busy]="isBusy()">
+      {{ isBusy() ? 'Signing in...' : 'Sign in' }}
+    </button>
+  </form>
+</section>

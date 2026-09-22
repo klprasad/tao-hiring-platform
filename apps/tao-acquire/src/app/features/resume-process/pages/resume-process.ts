@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
 import { TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
@@ -18,7 +18,7 @@ import {
 export class ResumeProcess {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(ResumeImportService);
-
+  private readonly router = inject(Router);
   readonly errorMessage = signal('');
   readonly isUploading = signal(false);
   readonly batchId = signal<string | undefined>(undefined);
@@ -63,7 +63,7 @@ export class ResumeProcess {
         this.batchId.set(response);
         this.isUploading.set(false);
         input.value = '';
-        //this.router.navigate(['/campaigns', campaignId, 'resume-imports']);
+        this.router.navigate(['/campaigns', this.campaignId, 'candidates']);
       });
   }
 

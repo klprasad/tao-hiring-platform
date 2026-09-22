@@ -1,9 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NavigationItem } from '@tao/contracts';
+import { AuthStore, HttpLoadingService, NavigationItem } from '@tao/core';
 import { TaoLoadingStateComponent, TaoShellComponent } from '@tao/ui';
-import { HttpLoadingService } from './core/http/loading.service';
 
 @Component({
   imports: [RouterOutlet, TaoShellComponent, TaoLoadingStateComponent],
@@ -12,8 +11,14 @@ import { HttpLoadingService } from './core/http/loading.service';
   templateUrl: './app.html',
 })
 export class App {
+  private readonly authStore = inject(AuthStore);
+
   protected loadingService = inject(HttpLoadingService);
   readonly loading = this.loadingService.isLoading;
+
+  /** The application shell is rendered for signed-in users only. */
+  protected readonly isAuthenticated = this.authStore.isAuthenticated;
+
   protected readonly navigation: NavigationItem[] = [
     {
       label: 'Dashboard',

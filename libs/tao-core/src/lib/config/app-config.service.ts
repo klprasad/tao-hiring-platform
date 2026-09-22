@@ -2,6 +2,13 @@ import { Injectable, signal } from '@angular/core';
 
 import { AppConfig } from './app-config.model';
 
+/**
+ * Holds the runtime application configuration.
+ *
+ * The configuration is loaded once during application bootstrap
+ * (see `initializeAppConfig`) and is shared by every feature that
+ * needs infrastructure values such as the API base URL.
+ */
 @Injectable({
   providedIn: 'root',
 })

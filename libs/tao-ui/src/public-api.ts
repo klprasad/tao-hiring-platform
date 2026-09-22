@@ -1,5 +1,6 @@
 export * from './lib/feature-controls/tao-shell/tao-shell.component';
 export * from './lib/feature-controls/tao-page-header/tao-page-header.component';
+export * from './lib/feature-controls/tao-acquire-login/tao-acquire-login.component';
 export * from './lib/native-controls/tao-card/tao-card.component';
 export * from './lib/feature-controls/tao-stat-card/tao-stat-card.component';
 export * from './lib/feature-controls/tao-status-chip/tao-status-chip.component';

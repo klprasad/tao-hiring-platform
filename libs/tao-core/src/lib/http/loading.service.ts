@@ -1,5 +1,9 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 
+/**
+ * Tracks the number of in-flight HTTP requests so the shell can
+ * display a single, application-wide loading indicator.
+ */
 @Injectable({
   providedIn: 'root',
 })

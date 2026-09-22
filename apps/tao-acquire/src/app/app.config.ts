@@ -11,11 +11,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { provideRouter } from '@angular/router';
 
+import { AppConfigService, httpLoadingInterceptor, initializeAppConfig } from '@tao/core';
+
 import { routes } from './app.routes';
 
-import { AppConfigService } from './core/config/app-config.service';
-import { initializeAppConfig } from './core/config/app-config-loader';
-import { httpLoadingInterceptor } from './core/http/http-loading.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),

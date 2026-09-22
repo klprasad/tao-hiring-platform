@@ -38,6 +38,7 @@ export class JobProfileOverview implements OnInit {
     this.loadJobProfile();
   }
   reloadJobProfile() {
+    this.isEditing.set(false);
     this.loadJobProfile();
   }
   loadJobProfile() {

@@ -251,32 +251,6 @@
         }
       }
     },
-    "tao-contracts": {
-      "projectType": "library",
-      "root": "libs/tao-contracts",
-      "sourceRoot": "libs/tao-contracts/src",
-      "prefix": "tao",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/tao-contracts/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/tao-contracts/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "libs/tao-contracts/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "tao-utils": {
       "projectType": "library",
       "root": "libs/tao-utils",

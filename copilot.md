@@ -26,7 +26,7 @@ This file is the operating manual for AI coding agents working in this repositor
 
 - **Project:** Angular workspace for two independently deployable talent-acquisition applications.
 - **Applications:** `tao-acquire` is the recruiter application; `tao-assess` is the candidate assessment-access application.
-- **Libraries:** `tao-ui`, `tao-core`, `tao-contracts`, and `tao-utils`.
+- **Libraries:** `tao-ui`, `tao-core`, and `tao-utils`.
 - **Technology:** Angular 22.1.x, TypeScript 6.0.x, RxJS 7.8, Angular Material/CDK 22.1.x, SCSS, npm 11, Vitest through Angular CLI.
 - **Architecture:** Standalone Angular components, feature-based application folders, lazy route boundaries in Acquire, shared library public APIs, signals for local state, and a small HTTP/configuration boundary.
 - **Important directories:** `apps/` for deployable applications, `libs/` for reusable code, `docs/` for product and architecture specifications, `tools/` for generators/scripts.
@@ -46,7 +46,7 @@ tao-hiring-platform/
 │   │   ├── public/
 │   │   └── src/
 │   │       ├── app/
-│   │       │   ├── core/                 # API client, auth/configuration boundary
+│   │       │   ├── core/                 # App-level auth guard, sign-in service, and auth boundary
 │   │       │   └── features/             # Recruiter feature slices and routes
 │   │       ├── assets/config/             # Runtime app-config.json
 │   │       ├── main.ts
@@ -59,8 +59,7 @@ tao-hiring-platform/
 │           └── styles.scss
 ├── libs/
 │   ├── tao-ui/                            # Shared standalone controls and feature controls
-│   ├── tao-core/                          # Shared infrastructure; currently AuthStore
-│   ├── tao-contracts/                     # Shared TypeScript contracts/view-facing models
+│   ├── tao-core/                          # Shared infrastructure: API client, HTTP, runtime config, contracts, auth
 │   └── tao-utils/                         # Validators, regex patterns, and formatting helpers
 ├── docs/                                  # Architecture, API, UI notes, and specifications
 ├── tools/                                 # Generators and maintenance scripts (currently sparse)
@@ -77,7 +76,7 @@ tao-hiring-platform/
 
 ### Application directories
 
-- `apps/tao-acquire/src/app/core/` owns application-wide API communication and runtime configuration. Feature-specific API services should be placed under the relevant feature `data-access/` folder and use the shared client.
+- Shared application infrastructure (API client, HTTP loading interceptor, runtime configuration, auth store) lives in `libs/tao-core` and is consumed through the `@tao/core` alias; Acquire no longer owns a local `core/` folder. Feature-specific API services stay in the relevant feature `data-access/` folder and use the shared client.
 - `apps/tao-acquire/src/app/features/` contains recruiter slices: campaigns, candidates, assessments, dashboard, hiring strategy, invitations, reports, and resume process. A feature may contain `pages/`, `components/`, `models/`, `data-access/`, and its route file.
 - `apps/tao-assess/src/app/features/access/` contains the current candidate entry experience. It is intentionally isolated from Acquire navigation.
 - `apps/*/src/main.ts`, `app.ts`, `app.config.ts`, `app.routes.ts`, and global styles are application composition points. Feature business behavior does not belong there.
@@ -85,13 +84,12 @@ tao-hiring-platform/
 ### Library directories
 
 - `libs/tao-ui/src/lib/native-controls/` contains reusable low-level controls such as button, input, select, textarea, dialog, menu, tabs, table, progress, and loading state.
-- `libs/tao-ui/src/lib/feature-controls/` contains domain-shaped presentation controls such as shell, page header, status, score, evidence, candidate/resume cards, assessment controls, and empty/error states.
+- `libs/tao-ui/src/lib/feature-controls/` contains domain-shaped presentation controls such as shell, page header, acquire login, status, score, evidence, candidate/resume cards, assessment controls, and empty/error states.
 - `libs/tao-ui/src/public-api.ts` is the public export surface. New reusable controls must be exported there if consumers need them.
-- `libs/tao-contracts/src/lib/` contains shared interfaces/types such as `NavigationItem`, `UserSummary`, and campaign contracts. Do not put feature-specific presentation state here without a demonstrated cross-app need.
-- `libs/tao-core/src/lib/` contains shared services/stores. `AuthStore` is currently signal-based and seeded with a local recruiter user; it is not a complete authentication implementation.
+- `libs/tao-core/src/lib/` contains shared infrastructure: `api/` (`ApiClientService`, `ApiResponse`, `ApiError`/`ApiException`), `http/` (loading service, loading interceptor, `SKIP_LOADING` token), `config/` (`AppConfigService`, `initializeAppConfig`), `auth/` (`AuthStore`), and `contracts/`. `AuthStore` holds the signed-in identity and starts unauthenticated; it performs no verification.
 - `libs/tao-utils/src/lib/` contains small pure helpers and Angular validators. Keep it dependency-light and free of feature navigation or HTTP concerns.
 
-The intended dependency direction is application feature -> shared libraries. Libraries must not import application features. Prefer package aliases (`tao-ui`, `tao-core`, `tao-contracts`, `tao-utils`, or the `@tao/*` aliases) over deep imports.
+The intended dependency direction is application feature -> shared libraries. Libraries must not import application features. `tao-ui` imports shared contracts from `tao-core`, so build `tao-core` before `tao-ui`. Prefer package aliases (`tao-ui`, `tao-core`, `tao-utils`, or the `@tao/*` aliases) over deep imports.
 
 ## Architecture And Runtime Flow
 
@@ -107,11 +105,11 @@ Feature pages currently own local state with `signal()` and derived state with `
 
 Acquire registers `provideHttpClient()` and an app initializer. `initializeAppConfig` loads `assets/config/app-config.json` before startup and calls `AppConfigService.setConfig`. `AppConfigService` validates that `apiUrl` exists and is a valid URL. The current checked-in value is `https://localhost:44329`.
 
-`ApiClientService` builds URLs from that base URL and exposes typed `get`, `post`, `put`, and `delete` methods with query params, headers, `HttpContext`, abort signals, credentials, and RxJS error mapping through `ApiException`/`ApiError`. Feature services should call this client rather than `HttpClient` directly. No HTTP interceptor, auth token injection, retry policy, or global error middleware was found.
+`ApiClientService` builds URLs from that base URL and exposes typed `get`, `post`, `put`, and `delete` methods with query params, headers, `HttpContext`, abort signals, credentials, and RxJS error mapping through `ApiException`/`ApiError`. Feature services should call this client rather than `HttpClient` directly. The only HTTP interceptor is `httpLoadingInterceptor`, which keeps `HttpLoadingService` in sync with in-flight requests and honours the `SKIP_LOADING` context token. There is no auth token injection, retry policy, or global error middleware.
 
 ### Auth, authorization, and security reality
 
-`AuthStore` exposes a signal-backed `UserSummary | null` and a computed `isAuthenticated`; its current user is hardcoded demo state. No login flow, token/JWT storage, guard, role/claim enforcement, CSRF configuration, backend authorization, or secrets provider is present in this repository. Do not describe the demo store as production authentication, and do not add a security flow by assumption.
+`AuthStore` exposes a read-only signal-backed `UserSummary | null`, a computed `isAuthenticated`, and `signIn`/`signOut`; it starts unauthenticated. Acquire gates its routes with `apps/tao-acquire/src/app/core/auth/auth.guard.ts`: `/login` is public and renders the shared `TaoAcquireLoginComponent` form through `features/login`, while every other route requires a signed-in user and redirects to `/login?redirectTo=...`. The shell is rendered only for signed-in users. This is a **client-side demo gate only**: `AuthService.signIn` accepts any already-validated credentials without verifying them, stores no token, keeps no session across reloads, and offers no logout entry point. No role/claim enforcement, CSRF configuration, backend authorization, or secrets provider is present in this repository. Do not describe the demo store, the login form, or the guard as production authentication.
 
 ### Backend, database, and integrations
 
@@ -132,7 +130,7 @@ There is no backend project in this workspace. Consequently there are no control
 
 ### Forms and API calls
 
-Use Reactive Forms for non-trivial forms. The campaign form uses `FormBuilder.nonNullable.group`, Angular `Validators`, `TaoValidators`, `markAllAsTouched()`, a submission-validation signal, and a typed `output<CampaignCreateRequest>()`. Trim and map raw form values at the form boundary before emitting a request.
+Use Reactive Forms for the existing feature forms. The campaign form uses `FormBuilder.nonNullable.group`, Angular `Validators`, `TaoValidators`, `markAllAsTouched()`, a submission-validation signal, and a typed `output<CampaignCreateRequest>()`. Trim and map raw form values at the form boundary before emitting a request. For new forms, `AGENTS.md` prefers Signal Forms (`@angular/forms/signals`, stable in v22); `TaoAcquireLoginComponent` in `tao-ui` follows that pattern with a `form()` schema, built-in validators, and `submit()`.
 
 Put HTTP calls in a feature `data-access` service. Type both request and response models, use `ApiClientService`, expose the returned `Observable`, and let the owning page or store decide when to subscribe/convert state. Do not call `HttpClient` directly from a component. No consistent loading/error subscription pattern is established yet; use the existing `tao-loading-state`, `tao-error-state`, `tao-empty-state`, and notification abstractions when integrating a real request.
 
@@ -149,7 +147,7 @@ Global styles are minimal: Material's `azure-blue` prebuilt theme is configured 
 - Keep strict typing. The shared compiler enables strict Angular injection/input checks and no implicit override/returns/fallthrough; do not introduce `any` without a documented boundary reason.
 - Use PascalCase for component classes, interfaces/types where established, and Angular component selectors with the `tao-` prefix. Use kebab-case file and folder names.
 - Use descriptive camelCase for methods, fields, signals, and route data. Keep constants in `UPPER_SNAKE_CASE` only when they are true module constants; existing static utility members use names such as `alphabeticWithSpaces`.
-- Use `*Vm` for feature view models and `*Request` for request shapes where that convention already exists. Shared contracts belong in `tao-contracts` only when they are genuinely shared.
+- Use `*Vm` for feature view models and `*Request` for request shapes where that convention already exists. Shared contracts belong in `tao-core` only when they are genuinely shared.
 - Prefer inferred types when obvious, explicit public method return types for service/component APIs, and `unknown` over `any` at uncertain boundaries.
 - Keep RxJS streams typed. Avoid unnecessary manual subscriptions; when a subscription is required, make ownership and teardown explicit. Signals are preferred for local UI state.
 - Use single quotes, semicolons, trailing commas, two spaces, and a 100-column Prettier width. SCSS/CSS uses double quotes under the configured Prettier override.
@@ -187,7 +185,6 @@ npm run build:libs
 npm run build:acquire
 npm run build:assess
 npm run build:all
-npm run ng -- build tao-contracts
 npm run ng -- build tao-core
 npm run ng -- build tao-ui
 npm run ng -- build tao-utils
@@ -230,7 +227,7 @@ Do not silently upgrade npm, Angular, TypeScript, or other dependencies. Update 
 ### API client plus feature service
 
 - **Why:** centralizes base URL construction and typed HTTP error handling.
-- **Where:** `apps/tao-acquire/src/app/core/api/api-client.service.ts` and `features/campaigns/data-access/campaign.service.ts`.
+- **Where:** `libs/tao-core/src/lib/api/api-client.service.ts` and `apps/tao-acquire/src/app/features/campaigns/data-access/campaign.service.ts`.
 - **Use:** feature service defines endpoint/request/response types and delegates to `ApiClientService`.
 - **Avoid:** direct `HttpClient` calls from a page, hardcoded API URLs, or duplicating URL/error handling in every feature.
 
@@ -260,7 +257,7 @@ Treat candidate and recruiter data as sensitive even though the current reposito
 
 These are observations only; do not fix them as part of an unrelated task:
 
-- **Demo authentication:** `libs/tao-core/src/lib/auth/auth.store.ts` seeds a hardcoded recruiter user. Impact: no real authentication or authorization. Risk: unsafe to treat as production identity. Direction: define the external identity contract before implementing a complete flow.
+- **Demo authentication:** `AuthStore` starts unauthenticated and Acquire guards its routes with `authGuard`, but `apps/tao-acquire/src/app/core/auth/auth.service.ts` fabricates the identity from the submitted user name and verifies nothing. Impact: the login screen is a UI gate, not a security boundary; a page reload signs the user out. Risk: unsafe to treat as production identity. Direction: define the external identity contract, then replace `AuthService.signIn` with the real request and decide session/token storage explicitly.
 - **Mixed data maturity:** `CampaignService` and runtime API configuration exist, while several pages still use static/mock view-models. Impact: UI behavior and API behavior are not yet the same system. Direction: map real API DTOs to feature view models once the backend contract is available.
 - **Shallow tests:** many tests assert only construction and non-empty HTML. Impact: regressions in filtering, forms, navigation, and accessibility can pass. Direction: add behavior-focused tests when each feature is made functional.
 - **Angular convention drift:** most components omit explicit `standalone`, but at least one current component explicitly sets `standalone: true` and `ChangeDetectionStrategy.OnPush`, while repository instructions prohibit both explicit declarations for new code. Direction: preserve existing behavior and converge only in a deliberate cleanup.
@@ -271,10 +268,10 @@ These are observations only; do not fix them as part of an unrelated task:
 
 ### Confirmed
 
-- The repository is an Angular 22 workspace with two applications and four libraries, registered in `angular.json`.
+- The repository is an Angular 22 workspace with two applications and three libraries, registered in `angular.json`.
 - Applications use standalone bootstrap/configuration and SCSS; Acquire uses lazy route boundaries.
 - Shared packages are built with ng-packagr and consumed through `dist` path aliases.
-- `tao-ui` is the shared presentation layer, `tao-contracts` the shared type surface, `tao-core` shared infrastructure/state, and `tao-utils` pure helpers/validators.
+- `tao-ui` is the shared presentation layer, `tao-core` shared infrastructure/state plus shared contracts, and `tao-utils` pure helpers/validators.
 
 ### Strongly inferred
 
@@ -317,7 +314,7 @@ These are observations only; do not fix them as part of an unrelated task:
 
 ### During coding
 
-1. Follow the existing standalone, feature-slice, signal, Reactive Forms, and shared-library patterns.
+1. Follow the existing standalone, feature-slice, signal, form (Signal Forms for new forms), and shared-library patterns.
 2. Reuse existing controls, services, validators, and error/empty/loading states.
 3. Keep presentation, feature coordination, data access, and shared contracts separated.
 4. Preserve existing behavior outside the requested change and handle edge cases explicitly.

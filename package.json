@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build:lib:contracts": "ng build tao-contracts",
     "build:lib:core": "ng build tao-core",
     "build:lib:ui": "ng build tao-ui",
     "build:lib:utils": "ng build tao-utils",
-    "build:libs": "npm run build:lib:contracts && npm run build:lib:core && npm run build:lib:ui && npm run build:lib:utils",
+    "build:libs": "npm run build:lib:core && npm run build:lib:ui && npm run build:lib:utils",
     "build:acquire": "npm run build:libs && ng build tao-acquire",
     "build:assess": "npm run build:libs && ng build tao-assess",
     "build:all": "npm run build:libs && ng build tao-acquire && ng build tao-assess",
@@ -18,7 +17,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test:all",
-    "test:all": "ng test tao-acquire && ng test tao-assess && ng test tao-ui && ng test tao-core && ng test tao-contracts && ng test tao-utils",
+    "test:all": "ng test tao-acquire && ng test tao-assess && ng test tao-ui && ng test tao-core && ng test tao-utils",
     "test:watch": "ng test --watch",
     "format": "prettier --write \"apps/**/*.{ts,html,scss,css}\" \"libs/**/*.{ts,html,scss,css}\" \"*.{json,md,yml,yaml}\"",
     "format:check": "prettier --check \"apps/**/*.{ts,html,scss,css}\" \"libs/**/*.{ts,html,scss,css}\" \"*.{json,md,yml,yaml}\""

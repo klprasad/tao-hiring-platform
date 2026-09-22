@@ -441,11 +441,16 @@ nav a.active {
 }
 
 .user-info small {
+  overflow: hidden;
+
   margin-top: 2px;
 
   color: #7f91ad;
 
   font-size: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ==========================================================================

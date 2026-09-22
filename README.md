@@ -52,8 +52,7 @@ tao-hiring-platform/
 │
 ├── libs/
 │   ├── tao-ui/                           # Shared shell, page header, and card components
-│   ├── tao-core/                          # Shared infrastructure and signal-based state
-│   ├── tao-contracts/                     # Typed DTO/ViewModel-facing contracts
+│   ├── tao-core/                          # Shared infrastructure, contracts, and signal-based state
 │   └── tao-utils/                         # Small shared utilities
 │
 ├── tools/
@@ -89,11 +88,10 @@ Feature code may depend on the shared libraries:
 ```text
 application feature -> tao-ui
 application feature -> tao-core
-application feature -> tao-contracts
 application feature -> tao-utils
 ```
 
-Shared libraries must not import application features. API DTOs should be mapped to UI ViewModels before they reach pages or presentation components.
+Shared libraries must not import application features. API DTOs should be mapped to UI ViewModels before they reach pages or presentation components. Shared cross-app contracts (such as `NavigationItem` and `UserSummary`) live in `tao-core`.
 
 ### UI foundation
 
@@ -133,7 +131,6 @@ Both application build scripts build the shared libraries first.
 Build the shared libraries directly:
 
 ```bash
-npm run ng -- build tao-contracts
 npm run ng -- build tao-core
 npm run ng -- build tao-ui
 npm run ng -- build tao-utils

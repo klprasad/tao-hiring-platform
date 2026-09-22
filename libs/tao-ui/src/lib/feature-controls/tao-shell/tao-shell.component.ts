@@ -6,7 +6,7 @@ import { filter, map, startWith } from 'rxjs';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { NavigationItem } from '@tao/contracts';
+import { AuthStore, NavigationItem } from '@tao/core';
 
 import { TaoButtonComponent } from '../../native-controls/tao-button/tao-button.component';
 
@@ -28,6 +28,46 @@ export class TaoShellComponent {
   readonly context = input('Workspace / Overview');
 
   readonly items = input<NavigationItem[]>([]);
+
+  // ---------------------------------------------------------------------------
+  // Signed-in user
+  // ---------------------------------------------------------------------------
+
+  private readonly authStore = inject(AuthStore);
+
+  /** Signed-in identity, or `null` when nobody is signed in. */
+  protected readonly user = this.authStore.user;
+
+  /** Full name shown next to the avatar, falling back to the email address. */
+  protected readonly userName = computed(() => {
+    const user = this.user();
+
+    if (!user) {
+      return '';
+    }
+
+    const name = `${user.firstName} ${user.lastName}`.trim();
+
+    return name || user.email;
+  });
+
+  /** Initials shown in the avatar, for example `AM` for Alex Morgan. */
+  protected readonly userInitials = computed(() => {
+    const user = this.user();
+
+    if (!user) {
+      return '';
+    }
+
+    const initials = `${this.initial(user.firstName)}${this.initial(user.lastName)}`;
+
+    return initials || this.initial(user.email);
+  });
+
+  /** First letter of a name part, uppercased. */
+  private initial(value: string): string {
+    return value.trim().charAt(0).toUpperCase();
+  }
 
   // ---------------------------------------------------------------------------
   // Router state
