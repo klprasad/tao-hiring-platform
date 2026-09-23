@@ -30,7 +30,7 @@ function isUserSummary(value: unknown): value is UserSummary {
   return (
     typeof candidate === 'object' &&
     candidate !== null &&
-    typeof candidate.id === 'string' &&
+    typeof candidate.userId === 'string' &&
     typeof candidate.email === 'string'
   );
 }

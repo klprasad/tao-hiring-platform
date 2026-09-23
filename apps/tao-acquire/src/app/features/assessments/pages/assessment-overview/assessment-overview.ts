@@ -10,30 +10,34 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 
 import { AssessmentRound } from '../../components/assessment-round/assessment-round';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentStrategyService } from '../../data-access/assessment-strategy.service';
 import { catchError, EMPTY, map } from 'rxjs';
 import {
   AssessmentRoundVm,
+  AssessmentStrategyStatus,
   AssessmentVm,
   mapAssessmentDtoToVm,
+  updateAssessmentRoundRequest,
 } from '../../models/assessment-strategy.models';
+import { TaoButtonComponent } from '@tao/ui';
 
 @Component({
   selector: 'tao-assessment-overview',
-  imports: [MatIconModule, AssessmentRound],
+  imports: [MatIconModule, AssessmentRound, TaoButtonComponent],
   templateUrl: './assessment-overview.html',
   styleUrl: './assessment-overview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssessmentOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly service = inject(AssessmentStrategyService);
   readonly editingRoundOrder = signal<number | null>(null);
   readonly errorMessage = signal('');
 
   readonly assessment = signal<AssessmentVm | null>(null);
-
+  readonly status = AssessmentStrategyStatus;
   /**
    * Campaign the assessment strategy belongs to.
    */
@@ -183,6 +187,9 @@ export class AssessmentOverview implements OnInit {
       )
       .subscribe((response) => {
         if (response) this.assessment.set(response);
+        else {
+          this.createStrategy();
+        }
       });
   }
   approveStrategy(): void {
@@ -243,14 +250,29 @@ export class AssessmentOverview implements OnInit {
       round.order === updatedRound.order ? updatedRound : round,
     );
 
-    this.assessment.set({
-      ...assessment,
+    const payload: updateAssessmentRoundRequest = {
+      assessmentName: assessment.assessmentName,
       rounds: updatedRounds,
-    });
-
+    };
+    this.service
+      .updateAssessmentRounds(assessment.id, payload)
+      .pipe(
+        map(mapAssessmentDtoToVm),
+        catchError(() => {
+          this.errorMessage.set('The assessment strategy could not be approved. Please try again.');
+          return EMPTY;
+        }),
+      )
+      .subscribe((response) => {
+        if (response) this.assessment.set(response);
+      });
     this.editingRoundOrder.set(null);
   }
   cancelEditingRound(): void {
     this.editingRoundOrder.set(null);
+  }
+  cancel(): void {
+    const campaignId = this.route.snapshot.paramMap.get('campaignId');
+    this.router.navigate(['/campaigns', campaignId]);
   }
 }

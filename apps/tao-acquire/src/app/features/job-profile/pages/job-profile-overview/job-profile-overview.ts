@@ -112,7 +112,7 @@ export class JobProfileOverview implements OnInit {
       .getJobProfileByCampaign(id)
       .pipe(
         catchError((error: unknown) => {
-          if (this.isJobProfileNotFound(error)) {
+          if (this.isJobProfileNotFound(id, error)) {
             this.router.navigate(['/campaigns', id, 'job-profile-create']);
           }
           this.errorMessage.set(this.describeError(error, 'The job profile could not be loaded.'));
@@ -123,12 +123,14 @@ export class JobProfileOverview implements OnInit {
         this.loadedProfile.set(mapJobProfileDtoToVm(response));
       });
   }
-  private isJobProfileNotFound(error: unknown): boolean {
+  private isJobProfileNotFound(campaignId: string, error: unknown): boolean {
     return (
       typeof error === 'object' &&
       error !== null &&
-      'code' in error &&
-      (error as { code?: unknown }).code === 'JobProfile.NotFound'
+      'error' in error &&
+      typeof (error as { error?: { detail?: unknown } }).error?.detail === 'string' &&
+      (error as { error: { detail: string } }).error.detail ===
+        `Job Profile for campaign '${campaignId}' was not found.`
     );
   }
   private describeError(error: unknown, fallback: string): string {

@@ -113,7 +113,7 @@ export class AssessmentRound {
 
   private loadRound(round: AssessmentRoundVm): void {
     this.roundForm.patchValue({
-      displayType: round.displayType,
+      displayType: round.type,
       difficulty: round.difficulty,
       durationInMinutes: round.durationInMinutes,
       targetQuestionCount: round.targetQuestionCount,
@@ -170,7 +170,7 @@ export class AssessmentRound {
     const updatedRound: AssessmentRoundVm = {
       ...this.round(),
 
-      displayType: value.displayType,
+      type: value.displayType,
 
       difficulty: value.difficulty,
 

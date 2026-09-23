@@ -5,6 +5,7 @@ import { ApiClientService, ApiResponse } from '@tao/core';
 import {
   ApproveAssessmentStrategyRequest,
   AssessmentDto,
+  updateAssessmentRoundRequest,
 } from '../models/assessment-strategy.models';
 
 /**
@@ -31,6 +32,16 @@ export class AssessmentStrategyService {
 
   getAssessmentStrategy(campaignId: string): Observable<AssessmentDto> {
     return this.api.get<AssessmentDto>(`/api/campaigns/${campaignId}/assessment-strategy`);
+  }
+
+  updateAssessmentRounds(
+    assessmentStrategyId: string,
+    request: updateAssessmentRoundRequest,
+  ): Observable<AssessmentDto> {
+    return this.api.put<AssessmentDto, updateAssessmentRoundRequest>(
+      `/api/campaigns/${assessmentStrategyId}`,
+      request,
+    );
   }
   /**
    * Approves an assessment strategy.

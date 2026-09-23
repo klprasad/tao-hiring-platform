@@ -123,5 +123,18 @@
         }
       </div>
     </section>
+    <div class="form-actions">
+      <tao-button type="button" label="Back" appearance="outlined" (click)="cancel()" />
+
+      @if (assessment.status === 'Generated') {
+        <tao-button
+          type="button"
+          label="Approve"
+          appearance="filled"
+          color="primary"
+          (click)="approveStrategy()"
+        />
+      }
+    </div>
   </div>
 }

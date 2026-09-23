@@ -23,9 +23,14 @@ export const ASSESSMENT_STRATEGY_STATUS_LABELS: Record<AssessmentStrategyStatus,
 export interface ApproveAssessmentStrategyRequest {
   approvedByUserId: string;
 }
+
+export interface updateAssessmentRoundRequest {
+  assessmentName: string;
+  rounds: AssessmentRoundVm[];
+}
 export interface AssessmentRoundVm {
   order: number;
-  displayType: string;
+  type: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   durationInMinutes: number;
   targetQuestionCount: number;
@@ -40,7 +45,7 @@ export interface AssessmentCompetencyVm {
 export function mapAssessmentRoundToVm(round: AssessmentRoundDto): AssessmentRoundVm {
   return {
     order: round.Order,
-    displayType: formatRoundType(round.Type),
+    type: formatRoundType(round.Type),
     difficulty: round.Difficulty,
     durationInMinutes: round.DurationInMinutes,
     targetQuestionCount: round.QuestionCount,
