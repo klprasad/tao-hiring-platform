@@ -1,30 +1,120 @@
 <div class="page">
   <tao-page-header
-    title="Resume process"
+    title="Resume Process"
     description="Import candidate resumes into this campaign."
   />
 
   @if (errorMessage()) {
-    <p class="error" role="alert">{{ errorMessage() }}</p>
+    <div class="message message--error" role="alert">
+      <span class="message__icon">!</span>
+
+      <div>
+        <strong>Import failed</strong>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    </div>
   }
 
-  <tao-card title="Import resumes">
-    <p>
-      Supported formats: {{ acceptedFormats }}. Up to {{ maxFiles }} files per import, 10&nbsp;MB
-      each.
-    </p>
-    <input
-      type="file"
-      multiple
-      [attr.accept]="acceptedFormats"
-      [disabled]="isUploading() || !campaignId"
-      (change)="onFilesSelected($event)"
-    />
+  <tao-card title="Import Resumes">
+    <div class="import-section">
+      <!-- Information -->
+      <div class="import-info">
+        <div class="import-info__icon">
+          <span>↑</span>
+        </div>
+
+        <div class="import-info__content">
+          <h3>Upload candidate resumes</h3>
+
+          <p>
+            Select one or more resume files to import into this campaign. The system will process
+            the resumes automatically after upload.
+          </p>
+        </div>
+      </div>
+
+      <!-- Upload area -->
+      <div class="upload-area">
+        <input
+          #fileInput
+          id="resumeFiles"
+          type="file"
+          multiple
+          class="upload-area__input"
+          [attr.accept]="acceptedFormats"
+          [disabled]="isUploading() || !campaignId"
+          (change)="onFilesSelected($event)"
+        />
+
+        <label
+          for="resumeFiles"
+          class="upload-area__content"
+          [class.upload-area__content--disabled]="isUploading() || !campaignId"
+        >
+          <div class="upload-area__icon">
+            <span>↑</span>
+          </div>
+
+          <div class="upload-area__title">
+            @if (isUploading()) {
+              Uploading resumes...
+            } @else {
+              Select resume files
+            }
+          </div>
+
+          <div class="upload-area__description">Click here to browse and select files</div>
+
+          <div class="upload-area__formats">
+            Supported formats:
+            <strong>{{ acceptedFormats }}</strong>
+          </div>
+        </label>
+      </div>
+
+      <!-- Upload restrictions -->
+      <div class="upload-rules">
+        <div class="upload-rule">
+          <span class="upload-rule__icon">✓</span>
+          <span
+            >Up to <strong>{{ maxFiles }}</strong> files per import</span
+          >
+        </div>
+
+        <div class="upload-rule">
+          <span class="upload-rule__icon">✓</span>
+          <span>Maximum <strong>10 MB</strong> per file</span>
+        </div>
+
+        <div class="upload-rule">
+          <span class="upload-rule__icon">✓</span>
+          <span>PDF and supported document formats</span>
+        </div>
+      </div>
+    </div>
   </tao-card>
 
+  <!-- Import started -->
   @if (batchId(); as id) {
-    <tao-card title="Import started">
-      <p>Resume import batch: {{ id }}</p>
+    <tao-card title="Import Started">
+      <div class="import-success">
+        <div class="import-success__icon">✓</div>
+
+        <div class="import-success__content">
+          <h3>Resume import started successfully</h3>
+
+          <p>
+            Your resumes are being processed. You can continue working while the import is
+            completed.
+          </p>
+
+          <div class="import-success__batch">
+            <span>Import Batch ID</span>
+
+            <strong>{{ id }}</strong>
+          </div>
+        </div>
+      </div>
     </tao-card>
   }
 </div>

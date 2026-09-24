@@ -1,3 +1,402 @@
-:host {
-  display: block;
+.page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  line-height: 18px;
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &--error {
+    border: 1px solid #f1caca;
+    background: #fff7f7;
+    color: #a93232;
+
+    .message__icon {
+      background: #f7dada;
+      color: #a93232;
+    }
+  }
+}
+
+/* ============================================================
+   IMPORT SECTION
+   ============================================================ */
+
+.import-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============================================================
+   INFORMATION
+   ============================================================ */
+
+.import-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  &__icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #e9f8f0;
+    color: #24915e;
+
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  &__content {
+    h3 {
+      margin: 0 0 4px;
+
+      color: #183a58;
+
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 22px;
+    }
+
+    p {
+      max-width: 760px;
+
+      margin: 0;
+
+      color: #687780;
+
+      font-size: 13px;
+      line-height: 20px;
+    }
+  }
+}
+
+/* ============================================================
+   UPLOAD AREA
+   ============================================================ */
+
+.upload-area {
+  width: 100%;
+  box-sizing: border-box;
+
+  &__input {
+    /*
+     * Hide the native browser file input.
+     * The label below acts as the upload button.
+     */
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+
+    pointer-events: none;
+  }
+
+  &__content {
+    min-height: 250px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 32px;
+
+    border: 1.5px dashed #b9cec3;
+    border-radius: 10px;
+
+    background: #fbfdfc;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+
+    &:hover {
+      border-color: #79cfa7;
+
+      background: #f5fbf8;
+
+      box-shadow: 0 2px 8px rgba(24, 58, 88, 0.04);
+    }
+
+    &:focus-within {
+      border-color: #79cfa7;
+    }
+
+    &--disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+
+      &:hover {
+        border-color: #b9cec3;
+        background: #fbfdfc;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e9f8f0;
+    color: #24915e;
+
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+
+    color: #183a58;
+
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__description {
+    margin-bottom: 14px;
+
+    color: #687780;
+
+    font-size: 13px;
+  }
+
+  &__formats {
+    color: #899791;
+
+    font-size: 12px;
+
+    strong {
+      color: #5f756b;
+      font-weight: 600;
+    }
+  }
+}
+
+/* ============================================================
+   UPLOAD RULES
+   ============================================================ */
+
+.upload-rules {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 24px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #e2ebe6;
+  border-radius: 7px;
+
+  background: #f8fbf9;
+}
+
+.upload-rule {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #687780;
+
+  font-size: 12px;
+
+  &__icon {
+    width: 17px;
+    height: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e3f5eb;
+    color: #24915e;
+
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  strong {
+    color: #183a58;
+    font-weight: 600;
+  }
+}
+
+/* ============================================================
+   IMPORT SUCCESS
+   ============================================================ */
+
+.import-success {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  padding: 4px 0;
+
+  &__icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e5f7ed;
+    color: #24915e;
+
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  &__content {
+    flex: 1;
+
+    h3 {
+      margin: 0 0 4px;
+
+      color: #183a58;
+
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 14px;
+
+      color: #687780;
+
+      font-size: 13px;
+      line-height: 19px;
+    }
+  }
+
+  &__batch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 10px;
+
+    border: 1px solid #dce8e2;
+    border-radius: 5px;
+
+    background: #f8fbf9;
+
+    font-size: 11px;
+
+    span {
+      color: #7b8984;
+    }
+
+    strong {
+      color: #183a58;
+
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
+
+  .upload-area {
+    &__content {
+      min-height: 220px;
+      padding: 24px 16px;
+    }
+  }
+
+  .upload-rules {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
