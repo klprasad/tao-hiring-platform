@@ -2,6 +2,15 @@
   title="Candidates Screening"
   description="Review candidate progress across your active campaigns."
 >
+  @if (candidates().length > 0) {
+    <tao-button
+      appearance="filled"
+      label="Assessment Strategy"
+      tooltip="Assessment Strategy"
+      color="primary"
+      (click)="goToAssessment()"
+    />
+  }
 </tao-page-header>
 
 <!-- Metrics -->

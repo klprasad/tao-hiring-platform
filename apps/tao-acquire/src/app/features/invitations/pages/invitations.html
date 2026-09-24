@@ -1,3 +1,68 @@
-<main>
-  <h1>Invitations</h1>
-</main>
+<section class="email-invitation">
+  <header class="email-invitation__header">
+    <div class="email-invitation__title-wrapper">
+      <div class="email-invitation__icon">
+        <mat-icon>mail_outline</mat-icon>
+      </div>
+
+      <div>
+        <h2 class="email-invitation__title">Email Invitation</h2>
+
+        <p class="email-invitation__description">
+          Enter the message you want to send to the shortlisted candidates.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="email-invitation__content">
+    <form class="email-invitation__form" [formGroup]="form" (ngSubmit)="sendInvitation()">
+      <tao-textarea
+        label="Email Message"
+        [labelAbove]="true"
+        [rows]="12"
+        [required]="true"
+        [maxLength]="maxLength"
+        footerMessage="You can personalize the message for the shortlisted candidates."
+        [disabled]="sending()"
+        placeholder="Enter your email message..."
+        formControlName="emailBody"
+      />
+
+      <!-- API / application error -->
+      @if (errorMessage()) {
+        <div class="message message--error" role="alert">
+          <mat-icon>error_outline</mat-icon>
+
+          <span>
+            {{ errorMessage() }}
+          </span>
+        </div>
+      }
+
+      <!-- Success -->
+      @if (successMessage()) {
+        <div class="message message--success" role="status">
+          <mat-icon>check_circle_outline</mat-icon>
+
+          <span>
+            {{ successMessage() }}
+          </span>
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="email-invitation__actions">
+        <tao-button
+          label="Send Invitation"
+          icon="send"
+          appearance="filled"
+          color="primary"
+          size="small"
+          type="submit"
+          [disabled]="sending() || form.invalid"
+        />
+      </div>
+    </form>
+  </div>
+</section>

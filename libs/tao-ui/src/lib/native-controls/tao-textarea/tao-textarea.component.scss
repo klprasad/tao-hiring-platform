@@ -2,20 +2,223 @@
   display: block;
   width: 100%;
 }
+
 .field {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+
+  // ============================================================
+  // LABEL
+  // ============================================================
+
+  &__label {
+    margin-bottom: 6px;
+
+    color: #183a58;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  &__required {
+    margin-left: 3px;
+    color: #d64545;
+  }
+
+  // ============================================================
+  // MATERIAL FORM FIELD
+  // ============================================================
+
+  &__form-field {
+    width: 100%;
+    margin: 0;
+
+    --mdc-outlined-text-field-outline-color: #cfdad5;
+    --mdc-outlined-text-field-hover-outline-color: #a8c8b8;
+    --mdc-outlined-text-field-focus-outline-color: #79cfa7;
+
+    --mdc-outlined-text-field-input-text-color: #263746;
+    --mdc-outlined-text-field-input-text-placeholder-color: #9aa8a2;
+
+    --mdc-outlined-text-field-error-outline-color: #b3261e;
+    --mdc-outlined-text-field-error-hover-outline-color: #b3261e;
+    --mdc-outlined-text-field-error-focus-outline-color: #b3261e;
+
+    --mdc-outlined-text-field-disabled-outline-color: #e1e8e4;
+    --mdc-outlined-text-field-disabled-input-text-color: #9aa8a2;
+  }
+
+  // ============================================================
+  // TEXTAREA
+  // ============================================================
+
+  &__control {
+    box-sizing: border-box;
+
+    min-height: 240px;
+
+    padding: 10px 12px !important;
+
+    resize: vertical;
+
+    border: 0;
+    outline: none;
+
+    color: #263746;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+
+    &::placeholder {
+      color: #9aa8a2;
+      opacity: 1;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  // ============================================================
+  // FOOTER
+  // ============================================================
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 18px;
+
+    margin-top: 5px;
+    padding: 0 2px;
+
+    gap: 12px;
+  }
+
+  &__hint {
+    color: #7b8984;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &__counter {
+    flex-shrink: 0;
+
+    color: #7b8984;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: nowrap;
+  }
+
+  // ============================================================
+  // ERROR
+  // ============================================================
+
+  &__form-field--invalid {
+    --mdc-outlined-text-field-outline-color: #b3261e;
+    --mdc-outlined-text-field-hover-outline-color: #b3261e;
+    --mdc-outlined-text-field-focus-outline-color: #b3261e;
+  }
 }
-.field.mat-form-field-invalid {
-  --mat-form-field-outlined-error-outline-color: #b3261e;
-  --mat-form-field-outlined-error-hover-outline-color: #b3261e;
-  --mat-form-field-outlined-error-focus-outline-color: #b3261e;
+
+// ================================================================
+// ANGULAR MATERIAL MDC OVERRIDES
+// ================================================================
+
+::ng-deep {
+  .field__form-field {
+    .mat-mdc-text-field-wrapper {
+      padding: 0;
+
+      background: #fff;
+
+      border-radius: 4px;
+    }
+
+    .mdc-text-field--outlined {
+      border-radius: 4px;
+    }
+
+    // Default border
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: #cfdad5 !important;
+      border-width: 1px !important;
+
+      transition:
+        border-color 150ms ease,
+        border-width 150ms ease;
+    }
+
+    // Hover
+    .mdc-text-field:hover:not(.mdc-text-field--disabled) {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #a8c8b8 !important;
+      }
+    }
+
+    // Focus
+    .mdc-text-field--focused {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #79cfa7 !important;
+        border-width: 2px !important;
+      }
+    }
+
+    // Invalid
+    &.field__form-field--invalid {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #b3261e !important;
+      }
+
+      .mdc-text-field--focused {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border-color: #b3261e !important;
+        }
+      }
+    }
+
+    // Disabled
+    .mdc-text-field--disabled {
+      background: #f5f7f6;
+
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #e1e8e4 !important;
+      }
+    }
+
+    // Remove Material's default bottom area
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
 }
-::ng-deep .field.mat-form-field-invalid .mdc-text-field--outlined .mat-mdc-notch-piece {
-  border-color: #b3261e !important;
-}
+
+// ================================================================
+// ERROR MESSAGE
+// ================================================================
+
 .field-error {
+  margin: 5px 12px 0;
+
   color: #b3261e;
+
   font-size: 12px;
   line-height: 16px;
-  margin: -16px 16px 8px;
 }

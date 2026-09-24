@@ -1,8 +1,8 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
+import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
 
 import { CandidateDto } from '../models/candidates.mode';
 import { CandidatesService } from '../data-access/candidates.service';
@@ -11,14 +11,14 @@ type CandidateFilter = 'all' | 'recommended' | 'rejected';
 
 @Component({
   selector: 'tao-candidates',
-  imports: [TaoCardComponent, TaoPageHeaderComponent],
+  imports: [TaoCardComponent, TaoPageHeaderComponent, TaoButtonComponent],
   templateUrl: './candidates.html',
   styleUrl: './candidates.scss',
 })
 export class Candidates implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(CandidatesService);
-
+  private readonly router = inject(Router);
   // ---------------------------------------------------------------------------
   // State
   // ---------------------------------------------------------------------------
@@ -172,5 +172,9 @@ export class Candidates implements OnInit {
       this.route.snapshot.queryParamMap.get('campaignId') ??
       ''
     );
+  }
+
+  goToAssessment() {
+    this.router.navigate(['/campaigns', this.campaignId, 'assessment-strategy']);
   }
 }
