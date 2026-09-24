@@ -3,222 +3,494 @@
   width: 100%;
 }
 
+/* ==========================================================
+   FIELD
+   ========================================================== */
+
 .field {
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  margin: 0;
+}
+
+/* ==========================================================
+   LABEL ABOVE MODE
+   Used when [labelAbove]="true"
+   ========================================================== */
+
+.field__label {
+  display: block;
+
+  margin: 0 0 6px;
+
+  color: #183a58;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.field__required {
+  margin-left: 3px;
+
+  color: #b3261e;
+}
+
+/* ==========================================================
+   MATERIAL FORM FIELD - COMMON
+   ========================================================== */
+
+.field__form-field {
+  width: 100%;
+  margin: 0;
+
+  --mdc-outlined-text-field-outline-color: #d5ded9;
+  --mdc-outlined-text-field-hover-outline-color: #b8c8c0;
+  --mdc-outlined-text-field-focus-outline-color: #54a87d;
+
+  --mdc-outlined-text-field-input-text-color: #263746;
+  --mdc-outlined-text-field-input-text-placeholder-color: #9aa8a2;
+
+  --mdc-outlined-text-field-label-text-color: #183a58;
+  --mdc-outlined-text-field-focus-label-text-color: #54a87d;
+
+  --mdc-outlined-text-field-error-outline-color: #b3261e;
+  --mdc-outlined-text-field-error-hover-outline-color: #b3261e;
+  --mdc-outlined-text-field-error-focus-outline-color: #b3261e;
+}
+
+/* ==========================================================
+   MATERIAL WRAPPER
+   ========================================================== */
+
+:host ::ng-deep .field__form-field .mat-mdc-text-field-wrapper {
   width: 100%;
 
-  // ============================================================
-  // LABEL
-  // ============================================================
+  padding: 0;
 
-  &__label {
-    margin-bottom: 6px;
+  background: #fff;
 
-    color: #183a58;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 16px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-  }
-
-  &__required {
-    margin-left: 3px;
-    color: #d64545;
-  }
-
-  // ============================================================
-  // MATERIAL FORM FIELD
-  // ============================================================
-
-  &__form-field {
-    width: 100%;
-    margin: 0;
-
-    --mdc-outlined-text-field-outline-color: #cfdad5;
-    --mdc-outlined-text-field-hover-outline-color: #a8c8b8;
-    --mdc-outlined-text-field-focus-outline-color: #79cfa7;
-
-    --mdc-outlined-text-field-input-text-color: #263746;
-    --mdc-outlined-text-field-input-text-placeholder-color: #9aa8a2;
-
-    --mdc-outlined-text-field-error-outline-color: #b3261e;
-    --mdc-outlined-text-field-error-hover-outline-color: #b3261e;
-    --mdc-outlined-text-field-error-focus-outline-color: #b3261e;
-
-    --mdc-outlined-text-field-disabled-outline-color: #e1e8e4;
-    --mdc-outlined-text-field-disabled-input-text-color: #9aa8a2;
-  }
-
-  // ============================================================
-  // TEXTAREA
-  // ============================================================
-
-  &__control {
-    box-sizing: border-box;
-
-    min-height: 240px;
-
-    padding: 10px 12px !important;
-
-    resize: vertical;
-
-    border: 0;
-    outline: none;
-
-    color: #263746;
-
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.6;
-
-    &::placeholder {
-      color: #9aa8a2;
-      opacity: 1;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-    }
-  }
-
-  // ============================================================
-  // FOOTER
-  // ============================================================
-
-  &__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    min-height: 18px;
-
-    margin-top: 5px;
-    padding: 0 2px;
-
-    gap: 12px;
-  }
-
-  &__hint {
-    color: #7b8984;
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  &__counter {
-    flex-shrink: 0;
-
-    color: #7b8984;
-    font-size: 12px;
-    line-height: 16px;
-    white-space: nowrap;
-  }
-
-  // ============================================================
-  // ERROR
-  // ============================================================
-
-  &__form-field--invalid {
-    --mdc-outlined-text-field-outline-color: #b3261e;
-    --mdc-outlined-text-field-hover-outline-color: #b3261e;
-    --mdc-outlined-text-field-focus-outline-color: #b3261e;
-  }
+  border-radius: 6px;
 }
 
-// ================================================================
-// ANGULAR MATERIAL MDC OVERRIDES
-// ================================================================
+/*
+ * Textarea needs variable height.
+ * Do not force the wrapper to 38px like tao-input.
+ */
 
-::ng-deep {
-  .field__form-field {
-    .mat-mdc-text-field-wrapper {
-      padding: 0;
+:host ::ng-deep .field__form-field .mat-mdc-form-field-flex {
+  width: 100%;
 
-      background: #fff;
+  padding: 0;
 
-      border-radius: 4px;
-    }
-
-    .mdc-text-field--outlined {
-      border-radius: 4px;
-    }
-
-    // Default border
-    .mdc-notched-outline__leading,
-    .mdc-notched-outline__notch,
-    .mdc-notched-outline__trailing {
-      border-color: #cfdad5 !important;
-      border-width: 1px !important;
-
-      transition:
-        border-color 150ms ease,
-        border-width 150ms ease;
-    }
-
-    // Hover
-    .mdc-text-field:hover:not(.mdc-text-field--disabled) {
-      .mdc-notched-outline__leading,
-      .mdc-notched-outline__notch,
-      .mdc-notched-outline__trailing {
-        border-color: #a8c8b8 !important;
-      }
-    }
-
-    // Focus
-    .mdc-text-field--focused {
-      .mdc-notched-outline__leading,
-      .mdc-notched-outline__notch,
-      .mdc-notched-outline__trailing {
-        border-color: #79cfa7 !important;
-        border-width: 2px !important;
-      }
-    }
-
-    // Invalid
-    &.field__form-field--invalid {
-      .mdc-notched-outline__leading,
-      .mdc-notched-outline__notch,
-      .mdc-notched-outline__trailing {
-        border-color: #b3261e !important;
-      }
-
-      .mdc-text-field--focused {
-        .mdc-notched-outline__leading,
-        .mdc-notched-outline__notch,
-        .mdc-notched-outline__trailing {
-          border-color: #b3261e !important;
-        }
-      }
-    }
-
-    // Disabled
-    .mdc-text-field--disabled {
-      background: #f5f7f6;
-
-      .mdc-notched-outline__leading,
-      .mdc-notched-outline__notch,
-      .mdc-notched-outline__trailing {
-        border-color: #e1e8e4 !important;
-      }
-    }
-
-    // Remove Material's default bottom area
-    .mat-mdc-form-field-subscript-wrapper {
-      display: none;
-    }
-  }
+  align-items: flex-start;
 }
 
-// ================================================================
-// ERROR MESSAGE
-// ================================================================
+/* ==========================================================
+   ==========================================================
+   MODE 1
+   labelAbove = false
+   Floating Material label
+   ==========================================================
+   ========================================================== */
+
+/*
+ * Let MDC control the floating label geometry.
+ *
+ * Do NOT apply the 19px positioning used by tao-input.
+ * A textarea is much taller than an input.
+ */
+
+:host ::ng-deep .field__form-field:not(.field__form-field--label-above) .mat-mdc-form-field-infix {
+  width: 100%;
+
+  min-height: 240px;
+
+  padding: 0 !important;
+
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   FLOATING LABEL
+   ========================================================== */
+
+:host ::ng-deep .field__form-field:not(.field__form-field--label-above) .mdc-floating-label {
+  color: #183a58;
+
+  font-size: 13px;
+}
+
+/*
+ * Focused floating label.
+ */
+
+:host
+  ::ng-deep
+  .field__form-field:not(.field__form-field--label-above).mat-focused
+  .mdc-floating-label--float-above {
+  color: #54a87d;
+}
+
+/*
+ * Do not manually position the textarea floating label.
+ *
+ * MDC handles the label/notch positioning based on the
+ * textarea form-field dimensions.
+ */
+
+/* ==========================================================
+   FLOATING MODE PLACEHOLDER
+   ========================================================== */
+
+/*
+ * Hide placeholder when empty + unfocused because the
+ * Material label occupies the field.
+ */
+
+:host
+  ::ng-deep
+  .field__form-field:not(.field__form-field--label-above)
+  .mdc-text-field:not(.mdc-text-field--focused)
+  textarea.field__control::placeholder {
+  color: transparent;
+
+  opacity: 0;
+}
+
+/*
+ * Show placeholder on focus.
+ */
+
+:host
+  ::ng-deep
+  .field__form-field:not(.field__form-field--label-above)
+  .mdc-text-field--focused
+  textarea.field__control::placeholder {
+  color: #9aa8a2;
+
+  opacity: 1;
+}
+
+/* ==========================================================
+   ==========================================================
+   MODE 2
+   labelAbove = true
+   External label
+   ==========================================================
+   ========================================================== */
+
+/*
+ * In labelAbove mode there is no Material label.
+ */
+
+:host ::ng-deep .field__form-field.field__form-field--label-above .mdc-floating-label {
+  display: none;
+}
+
+/*
+ * Textarea container.
+ */
+
+:host ::ng-deep .field__form-field.field__form-field--label-above .mat-mdc-form-field-infix {
+  width: 100%;
+
+  min-height: 240px;
+
+  padding: 0 !important;
+
+  box-sizing: border-box;
+}
+
+/*
+ * Label-above textarea.
+ */
+
+:host ::ng-deep .field__form-field.field__form-field--label-above textarea.field__control {
+  display: block;
+
+  width: 100%;
+
+  min-height: 240px;
+
+  margin: 0;
+
+  padding: 12px !important;
+
+  box-sizing: border-box;
+
+  resize: vertical;
+
+  border: 0;
+  outline: none;
+
+  background: transparent;
+
+  color: #263746;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/*
+ * Label-above placeholder is always visible.
+ */
+
+:host
+  ::ng-deep
+  .field__form-field.field__form-field--label-above
+  textarea.field__control::placeholder {
+  color: #9aa8a2;
+
+  opacity: 1;
+}
+
+/* ==========================================================
+   TEXTAREA - COMMON
+   ========================================================== */
+
+:host ::ng-deep .field__control {
+  width: 100%;
+
+  min-height: 240px;
+
+  box-sizing: border-box;
+
+  padding: 12px !important;
+
+  resize: vertical;
+
+  border: 0;
+  outline: none;
+
+  background: transparent;
+
+  color: #263746;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+:host ::ng-deep .field__control::placeholder {
+  color: #9aa8a2;
+
+  opacity: 1;
+}
+
+/* ==========================================================
+   OUTLINE
+   ========================================================== */
+
+:host ::ng-deep .field__form-field .mdc-notched-outline {
+  border-radius: 6px;
+}
+
+/*
+ * Default border.
+ */
+
+:host ::ng-deep .field__form-field .mdc-notched-outline__leading,
+:host ::ng-deep .field__form-field .mdc-notched-outline__notch,
+:host ::ng-deep .field__form-field .mdc-notched-outline__trailing {
+  border-color: #d5ded9 !important;
+
+  border-width: 1px !important;
+
+  transition:
+    border-color 150ms ease,
+    border-width 150ms ease;
+}
+
+/*
+ * Remove unwanted vertical lines inside the notch.
+ */
+
+:host ::ng-deep .field__form-field .mdc-notched-outline__notch {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+/* ==========================================================
+   OUTLINE - HOVER
+   ========================================================== */
+
+:host ::ng-deep .field__form-field:not(.mat-focused):hover .mdc-notched-outline__leading,
+:host ::ng-deep .field__form-field:not(.mat-focused):hover .mdc-notched-outline__notch,
+:host ::ng-deep .field__form-field:not(.mat-focused):hover .mdc-notched-outline__trailing {
+  border-color: #b8c8c0 !important;
+  border-width: 1px !important;
+}
+
+/* ==========================================================
+   OUTLINE - FOCUS
+   ========================================================== */
+
+:host ::ng-deep .field__form-field.mat-focused .mdc-notched-outline__leading,
+:host ::ng-deep .field__form-field.mat-focused .mdc-notched-outline__notch,
+:host ::ng-deep .field__form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #54a87d !important;
+  border-width: 2px !important;
+}
+
+/*
+ * Keep the notch sides removed.
+ */
+:host ::ng-deep .field__form-field.mat-focused .mdc-notched-outline__notch {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+/* ==========================================================
+   ERROR STATE
+   ========================================================== */
+
+.field__form-field--invalid {
+  --mdc-outlined-text-field-outline-color: #b3261e;
+  --mdc-outlined-text-field-hover-outline-color: #b3261e;
+  --mdc-outlined-text-field-focus-outline-color: #b3261e;
+
+  --mdc-outlined-text-field-label-text-color: #b3261e;
+  --mdc-outlined-text-field-focus-label-text-color: #b3261e;
+}
+
+/*
+ * Error border.
+ */
+
+:host ::ng-deep .field__form-field.field__form-field--invalid .mdc-notched-outline__leading,
+:host ::ng-deep .field__form-field.field__form-field--invalid .mdc-notched-outline__notch,
+:host ::ng-deep .field__form-field.field__form-field--invalid .mdc-notched-outline__trailing {
+  border-color: #b3261e !important;
+
+  border-width: 1px !important;
+}
+/* ==========================================================
+   ERROR + FOCUS
+   ========================================================== */
+
+:host
+  ::ng-deep
+  .field__form-field.field__form-field--invalid.mat-focused
+  .mdc-notched-outline__leading,
+:host
+  ::ng-deep
+  .field__form-field.field__form-field--invalid.mat-focused
+  .mdc-notched-outline__notch,
+:host
+  ::ng-deep
+  .field__form-field.field__form-field--invalid.mat-focused
+  .mdc-notched-outline__trailing {
+  border-color: #b3261e !important;
+  border-width: 2px !important;
+}
+
+/*
+ * Error floating label.
+ */
+
+:host ::ng-deep .field__form-field.field__form-field--invalid .mdc-floating-label {
+  color: #b3261e;
+}
+
+/*
+ * Keep notch sides removed in error state.
+ */
+
+:host ::ng-deep .field__form-field.field__form-field--invalid .mdc-notched-outline__notch {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+/* ==========================================================
+   DISABLED
+   ========================================================== */
+
+:host ::ng-deep .field__form-field .mdc-text-field--disabled {
+  background: #f5f7f6;
+}
+
+:host ::ng-deep .field__form-field .mdc-text-field--disabled .mdc-notched-outline__leading,
+:host ::ng-deep .field__form-field .mdc-text-field--disabled .mdc-notched-outline__notch,
+:host ::ng-deep .field__form-field .mdc-text-field--disabled .mdc-notched-outline__trailing {
+  border-color: #e1e8e4 !important;
+}
+
+:host ::ng-deep .field__form-field .mdc-text-field--disabled textarea.field__control {
+  color: #9aa8a2;
+
+  cursor: not-allowed;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.field__footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 18px;
+
+  margin-top: 5px;
+  padding: 0 2px;
+
+  gap: 12px;
+}
+
+.field__hint {
+  min-width: 0;
+
+  color: #7b8984;
+
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.field__counter {
+  flex-shrink: 0;
+
+  color: #7b8984;
+
+  font-size: 12px;
+  line-height: 16px;
+
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   MATERIAL SUBSCRIPT
+   ========================================================== */
+
+:host ::ng-deep .field__form-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+/* ==========================================================
+   ERROR MESSAGE
+   ========================================================== */
 
 .field-error {
-  margin: 5px 12px 0;
+  margin: 3px 12px 0;
 
   color: #b3261e;
 
   font-size: 12px;
   line-height: 16px;
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 600px) {
+  .field__footer {
+    align-items: flex-start;
+  }
 }

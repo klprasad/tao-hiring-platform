@@ -12,6 +12,7 @@
   <mat-form-field
     appearance="outline"
     class="field__form-field"
+    [class.field__form-field--label-above]="labelAbove()"
     [class.field__form-field--invalid]="
       ngControl?.invalid && (ngControl?.touched || ngControl?.dirty || showErrors())
     "
@@ -42,9 +43,13 @@
 
   @if (footerMessage() || maxLength()) {
     <div class="field__footer">
-      <span class="field__hint">
-        {{ footerMessage() }}
-      </span>
+      @if (footerMessage()) {
+        <span class="field__hint">
+          {{ footerMessage() }}
+        </span>
+      } @else {
+        <span></span>
+      }
 
       @if (maxLength()) {
         <span class="field__counter"> {{ value.length }} / {{ maxLength() }} </span>

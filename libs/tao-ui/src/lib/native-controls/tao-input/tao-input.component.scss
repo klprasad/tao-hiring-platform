@@ -4,7 +4,7 @@
 }
 
 /* ==========================================================
-   FIELD
+   COMMON FIELD
    ========================================================== */
 
 .field {
@@ -16,43 +16,47 @@
   --mdc-outlined-text-field-focus-outline-color: #54a87d;
 
   --mdc-outlined-text-field-input-text-color: #26332e;
+  --mdc-outlined-text-field-input-text-placeholder-color: #9aa8a2;
+
+  --mdc-outlined-text-field-label-text-color: #183a58;
+  --mdc-outlined-text-field-focus-label-text-color: #54a87d;
 }
 
 /* ==========================================================
-   LABEL ABOVE INPUT
+   LABEL ABOVE
+   Used when [labelAbove]="true"
    ========================================================== */
 
 .field-label {
   display: block;
 
-  height: 16px;
   margin: 0 0 6px;
 
-  color: #596660;
-  font-size: 11px;
-  line-height: 16px;
-  font-weight: 700;
+  color: #183a58;
 
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
 }
 
 .required-mark {
-  margin-left: 2px;
+  margin-left: 3px;
   color: #b3261e;
 }
 
 /* ==========================================================
-   MATERIAL FORM FIELD
+   COMMON MATERIAL FORM FIELD
    ========================================================== */
 
 :host ::ng-deep .field.mat-mdc-form-field {
+  display: block;
+
   width: 100%;
   margin: 0;
 }
 
 /* ==========================================================
-   INPUT CONTAINER
+   COMMON TEXT FIELD WRAPPER
    ========================================================== */
 
 :host ::ng-deep .field .mat-mdc-text-field-wrapper {
@@ -64,28 +68,166 @@
   padding: 0;
 
   background: #fff;
+
   border-radius: 6px;
 }
-:host ::ng-deep .field .mdc-notched-outline {
-  border-radius: 6px;
-}
+
 /* ==========================================================
-   FORM FIELD FLEX
+   COMMON FORM FIELD FLEX
    ========================================================== */
 
 :host ::ng-deep .field .mat-mdc-form-field-flex {
   height: 38px;
   min-height: 38px;
 
+  padding: 0;
+
   align-items: center;
 }
 
 /* ==========================================================
-   INFIX
+   ==========================================================
+   MODE 1
+   labelAbove = false
+   Material floating-label mode
+   ==========================================================
    ========================================================== */
 
-:host ::ng-deep .field .mat-mdc-form-field-infix {
+/*
+ * In floating-label mode, DO NOT use flex on the infix.
+ * MDC needs to control the floating label positioning.
+ */
+
+:host ::ng-deep .field:not(.field--label-above) .mat-mdc-form-field-infix {
+  width: 100%;
+
+  min-height: 38px;
+
+  padding: 0 !important;
+
+  box-sizing: border-box;
+}
+
+/* Input */
+
+:host ::ng-deep .field:not(.field--label-above) input.mat-mdc-input-element {
+  width: 100%;
+
+  height: 38px;
+
+  margin: 0;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+  color: #26332e;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  line-height: normal;
+
+  outline: none;
+}
+
+/* ==========================================================
+   FLOATING LABEL
+   ========================================================== */
+
+/*
+ * Base label.
+ */
+
+:host ::ng-deep .field:not(.field--label-above) .mdc-floating-label {
+  color: #183a58;
+
+  font-size: 13px;
+}
+
+/*
+ * Non-floating state.
+ *
+ * 38px / 2 = 19px.
+ * This centers the label vertically.
+ */
+
+:host
+  ::ng-deep
+  .field:not(.field--label-above)
+  .mdc-floating-label:not(.mdc-floating-label--float-above) {
+  top: 19px !important;
+
+  transform: translateY(-50%) !important;
+}
+
+/*
+ * Floating state.
+ *
+ * Do not override top or transform.
+ * MDC handles the notch and floating position.
+ */
+
+:host ::ng-deep .field:not(.field--label-above) .mdc-floating-label--float-above {
+  color: #183a58;
+}
+
+/*
+ * Focused floating label.
+ */
+
+:host ::ng-deep .field:not(.field--label-above).mat-focused .mdc-floating-label--float-above {
+  color: #54a87d;
+}
+
+/* ==========================================================
+   FLOATING MODE PLACEHOLDER
+   ========================================================== */
+
+/*
+ * Empty + not focused:
+ * hide placeholder because the label occupies the field.
+ */
+
+:host
+  ::ng-deep
+  .field:not(.field--label-above)
+  .mdc-text-field:not(.mdc-text-field--focused)
+  input.mat-mdc-input-element::placeholder {
+  color: transparent;
+  opacity: 0;
+}
+
+/*
+ * Focused:
+ * show placeholder.
+ */
+
+:host
+  ::ng-deep
+  .field:not(.field--label-above)
+  .mdc-text-field--focused
+  input.mat-mdc-input-element::placeholder {
+  color: #9aa8a2;
+  opacity: 1;
+}
+
+/* ==========================================================
+   ==========================================================
+   MODE 2
+   labelAbove = true
+   External label mode
+   ==========================================================
+   ========================================================== */
+
+/*
+ * The external label is completely independent of
+ * Material's floating label.
+ */
+
+:host ::ng-deep .field.field--label-above .mat-mdc-form-field-infix {
   display: flex;
+
   align-items: center;
 
   width: 100%;
@@ -93,40 +235,83 @@
   height: 38px;
   min-height: 38px;
 
-  padding: 0;
+  padding: 0 !important;
+
+  box-sizing: border-box;
 }
 
-/* ==========================================================
-   INPUT
-   ========================================================== */
+/*
+ * Input in label-above mode.
+ *
+ * line-height equals the field height so the text
+ * remains vertically centered.
+ */
 
-:host ::ng-deep .field input.mat-mdc-input-element {
+:host ::ng-deep .field.field--label-above input.mat-mdc-input-element {
+  display: block;
+
   width: 100%;
 
   height: 38px;
 
   margin: 0;
+
   padding: 0 10px;
 
   box-sizing: border-box;
 
   color: #26332e;
+
   font-family: inherit;
   font-size: 13px;
+
   line-height: 38px;
 
   outline: none;
 }
 
+/*
+ * There should not be a Material floating label in this mode.
+ */
+
+:host ::ng-deep .field.field--label-above .mdc-floating-label {
+  display: none;
+}
+
 /* ==========================================================
-OUTLINE - NORMAL
-  ==========================================================
-  */
+   LABEL ABOVE PLACEHOLDER
+   ========================================================== */
+
+:host ::ng-deep .field.field--label-above input.mat-mdc-input-element::placeholder {
+  color: #9aa8a2;
+  opacity: 1;
+}
+
+/* ==========================================================
+   OUTLINE - COMMON
+   ========================================================== */
+
+:host ::ng-deep .field .mdc-notched-outline {
+  border-radius: 6px;
+}
+
+/*
+ * Normal border.
+ */
+
 :host ::ng-deep .field .mdc-notched-outline__leading,
 :host ::ng-deep .field .mdc-notched-outline__notch,
 :host ::ng-deep .field .mdc-notched-outline__trailing {
   border-color: #d5ded9 !important;
-  border-width: 1px !important;
+}
+
+/*
+ * Remove the unwanted vertical line from the notch.
+ */
+
+:host ::ng-deep .field .mdc-notched-outline__notch {
+  border-left: 0 !important;
+  border-right: 0 !important;
 }
 
 /* ==========================================================
@@ -137,7 +322,6 @@ OUTLINE - NORMAL
 :host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__notch,
 :host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__trailing {
   border-color: #b8c8c0 !important;
-  border-width: 1px !important;
 }
 
 /* ==========================================================
@@ -148,7 +332,15 @@ OUTLINE - NORMAL
 :host ::ng-deep .field.mat-focused .mdc-notched-outline__notch,
 :host ::ng-deep .field.mat-focused .mdc-notched-outline__trailing {
   border-color: #54a87d !important;
-  border-width: 1px !important;
+}
+
+/*
+ * Keep notch sides removed on focus.
+ */
+
+:host ::ng-deep .field.mat-focused .mdc-notched-outline__notch {
+  border-left: 0 !important;
+  border-right: 0 !important;
 }
 
 /* ==========================================================
@@ -158,6 +350,7 @@ OUTLINE - NORMAL
 :host ::ng-deep .field .mat-mdc-form-field-text-prefix,
 :host ::ng-deep .field .mat-mdc-form-field-text-suffix {
   color: #7a8580;
+
   font-size: 11px;
 }
 
@@ -170,26 +363,26 @@ OUTLINE - NORMAL
 }
 
 /* ==========================================================
-   FLOATING LABEL
-   Only used when labelAbove = false
-   ========================================================== */
-
-:host ::ng-deep .field .mdc-floating-label {
-  color: #596660;
-  font-size: 13px;
-}
-
-:host ::ng-deep .field.mat-focused .mdc-floating-label {
-  color: #54a87d;
-}
-
-/* ==========================================================
    HINT
    ========================================================== */
 
-mat-hint {
+:host ::ng-deep .field mat-hint {
   color: #6e7a8e;
+
   font-size: 12px;
+}
+
+/* ==========================================================
+   MATERIAL SUBSCRIPT
+   ========================================================== */
+
+/*
+ * TaoInput handles its own error messages.
+ * Prevent Material from reserving additional space.
+ */
+
+:host ::ng-deep .field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
 }
 
 /* ==========================================================
@@ -200,9 +393,14 @@ mat-hint {
   --mdc-outlined-text-field-outline-color: #b3261e;
   --mdc-outlined-text-field-hover-outline-color: #b3261e;
   --mdc-outlined-text-field-focus-outline-color: #b3261e;
+
+  --mdc-outlined-text-field-label-text-color: #b3261e;
+  --mdc-outlined-text-field-focus-label-text-color: #b3261e;
 }
 
-/* Error border */
+/*
+ * Error border.
+ */
 
 :host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__leading,
 :host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__notch,
@@ -210,12 +408,21 @@ mat-hint {
   border-color: #b3261e !important;
 }
 
-/* Error + focus */
+/*
+ * Keep notch sides removed in error state.
+ */
 
-:host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__leading,
-:host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__notch,
-:host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__trailing {
-  border-color: #b3261e !important;
+:host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__notch {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+/*
+ * Floating label error state.
+ */
+
+:host ::ng-deep .field.mat-form-field-invalid .mdc-floating-label {
+  color: #b3261e;
 }
 
 /* ==========================================================
@@ -223,10 +430,26 @@ mat-hint {
    ========================================================== */
 
 .field-error {
+  margin: 3px 16px 0;
+
   color: #b3261e;
 
   font-size: 12px;
   line-height: 16px;
+}
 
-  margin: 4px 16px 8px;
+/* ==========================================================
+   DISABLED
+   ========================================================== */
+
+:host ::ng-deep .field .mat-mdc-text-field-wrapper.mdc-text-field--disabled {
+  background: #f5f7f6;
+}
+
+:host
+  ::ng-deep
+  .field
+  .mat-mdc-text-field-wrapper.mdc-text-field--disabled
+  input.mat-mdc-input-element {
+  cursor: not-allowed;
 }

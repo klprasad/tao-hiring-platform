@@ -5,6 +5,7 @@ import { TaoButtonComponent, TaoCardComponent, TaoInputComponent } from '@tao/ui
 
 import { TaoValidators } from '@tao/utils';
 import { CampaignCreateRequest } from '../../models/campaign.models';
+import { AuthStore } from '@tao/core';
 
 @Component({
   imports: [ReactiveFormsModule, TaoCardComponent, TaoInputComponent, TaoButtonComponent],
@@ -13,10 +14,10 @@ import { CampaignCreateRequest } from '../../models/campaign.models';
   templateUrl: './campaign-form.html',
 })
 export class CampaignFormComponent {
+  readonly authStore = inject(AuthStore);
   readonly submitted = output<CampaignCreateRequest>();
   readonly cancelled = output<void>();
   readonly showValidationErrors = signal(false);
-
   private readonly fb = inject(FormBuilder);
 
   readonly campaignForm = this.fb.nonNullable.group({
@@ -40,12 +41,15 @@ export class CampaignFormComponent {
       this.campaignForm.markAsDirty();
       return;
     }
-
+    const currentUser = this.authStore.user();
+    if (!currentUser) {
+      return;
+    }
     const value = this.campaignForm.getRawValue();
 
     const request: CampaignCreateRequest = {
       name: value.campaignName.trim(),
-      organizationId: '019FA8F7-E474-722F-B476-C07A63658297',
+      organizationId: currentUser.organizationId,
       referenceNumber: value.referenceNumber.trim(),
       recruiterId: value.recruiterId.trim(),
       hiringManagerId: value.hiringManagerId.trim() ?? '019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF',
