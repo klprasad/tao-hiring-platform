@@ -11,6 +11,7 @@ import { TaoButtonComponent, TaoCardComponent } from '@tao/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HiringStrategyService } from '../../data-access/hiring-strategy.service';
 import { catchError, EMPTY } from 'rxjs';
+import { AuthStore } from '@tao/core';
 
 @Component({
   selector: 'tao-hiring-strategy-edit',
@@ -23,7 +24,7 @@ export class HiringStrategyEdit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(HiringStrategyService);
-
+  readonly authStore = inject(AuthStore);
   readonly status = HiringStrategyStatus;
   readonly isApproving = signal(false);
   readonly errorMessage = signal('');
@@ -161,7 +162,7 @@ export class HiringStrategyEdit {
 
   approve(): void {
     const strategy = this.profile();
-    const approvedByUserId = '019FEA88-4F8F-7018-BB69-88C0B2611DEB'; //this.authStore.user()?.id;
+    const approvedByUserId = this.authStore.user()?.userId;
 
     if (!strategy || this.isApproving()) {
       return;

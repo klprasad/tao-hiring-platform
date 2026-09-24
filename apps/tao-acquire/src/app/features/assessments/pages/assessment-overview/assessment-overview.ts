@@ -21,6 +21,7 @@ import {
   updateAssessmentRoundRequest,
 } from '../../models/assessment-strategy.models';
 import { TaoButtonComponent } from '@tao/ui';
+import { AuthStore } from '@tao/core';
 
 @Component({
   selector: 'tao-assessment-overview',
@@ -35,7 +36,7 @@ export class AssessmentOverview implements OnInit {
   private readonly service = inject(AssessmentStrategyService);
   readonly editingRoundOrder = signal<number | null>(null);
   readonly errorMessage = signal('');
-
+  readonly authStore = inject(AuthStore);
   readonly assessment = signal<AssessmentVm | null>(null);
   readonly status = AssessmentStrategyStatus;
   /**
@@ -196,7 +197,7 @@ export class AssessmentOverview implements OnInit {
     const id = this.strategyId();
 
     // Replace this with your auth store.
-    const approvedByUserId = ''; // this.authStore.user()?.id;
+    const approvedByUserId = this.authStore.user()?.userId;
 
     if (!id) {
       return;

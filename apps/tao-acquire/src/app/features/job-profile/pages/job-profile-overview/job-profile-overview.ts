@@ -60,7 +60,7 @@ export class JobProfileOverview implements OnInit {
 
   approve(): void {
     const profile = this.loadedProfile();
-    const approvedByUserId = '019FEA88-4F8F-7018-BB69-88C0B2611DEB'; // this.authStore.user()?.id;
+    const approvedByUserId = this.authStore.user()?.userId;
 
     if (!profile || this.isApproving()) {
       return;
@@ -70,7 +70,6 @@ export class JobProfileOverview implements OnInit {
       this.errorMessage.set('You must be signed in to approve a job profile.');
       return;
     }
-
     this.isApproving.set(true);
     this.errorMessage.set('');
 
