@@ -1,0 +1,41 @@
+.complete {
+  width: min(650px, calc(100% - 64px));
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 120px;
+}
+.check {
+  margin: 0 auto 22px;
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #edf8f2;
+  color: #168453;
+  font-size: 28px;
+  font-weight: 800;
+}
+.eyebrow {
+  font: 700 12px system-ui;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.complete h1 {
+  font: 700 29px/38px system-ui;
+  color: #172033;
+}
+.complete p {
+  font: 15px/25px system-ui;
+  color: #687589;
+}
+.done {
+  margin: 26px auto 0;
+  width: max-content;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #edf8f2;
+  color: #168453;
+  font: 700 13px system-ui;
+}

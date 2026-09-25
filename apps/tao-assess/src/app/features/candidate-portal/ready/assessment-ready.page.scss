@@ -1,0 +1,36 @@
+@use "../../../core/candidate-page";
+.summary {
+  margin-top: 28px;
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+}
+.summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #edf0f4;
+}
+.summary div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.summary span {
+  color: #7a8798;
+  font-size: 13px;
+}
+.summary strong {
+  color: #263247;
+  font-size: 14px;
+  text-align: right;
+}
+.notice {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: #f4f8fb;
+  border: 1px solid #dfe7ef;
+  border-radius: 10px;
+  color: #647287;
+  font-size: 13px;
+}

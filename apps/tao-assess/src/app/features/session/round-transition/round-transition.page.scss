@@ -1,0 +1,42 @@
+.transition {
+  width: min(650px, calc(100% - 64px));
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 100px;
+}
+.check {
+  margin: 0 auto 22px;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #edf8f2;
+  color: #168453;
+  font-size: 25px;
+  font-weight: 800;
+}
+.eyebrow {
+  font: 700 12px system-ui;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.transition h1 {
+  font: 700 28px/37px system-ui;
+  color: #172033;
+}
+.transition p {
+  font: 15px/25px system-ui;
+  color: #687589;
+}
+.primary {
+  margin-top: 18px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  background: #183a58;
+  color: #fff;
+  font-weight: 700;
+}

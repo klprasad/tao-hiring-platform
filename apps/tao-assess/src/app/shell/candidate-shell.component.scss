@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.candidate-shell {
+  min-height: 100vh;
+  background: #f7f9fc;
+  color: #172033;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.candidate-shell__header {
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 28px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e5e9f0;
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.candidate-shell__brand {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  height: 100%;
+
+  color: #183a58;
+}
+
+/* Green status dot */
+
+.candidate-shell__status {
+  width: 8px;
+  height: 8px;
+
+  flex: 0 0 8px;
+
+  border-radius: 50%;
+
+  background: #79e2b1;
+
+  box-shadow: 0 0 0 2px rgba(121, 226, 177, 0.18);
+}
+
+/* TAO */
+
+.candidate-shell__logo {
+  color: #183a58;
+
+  font-size: 18px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.02em;
+}
+
+/* Vertical separator */
+
+.candidate-shell__divider {
+  width: 1px;
+  height: 18px;
+
+  margin: 0 6px;
+
+  background: #dce2ea;
+}
+
+/* Technical Assessment */
+
+.candidate-shell__title {
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 18px;
+
+  font-weight: 400;
+}
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+.candidate-shell__content {
+  min-height: calc(100vh - 48px);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 20px 16px 40px;
+
+  box-sizing: border-box;
+}

@@ -1,0 +1,23 @@
+<section class="page page--narrow">
+  <p class="eyebrow">Step 3 of 4</p>
+  <h1>System check</h1>
+  <p>We checked the basic capabilities required for your assessment.</p>
+  <div class="status-list">
+    @for (check of checks(); track check.label) {
+      <div class="status-item">
+        <div class="status-icon">✓</div>
+        <div>
+          <strong>{{ check.label }}</strong>
+          <div class="meta">{{ check.detail }}</div>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="notice">
+    No camera, microphone, or proctoring capability is required for this MVP assessment.
+  </div>
+  <div class="actions">
+    <button class="secondary" (click)="router.navigate(['consent'])">Back</button
+    ><button class="primary" (click)="continue()">Continue</button>
+  </div>
+</section>

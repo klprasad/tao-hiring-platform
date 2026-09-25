@@ -1,0 +1,48 @@
+.welcome {
+  width: min(680px, calc(100% - 64px));
+  margin: 0 auto;
+  padding-top: 110px;
+  text-align: center;
+}
+.welcome__badge {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #f0edf9;
+  color: #6553a6;
+  font-size: 12px;
+  font-weight: 700;
+}
+.welcome h1 {
+  font: 700 32px/40px system-ui;
+  color: #172033;
+  margin: 18px 0 12px;
+}
+.welcome p {
+  font: 15px/25px system-ui;
+  color: #687589;
+}
+.welcome__meta {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 26px 0;
+}
+.welcome__meta span {
+  padding: 9px 13px;
+  background: #fff;
+  border: 1px solid #e2e7ee;
+  border-radius: 999px;
+  font: 600 13px system-ui;
+  color: #526075;
+}
+.primary {
+  min-height: 44px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+  background: #183a58;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}

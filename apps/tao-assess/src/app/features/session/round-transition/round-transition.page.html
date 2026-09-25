@@ -1,0 +1,12 @@
+<section class="transition">
+  <div class="check">✓</div>
+  <p class="eyebrow">Round complete</p>
+  <h1>
+    {{ store.landing().rounds[store.currentRoundIndex() - 1]?.name || 'Previous round' }} completed
+  </h1>
+  <p>
+    Next up: <strong>{{ store.currentRound().name }}</strong> ·
+    {{ store.currentRound().durationMinutes }} minutes
+  </p>
+  <button class="primary" (click)="continue()">Continue to next round</button>
+</section>

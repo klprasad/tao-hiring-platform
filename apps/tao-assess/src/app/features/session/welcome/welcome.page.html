@@ -1,0 +1,13 @@
+<section class="welcome">
+  <div class="welcome__badge">TAO interviewer</div>
+  <h1>Welcome to your technical assessment</h1>
+  <p>
+    You'll receive one question at a time. Answer clearly and take your time. Your response is saved
+    as you work.
+  </p>
+  <div class="welcome__meta">
+    <span>{{ store.currentRound().name }}</span
+    ><span>{{ store.currentRound().durationMinutes }} minutes</span>
+  </div>
+  <button class="primary" (click)="begin()">Begin</button>
+</section>

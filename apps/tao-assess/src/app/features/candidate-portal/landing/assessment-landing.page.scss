@@ -1,0 +1,46 @@
+@use "../../../core/candidate-page";
+.org {
+  margin-top: 8px;
+}
+.round-list,
+.instructions {
+  margin-top: 28px;
+  padding: 24px;
+}
+.section-title {
+  font-size: 13px;
+  font-weight: 750;
+  color: #344257;
+  margin-bottom: 16px;
+}
+.round {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 0;
+  border-top: 1px solid #edf0f4;
+}
+.round__number {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #eef3f8;
+  color: #183a58;
+  font-weight: 800;
+}
+.round__body {
+  display: grid;
+  gap: 4px;
+}
+.round__body span {
+  color: #788598;
+  font-size: 13px;
+}
+.instructions ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #5f6b7c;
+  line-height: 28px;
+}

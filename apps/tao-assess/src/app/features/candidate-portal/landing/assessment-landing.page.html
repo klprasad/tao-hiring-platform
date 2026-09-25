@@ -1,0 +1,29 @@
+<section class="page">
+  <p class="eyebrow">Assessment overview</p>
+  <h1>{{ store.landing().roleTitle }}</h1>
+  <p class="org">
+    {{ store.landing().organizationName }} · Estimated duration
+    {{ store.landing().durationMinutes }} minutes
+  </p>
+  <div class="card round-list">
+    <div class="section-title">Assessment includes</div>
+    @for (round of store.landing().rounds; track round.id) {
+      <div class="round">
+        <div class="round__number">{{ round.order.toString().padStart(2, '0') }}</div>
+        <div class="round__body">
+          <strong>{{ round.name }}</strong
+          ><span>{{ round.durationMinutes }} min · {{ round.questionCount }} questions</span>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="card instructions">
+    <div class="section-title">Before you begin</div>
+    <ul>
+      @for (item of store.landing().instructions; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </div>
+  <div class="actions"><button class="primary" (click)="continue()">Continue</button></div>
+</section>

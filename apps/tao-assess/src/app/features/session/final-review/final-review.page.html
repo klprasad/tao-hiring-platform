@@ -1,0 +1,22 @@
+<section class="page page--narrow">
+  <p class="eyebrow">Final review</p>
+  <h1>You're ready to submit</h1>
+  <p>Review the completion summary. Submission is a one-time action.</p>
+  <div class="card summary">
+    <div>
+      <span>Rounds completed</span><strong>{{ store.landing().rounds.length }}</strong>
+    </div>
+    <div>
+      <span>Total assessment time</span
+      ><strong>{{ store.landing().durationMinutes }} minutes</strong>
+    </div>
+    <div><span>Responses</span><strong>Saved</strong></div>
+  </div>
+  <div class="warning">
+    After submission, your assessment cannot be reopened from the candidate application.
+  </div>
+  <div class="actions">
+    <button class="secondary" (click)="router.navigate(['/session/question'])">Back</button
+    ><button class="primary" (click)="submit()">Submit Final Assessment</button>
+  </div>
+</section>

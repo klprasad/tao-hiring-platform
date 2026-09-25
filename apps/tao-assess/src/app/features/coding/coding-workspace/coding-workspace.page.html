@@ -1,0 +1,88 @@
+<div class="coding">
+  <header class="coding__header">
+    <div>
+      <span class="eyebrow">Coding round</span>
+      <h1>Implement your solution</h1>
+      <p>Write your solution in C#. Your code is saved automatically.</p>
+    </div>
+
+    <div
+      class="coding__status"
+      [class.coding__status--saving]="store.codingSaveState() === 'saving'"
+      [class.coding__status--error]="store.codingSaveState() === 'error'"
+    >
+      <span class="status-dot"></span>
+      {{
+        store.codingSaveState() === 'saving'
+          ? 'Saving…'
+          : store.codingSaveState() === 'error'
+            ? 'Save failed'
+            : 'Saved'
+      }}
+    </div>
+  </header>
+
+  <div class="coding-grid">
+    <aside class="problem">
+      <div class="problem__heading">
+        <span class="problem__number">01</span>
+        <div>
+          <span class="eyebrow">Problem</span>
+          <h2>Process an order stream</h2>
+        </div>
+      </div>
+
+      <p>
+        Process a stream of orders while keeping memory usage bounded. Explain your approach and
+        provide production-ready C# code.
+      </p>
+
+      <section class="problem__section">
+        <h3>Requirements</h3>
+        <ul>
+          <li>Process orders without loading the entire stream.</li>
+          <li>Keep memory usage bounded.</li>
+          <li>Write clean, maintainable C#.</li>
+          <li>Explain important trade-offs in your solution.</li>
+        </ul>
+      </section>
+
+      <section class="problem__section">
+        <h3>Assessment guidance</h3>
+        <div class="hint">
+          Focus on correctness, clarity and production considerations. You do not need to run the
+          code in the browser.
+        </div>
+      </section>
+    </aside>
+
+    <section class="editor-panel">
+      <div class="editor-panel__toolbar">
+        <div class="file-tab">
+          <span class="file-icon">C#</span>
+          <span>Solution.cs</span>
+        </div>
+
+        <div class="language">
+          <span class="language__dot"></span>
+          C#
+        </div>
+      </div>
+
+      <div #editorHost class="monaco-host" aria-label="C# code editor"></div>
+
+      <footer class="editor-panel__footer">
+        <div class="editor-meta">
+          <span>Autosave enabled</span>
+          <span>•</span>
+          <span>C#</span>
+        </div>
+
+        <button class="primary" type="button" (click)="next()">
+          Continue
+          <span aria-hidden="true">→</span>
+        </button>
+      </footer>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+@use "../../../core/candidate-page";
+.recovery-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #eef3f8;
+  color: #183a58;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+.summary {
+  margin-top: 24px;
+  padding: 22px;
+  display: grid;
+  gap: 15px;
+}
+.summary div {
+  display: flex;
+  justify-content: space-between;
+}
+.summary span {
+  color: #7a8798;
+  font-size: 13px;
+}
+.summary strong {
+  font-size: 14px;
+  color: #263247;
+}

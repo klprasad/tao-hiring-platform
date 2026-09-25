@@ -1,0 +1,38 @@
+<div class="workspace">
+  <header>
+    <div>
+      <span class="round">{{ store.currentRound().name }}</span>
+      <h1>Question {{ store.currentQuestion().number }} of {{ store.currentQuestion().total }}</h1>
+    </div>
+    <div class="timer">{{ store.currentRound().durationMinutes }}:00</div>
+  </header>
+  <div class="progress"><span [style.width.%]="store.progressPercent()"></span></div>
+  <main>
+    <article class="question">
+      <p class="eyebrow">Technical question</p>
+      <h2>{{ store.currentQuestion().prompt }}</h2>
+    </article>
+    <section class="answer">
+      <div class="answer__header">
+        <strong>Your response</strong
+        ><span>{{
+          store.savedState() === 'saving'
+            ? 'Saving…'
+            : store.savedState() === 'error'
+              ? 'Save failed'
+              : 'Saved'
+        }}</span>
+      </div>
+      <textarea
+        [ngModel]="response"
+        (ngModelChange)="onResponse($event)"
+        rows="14"
+        placeholder="Write your answer here..."
+      ></textarea>
+      <div class="answer__actions">
+        <button class="secondary" (click)="followUp()">Ask a follow-up</button
+        ><button class="primary" (click)="next()">Continue</button>
+      </div>
+    </section>
+  </main>
+</div>

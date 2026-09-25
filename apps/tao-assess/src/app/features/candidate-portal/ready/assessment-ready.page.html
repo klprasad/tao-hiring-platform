@@ -1,0 +1,25 @@
+<section class="page page--narrow">
+  <p class="eyebrow">Final check</p>
+  <h1>You're ready to begin</h1>
+  <p>Once you start, the assessment timer will become active and your session will be created.</p>
+  <div class="card summary">
+    <div>
+      <span>Role</span><strong>{{ store.landing().roleTitle }}</strong>
+    </div>
+    <div>
+      <span>Duration</span><strong>{{ store.landing().durationMinutes }} minutes</strong>
+    </div>
+    <div>
+      <span>Rounds</span><strong>{{ store.landing().rounds.length }}</strong>
+    </div>
+  </div>
+  <div class="notice">
+    Please keep this browser window open. Your responses are saved automatically.
+  </div>
+  <div class="actions">
+    <button class="secondary" (click)="router.navigate(['browser-check'])">Back</button
+    ><button class="primary" [disabled]="starting" (click)="start()">
+      {{ starting ? 'Starting…' : 'Start Assessment' }}
+    </button>
+  </div>
+</section>

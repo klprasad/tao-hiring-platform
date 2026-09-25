@@ -1,0 +1,11 @@
+<section class="access">
+  <div class="brand">TAO</div>
+  <div class="card">
+    <p class="eyebrow">Technical Assessment</p>
+    <h1>Secure access</h1>
+    <p>Enter the email address associated with your assessment invitation.</p>
+    <label>Email<input type="email" [(ngModel)]="email" placeholder="you@example.com" /></label
+    ><button class="primary" [disabled]="!email" (click)="continue()">Continue</button
+    ><span class="secure">Your assessment is secure</span>
+  </div>
+</section>

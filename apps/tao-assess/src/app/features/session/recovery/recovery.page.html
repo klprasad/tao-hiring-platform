@@ -1,0 +1,19 @@
+<section class="page page--narrow">
+  <div class="recovery-icon">↻</div>
+  <p class="eyebrow">Session recovery</p>
+  <h1>Your assessment can be resumed</h1>
+  <p>
+    We found an active assessment session. The server has restored your current round and question.
+  </p>
+  <div class="card summary">
+    <div>
+      <span>Round</span><strong>{{ store.currentRound().name }}</strong>
+    </div>
+    <div>
+      <span>Question</span
+      ><strong>{{ store.currentQuestion().number }} of {{ store.currentQuestion().total }}</strong>
+    </div>
+    <div><span>Response</span><strong>Saved</strong></div>
+  </div>
+  <div class="actions"><button class="primary" (click)="resume()">Resume Assessment</button></div>
+</section>
