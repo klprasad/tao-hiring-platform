@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
-
 import { TaoButtonComponent, TaoPageHeaderComponent } from '@tao/ui';
 import { MatIconModule } from '@angular/material/icon';
 import { CampaignFormComponent } from '../../components/campaign-form/campaign-form';
 import { CampaignService } from '../../data-access/campaign.service';
-import { CampaignCreateRequest } from '../../models/campaign.models';
+import { CampaignCreateRequest } from '../../models/campaign.model';
 
 @Component({
   selector: 'tao-campaign-create',

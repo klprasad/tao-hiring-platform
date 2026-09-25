@@ -34,11 +34,11 @@
       </div>
     }
   </div>
+} @else if (loadedProfile(); as currentProfile) {
+  <tao-job-profile-edit
+    [profile]="currentProfile"
+    (refresh)="reloadJobProfile()"
+  ></tao-job-profile-edit>
 } @else {
-  @if (loadedProfile(); as currentProfile) {
-    <tao-job-profile-edit
-      [profile]="currentProfile"
-      (refresh)="reloadJobProfile()"
-    ></tao-job-profile-edit>
-  }
+  <tao-job-profile-create (jobProfile)="createdJobProfile($event)"></tao-job-profile-create>
 }

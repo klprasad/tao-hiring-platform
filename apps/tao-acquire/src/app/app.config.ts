@@ -11,7 +11,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { provideRouter } from '@angular/router';
 
-import { AppConfigService, httpLoadingInterceptor, initializeAppConfig } from '@tao/core';
+import {
+  AppConfigService,
+  httpLoadingInterceptor,
+  authInterceptor,
+  initializeAppConfig,
+} from '@tao/core';
 
 import { routes } from './app.routes';
 
@@ -23,7 +28,7 @@ export const appConfig: ApplicationConfig = {
 
     provideRouter(routes),
 
-    provideHttpClient(withInterceptors([httpLoadingInterceptor])),
+    provideHttpClient(withInterceptors([httpLoadingInterceptor, authInterceptor])),
 
     provideAppInitializer(() => {
       const http = inject(HttpClient);

@@ -28,20 +28,21 @@ export interface ApproveHiringStrategyRequest {
 export interface HiringStrategyDto {
   id: string;
   campaignId: string;
-  generatedContent: string;
-
-  /**
-   * Structured JSON with sourcing strategies and evaluation criteria.
-   */
-  structuredContent: string;
-
-  status: HiringStrategyStatus;
+  content: hiringStrategyContentDto;
+  structuredContent: structuredContentDto;
+  status: string;
   providerName: string;
   modelName: string;
+  organizationId: string;
   promptVersion: number;
   createdOnUtc: string;
 }
-
+export interface structuredContentDto {
+  value: string;
+}
+export interface hiringStrategyContentDto {
+  value: string;
+}
 export interface JobProfileSkill {
   name: string;
 }

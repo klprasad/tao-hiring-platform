@@ -197,7 +197,7 @@ export class AssessmentOverview implements OnInit {
     const id = this.strategyId();
 
     // Replace this with your auth store.
-    const approvedByUserId = this.authStore.user()?.userId;
+    const approvedByUserId = this.authStore.user()?.id;
 
     if (!id) {
       return;

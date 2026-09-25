@@ -81,7 +81,7 @@
   <div class="form-actions">
     <tao-button type="button" label="Back" appearance="outlined" (click)="cancel()" />
 
-    @if (profile().status !== status.Approved) {
+    @if (profile().status !== 'Approved') {
       <tao-button
         label="Approve strategy"
         appearance="filled"

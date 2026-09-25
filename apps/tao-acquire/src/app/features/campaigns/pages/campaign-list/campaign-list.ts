@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CampaignVm, mapCampaignDtoToVm } from '../../models/campaign.models';
+import { CampaignVm, mapCampaignDtoToVm } from '../../models/campaign.model';
 
 import {
   TaoButtonComponent,

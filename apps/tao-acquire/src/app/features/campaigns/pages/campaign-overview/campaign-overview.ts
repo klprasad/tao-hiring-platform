@@ -10,7 +10,7 @@ import {
   mapCampaignDtoToVm,
   mapCampaignWorkflowDtoToVm,
   CampaignStepStatus,
-} from '../../models/campaign.models';
+} from '../../models/campaign.model';
 import { CampaignService } from '../../data-access/campaign.service';
 import { CampaignWorkflowVm } from '../../models/campaign-workflow.model';
 @Component({

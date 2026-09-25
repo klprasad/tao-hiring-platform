@@ -51,3 +51,19 @@ export interface JobProfileDto {
   status: JobProfileStatus;
   generatedOn: string;
 }
+
+export interface CreateJobProfileDto {
+  id: string;
+  campaignId: string;
+  originalJobDescription: string;
+  generatedContent: generatedContentDto;
+  structuredProfile: structuredProfileContentDto;
+  status: JobProfileStatus;
+  generatedOn: string;
+}
+export interface structuredProfileContentDto {
+  value: string;
+}
+export interface generatedContentDto {
+  value: string;
+}

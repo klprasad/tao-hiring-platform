@@ -52,8 +52,8 @@ export class HiringStrategyCreate implements OnInit {
         }),
       )
       .subscribe((response) => {
-        //this.strategy.set(response);
-        this.router.navigate(['/campaigns', this.campaignId, 'hiring-strategy']);
+        this.strategy.set(response);
+        //this.router.navigate(['/campaigns', this.campaignId, 'hiring-strategy']);
       });
   }
   private resolveCampaignId(): string {

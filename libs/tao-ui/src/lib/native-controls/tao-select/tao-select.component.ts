@@ -10,17 +10,18 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './tao-select.component.html',
   styleUrl: './tao-select.component.scss',
 })
-export class TaoSelectComponent implements ControlValueAccessor {
+export class TaoSelectComponent<T = string> implements ControlValueAccessor {
   readonly labelAbove = input(false);
   readonly label = input('Select');
-  readonly options = input<string[]>([]);
   readonly multiple = input(false);
   readonly placeholder = input('Select an option');
   readonly required = input(false);
   readonly disabled = input(false);
   readonly hint = input('');
   readonly showErrors = input(false);
-
+  readonly options = input<T[]>([]);
+  readonly optionLabel = input<(option: T) => string>((option) => String(option));
+  readonly optionValue = input<(option: T) => string>((option) => String(option));
   protected readonly ngControl = inject(NgControl, { optional: true, self: true });
   protected readonly errorStateMatcher: ErrorStateMatcher = {
     isErrorState: () =>

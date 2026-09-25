@@ -2,7 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiClientService, ApiResponse } from '@tao/core';
-import { CampaignCreateRequest, CampaignDto, CampaignWorkflowDto } from '../models/campaign.models';
+import { CampaignCreateRequest, CampaignDto, CampaignWorkflowDto } from '../models/campaign.model';
+import { Users } from '../models/users.model';
 
 /**
  * Campaign API client.
@@ -82,5 +83,9 @@ export class CampaignService {
       `${this.baseUrl}/${campaignId}/resume-imports`,
       formData,
     );
+  }
+
+  getUsers(): Observable<Users[]> {
+    return this.api.get<Users[]>(`/api/users`);
   }
 }

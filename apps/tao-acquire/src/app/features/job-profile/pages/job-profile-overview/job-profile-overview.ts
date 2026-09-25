@@ -10,6 +10,7 @@ import { JobProfileDto, JobProfileStatus } from '../../models/job-profile.dto';
 import { JobProfileVm } from '../../models/job-profile.vm';
 import { JobProfilePreviewComponent } from '../../components/job-profile-preview/job-profile-preview';
 import { JobProfileEditComponent } from '../job-profile-edit/job-profile-edit';
+import { JobProfileCreateComponent } from '../job-profile-create/job-profile-create';
 
 @Component({
   imports: [
@@ -17,6 +18,7 @@ import { JobProfileEditComponent } from '../job-profile-edit/job-profile-edit';
     TaoPageHeaderComponent,
     JobProfilePreviewComponent,
     JobProfileEditComponent,
+    JobProfileCreateComponent,
   ],
   selector: 'tao-job-profile-overview',
   styleUrl: './job-profile-overview.scss',
@@ -28,7 +30,7 @@ export class JobProfileOverview implements OnInit {
   private readonly service = inject(JobProfileService);
   private readonly authStore = inject(AuthStore);
 
-  readonly loadedProfile = signal<JobProfileVm | undefined>(undefined);
+  readonly loadedProfile = signal<JobProfileVm | null>(null);
   readonly isEditing = signal(false);
   readonly errorMessage = signal('');
   readonly isApproving = signal(false);
@@ -42,16 +44,16 @@ export class JobProfileOverview implements OnInit {
     this.loadJobProfile();
   }
   loadJobProfile() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) this.loadProfile(id);
-    else {
-      const campaignId = this.route.snapshot.paramMap.get('campaignId');
-      if (campaignId) this.loadProfileByCampaign(campaignId);
-    }
+    const campaignId = this.route.snapshot.paramMap.get('campaignId');
+    if (campaignId) this.loadProfileByCampaign(campaignId);
   }
 
   editProfile(): void {
     this.isEditing.set(true);
+  }
+  createdJobProfile(profile: JobProfileVm): void {
+    this.loadedProfile.set(profile);
+    this.isEditing.set(false);
   }
   cancel(): void {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');
@@ -60,7 +62,7 @@ export class JobProfileOverview implements OnInit {
 
   approve(): void {
     const profile = this.loadedProfile();
-    const approvedByUserId = this.authStore.user()?.userId;
+    const approvedByUserId = this.authStore.user()?.id;
 
     if (!profile || this.isApproving()) {
       return;
@@ -93,26 +95,14 @@ export class JobProfileOverview implements OnInit {
       });
   }
 
-  private loadProfile(id: string): void {
-    this.service
-      .getJobProfile(id)
-      .pipe(
-        catchError((error: unknown) => {
-          this.errorMessage.set(this.describeError(error, 'The job profile could not be loaded.'));
-          return EMPTY;
-        }),
-      )
-      .subscribe((response: JobProfileDto) => {
-        this.loadedProfile.set(mapJobProfileDtoToVm(response));
-      });
-  }
   private loadProfileByCampaign(id: string): void {
     this.service
       .getJobProfileByCampaign(id)
       .pipe(
         catchError((error: unknown) => {
           if (this.isJobProfileNotFound(id, error)) {
-            this.router.navigate(['/campaigns', id, 'job-profile-create']);
+            this.loadedProfile.set(null);
+            this.isEditing.set(false);
           }
           this.errorMessage.set(this.describeError(error, 'The job profile could not be loaded.'));
           return EMPTY;

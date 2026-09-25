@@ -1,4 +1,4 @@
-import { CreateJobProfileRequest } from '../models/job-profile.dto';
+import { CreateJobProfileDto, CreateJobProfileRequest } from '../models/job-profile.dto';
 import {
   JobProfileFormValue,
   JobProfileVm,
@@ -34,6 +34,17 @@ export function mapJobProfileDtoToVm(dto: JobProfileDto): JobProfileVm {
     originalJobDescription: dto.originalJobDescription,
     generatedContent: dto.generatedContent,
     structuredProfile: dto.structuredProfile,
+    status: dto.status,
+    generatedOn: dto.generatedOn,
+  };
+}
+export function mapCreateJobProfileDtoToVm(dto: CreateJobProfileDto): JobProfileVm {
+  return {
+    id: dto.id,
+    campaignId: dto.campaignId,
+    originalJobDescription: dto.originalJobDescription,
+    generatedContent: dto.generatedContent.value,
+    structuredProfile: dto.structuredProfile.value,
     status: dto.status,
     generatedOn: dto.generatedOn,
   };

@@ -40,7 +40,7 @@ export class HiringStrategyEdit {
   readonly profileContent = computed<JobProfileContent>(() => {
     const structuredContent = this.profile()?.structuredContent;
 
-    return this.parseStructuredContent(structuredContent);
+    return this.parseStructuredContent(structuredContent.value);
   });
 
   /**
@@ -162,7 +162,7 @@ export class HiringStrategyEdit {
 
   approve(): void {
     const strategy = this.profile();
-    const approvedByUserId = this.authStore.user()?.userId;
+    const approvedByUserId = this.authStore.user()?.id;
 
     if (!strategy || this.isApproving()) {
       return;

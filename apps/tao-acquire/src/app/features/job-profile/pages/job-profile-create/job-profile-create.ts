@@ -1,12 +1,15 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, map } from 'rxjs';
 
 import { TaoButtonComponent, TaoPageHeaderComponent } from '@tao/ui';
 import { JobProfileFormComponent } from '../../components/job-profile-form/job-profile-form';
 import { JobProfileService } from '../../data-access/job-profile.service';
-import { mapJobProfileFormToCreateDto } from '../../data-access/job-profile.mapper';
-import { JobProfileFormValue } from '../../models/job-profile.vm';
+import {
+  mapCreateJobProfileDtoToVm,
+  mapJobProfileFormToCreateDto,
+} from '../../data-access/job-profile.mapper';
+import { JobProfileFormValue, JobProfileVm } from '../../models/job-profile.vm';
 
 @Component({
   selector: 'tao-job-profile-create',
@@ -21,7 +24,7 @@ export class JobProfileCreateComponent {
 
   readonly errorMessage = signal('');
   readonly isSubmitting = signal(false);
-
+  readonly jobProfile = output<JobProfileVm>();
   /**
    * Campaign the job profile belongs to.
    *
@@ -46,6 +49,7 @@ export class JobProfileCreateComponent {
     this.service
       .createJobProfile(this.campaignId, mapJobProfileFormToCreateDto(value))
       .pipe(
+        map(mapCreateJobProfileDtoToVm),
         catchError(() => {
           this.errorMessage.set('The job profile could not be generated. Please try again.');
           this.isSubmitting.set(false);
@@ -54,7 +58,8 @@ export class JobProfileCreateComponent {
       )
       .subscribe((response) => {
         this.isSubmitting.set(false);
-        this.router.navigate(['/campaigns', this.campaignId, 'job-profile', response]);
+        this.jobProfile.emit(response);
+        //this.router.navigate(['/campaigns', this.campaignId, 'job-profile']);
       });
   }
 

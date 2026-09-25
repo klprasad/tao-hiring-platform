@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiClientService, ApiResponse } from '@tao/core';
 import {
   ApproveJobProfileRequest,
+  CreateJobProfileDto,
   CreateJobProfileRequest,
   JobProfileDto,
 } from '../models/job-profile.dto';
@@ -30,8 +31,8 @@ export class JobProfileService {
   createJobProfile(
     campaignId: string,
     request: CreateJobProfileRequest,
-  ): Observable<ApiResponse<string>> {
-    return this.api.post<ApiResponse<string>, CreateJobProfileRequest>(
+  ): Observable<CreateJobProfileDto> {
+    return this.api.post<CreateJobProfileDto, CreateJobProfileRequest>(
       `/api/campaigns/${campaignId}/job-profile`,
       request,
     );

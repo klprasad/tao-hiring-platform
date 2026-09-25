@@ -9,6 +9,7 @@ export * from './lib/api/api-response';
 
 // Authentication
 export * from './lib/auth/auth.store';
+export * from './lib/auth/auth.interceptor';
 
 // Shared contracts
 export * from './lib/contracts/navigation';

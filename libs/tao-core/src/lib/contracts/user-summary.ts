@@ -1,5 +1,5 @@
 export interface UserSummary {
-  userId: string;
+  id: string;
   organizationId: string;
   firstName: string;
   lastName: string;

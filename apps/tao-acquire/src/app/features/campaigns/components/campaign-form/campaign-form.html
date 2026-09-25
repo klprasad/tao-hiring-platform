@@ -23,21 +23,27 @@
         [required]="true"
       />
 
-      <tao-input
+      <tao-select
         label="Hiring Manager ID"
-        placeholder="e.g. 019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF"
+        placeholder="Select Hiring Manager"
         formControlName="hiringManagerId"
-        [showErrors]="showValidationErrors()"
         [required]="true"
-      />
+        [showErrors]="showValidationErrors()"
+        [options]="hiringManagers()"
+        [optionLabel]="getUserLabel"
+        [optionValue]="getUserValue"
+      ></tao-select>
 
-      <tao-input
-        label="Recruiter ID"
-        placeholder="e.g. 019FA8F7-E53A-76F6-A7E1-5F7096B2CCDF"
+      <tao-select
+        label="Recruiter"
+        placeholder="Select recruiter"
         formControlName="recruiterId"
-        [showErrors]="showValidationErrors()"
         [required]="true"
-      />
+        [showErrors]="showValidationErrors()"
+        [options]="recruiters()"
+        [optionLabel]="getUserLabel"
+        [optionValue]="getUserValue"
+      ></tao-select>
 
       <tao-input
         label="Number of Openings"
