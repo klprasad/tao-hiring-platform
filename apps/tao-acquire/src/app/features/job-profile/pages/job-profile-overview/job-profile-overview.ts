@@ -32,6 +32,7 @@ export class JobProfileOverview implements OnInit {
 
   readonly loadedProfile = signal<JobProfileVm | null>(null);
   readonly isEditing = signal(false);
+  readonly profileNotFound = signal(false);
   readonly errorMessage = signal('');
   readonly isApproving = signal(false);
   readonly status = JobProfileStatus;
@@ -53,7 +54,7 @@ export class JobProfileOverview implements OnInit {
   }
   createdJobProfile(profile: JobProfileVm): void {
     this.loadedProfile.set(profile);
-    this.isEditing.set(false);
+    this.profileNotFound.set(false);
   }
   cancel(): void {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');
@@ -100,9 +101,9 @@ export class JobProfileOverview implements OnInit {
       .getJobProfileByCampaign(id)
       .pipe(
         catchError((error: unknown) => {
-          if (this.isJobProfileNotFound(id, error)) {
+          if (this.isJobProfileNotFound(error, id)) {
             this.loadedProfile.set(null);
-            this.isEditing.set(false);
+            this.profileNotFound.set(true);
           }
           this.errorMessage.set(this.describeError(error, 'The job profile could not be loaded.'));
           return EMPTY;
@@ -110,18 +111,25 @@ export class JobProfileOverview implements OnInit {
       )
       .subscribe((response: JobProfileDto) => {
         this.loadedProfile.set(mapJobProfileDtoToVm(response));
+        this.profileNotFound.set(false);
       });
   }
-  private isJobProfileNotFound(campaignId: string, error: unknown): boolean {
+  isJobProfileNotFound = (error: unknown, campaignId: string): boolean => {
+    if (typeof error !== 'object' || error === null) {
+      return false;
+    }
+
+    const apiError = error as {
+      error?: {
+        detail?: unknown;
+      };
+    };
+
     return (
-      typeof error === 'object' &&
-      error !== null &&
-      'error' in error &&
-      typeof (error as { error?: { detail?: unknown } }).error?.detail === 'string' &&
-      (error as { error: { detail: string } }).error.detail ===
-        `Job Profile for campaign '${campaignId}' was not found.`
+      typeof apiError.error?.detail === 'string' &&
+      apiError.error.detail === `Job Profile for campaign '${campaignId}' was not found.`
     );
-  }
+  };
   private describeError(error: unknown, fallback: string): string {
     if (error instanceof Error && error.message) {
       return error.message;

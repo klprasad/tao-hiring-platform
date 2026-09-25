@@ -182,12 +182,12 @@ export class HiringStrategyEdit {
         catchError(() => {
           this.errorMessage.set('The hiring strategy could not be approved. Please try again.');
           this.isApproving.set(false);
-          this.router.navigate(['/campaigns', strategy.campaignId, 'resume-imports']);
           return EMPTY;
         }),
       )
       .subscribe(() => {
         this.isApproving.set(false);
+        this.router.navigate(['/campaigns', strategy.campaignId, 'resume-imports']);
       });
   }
 

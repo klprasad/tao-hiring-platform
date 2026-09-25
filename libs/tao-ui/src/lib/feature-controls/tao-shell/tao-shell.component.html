@@ -113,10 +113,33 @@
           icon="notifications"
         />
 
-        @if (user()) {
-          <span class="user-initials" [attr.aria-label]="userName()" [attr.title]="userName()">
-            {{ userInitials() }}
-          </span>
+        @if (user(); as currentUser) {
+          <div class="user-menu">
+            <button
+              type="button"
+              class="user-initials"
+              aria-haspopup="true"
+              [attr.aria-expanded]="userMenuOpen()"
+              [attr.aria-label]="'Account menu for ' + userName()"
+              [attr.title]="userName()"
+              (click)="toggleUserMenu($event)"
+            >
+              {{ userInitials() }}
+            </button>
+
+            @if (userMenuOpen()) {
+              <div class="user-menu-panel">
+                <div class="user-menu-header">
+                  <strong>{{ userName() }}</strong>
+                  <small>{{ currentUser.email }}</small>
+                </div>
+
+                <button type="button" class="user-menu-item" (click)="requestSignOut()">
+                  {{ signOutLabel() }}
+                </button>
+              </div>
+            }
+          </div>
         }
       </div>
     </header>

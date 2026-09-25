@@ -70,4 +70,89 @@ describe('TaoShellComponent', () => {
     );
     expect(host().querySelector('.avatar')?.textContent).toContain('A');
   });
+
+  describe('profile menu', () => {
+    const trigger = (): HTMLButtonElement => {
+      const element = host().querySelector<HTMLButtonElement>('.user-initials');
+
+      if (!element) {
+        throw new Error('Profile trigger is not rendered.');
+      }
+
+      return element;
+    };
+
+    const signOutButton = (): HTMLButtonElement | null =>
+      host().querySelector<HTMLButtonElement>('.user-menu-item');
+
+    beforeEach(() => {
+      authStore.signIn(recruiter);
+      fixture.detectChanges();
+    });
+
+    it('keeps the menu closed until the profile icon is clicked', () => {
+      expect(host().querySelector('.user-menu-panel')).toBeNull();
+      expect(trigger().getAttribute('aria-expanded')).toBe('false');
+
+      trigger().click();
+      fixture.detectChanges();
+
+      expect(host().querySelector('.user-menu-panel')).toBeTruthy();
+      expect(trigger().getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('shows the user identity and a sign-out action in the menu', () => {
+      trigger().click();
+      fixture.detectChanges();
+
+      const panel = host().querySelector('.user-menu-panel');
+
+      expect(panel?.textContent).toContain('Alex Morgan');
+      expect(panel?.textContent).toContain('alex.morgan@tao.example');
+      expect(signOutButton()?.textContent).toContain('Sign out');
+    });
+
+    it('honours a custom sign-out label', () => {
+      fixture.componentRef.setInput('signOutLabel', 'Log out');
+      trigger().click();
+      fixture.detectChanges();
+
+      expect(signOutButton()?.textContent).toContain('Log out');
+    });
+
+    it('closes the menu when the profile icon is clicked again', () => {
+      trigger().click();
+      fixture.detectChanges();
+
+      trigger().click();
+      fixture.detectChanges();
+
+      expect(host().querySelector('.user-menu-panel')).toBeNull();
+    });
+
+    it('emits signOut and closes the menu when the action is chosen', () => {
+      const emitted = vi.fn();
+
+      fixture.componentInstance.signOut.subscribe(emitted);
+
+      trigger().click();
+      fixture.detectChanges();
+
+      signOutButton()?.click();
+      fixture.detectChanges();
+
+      expect(emitted).toHaveBeenCalledTimes(1);
+      expect(host().querySelector('.user-menu-panel')).toBeNull();
+    });
+
+    it('closes the menu on Escape', () => {
+      trigger().click();
+      fixture.detectChanges();
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      expect(host().querySelector('.user-menu-panel')).toBeNull();
+    });
+  });
 });

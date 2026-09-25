@@ -44,15 +44,15 @@ export interface AssessmentCompetencyVm {
 }
 export function mapAssessmentRoundToVm(round: AssessmentRoundDto): AssessmentRoundVm {
   return {
-    order: round.order,
-    type: formatRoundType(round.type),
-    difficulty: round.difficulty,
-    durationInMinutes: round.durationInMinutes,
-    targetQuestionCount: round.questionCount,
-    competencies: round.competencies.map((competency) => ({
-      name: competency.name,
-      priority: competency.priority,
-      minimumPassPercentage: competency.minimumPassPercentage,
+    order: round.Order,
+    type: formatRoundType(round.Type),
+    difficulty: round.Difficulty,
+    durationInMinutes: round.DurationInMinutes,
+    targetQuestionCount: round.QuestionCount,
+    competencies: round.Competencies.map((competency) => ({
+      name: competency.Name,
+      priority: competency.Priority,
+      minimumPassPercentage: competency.MinimumPassPercentage,
     })),
   };
 }
@@ -102,7 +102,7 @@ export function mapAssessmentDtoToVm(dto: AssessmentDto): AssessmentVm {
     approvedByUserId: dto.approvedByUserId,
     approvedOn: dto.approvedOn,
 
-    rounds: structuredContent.rounds.map(mapAssessmentRoundToVm),
+    rounds: structuredContent.Rounds.map(mapAssessmentRoundToVm),
   };
 }
 
@@ -130,23 +130,23 @@ export interface AssessmentStructuredContentDto {
 export type AssessmentStatus = 'Generated' | 'Approved' | 'Draft' | 'Rejected';
 
 export interface StructuredAssessment {
-  assessmentName: string;
-  rounds: AssessmentRoundDto[];
+  AssessmentName: string;
+  Rounds: AssessmentRoundDto[];
 }
 
 export interface AssessmentRoundDto {
-  order: number;
-  type: AssessmentRoundType;
-  difficulty: AssessmentDifficulty;
-  durationInMinutes: number;
-  questionCount: number;
-  competencies: AssessmentCompetencyDto[];
+  Order: number;
+  Type: AssessmentRoundType;
+  Difficulty: AssessmentDifficulty;
+  DurationInMinutes: number;
+  QuestionCount: number;
+  Competencies: AssessmentCompetencyDto[];
 }
 
 export interface AssessmentCompetencyDto {
-  name: string;
-  priority: AssessmentPriority;
-  minimumPassPercentage: number;
+  Name: string;
+  Priority: AssessmentPriority;
+  MinimumPassPercentage: number;
 }
 
 export type AssessmentRoundType = 'Coding' | 'TechnicalDiscussion' | 'SystemDesign';

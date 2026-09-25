@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -15,6 +15,14 @@ import { TaoButtonComponent } from '../../native-controls/tao-button/tao-button.
   imports: [RouterLink, RouterLinkActive, TaoButtonComponent],
   templateUrl: './tao-shell.component.html',
   styleUrl: './tao-shell.component.scss',
+  host: {
+    /**
+     * Dismisses the profile menu when the user clicks anywhere else
+     * or presses Escape.
+     */
+    '(document:click)': 'closeUserMenu()',
+    '(document:keydown.escape)': 'closeUserMenu()',
+  },
 })
 export class TaoShellComponent {
   private readonly router = inject(Router);
@@ -28,6 +36,21 @@ export class TaoShellComponent {
   readonly context = input('Workspace / Overview');
 
   readonly items = input<NavigationItem[]>([]);
+
+  /** Label of the sign-out action shown in the profile menu. */
+  readonly signOutLabel = input('Sign out');
+
+  // ---------------------------------------------------------------------------
+  // Outputs
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Emitted when the signed-in user chooses to sign out.
+   *
+   * The shell only reports the intent; the host application owns the
+   * consequences (clearing the session, navigating away, and so on).
+   */
+  readonly signOut = output<void>();
 
   // ---------------------------------------------------------------------------
   // Signed-in user
@@ -67,6 +90,37 @@ export class TaoShellComponent {
   /** First letter of a name part, uppercased. */
   private initial(value: string): string {
     return value.trim().charAt(0).toUpperCase();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Profile menu
+  // ---------------------------------------------------------------------------
+
+  /** Whether the profile menu is expanded. */
+  protected readonly userMenuOpen = signal(false);
+
+  /**
+   * Toggles the profile menu.
+   *
+   * The click is kept from bubbling to the document listener that closes
+   * the menu, otherwise opening it would immediately close it again.
+   */
+  protected toggleUserMenu(event: Event): void {
+    event.stopPropagation();
+
+    this.userMenuOpen.update((open) => !open);
+  }
+
+  /** Closes the profile menu. */
+  protected closeUserMenu(): void {
+    this.userMenuOpen.set(false);
+  }
+
+  /** Asks the host application to sign the current user out. */
+  protected requestSignOut(): void {
+    this.closeUserMenu();
+
+    this.signOut.emit();
   }
 
   // ---------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 @if (isAuthenticated()) {
-  <tao-shell [items]="navigation" context="Workspace / Overview">
+  <tao-shell [items]="navigation" context="Workspace / Overview" (signOut)="onSignOut()">
     <tao-loading-state [loading]="loading()"></tao-loading-state>
     <router-outlet />
   </tao-shell>

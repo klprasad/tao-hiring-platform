@@ -1,8 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 import { AuthStore, HttpLoadingService, NavigationItem } from '@tao/core';
 import { TaoLoadingStateComponent, TaoShellComponent } from '@tao/ui';
+
+import { AuthService } from './core/auth/auth.service';
 
 @Component({
   imports: [RouterOutlet, TaoShellComponent, TaoLoadingStateComponent],
@@ -12,12 +14,21 @@ import { TaoLoadingStateComponent, TaoShellComponent } from '@tao/ui';
 })
 export class App {
   private readonly authStore = inject(AuthStore);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   protected loadingService = inject(HttpLoadingService);
   readonly loading = this.loadingService.isLoading;
 
   /** The application shell is rendered for signed-in users only. */
   protected readonly isAuthenticated = this.authStore.isAuthenticated;
+
+  /** Clears the session and returns the user to the login screen. */
+  protected async onSignOut(): Promise<void> {
+    this.authService.signOut();
+
+    await this.router.navigate(['/login']);
+  }
 
   protected readonly navigation: NavigationItem[] = [
     {

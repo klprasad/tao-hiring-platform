@@ -181,9 +181,16 @@ export class AssessmentOverview implements OnInit {
       .getAssessmentStrategy(this.campaignId)
       .pipe(
         map(mapAssessmentDtoToVm),
-        catchError(() => {
-          this.errorMessage.set('The assessment strategy could not be created. Please try again.');
-          return EMPTY;
+        catchError((error: unknown) => {
+          if (this.isAssessmentNotFound(error)) {
+            this.createStrategy();
+            return EMPTY;
+          } else {
+            this.errorMessage.set(
+              'The assessment strategy could not be created. Please try again.',
+            );
+            return EMPTY;
+          }
         }),
       )
       .subscribe((response) => {
@@ -192,6 +199,16 @@ export class AssessmentOverview implements OnInit {
           this.createStrategy();
         }
       });
+  }
+  private isAssessmentNotFound(error: unknown): boolean {
+    return (
+      typeof error === 'object' &&
+      error !== null &&
+      'error' in error &&
+      typeof (error as { error?: { detail?: unknown } }).error?.detail === 'string' &&
+      (error as { error: { detail: string } }).error.detail ===
+        `Assessment strategy was not found for the specified campaign.`
+    );
   }
   approveStrategy(): void {
     const id = this.strategyId();

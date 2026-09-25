@@ -524,3 +524,116 @@ nav a.active {
 
   padding: 24px;
 }
+
+/* ==========================================================================
+   PROFILE MENU
+   ========================================================================== */
+
+.user-menu {
+  position: relative;
+}
+
+/*
+ * The trigger is scoped to `.top-actions` so it wins over the generic
+ * `.top-actions button` reset above.
+ */
+.top-actions .user-initials {
+  padding: 0;
+
+  border: 0;
+
+  background: #e8c89f;
+  color: #293241;
+
+  font-family: inherit;
+  font-size: 10px;
+}
+
+.top-actions .user-initials:hover,
+.top-actions .user-initials:focus-visible {
+  box-shadow: 0 0 0 3px rgba(41, 50, 65, 0.15);
+}
+
+.user-menu-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 208px;
+
+  padding: 6px;
+
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+
+  background: #fff;
+
+  box-shadow: 0 14px 30px rgba(15, 25, 41, 0.16);
+}
+
+.user-menu-header {
+  display: flex;
+  flex-direction: column;
+
+  padding: 8px 10px 10px;
+
+  border-bottom: 1px solid #eef1f6;
+}
+
+.user-menu-header strong {
+  overflow: hidden;
+
+  color: #172033;
+
+  font-size: 12px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-menu-header small {
+  overflow: hidden;
+
+  margin-top: 2px;
+
+  color: #647086;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-actions .user-menu-item {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 2px;
+  padding: 9px 10px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: none;
+
+  color: #b3261e;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.top-actions .user-menu-item:hover,
+.top-actions .user-menu-item:focus-visible {
+  background: #fdecea;
+}

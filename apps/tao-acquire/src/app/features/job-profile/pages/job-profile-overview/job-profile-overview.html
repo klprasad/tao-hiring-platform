@@ -1,4 +1,4 @@
-@if (!isEditing()) {
+@if (!isEditing() && !profileNotFound()) {
   <div class="page">
     <tao-page-header
       title="Job profile"
@@ -34,11 +34,11 @@
       </div>
     }
   </div>
+} @else if (profileNotFound()) {
+  <tao-job-profile-create (jobProfile)="createdJobProfile($event)"></tao-job-profile-create>
 } @else if (loadedProfile(); as currentProfile) {
   <tao-job-profile-edit
     [profile]="currentProfile"
     (refresh)="reloadJobProfile()"
   ></tao-job-profile-edit>
-} @else {
-  <tao-job-profile-create (jobProfile)="createdJobProfile($event)"></tao-job-profile-create>
 }
