@@ -146,4 +146,46 @@ export class AssessmentSessionStore {
   terminate(): void {
     this.expired.set(true);
   }
+  readonly remainingSeconds = signal(0);
+  readonly timerRunning = signal(false);
+
+  private timerId?: ReturnType<typeof setInterval>;
+
+  startTimer(durationMinutes: number): void {
+    this.stopTimer();
+
+    this.remainingSeconds.set(durationMinutes * 60);
+    this.timerRunning.set(true);
+
+    this.timerId = setInterval(() => {
+      const remaining = this.remainingSeconds();
+
+      if (remaining <= 1) {
+        this.remainingSeconds.set(0);
+        this.stopTimer();
+
+        // TODO: automatically submit/move to next question
+        return;
+      }
+
+      this.remainingSeconds.set(remaining - 1);
+    }, 1000);
+  }
+
+  stopTimer(): void {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = undefined;
+    }
+
+    this.timerRunning.set(false);
+  }
+  readonly remainingTime = computed(() => {
+    const totalSeconds = this.remainingSeconds();
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  });
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
+import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 
 @Component({
   selector: 'tao-assessment-landing',
@@ -11,9 +11,8 @@ import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 })
 export class AssessmentLandingPage {
   readonly store = inject(AssessmentSessionStore);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
+  private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   continue(): void {
-    this.router.navigate(['../consent'], { relativeTo: this.route });
+    this.assessmentNavigationService.consent();
   }
 }

@@ -1,37 +1,83 @@
 <div class="workspace">
   <header>
     <div>
-      <span class="round">{{ store.currentRound().name }}</span>
-      <h1>Question {{ store.currentQuestion().number }} of {{ store.currentQuestion().total }}</h1>
+      <span class="round">
+        {{ store.currentRound().name }}
+      </span>
+
+      <h1>
+        Question
+        {{ store.currentQuestion().number }}
+        of
+        {{ store.currentQuestion().total }}
+      </h1>
     </div>
-    <div class="timer">{{ store.currentRound().durationMinutes }}:00</div>
+
+    <div
+      class="timer"
+      [class.timer--warning]="store.remainingSeconds() <= 60"
+      [class.timer--expired]="store.remainingSeconds() === 0"
+    >
+      {{ store.remainingTime() }}
+    </div>
   </header>
-  <div class="progress"><span [style.width.%]="store.progressPercent()"></span></div>
+
+  <div class="progress">
+    <span [style.width.%]="store.progressPercent()"></span>
+  </div>
+
   <main>
     <article class="question">
       <p class="eyebrow">Technical question</p>
-      <h2>{{ store.currentQuestion().prompt }}</h2>
+
+      <h2>
+        {{ store.currentQuestion().prompt }}
+      </h2>
     </article>
+
     <section class="answer">
       <div class="answer__header">
-        <strong>Your response</strong
-        ><span>{{
-          store.savedState() === 'saving'
-            ? 'Saving…'
-            : store.savedState() === 'error'
-              ? 'Save failed'
-              : 'Saved'
-        }}</span>
+        <strong>Your response</strong>
+
+        <span
+          [class.answer__status--saving]="store.savedState() === 'saving'"
+          [class.answer__status--error]="store.savedState() === 'error'"
+        >
+          @switch (store.savedState()) {
+            @case ('saving') {
+              Saving…
+            }
+
+            @case ('error') {
+              Save failed
+            }
+
+            @default {
+              Saved
+            }
+          }
+        </span>
       </div>
+
       <textarea
-        [ngModel]="response"
+        [ngModel]="response()"
         (ngModelChange)="onResponse($event)"
         rows="14"
         placeholder="Write your answer here..."
+        autocomplete="off"
+        spellcheck="true"
       ></textarea>
+
+      <div class="answer__footer">
+        <span class="character-count"> {{ response().length }} characters </span>
+      </div>
+
       <div class="answer__actions">
-        <button class="secondary" (click)="followUp()">Ask a follow-up</button
-        ><button class="primary" (click)="next()">Continue</button>
+        <button class="secondary" type="button" (click)="followUp()">Ask a follow-up</button>
+
+        <button class="primary" type="button" [disabled]="!canContinue()" (click)="next()">
+          Continue
+        </button>
       </div>
     </section>
   </main>

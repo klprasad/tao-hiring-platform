@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
+import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
+
 @Component({
   selector: 'tao-question',
   standalone: true,
@@ -12,31 +14,62 @@ import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 })
 export class QuestionPage {
   readonly store = inject(AssessmentSessionStore);
-  private readonly router = inject(Router);
-  response = '';
+
+  private readonly assessmentNavigationService = inject(AssessmentNavigationService);
+
+  readonly response = signal('');
+
+  readonly canContinue = computed(() => {
+    const response = this.response().trim();
+
+    return response.length > 0 && this.store.savedState() !== 'saving';
+  });
+
   constructor() {
-    effect(() => {
-      this.response = this.store.response();
-    });
+    this.response.set(this.store.response());
+    const duration = this.store.currentRound().durationMinutes;
+    if (!this.store.timerRunning()) {
+      this.store.startTimer(duration);
+    }
   }
+
   onResponse(value: string): void {
-    this.response = value;
+    this.response.set(value);
     this.store.setResponse(value);
   }
+
   next(): void {
-    this.store.markSaved();
-    if (this.store.currentRound().type === 'coding') {
-      this.router.navigate(['/session/demo-session/coding']);
+    if (!this.canContinue()) {
       return;
     }
-    const last = this.store.currentQuestionIndex() + 1 >= this.store.currentRound().questionCount;
-    const lastRound = this.store.currentRoundIndex() + 1 >= this.store.landing().rounds.length;
+
+    this.store.markSaved();
+
+    const currentRound = this.store.currentRound();
+    const currentQuestionIndex = this.store.currentQuestionIndex();
+    const currentRoundIndex = this.store.currentRoundIndex();
+    const landing = this.store.landing();
+
+    if (currentRound.type === 'coding') {
+      this.assessmentNavigationService.coding();
+      return;
+    }
+
+    const isLastQuestion = currentQuestionIndex + 1 >= currentRound.questionCount;
+
+    const isLastRound = currentRoundIndex + 1 >= landing.rounds.length;
+
     this.store.nextQuestion();
-    if (last && lastRound) this.router.navigate(['/session/demo-session/final-review']);
-    else if (last) this.router.navigate(['/session/demo-session/round-transition']);
-    else this.router.navigate(['/session/demo-session/question']);
+
+    if (isLastQuestion && isLastRound) {
+      this.assessmentNavigationService.finalReview();
+      return;
+    }
+
+    this.assessmentNavigationService.question();
   }
+
   followUp(): void {
-    this.router.navigate(['/session/demo-session/follow-up']);
+    this.assessmentNavigationService.followUp();
   }
 }

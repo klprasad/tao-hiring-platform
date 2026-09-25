@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
+import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 @Component({
   selector: 'tao-assessment-ready',
   standalone: true,
@@ -10,12 +11,15 @@ import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 })
 export class AssessmentReadyPage {
   readonly store = inject(AssessmentSessionStore);
-  readonly router = inject(Router);
+  private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   starting = false;
   start(): void {
     if (this.starting) return;
     this.starting = true;
     this.store.start();
-    this.router.navigate(['/session/demo-session/welcome']);
+    this.assessmentNavigationService.sessionWelcome();
+  }
+  back() {
+    this.assessmentNavigationService.browserCheck();
   }
 }

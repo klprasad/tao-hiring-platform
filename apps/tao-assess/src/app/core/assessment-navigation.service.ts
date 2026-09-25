@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -6,56 +6,57 @@ import { Router } from '@angular/router';
 })
 export class AssessmentNavigationService {
   private readonly router = inject(Router);
-
-  access(token: string): Promise<boolean> {
-    return this.router.navigate(['/access', token]);
+  private readonly accessToken = signal('demo');
+  private readonly sessionId = signal('demo');
+  access(): Promise<boolean> {
+    return this.router.navigate(['/access', this.accessToken()]);
   }
 
-  authentication(token: string): Promise<boolean> {
-    return this.router.navigate(['/access', token, 'auth']);
+  authentication(): Promise<boolean> {
+    return this.router.navigate(['/access', this.accessToken(), 'auth']);
   }
 
-  landing(token: string): Promise<boolean> {
-    return this.router.navigate(['/access', token, 'landing']);
+  landing(): Promise<boolean> {
+    return this.router.navigate(['/access', this.accessToken(), 'landing']);
   }
 
-  consent(token: string): Promise<boolean> {
-    return this.router.navigate(['/access', token, 'consent']);
+  consent(): Promise<boolean> {
+    return this.router.navigate(['/access', this.accessToken(), 'consent']);
   }
 
-  browserCheck(token: string): Promise<boolean> {
-    return this.router.navigate(['/access', token, 'browser-check']);
+  browserCheck(): Promise<boolean> {
+    return this.router.navigate(['/access', this.accessToken(), 'browser-check']);
   }
 
-  ready(token: string): Promise<boolean> {
-    return this.router.navigate(['/access', token, 'ready']);
+  ready(): Promise<boolean> {
+    return this.router.navigate(['/access', this.accessToken(), 'ready']);
   }
 
-  sessionWelcome(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'welcome']);
+  sessionWelcome(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'welcome']);
   }
 
-  question(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'question']);
+  question(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'question']);
   }
 
-  coding(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'coding']);
+  coding(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'coding']);
   }
 
-  followUp(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'follow-up']);
+  followUp(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'follow-up']);
   }
 
-  recovery(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'recovery']);
+  recovery(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'recovery']);
   }
 
-  finalReview(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'final-review']);
+  finalReview(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'final-review']);
   }
 
-  submitted(sessionId: string): Promise<boolean> {
-    return this.router.navigate(['/session', sessionId, 'submitted']);
+  submitted(): Promise<boolean> {
+    return this.router.navigate(['/session', this.sessionId(), 'submitted']);
   }
 }

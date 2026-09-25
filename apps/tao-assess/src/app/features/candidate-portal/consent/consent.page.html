@@ -1,27 +1,28 @@
 <section class="page page--narrow">
   <p class="eyebrow">Step 2 of 4</p>
+
   <h1>Before you begin</h1>
+
   <p>Please review and acknowledge the assessment conditions before continuing.</p>
+
   <div class="card consent-card">
-    <label
-      ><input type="checkbox" [(ngModel)]="accepted" />
-      <span
-        >I understand that the assessment will be conducted as an AI-guided technical
-        interview.</span
-      ></label
-    >
-    <label
-      ><input type="checkbox" [(ngModel)]="accepted" />
-      <span>I agree to the assessment terms.</span></label
-    >
-    <label
-      ><input type="checkbox" [(ngModel)]="accepted" />
-      <span>I understand that once I move past a question, I cannot return to it.</span></label
-    >
+    @for (consent of consents(); track consent.id) {
+      <label class="consent-item">
+        <input
+          type="checkbox"
+          [ngModel]="consent.accepted"
+          (ngModelChange)="updateConsent(consent.id, $event)"
+        />
+
+        <span>{{ consent.text }}</span>
+      </label>
+    }
   </div>
+
   <div class="actions">
-    <button class="secondary" (click)="router.navigate(['landing'])">Back</button
-    ><button class="primary" [disabled]="!accepted" (click)="continue()">
+    <button class="secondary" type="button" (click)="back()">Back</button>
+
+    <button class="primary" type="button" [disabled]="!allAccepted()" (click)="continue()">
       Accept &amp; Continue
     </button>
   </div>

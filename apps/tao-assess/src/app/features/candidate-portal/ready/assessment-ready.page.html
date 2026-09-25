@@ -17,7 +17,7 @@
     Please keep this browser window open. Your responses are saved automatically.
   </div>
   <div class="actions">
-    <button class="secondary" (click)="router.navigate(['browser-check'])">Back</button
+    <button class="secondary" (click)="back()">Back</button
     ><button class="primary" [disabled]="starting" (click)="start()">
       {{ starting ? 'Starting…' : 'Start Assessment' }}
     </button>

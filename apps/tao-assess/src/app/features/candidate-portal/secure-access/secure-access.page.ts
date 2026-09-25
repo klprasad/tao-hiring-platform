@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 @Component({
   selector: 'tao-secure-access',
   standalone: true,
@@ -10,10 +11,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrl: './secure-access.page.scss',
 })
 export class SecureAccessPage {
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
+  private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   email = '';
   continue(): void {
-    this.router.navigate(['auth'], { relativeTo: this.route });
+    this.assessmentNavigationService.authentication();
   }
 }
