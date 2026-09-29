@@ -1,29 +1,32 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
-
+import { LoginCredentials, TaoAcquireLoginComponent } from '@tao/ui';
+import { AuthService } from '../../../core/auth.service';
 @Component({
   selector: 'tao-authentication',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [TaoAcquireLoginComponent],
   templateUrl: './authentication.page.html',
   styleUrl: './authentication.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthenticationPage {
-  private readonly fb = inject(FormBuilder);
-  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  protected readonly submitting = signal(false);
+  protected readonly errorMessage = signal<string | null>(null);
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
-  readonly form = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-  });
 
-  continue(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
+  protected async onLogin(credentials: LoginCredentials): Promise<void> {
+    this.submitting.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      await this.authService.signIn(credentials);
+      await this.assessmentNavigationService.landing();
+    } catch {
+      this.errorMessage.set('Sign-in failed. Check your user name and password and try again.');
+    } finally {
+      this.submitting.set(false);
     }
-    this.assessmentNavigationService.landing();
   }
 }

@@ -6,30 +6,30 @@ import { Router } from '@angular/router';
 })
 export class AssessmentNavigationService {
   private readonly router = inject(Router);
-  private readonly accessToken = signal('demo');
-  private readonly sessionId = signal('demo');
+  readonly accessToken = signal('demo');
+  readonly sessionId = signal('demo');
   access(): Promise<boolean> {
-    return this.router.navigate(['/access', this.accessToken()]);
+    return this.router.navigate(['/access']);
   }
 
   authentication(): Promise<boolean> {
-    return this.router.navigate(['/access', this.accessToken(), 'auth']);
+    return this.router.navigate(['/login']);
   }
 
   landing(): Promise<boolean> {
-    return this.router.navigate(['/access', this.accessToken(), 'landing']);
+    return this.router.navigate(['/access', 'landing']);
   }
 
   consent(): Promise<boolean> {
-    return this.router.navigate(['/access', this.accessToken(), 'consent']);
+    return this.router.navigate(['/access', 'consent']);
   }
 
   browserCheck(): Promise<boolean> {
-    return this.router.navigate(['/access', this.accessToken(), 'browser-check']);
+    return this.router.navigate(['/access', 'browser-check']);
   }
 
   ready(): Promise<boolean> {
-    return this.router.navigate(['/access', this.accessToken(), 'ready']);
+    return this.router.navigate(['/access', 'ready']);
   }
 
   sessionWelcome(): Promise<boolean> {

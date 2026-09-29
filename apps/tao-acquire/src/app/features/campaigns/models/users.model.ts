@@ -9,12 +9,12 @@ export interface Users {
 }
 
 export enum UserRole {
-  Administrator = 1,
-  Recruiter = 2,
-  HiringManager = 3,
+  Administrator = 'Administrator',
+  Recruiter = 'Recruiter',
+  HiringManager = 'HiringManager',
 }
 
 export enum UserStatus {
-  Active = 1,
-  Inactive = 2,
+  Active = 'Active',
+  Inactive = 'InActive',
 }

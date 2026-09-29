@@ -24,21 +24,21 @@ export class AssessmentReadyPage {
     this.starting = true;
     this.assessmentNavigationService.sessionWelcome();
     this.store.start();
-    // const assessmentSessionId = '01A0D916-FDCA-7B0D-A78E-AB8153FE1EEF';
-    // this.assessmentService
-    //   .startAssessment(assessmentSessionId)
-    //   .pipe(
-    //     catchError((error) => {
-    //       this.starting = false;
+    const assessmentSessionId = this.store.assessmentSessionId();
+    this.assessmentService
+      .startAssessment(assessmentSessionId)
+      .pipe(
+        catchError((error) => {
+          this.starting = false;
 
-    //       console.error('Failed to start assessment', error);
+          console.error('Failed to start assessment', error);
 
-    //       return EMPTY;
-    //     }),
-    //   )
-    //   .subscribe(() => {
-    //     this.assessmentNavigationService.sessionWelcome();
-    //   });
+          return EMPTY;
+        }),
+      )
+      .subscribe(() => {
+        this.assessmentNavigationService.sessionWelcome();
+      });
   }
   back() {
     this.assessmentNavigationService.browserCheck();

@@ -4,9 +4,9 @@
   <h1>
     {{ store.landing()?.rounds[store.currentRoundIndex() - 1]?.name || 'Previous round' }} completed
   </h1>
-  <p>
+  <!-- <p>
     Next up: <strong>{{ store.currentRound()?.name }}</strong> ·
     {{ store.currentRound()?.durationMinutes }} minutes
-  </p>
+  </p> -->
   <button class="primary" (click)="continue()">Continue to next round</button>
 </section>

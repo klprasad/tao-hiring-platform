@@ -1,31 +1,35 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth.guard';
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'access/demo',
+    redirectTo: 'login',
   },
-
   {
-    path: 'access/:token',
+    path: 'login',
+    loadComponent: () =>
+      import('./features/candidate-portal/authentication/authentication.page').then(
+        (m) => m.AuthenticationPage,
+      ),
+  },
+  {
+    path: 'access',
+    canActivate: [authGuard],
     children: [
+      // {
+      //   path: '',
+      //   pathMatch: 'full',
+      //   loadComponent: () =>
+      //     import('./features/candidate-portal/secure-access/secure-access.page').then(
+      //       (m) => m.SecureAccessPage,
+      //     ),
+      // },
       {
         path: '',
         pathMatch: 'full',
-        loadComponent: () =>
-          import('./features/candidate-portal/secure-access/secure-access.page').then(
-            (m) => m.SecureAccessPage,
-          ),
+        redirectTo: 'landing',
       },
-
-      {
-        path: 'auth',
-        loadComponent: () =>
-          import('./features/candidate-portal/authentication/authentication.page').then(
-            (m) => m.AuthenticationPage,
-          ),
-      },
-
       {
         path: 'landing',
         loadComponent: () =>
@@ -57,7 +61,6 @@ export const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'session/:sessionId',
     children: [

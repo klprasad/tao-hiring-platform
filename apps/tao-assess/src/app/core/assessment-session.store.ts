@@ -1,6 +1,6 @@
 import { Injectable, computed, signal, DestroyRef, inject } from '@angular/core';
 
-import { AssessmentQuestionDto, AssessmentSessionDto } from '../models/assessment-session.model';
+import { AssessmentQuestionDto, AssessmentSessionVm } from '../models/assessment-session.model';
 
 export type CheckStatus = 'checking' | 'passed' | 'failed';
 
@@ -32,8 +32,8 @@ export class AssessmentSessionStore {
   // Assessment
   // ---------------------------------------------------------------------------
 
-  readonly assessmentSession = signal<AssessmentSessionDto | null>(null);
-
+  readonly assessmentSession = signal<AssessmentSessionVm | null>(null);
+  readonly assessmentSessionId = signal<string>('');
   readonly landing = computed(() => {
     const assessment = this.assessmentSession();
 
@@ -42,7 +42,7 @@ export class AssessmentSessionStore {
     }
 
     return {
-      roleTitle: assessment.assessmentName,
+      roleTitle: assessment.strategySnapshot.AssessmentName,
 
       organizationName: 'TAO',
 
@@ -57,7 +57,7 @@ export class AssessmentSessionStore {
         name: this.getRoundName(round.type),
         type: round.type,
         durationMinutes: round.durationInMinutes,
-        questionCount: round.questionCount,
+        questionCount: round.targetQuestionCount,
       })),
 
       instructions: [
@@ -130,8 +130,8 @@ export class AssessmentSessionStore {
     if (!question) {
       return null;
     }
-
-    return this.landing()?.rounds.find((round) => round.id === question.roundId) ?? null;
+    return null;
+    //return this.landing()?.rounds.find((round) => round.id === question.roundId) ?? null;
   });
 
   // ---------------------------------------------------------------------------
@@ -213,39 +213,39 @@ export class AssessmentSessionStore {
   // Navigation
   // ---------------------------------------------------------------------------
 
-  nextQuestion(): void {
-    const landing = this.landing();
-    const round = this.currentRound();
+  // nextQuestion(): void {
+  //   const landing = this.landing();
+  //   const round = this.currentRound();
 
-    if (!landing || !round) {
-      return;
-    }
+  //   if (!landing || !round) {
+  //     return;
+  //   }
 
-    const nextQuestionIndex = this.currentQuestionIndex() + 1;
+  //   const nextQuestionIndex = this.currentQuestionIndex() + 1;
 
-    // Next question in current round
-    if (nextQuestionIndex < round.questionCount) {
-      this.currentQuestionIndex.set(nextQuestionIndex);
-      this.resetQuestionState();
+  //   // Next question in current round
+  //   if (nextQuestionIndex < round.) {
+  //     this.currentQuestionIndex.set(nextQuestionIndex);
+  //     this.resetQuestionState();
 
-      return;
-    }
+  //     return;
+  //   }
 
-    // Next round
-    const nextRoundIndex = this.currentRoundIndex() + 1;
+  //   // Next round
+  //   const nextRoundIndex = this.currentRoundIndex() + 1;
 
-    if (nextRoundIndex < landing.rounds.length) {
-      this.currentRoundIndex.set(nextRoundIndex);
-      this.currentQuestionIndex.set(0);
+  //   if (nextRoundIndex < landing.rounds.length) {
+  //     this.currentRoundIndex.set(nextRoundIndex);
+  //     this.currentQuestionIndex.set(0);
 
-      this.resetQuestionState();
+  //     this.resetQuestionState();
 
-      return;
-    }
+  //     return;
+  //   }
 
-    // Assessment completed
-    this.submit();
-  }
+  //   // Assessment completed
+  //   this.submit();
+  // }
 
   previousQuestion(): void {
     const round = this.currentRound();

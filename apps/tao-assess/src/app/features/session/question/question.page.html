@@ -1,24 +1,22 @@
-@if (store.isQuestionLoading()) {
-  <div class="question-loading">Loading question...</div>
-} @else if (store.questionError(); as error) {
-  <div class="question-error">
-    <p>{{ error }}</p>
-  </div>
-} @else if (store.currentQuestion(); as question) {
-  @if (store.currentRound(); as round) {
-    <div class="workspace">
-      <header>
-        <div>
-          <span class="round">
-            {{ round.name }}
-          </span>
+@if (store.currentQuestion(); as question) {
+  <!-- Coding Question -->
+  @if (question.roundType === assessmentType.Coding) {
+    <tao-coding-workspace [question]="question" (continue)="onCodingContinue($event)" />
+  }
 
-          <h1>
-            Question
-            {{ question.number }}
-            of
-            {{ question.total }}
-          </h1>
+  <!-- Technical / System Design Question -->
+  @else {
+    <div class="workspace">
+      <!-- Header -->
+      <header class="workspace__header">
+        <div>
+          <span class="eyebrow">
+            {{
+              question.roundType === assessmentType.SystemDesign
+                ? 'System design question'
+                : 'Technical question'
+            }}
+          </span>
         </div>
 
         <div
@@ -30,21 +28,28 @@
         </div>
       </header>
 
+      <!-- Progress -->
       <div class="progress">
-        <span [style.width.%]="store.progressPercent()"> </span>
+        <span [style.width.%]="store.progressPercent()"></span>
       </div>
 
       <main>
+        <!-- Question -->
         <article class="question">
           <p class="eyebrow">
-            {{ question.type === 'coding' ? 'Coding question' : 'Technical question' }}
+            {{
+              question.roundType === assessmentType.SystemDesign
+                ? 'System design question'
+                : 'Technical question'
+            }}
           </p>
 
           <h2>
-            {{ question.prompt }}
+            {{ question.question }}
           </h2>
         </article>
 
+        <!-- Answer -->
         <section class="answer">
           <div class="answer__header">
             <strong>Your response</strong>

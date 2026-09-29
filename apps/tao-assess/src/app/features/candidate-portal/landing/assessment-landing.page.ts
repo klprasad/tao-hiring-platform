@@ -2,8 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
-import { AssessmentSessionDto } from '../../../models/assessment-session.model';
+import {
+  AssessmentSessionDto,
+  mapAssessmentSession,
+} from '../../../models/assessment-session.model';
 import { AssessmentService } from '../../../core/assessment.service';
+import { catchError, EMPTY, map } from 'rxjs';
 
 @Component({
   selector: 'tao-assessment-landing',
@@ -21,18 +25,29 @@ export class AssessmentLandingPage {
 
   readonly landing = this.store.landing;
   constructor() {
-    this.loadAssessmentSession();
+    this.createAssessmentSession();
   }
 
-  private loadAssessmentSession(): void {
-    this.assessmentSessionService.getCurrentAssessmentSession('').subscribe({
-      next: (assessment) => {
+  createAssessmentSession() {
+    const payload = {
+      candidateApplicationId: '01A0ECCE-C010-7821-893F-445133731F3C',
+      assessmentStrategyId: '01A0ECCF-6BFD-76A4-8662-124170D3C4E0',
+    };
+    this.assessmentSessionService
+      .createAssessmentSession(payload)
+      .pipe(
+        map(mapAssessmentSession),
+        catchError((error) => {
+          console.error('Failed to create assessment session', error);
+          return EMPTY;
+        }),
+      )
+      .subscribe((assessment) => {
+        this.store.assessmentSessionId.set(assessment.id);
+        this.assessmentNavigationService.accessToken.set(assessment.id);
+        this.assessmentNavigationService.sessionId.set(assessment.id);
         this.store.assessmentSession.set(assessment);
-      },
-      error: (error) => {
-        console.error('Failed to load assessment session', error);
-      },
-    });
+      });
   }
 
   continue(): void {

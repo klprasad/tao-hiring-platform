@@ -2,7 +2,9 @@
   <header class="coding__header">
     <div>
       <span class="eyebrow">Coding round</span>
+
       <h1>Implement your solution</h1>
+
       <p>Write your solution in C#. Your code is saved automatically.</p>
     </div>
 
@@ -12,6 +14,7 @@
       [class.coding__status--error]="store.codingSaveState() === 'error'"
     >
       <span class="status-dot"></span>
+
       {{
         store.codingSaveState() === 'saving'
           ? 'Saving…'
@@ -23,38 +26,62 @@
   </header>
 
   <div class="coding-grid">
+    <!-- ============================================================
+         QUESTION / PROBLEM
+         ============================================================ -->
+
     <aside class="problem">
       <div class="problem__heading">
-        <span class="problem__number">01</span>
+        <span class="problem__number">
+          {{ question().order }}
+        </span>
+
         <div>
-          <span class="eyebrow">Problem</span>
-          <h2>Process an order stream</h2>
+          <span class="eyebrow"> Problem </span>
+
+          <h2>Question {{ question().order }}</h2>
         </div>
       </div>
 
-      <p>
-        Process a stream of orders while keeping memory usage bounded. Explain your approach and
-        provide production-ready C# code.
-      </p>
+      <div class="problem__description">
+        {{ question().question }}
+      </div>
 
-      <section class="problem__section">
-        <h3>Requirements</h3>
-        <ul>
-          <li>Process orders without loading the entire stream.</li>
-          <li>Keep memory usage bounded.</li>
-          <li>Write clean, maintainable C#.</li>
-          <li>Explain important trade-offs in your solution.</li>
-        </ul>
-      </section>
+      <!-- ==========================================================
+           COMPETENCIES
+           ========================================================== -->
+
+      @if (question().competencies?.length) {
+        <section class="problem__section">
+          <h3>Competencies</h3>
+
+          <ul>
+            @for (competency of question().competencies; track competency) {
+              <li>
+                {{ competency }}
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      <!-- ==========================================================
+           ASSESSMENT GUIDANCE
+           ========================================================== -->
 
       <section class="problem__section">
         <h3>Assessment guidance</h3>
+
         <div class="hint">
-          Focus on correctness, clarity and production considerations. You do not need to run the
-          code in the browser.
+          Focus on correctness, clarity and production considerations. Keep your implementation
+          clean, readable and maintainable.
         </div>
       </section>
     </aside>
+
+    <!-- ============================================================
+         CODE EDITOR
+         ============================================================ -->
 
     <section class="editor-panel">
       <div class="editor-panel__toolbar">
@@ -74,13 +101,16 @@
       <footer class="editor-panel__footer">
         <div class="editor-meta">
           <span>Autosave enabled</span>
+
           <span>•</span>
+
           <span>C#</span>
         </div>
 
         <button class="primary" type="button" (click)="next()">
           Continue
-          <span aria-hidden="true">→</span>
+
+          <span aria-hidden="true"> → </span>
         </button>
       </footer>
     </section>
