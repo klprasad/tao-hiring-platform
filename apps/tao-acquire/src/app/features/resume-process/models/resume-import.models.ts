@@ -11,3 +11,12 @@ export const RESUME_IMPORT_MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 /** Minimum and maximum number of files per request. */
 export const RESUME_IMPORT_MIN_FILES = 1;
 export const RESUME_IMPORT_MAX_FILES = 100;
+
+export interface candidateScreeningRespose {
+  totalCandidates: number;
+  candidatesAlreadyScreened: number;
+  candidatesScreened: number;
+  recommendedCandidates: number;
+  notRecommendedCandidates: number;
+  failedCandidates: number;
+}

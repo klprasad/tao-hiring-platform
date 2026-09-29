@@ -1,15 +1,20 @@
 import { inject, Injectable, Service } from '@angular/core';
 import { ApiClientService } from '@tao/core';
 import { Observable } from 'rxjs';
+import { AssessmentSessionDto } from '../models/assessment-session.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AssessmentService {
   private readonly api = inject(ApiClientService);
-
-  getCurrentAssessmentSession(request: any): Observable<any> {
-    return this.api.post('/api/assessment-sessions', request);
+  private readonly http = inject(HttpClient);
+  createAssessmentSession(request: any): Observable<AssessmentSessionDto> {
+    return this.api.post<AssessmentSessionDto, any>('/api/assessment-sessions', request);
+  }
+  getCurrentAssessmentSession(assessmentSessionId: string): Observable<AssessmentSessionDto> {
+    return this.http.get<AssessmentSessionDto>('assets/assessmentsession.json');
   }
   startAssessment(sessionId: string): Observable<any> {
     return this.api.post(`/api/assessment-sessions/${sessionId}/start`);

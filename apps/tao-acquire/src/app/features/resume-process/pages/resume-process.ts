@@ -63,6 +63,18 @@ export class ResumeProcess {
         this.batchId.set(response);
         this.isUploading.set(false);
         input.value = '';
+        this.candidatesScreening();
+      });
+  }
+  candidatesScreening() {
+    this.service
+      .candidateScreening(this.campaignId)
+      .pipe(
+        catchError(() => {
+          return EMPTY;
+        }),
+      )
+      .subscribe(() => {
         this.router.navigate(['/campaigns', this.campaignId, 'candidates']);
       });
   }

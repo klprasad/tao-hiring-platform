@@ -4,11 +4,11 @@
   <p>Review the completion summary. Submission is a one-time action.</p>
   <div class="card summary">
     <div>
-      <span>Rounds completed</span><strong>{{ store.landing().rounds.length }}</strong>
+      <span>Rounds completed</span><strong>{{ store.landing()?.rounds.length }}</strong>
     </div>
     <div>
       <span>Total assessment time</span
-      ><strong>{{ store.landing().durationMinutes }} minutes</strong>
+      ><strong>{{ store.landing()?.durationMinutes }} minutes</strong>
     </div>
     <div><span>Responses</span><strong>Saved</strong></div>
   </div>

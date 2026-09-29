@@ -1,0 +1,126 @@
+{
+  "assessmentName": "Senior .NET Developer Assessment",
+  "rounds": [
+    {
+      "order": 1,
+      "type": "Coding",
+      "difficulty": "Medium",
+      "durationInMinutes": 60,
+      "questionCount": 2,
+      "competencies": [
+        {
+          "name": "C#",
+          "priority": "High",
+          "minimumPassPercentage": 80
+        },
+        {
+          "name": ".NET Core",
+          "priority": "High",
+          "minimumPassPercentage": 78
+        },
+        {
+          "name": "Clean coding practices",
+          "priority": "High",
+          "minimumPassPercentage": 80
+        },
+        {
+          "name": "Problem-solving skills",
+          "priority": "High",
+          "minimumPassPercentage": 78
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "type": "TechnicalDiscussion",
+      "difficulty": "Medium",
+      "durationInMinutes": 45,
+      "questionCount": 3,
+      "competencies": [
+        {
+          "name": "ASP.NET Core Web API",
+          "priority": "High",
+          "minimumPassPercentage": 82
+        },
+        {
+          "name": "RESTful APIs",
+          "priority": "High",
+          "minimumPassPercentage": 82
+        },
+        {
+          "name": "Enterprise application development",
+          "priority": "High",
+          "minimumPassPercentage": 80
+        },
+        {
+          "name": "Agile development environment",
+          "priority": "High",
+          "minimumPassPercentage": 72
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "type": "TechnicalDiscussion",
+      "difficulty": "Medium",
+      "durationInMinutes": 45,
+      "questionCount": 3,
+      "competencies": [
+        {
+          "name": "Entity Framework Core",
+          "priority": "High",
+          "minimumPassPercentage": 80
+        },
+        {
+          "name": "SQL Server",
+          "priority": "High",
+          "minimumPassPercentage": 82
+        },
+        {
+          "name": "Database design",
+          "priority": "High",
+          "minimumPassPercentage": 84
+        },
+        {
+          "name": "Performance optimization",
+          "priority": "High",
+          "minimumPassPercentage": 84
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "type": "SystemDesign",
+      "difficulty": "Hard",
+      "durationInMinutes": 60,
+      "questionCount": 2,
+      "competencies": [
+        {
+          "name": "Software architecture",
+          "priority": "High",
+          "minimumPassPercentage": 85
+        },
+        {
+          "name": "Design patterns",
+          "priority": "High",
+          "minimumPassPercentage": 82
+        },
+        {
+          "name": "Performance optimization",
+          "priority": "High",
+          "minimumPassPercentage": 86
+        },
+        {
+          "name": "Azure",
+          "priority": "Low",
+          "minimumPassPercentage": 65
+        },
+        {
+          "name": "Microservices",
+          "priority": "Low",
+          "minimumPassPercentage": 68
+        }
+      ]
+    }
+  ]
+}

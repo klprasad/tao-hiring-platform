@@ -2,7 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiClientService, ApiResponse } from '@tao/core';
-import { RESUME_IMPORT_FORM_FIELD } from '../models/resume-import.models';
+import {
+  candidateScreeningRespose,
+  RESUME_IMPORT_FORM_FIELD,
+} from '../models/resume-import.models';
 
 /**
  * Resume import API client.
@@ -30,5 +33,11 @@ export class ResumeImportService {
     }
 
     return this.api.post<string>(`/api/campaigns/${campaignId}/resume-imports`, formData);
+  }
+
+  candidateScreening(campaignId: string): Observable<candidateScreeningRespose> {
+    return this.api.post<candidateScreeningRespose>(
+      `/api/campaigns/${campaignId}/resume-screening`,
+    );
   }
 }

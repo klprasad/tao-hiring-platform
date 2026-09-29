@@ -7,11 +7,13 @@
   </p>
   <div class="card summary">
     <div>
-      <span>Round</span><strong>{{ store.currentRound().name }}</strong>
+      <span>Round</span><strong>{{ store.currentRound()?.name }}</strong>
     </div>
     <div>
       <span>Question</span
-      ><strong>{{ store.currentQuestion().number }} of {{ store.currentQuestion().total }}</strong>
+      ><strong
+        >{{ store.currentQuestion()?.number }} of {{ store.currentQuestion()?.total }}</strong
+      >
     </div>
     <div><span>Response</span><strong>Saved</strong></div>
   </div>

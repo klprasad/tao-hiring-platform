@@ -4,13 +4,13 @@
   <p>Once you start, the assessment timer will become active and your session will be created.</p>
   <div class="card summary">
     <div>
-      <span>Role</span><strong>{{ store.landing().roleTitle }}</strong>
+      <span>Role</span><strong>{{ store.landing()?.roleTitle }}</strong>
     </div>
     <div>
-      <span>Duration</span><strong>{{ store.landing().durationMinutes }} minutes</strong>
+      <span>Duration</span><strong>{{ store.landing()?.durationMinutes }} minutes</strong>
     </div>
     <div>
-      <span>Rounds</span><strong>{{ store.landing().rounds.length }}</strong>
+      <span>Rounds</span><strong>{{ store.landing()?.rounds.length }}</strong>
     </div>
   </div>
   <div class="notice">

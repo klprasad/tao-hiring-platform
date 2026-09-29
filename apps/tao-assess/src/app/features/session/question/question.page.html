@@ -1,84 +1,107 @@
-<div class="workspace">
-  <header>
-    <div>
-      <span class="round">
-        {{ store.currentRound().name }}
-      </span>
-
-      <h1>
-        Question
-        {{ store.currentQuestion().number }}
-        of
-        {{ store.currentQuestion().total }}
-      </h1>
-    </div>
-
-    <div
-      class="timer"
-      [class.timer--warning]="store.remainingSeconds() <= 60"
-      [class.timer--expired]="store.remainingSeconds() === 0"
-    >
-      {{ store.remainingTime() }}
-    </div>
-  </header>
-
-  <div class="progress">
-    <span [style.width.%]="store.progressPercent()"></span>
+@if (store.isQuestionLoading()) {
+  <div class="question-loading">Loading question...</div>
+} @else if (store.questionError(); as error) {
+  <div class="question-error">
+    <p>{{ error }}</p>
   </div>
+} @else if (store.currentQuestion(); as question) {
+  @if (store.currentRound(); as round) {
+    <div class="workspace">
+      <header>
+        <div>
+          <span class="round">
+            {{ round.name }}
+          </span>
 
-  <main>
-    <article class="question">
-      <p class="eyebrow">Technical question</p>
+          <h1>
+            Question
+            {{ question.number }}
+            of
+            {{ question.total }}
+          </h1>
+        </div>
 
-      <h2>
-        {{ store.currentQuestion().prompt }}
-      </h2>
-    </article>
-
-    <section class="answer">
-      <div class="answer__header">
-        <strong>Your response</strong>
-
-        <span
-          [class.answer__status--saving]="store.savedState() === 'saving'"
-          [class.answer__status--error]="store.savedState() === 'error'"
+        <div
+          class="timer"
+          [class.timer--warning]="store.remainingSeconds() > 0 && store.remainingSeconds() <= 60"
+          [class.timer--expired]="store.remainingSeconds() === 0"
         >
-          @switch (store.savedState()) {
-            @case ('saving') {
-              Saving…
-            }
+          {{ store.remainingTime() }}
+        </div>
+      </header>
 
-            @case ('error') {
-              Save failed
-            }
-
-            @default {
-              Saved
-            }
-          }
-        </span>
+      <div class="progress">
+        <span [style.width.%]="store.progressPercent()"> </span>
       </div>
 
-      <textarea
-        [ngModel]="response()"
-        (ngModelChange)="onResponse($event)"
-        rows="14"
-        placeholder="Write your answer here..."
-        autocomplete="off"
-        spellcheck="true"
-      ></textarea>
+      <main>
+        <article class="question">
+          <p class="eyebrow">
+            {{ question.type === 'coding' ? 'Coding question' : 'Technical question' }}
+          </p>
 
-      <div class="answer__footer">
-        <span class="character-count"> {{ response().length }} characters </span>
-      </div>
+          <h2>
+            {{ question.prompt }}
+          </h2>
+        </article>
 
-      <div class="answer__actions">
-        <button class="secondary" type="button" (click)="followUp()">Ask a follow-up</button>
+        <section class="answer">
+          <div class="answer__header">
+            <strong>Your response</strong>
 
-        <button class="primary" type="button" [disabled]="!canContinue()" (click)="next()">
-          Continue
-        </button>
-      </div>
-    </section>
-  </main>
-</div>
+            <span
+              [class.answer__status--saving]="store.savedState() === 'saving'"
+              [class.answer__status--error]="store.savedState() === 'error'"
+            >
+              @switch (store.savedState()) {
+                @case ('saving') {
+                  Saving…
+                }
+
+                @case ('error') {
+                  Save failed
+                }
+
+                @default {
+                  Saved
+                }
+              }
+            </span>
+          </div>
+
+          <textarea
+            [ngModel]="response()"
+            (ngModelChange)="onResponse($event)"
+            rows="14"
+            placeholder="Write your answer here..."
+            autocomplete="off"
+            spellcheck="true"
+          ></textarea>
+
+          <div class="answer__footer">
+            <span class="character-count"> {{ response().length }} characters </span>
+          </div>
+
+          <div class="answer__actions">
+            <button
+              class="secondary"
+              type="button"
+              [disabled]="store.isSubmitting()"
+              (click)="followUp()"
+            >
+              Ask a follow-up
+            </button>
+
+            <button class="primary" type="button" [disabled]="!canContinue()" (click)="next()">
+              @if (store.isSubmitting()) {
+                Saving...
+              } @else {
+                Continue
+              }
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  }
+}
