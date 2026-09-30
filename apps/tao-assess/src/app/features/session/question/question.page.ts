@@ -2,8 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
-  effect,
   inject,
   OnInit,
   signal,
@@ -11,7 +9,7 @@ import {
 
 import { FormsModule } from '@angular/forms';
 
-import { catchError, EMPTY, finalize } from 'rxjs';
+import { catchError, EMPTY, finalize, switchMap } from 'rxjs';
 
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
@@ -25,18 +23,20 @@ import {
 
 import { CodingWorkspacePage } from '../../coding/coding-workspace/coding-workspace.page';
 
+import { TaoButtonComponent, TaoTextareaComponent } from '@tao/ui';
+
 @Component({
   selector: 'tao-question',
   standalone: true,
-  imports: [FormsModule, CodingWorkspacePage],
+  imports: [FormsModule, CodingWorkspacePage, TaoButtonComponent, TaoTextareaComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './question.page.html',
   styleUrl: './question.page.scss',
 })
 export class QuestionPage implements OnInit {
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Dependencies
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   readonly store = inject(AssessmentSessionStore);
 
@@ -44,113 +44,191 @@ export class QuestionPage implements OnInit {
 
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Constants
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   readonly assessmentType = AssessmentRoundType;
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Local State
-  // ---------------------------------------------------------
+  // ===========================================================================
 
-  /**
-   * Current text response for technical/system-design questions.
-   */
   readonly response = signal('');
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Computed State
-  // ---------------------------------------------------------
+  // ===========================================================================
 
-  /**
-   * Current question.
-   */
   readonly currentQuestion = computed(() => this.store.currentQuestion());
 
-  /**
-   * Whether current question is a coding question.
-   */
   readonly isCodingQuestion = computed(
     () => this.currentQuestion()?.roundType === AssessmentRoundType.Coding,
   );
 
-  /**
-   * Whether current question is a technical question.
-   */
   readonly isTechnicalQuestion = computed(
     () => this.currentQuestion()?.roundType === AssessmentRoundType.TechnicalDiscussion,
   );
 
-  /**
-   * Whether current question is a system design question.
-   */
   readonly isSystemDesignQuestion = computed(
     () => this.currentQuestion()?.roundType === AssessmentRoundType.SystemDesign,
   );
 
   /**
-   * Determines whether Continue should be enabled.
+   * Current question number.
    *
-   * Important:
-   * savedState is intentionally NOT used here.
+   * Backend value is already 1-based.
+   */
+  readonly currentQuestionNumber = computed(() => this.store.currentQuestionOrder() ?? 1);
+
+  readonly totalQuestions = computed(() => this.store.totalQuestions());
+
+  readonly progressPercent = computed(() => this.store.progressPercent());
+
+  readonly currentRoundName = computed(() => {
+    const type = this.store.currentRoundType();
+
+    switch (type) {
+      case AssessmentRoundType.TechnicalDiscussion:
+        return 'Technical Discussion';
+
+      case AssessmentRoundType.SystemDesign:
+        return 'System Design';
+
+      case AssessmentRoundType.Coding:
+        return 'Coding';
+
+      default:
+        return 'Assessment';
+    }
+  });
+
+  readonly isTimerExpired = computed(() => this.store.isTimerExpired() || this.store.expired());
+
+  readonly isTimerWarning = computed(() => this.store.isTimerWarning());
+
+  /**
+   * Response/editor disabled state.
    *
-   * savedState is only a UI status indicator.
-   * isSubmitting is the actual API submission guard.
+   * The editor should NOT be disabled just because
+   * the timer initially contains 0.
+   */
+  readonly isResponseDisabled = computed(
+    () => this.store.isSubmitting() || this.store.isQuestionLoading() || this.isTimerExpired(),
+  );
+
+  /**
+   * Whether Continue can be clicked.
    */
   readonly canContinue = computed(() => {
     const answer = this.response().trim();
 
-    return answer.length > 0 && !this.store.isSubmitting() && !this.store.isQuestionLoading();
+    return (
+      answer.length > 0 &&
+      !this.store.isSubmitting() &&
+      !this.store.isQuestionLoading() &&
+      !this.isTimerExpired() &&
+      !this.store.submitted()
+    );
   });
 
-  // ---------------------------------------------------------
-  // Constructor
-  // ---------------------------------------------------------
-
-  constructor() {
-    /**
-     * Restore any existing response from the store.
-     */
-    this.response.set(this.store.response());
-
-    /**
-     * React to round changes.
-     *
-     * Timer logic can be added here later.
-     */
-    effect(() => {
-      const currentRound = this.store.currentRound();
-
-      if (!currentRound) {
-        return;
-      }
-
-      // Start / reset timer if required.
-    });
-  }
-
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Lifecycle
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   ngOnInit(): void {
-    this.loadCurrentQuestion();
+    this.loadAssessment();
   }
 
-  // ---------------------------------------------------------
-  // Question Loading
-  // ---------------------------------------------------------
+  // ===========================================================================
+  // Initial Assessment Loading
+  // ===========================================================================
+
+  /**
+   * Initial sequence:
+   *
+   * 1. Get authoritative workflow.
+   * 2. Store workflow.
+   * 3. Timer starts from assessmentExpiresOn.
+   * 4. Get actual current question.
+   */
+  private loadAssessment(): void {
+    const sessionId = this.store.assessmentSessionId();
+
+    if (!sessionId) {
+      this.store.setQuestionError('Assessment session is not available.');
+
+      return;
+    }
+
+    /**
+     * If workflow is already available,
+     * don't make an unnecessary workflow request.
+     */
+    if (this.store.assessmentWorkflow()) {
+      this.loadCurrentQuestion();
+      return;
+    }
+
+    this.store.setQuestionLoading(true);
+
+    this.store.setQuestionError(null);
+
+    this.assessmentService
+      .getAssessmentWorkflow(sessionId)
+      .pipe(
+        switchMap((workflow) => {
+          this.store.setAssessmentWorkflow(workflow);
+
+          if (
+            workflow.status === 'Completed' ||
+            workflow.status === 'Expired' ||
+            workflow.remainingQuestions === 0
+          ) {
+            this.store.submit();
+
+            this.assessmentNavigationService.finalReview();
+
+            return EMPTY;
+          }
+
+          return this.assessmentService.getCurrentQuestion(sessionId);
+        }),
+
+        finalize(() => {
+          this.store.setQuestionLoading(false);
+        }),
+
+        catchError((error) => {
+          console.error('Failed to load assessment', error);
+
+          this.store.setQuestionError('Unable to load the assessment.');
+
+          return EMPTY;
+        }),
+      )
+      .subscribe((question) => {
+        if (question) {
+          this.setQuestion(question);
+        }
+      });
+  }
+
+  // ===========================================================================
+  // Current Question
+  // ===========================================================================
 
   private loadCurrentQuestion(): void {
     const sessionId = this.store.assessmentSessionId();
 
     if (!sessionId) {
       this.store.setQuestionError('Assessment session is not available.');
+
       return;
     }
 
     this.store.setQuestionLoading(true);
+
     this.store.setQuestionError(null);
 
     this.assessmentService
@@ -159,9 +237,12 @@ export class QuestionPage implements OnInit {
         finalize(() => {
           this.store.setQuestionLoading(false);
         }),
+
         catchError((error) => {
           console.error('Failed to load current question', error);
+
           this.store.setQuestionError('Unable to load the current question.');
+
           return EMPTY;
         }),
       )
@@ -170,48 +251,35 @@ export class QuestionPage implements OnInit {
       });
   }
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Set Question
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   private setQuestion(question: AssessmentQuestionDto): void {
-    /**
-     * Update current question in store.
-     */
     this.store.setCurrentQuestion(question);
 
-    /**
-     * Reset local response.
-     */
     this.response.set('');
 
-    /**
-     * Reset store response.
-     */
-    this.store.setResponse('');
-
-    /**
-     * New question is ready.
-     *
-     * Make sure the previous question's
-     * saving/error state doesn't affect
-     * the new question.
-     */
     this.store.markSaved();
   }
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Text Response
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   onResponse(value: string): void {
+    if (this.isResponseDisabled()) {
+      return;
+    }
+
     this.response.set(value);
+
     this.store.setResponse(value);
   }
 
-  // ---------------------------------------------------------
-  // Continue - Coding
-  // ---------------------------------------------------------
+  // ===========================================================================
+  // Coding Question
+  // ===========================================================================
 
   onCodingContinue(code: string): void {
     const question = this.store.currentQuestion();
@@ -224,19 +292,21 @@ export class QuestionPage implements OnInit {
       return;
     }
 
+    if (this.store.isSubmitting() || this.store.isQuestionLoading() || this.isTimerExpired()) {
+      return;
+    }
+
     this.saveCodingResponse(code, question.questionId);
   }
 
   private saveCodingResponse(code: string, questionId: string): void {
-    /**
-     * Prevent duplicate submission.
-     */
     if (this.store.isSubmitting()) {
       return;
     }
 
     this.store.setSubmitting(true);
-    this.store.savedState.set('saving');
+
+    this.store.setCodingSaveState('saving');
 
     const request = {
       code,
@@ -248,45 +318,51 @@ export class QuestionPage implements OnInit {
         finalize(() => {
           this.store.setSubmitting(false);
         }),
+
         catchError((error) => {
           console.error('Failed to save coding response', error);
+
+          this.store.setCodingSaveState('error');
+
           this.store.saveError();
+
           return EMPTY;
         }),
       )
       .subscribe((result) => {
+        this.store.setCodingSaveState('saved');
+
         this.handleSubmitResult(result);
       });
   }
 
-  // ---------------------------------------------------------
-  // Continue - Technical/System Design
-  // ---------------------------------------------------------
+  // ===========================================================================
+  // Continue - Technical / System Design
+  // ===========================================================================
 
   next(): void {
-    /**
-     * This protects the method even if called
-     * programmatically.
-     */
     if (!this.canContinue()) {
       return;
     }
+
     const question = this.store.currentQuestion();
+
     if (!question) {
       return;
     }
 
-    /**
-     * Prevent duplicate submissions.
-     */
     if (this.store.isSubmitting()) {
       return;
     }
+
+    const answer = this.response().trim();
+
     this.store.setSubmitting(true);
-    this.store.savedState.set('saving');
+
+    this.store.setResponse(answer);
 
     const request = {
-      response: this.response().trim(),
+      response: answer,
     };
 
     this.assessmentService
@@ -295,9 +371,12 @@ export class QuestionPage implements OnInit {
         finalize(() => {
           this.store.setSubmitting(false);
         }),
+
         catchError((error) => {
           console.error('Failed to save candidate response', error);
+
           this.store.saveError();
+
           return EMPTY;
         }),
       )
@@ -306,67 +385,106 @@ export class QuestionPage implements OnInit {
       });
   }
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Submit Result
-  // ---------------------------------------------------------
+  // ===========================================================================
 
+  /**
+   * After saving:
+   *
+   * Save Response
+   *      ↓
+   * Refresh Workflow
+   *      ↓
+   * Update Store
+   *      ↓
+   * Load Current Question
+   */
   private handleSubmitResult(result: SaveCandidateResponseResult): void {
-    /**
-     * Current response was successfully saved.
-     */
     this.store.markSaved();
-
-    // -------------------------------------------------------
-    // Entire assessment completed
-    // -------------------------------------------------------
 
     if (result.assessmentCompleted) {
       this.store.submit();
+
       this.assessmentNavigationService.finalReview();
+
       return;
     }
 
-    // -------------------------------------------------------
-    // Current round completed
-    // -------------------------------------------------------
-
-    if (result.roundCompleted) {
-      /**
-       * Backend may return the first question
-       * of the next round.
-       */
-      if (result.nextQuestion) {
-        this.setQuestion(result.nextQuestion);
-        return;
-      }
-
-      /**
-       * No next question means assessment
-       * should move to final review.
-       */
-      this.assessmentNavigationService.finalReview();
-      return;
-    }
-
-    // -------------------------------------------------------
-    // Normal question progression
-    // -------------------------------------------------------
-
-    if (result.nextQuestion) {
-      this.setQuestion(result.nextQuestion);
-      return;
-    }
-
-    // -------------------------------------------------------
-    // Defensive fallback
-    // -------------------------------------------------------
-
-    this.loadCurrentQuestion();
+    this.refreshWorkflowState();
   }
 
-  // ---------------------------------------------------------
+  // ===========================================================================
+  // Refresh Workflow
+  // ===========================================================================
+
+  private refreshWorkflowState(): void {
+    const sessionId = this.store.assessmentSessionId();
+
+    if (!sessionId) {
+      this.store.setQuestionError('Assessment session is not available.');
+
+      return;
+    }
+
+    this.store.setQuestionLoading(true);
+
+    this.store.setQuestionError(null);
+
+    this.assessmentService
+      .getAssessmentWorkflow(sessionId)
+      .pipe(
+        finalize(() => {
+          this.store.setQuestionLoading(false);
+        }),
+
+        catchError((error) => {
+          console.error('Failed to refresh assessment workflow', error);
+
+          this.store.setQuestionError('Unable to refresh assessment progress.');
+
+          return EMPTY;
+        }),
+      )
+      .subscribe((workflow) => {
+        /**
+         * This updates:
+         *
+         * completedQuestions
+         * remainingQuestions
+         * completionPercentage
+         * currentRoundOrder
+         * currentQuestionOrder
+         * currentQuestionId
+         * currentStage
+         * canResume
+         * isInterrupted
+         * assessmentExpiresOn
+         */
+        this.store.setAssessmentWorkflow(workflow);
+
+        /**
+         * Assessment completed.
+         */
+        if (workflow.status === 'Completed' || workflow.remainingQuestions === 0) {
+          this.store.submit();
+
+          this.assessmentNavigationService.finalReview();
+
+          return;
+        }
+
+        /**
+         * Backend has moved to the next
+         * authoritative question.
+         */
+        this.loadCurrentQuestion();
+      });
+  }
+
+  // ===========================================================================
   // Follow-up Question
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   followUp(): void {
     const question = this.store.currentQuestion();
@@ -375,31 +493,39 @@ export class QuestionPage implements OnInit {
       return;
     }
 
-    /**
-     * Prevent another request while submitting.
-     */
-    if (this.store.isSubmitting()) {
+    if (this.store.isSubmitting() || this.store.isQuestionLoading() || this.isTimerExpired()) {
       return;
     }
+
+    this.store.setQuestionLoading(true);
+
+    this.store.setQuestionError(null);
 
     this.assessmentService
       .getFollowUpQuestion(question.questionId)
       .pipe(
+        finalize(() => {
+          this.store.setQuestionLoading(false);
+        }),
+
         catchError((error) => {
           console.error('Failed to load follow-up question', error);
+
+          this.store.setQuestionError('Unable to load the follow-up question.');
+
           return EMPTY;
         }),
       )
-      .subscribe((question) => {
-        this.setQuestion(question);
+      .subscribe((followUpQuestion) => {
+        this.setQuestion(followUpQuestion);
       });
   }
 
-  // ---------------------------------------------------------
+  // ===========================================================================
   // Retry
-  // ---------------------------------------------------------
+  // ===========================================================================
 
   retry(): void {
-    this.loadCurrentQuestion();
+    this.loadAssessment();
   }
 }

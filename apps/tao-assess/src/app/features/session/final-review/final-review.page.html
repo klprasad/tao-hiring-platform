@@ -16,7 +16,17 @@
     After submission, your assessment cannot be reopened from the candidate application.
   </div>
   <div class="actions">
-    <button class="secondary" (click)="router.navigate(['/session/question'])">Back</button
-    ><button class="primary" (click)="submit()">Submit Final Assessment</button>
+    <tao-button
+      label="Back"
+      appearance="outlined"
+      color="basic"
+      (click)="router.navigate(['/session/question'])"
+    ></tao-button
+    ><tao-button
+      label="Submit Final Assessment"
+      appearance="filled"
+      class="primary"
+      (click)="submit()"
+    ></tao-button>
   </div>
 </section>

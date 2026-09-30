@@ -120,3 +120,51 @@ export function mapAssessmentSession(dto: AssessmentSessionDto): AssessmentSessi
     strategySnapshot: strategy,
   };
 }
+export interface AssessmentSessionWorkflowDto {
+  assessmentSessionId: string;
+  status: string;
+  currentStage: string;
+  completionPercentage: number;
+
+  totalRounds: number;
+  completedRounds: number;
+  remainingRounds: number;
+
+  totalQuestions: number;
+  completedQuestions: number;
+  skippedQuestions: number;
+  remainingQuestions: number;
+
+  currentRoundId: string | null;
+  currentRoundOrder: number | null;
+  currentRoundType: AssessmentRoundType | null;
+
+  currentQuestionId: string | null;
+  currentQuestionOrder: number | null;
+
+  startedOn: string | null;
+  lastActivityOn: string | null;
+  assessmentExpiresOn: string | null;
+
+  canResume: boolean;
+  isInterrupted: boolean;
+
+  rounds: AssessmentRoundWorkflowDto[];
+}
+
+export interface AssessmentRoundWorkflowDto {
+  roundId: string;
+  order: number;
+  type: AssessmentRoundType;
+  status: string;
+
+  totalQuestions: number;
+  completedQuestions: number;
+  skippedQuestions: number;
+  remainingQuestions: number;
+
+  completionPercentage: number;
+
+  startedOn: string | null;
+  completedOn: string | null;
+}

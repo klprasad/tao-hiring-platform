@@ -1,47 +1,75 @@
-@if (store.currentQuestion(); as question) {
+@if (currentQuestion(); as question) {
+  <!-- ========================================================= -->
   <!-- Coding Question -->
+  <!-- ========================================================= -->
+
   @if (question.roundType === assessmentType.Coding) {
     <tao-coding-workspace [question]="question" (continue)="onCodingContinue($event)" />
   }
 
-  <!-- Technical / System Design Question -->
+  <!-- ========================================================= -->
+  <!-- Technical / System Design -->
+  <!-- ========================================================= -->
+
   @else {
     <div class="workspace">
+      <!-- ===================================================== -->
       <!-- Header -->
+      <!-- ===================================================== -->
+
       <header class="workspace__header">
         <div>
           <span class="eyebrow">
-            {{
-              question.roundType === assessmentType.SystemDesign
-                ? 'System design question'
-                : 'Technical question'
-            }}
+            {{ currentRoundName() }}
+          </span>
+
+          <span class="question-position">
+            Question
+            {{ currentQuestionNumber() }}
+            of
+            {{ totalQuestions() }}
           </span>
         </div>
 
+        <!-- =================================================== -->
+        <!-- Timer -->
+        <!-- =================================================== -->
+
         <div
           class="timer"
-          [class.timer--warning]="store.remainingSeconds() > 0 && store.remainingSeconds() <= 60"
-          [class.timer--expired]="store.remainingSeconds() === 0"
+          [class.timer--warning]="isTimerWarning()"
+          [class.timer--expired]="isTimerExpired()"
         >
           {{ store.remainingTime() }}
         </div>
       </header>
 
+      <!-- ===================================================== -->
       <!-- Progress -->
-      <div class="progress">
-        <span [style.width.%]="store.progressPercent()"></span>
+      <!-- ===================================================== -->
+
+      <div
+        class="progress"
+        role="progressbar"
+        [attr.aria-valuenow]="progressPercent()"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <span [style.width.%]="progressPercent()"></span>
       </div>
 
+      <!-- ===================================================== -->
+      <!-- Main -->
+      <!-- ===================================================== -->
+
       <main>
+        <!-- =================================================== -->
         <!-- Question -->
+        <!-- =================================================== -->
+
         <article class="question">
           <p class="eyebrow">
-            {{
-              question.roundType === assessmentType.SystemDesign
-                ? 'System design question'
-                : 'Technical question'
-            }}
+            {{ currentRoundName() }}
           </p>
 
           <h2>
@@ -49,10 +77,13 @@
           </h2>
         </article>
 
+        <!-- =================================================== -->
         <!-- Answer -->
+        <!-- =================================================== -->
+
         <section class="answer">
           <div class="answer__header">
-            <strong>Your response</strong>
+            <strong> Your response </strong>
 
             <span
               [class.answer__status--saving]="store.savedState() === 'saving'"
@@ -74,39 +105,81 @@
             </span>
           </div>
 
-          <textarea
+          <!-- ================================================= -->
+          <!-- Response -->
+          <!-- ================================================= -->
+
+          <tao-textarea
+            label="Your response"
+            placeholder="Write your answer here..."
+            [rows]="6"
+            [disabled]="isResponseDisabled()"
             [ngModel]="response()"
             (ngModelChange)="onResponse($event)"
-            rows="14"
-            placeholder="Write your answer here..."
-            autocomplete="off"
-            spellcheck="true"
-          ></textarea>
+          />
+
+          <!-- ================================================= -->
+          <!-- Character Count -->
+          <!-- ================================================= -->
 
           <div class="answer__footer">
-            <span class="character-count"> {{ response().length }} characters </span>
+            <span class="character-count">
+              {{ response().length }}
+              characters
+            </span>
           </div>
 
-          <div class="answer__actions">
-            <button
-              class="secondary"
-              type="button"
-              [disabled]="store.isSubmitting()"
-              (click)="followUp()"
-            >
-              Ask a follow-up
-            </button>
+          <!-- ================================================= -->
+          <!-- Actions -->
+          <!-- ================================================= -->
 
-            <button class="primary" type="button" [disabled]="!canContinue()" (click)="next()">
-              @if (store.isSubmitting()) {
-                Saving...
-              } @else {
-                Continue
-              }
-            </button>
+          <div class="answer__actions">
+            <tao-button
+              label="Ask a follow-up"
+              appearance="outlined"
+              color="basic"
+              size="small"
+              [disabled]="store.isSubmitting() || store.isQuestionLoading() || isTimerExpired()"
+              (click)="followUp()"
+            />
+
+            <tao-button
+              label="Continue"
+              appearance="filled"
+              color="primary"
+              size="small"
+              [disabled]="!canContinue()"
+              (click)="next()"
+            />
           </div>
         </section>
       </main>
     </div>
   }
+} @else {
+  <!-- ========================================================= -->
+  <!-- Loading / Error -->
+  <!-- ========================================================= -->
+
+  <div class="workspace workspace--loading">
+    @if (store.isQuestionLoading()) {
+      <div class="question-loading">Loading question…</div>
+    } @else if (store.questionError()) {
+      <div class="question-error">
+        <p>
+          {{ store.questionError() }}
+        </p>
+
+        <tao-button
+          label="Retry"
+          appearance="outlined"
+          color="primary"
+          size="small"
+          (click)="retry()"
+        />
+      </div>
+    } @else {
+      <div class="question-loading">Preparing your question…</div>
+    }
+  </div>
 }

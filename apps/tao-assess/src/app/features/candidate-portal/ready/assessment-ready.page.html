@@ -17,9 +17,21 @@
     Please keep this browser window open. Your responses are saved automatically.
   </div>
   <div class="actions">
-    <button class="secondary" (click)="back()">Back</button
-    ><button class="primary" [disabled]="starting" (click)="start()">
-      {{ starting ? 'Starting…' : 'Start Assessment' }}
-    </button>
+    <tao-button
+      appearance="outlined"
+      color="basic"
+      type="button"
+      label="Back"
+      (click)="back()"
+    ></tao-button
+    ><tao-button
+      class="primary"
+      type="button"
+      label="Start Assessment"
+      apperance="filled"
+      [disabled]="starting"
+      (click)="start()"
+    >
+    </tao-button>
   </div>
 </section>

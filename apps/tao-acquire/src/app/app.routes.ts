@@ -12,7 +12,8 @@ export const routes: Routes = [
   {
     path: 'login',
     canActivate: [guestGuard],
-    loadComponent: () => import('./features/login/pages/login').then((module) => module.Login),
+    loadComponent: () =>
+      import('./features/login/pages/acquire-login').then((module) => module.Login),
   },
   {
     path: '',

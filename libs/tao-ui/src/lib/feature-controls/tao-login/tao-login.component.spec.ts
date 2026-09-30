@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginCredentials, TaoAcquireLoginComponent } from './tao-acquire-login.component';
+import { LoginCredentials, TaoLoginComponent } from './tao-login.component';
 
-describe('TaoAcquireLoginComponent', () => {
-  let fixture: ComponentFixture<TaoAcquireLoginComponent>;
-  let component: TaoAcquireLoginComponent;
+describe('TaoLoginComponent', () => {
+  let fixture: ComponentFixture<TaoLoginComponent>;
+  let component: TaoLoginComponent;
   let emitted: LoginCredentials[];
 
   const host = (): HTMLElement => fixture.nativeElement as HTMLElement;
@@ -41,10 +41,10 @@ describe('TaoAcquireLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaoAcquireLoginComponent],
+      imports: [TaoLoginComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TaoAcquireLoginComponent);
+    fixture = TestBed.createComponent(TaoLoginComponent);
     component = fixture.componentInstance;
 
     emitted = [];

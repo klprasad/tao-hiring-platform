@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
+import { TaoButtonComponent } from '@tao/ui';
 
 interface ConsentItem {
   id: string;
@@ -13,7 +14,7 @@ interface ConsentItem {
 @Component({
   selector: 'tao-consent',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './consent.page.html',
   styleUrl: './consent.page.scss',

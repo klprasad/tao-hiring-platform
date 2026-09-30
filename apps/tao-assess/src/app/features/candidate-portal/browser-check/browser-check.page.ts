@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { AssessmentSessionStore, CheckStatus } from '../../../core/assessment-session.store';
 
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
+import { TaoButtonComponent } from '@tao/ui';
 
 interface Check {
   label: string;
@@ -12,7 +13,7 @@ interface Check {
 
 @Component({
   selector: 'tao-browser-check',
-  standalone: true,
+  imports: [TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './browser-check.page.html',
   styleUrl: './browser-check.page.scss',

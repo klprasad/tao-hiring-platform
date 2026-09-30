@@ -51,19 +51,19 @@ const USERNAME_PATTERN = /^[A-Za-z0-9._-]+(@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+)?$/;
  *
  * Example:
  *
- *   <tao-acquire-login
+ *   <tao-login
  *     [submitting]="isSubmitting()"
  *     [errorMessage]="loginError()"
  *     (login)="onLogin($event)"
  *   />
  */
 @Component({
-  selector: 'tao-acquire-login',
+  selector: 'tao-login',
   imports: [FormField],
-  styleUrl: './tao-acquire-login.component.scss',
-  templateUrl: './tao-acquire-login.component.html',
+  styleUrl: './tao-login.component.scss',
+  templateUrl: './tao-login.component.html',
 })
-export class TaoAcquireLoginComponent {
+export class TaoLoginComponent {
   /** Heading displayed above the form. */
   readonly heading = input('Sign in');
 

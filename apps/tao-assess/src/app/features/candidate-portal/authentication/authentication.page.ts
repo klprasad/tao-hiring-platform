@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
-import { LoginCredentials, TaoAcquireLoginComponent } from '@tao/ui';
+import { LoginCredentials, TaoLoginComponent } from '@tao/ui';
 import { AuthService } from '../../../core/auth.service';
 @Component({
   selector: 'tao-authentication',
   standalone: true,
-  imports: [TaoAcquireLoginComponent],
+  imports: [TaoLoginComponent],
   templateUrl: './authentication.page.html',
   styleUrl: './authentication.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

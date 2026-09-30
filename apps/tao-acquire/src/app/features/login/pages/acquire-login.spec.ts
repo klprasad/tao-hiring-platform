@@ -4,10 +4,10 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ActivatedRoute, Router, convertToParamMap, provideRouter } from '@angular/router';
 import { AppConfigService, AuthStore, UserSummary } from '@tao/core';
 
-import { Login } from './login';
+import { AcquireLogin } from './acquire-login';
 
 describe('Login', () => {
-  let fixture: ComponentFixture<Login>;
+  let fixture: ComponentFixture<AcquireLogin>;
   let http: HttpTestingController;
 
   beforeEach(() => {

@@ -15,10 +15,11 @@ import type * as Monaco from 'monaco-editor';
 
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentQuestionDto } from '../../../models/assessment-session.model';
+import { TaoButtonComponent } from '@tao/ui';
 
 @Component({
   selector: 'tao-coding-workspace',
-  standalone: true,
+  imports: [TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './coding-workspace.page.html',
   styleUrl: './coding-workspace.page.scss',

@@ -4,9 +4,10 @@ import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 import { AssessmentService } from '../../../core/assessment.service';
 import { catchError, EMPTY } from 'rxjs';
+import { TaoButtonComponent } from '@tao/ui';
 @Component({
   selector: 'tao-assessment-ready',
-  standalone: true,
+  imports: [TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './assessment-ready.page.html',
   styleUrl: './assessment-ready.page.scss',

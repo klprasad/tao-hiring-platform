@@ -107,11 +107,14 @@
           <span>C#</span>
         </div>
 
-        <button class="primary" type="button" (click)="next()">
-          Continue
-
-          <span aria-hidden="true"> → </span>
-        </button>
+        <tao-button
+          label="Continue"
+          apperance="filled"
+          class="primary"
+          type="button"
+          (click)="next()"
+        >
+        </tao-button>
       </footer>
     </section>
   </div>

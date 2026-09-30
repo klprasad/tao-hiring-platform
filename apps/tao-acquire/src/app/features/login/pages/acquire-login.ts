@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { LoginCredentials, TaoAcquireLoginComponent } from '@tao/ui';
+import { LoginCredentials, TaoLoginComponent } from '@tao/ui';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { redirectTarget } from '../../../core/auth/redirect-target';
@@ -9,23 +9,17 @@ import { redirectTarget } from '../../../core/auth/redirect-target';
 /**
  * Entry screen of the recruiter application.
  *
- * Wraps the shared `TaoAcquireLoginComponent` form and turns validated
+ * Wraps the shared `TaoLoginComponent` form and turns validated
  * credentials into a signed-in session, after which the guarded routes become
  * reachable.
  */
 @Component({
   selector: 'tao-login',
-  imports: [TaoAcquireLoginComponent],
-  template: `
-    <tao-acquire-login
-      description="Sign in with your recruiter account to open the workspace."
-      [submitting]="submitting()"
-      [errorMessage]="errorMessage()"
-      (login)="onLogin($event)"
-    />
-  `,
+  imports: [TaoLoginComponent],
+  templateUrl: './acquire-login.html',
+  styleUrl: './acquire-login.scss',
 })
-export class Login {
+export class AcquireLogin {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);

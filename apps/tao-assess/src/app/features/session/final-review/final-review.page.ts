@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
+import { TaoButtonComponent } from '@tao/ui';
 @Component({
   selector: 'tao-final-review',
-  standalone: true,
+  imports: [TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './final-review.page.html',
   styleUrl: './final-review.page.scss',

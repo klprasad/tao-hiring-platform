@@ -1,7 +1,10 @@
 import { inject, Injectable, Service } from '@angular/core';
 import { ApiClientService } from '@tao/core';
 import { Observable } from 'rxjs';
-import { AssessmentSessionDto } from '../models/assessment-session.model';
+import {
+  AssessmentSessionDto,
+  AssessmentSessionWorkflowDto,
+} from '../models/assessment-session.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -33,5 +36,10 @@ export class AssessmentService {
   }
   skipQuestion(questionId: string): Observable<any> {
     return this.api.post(`/api/assessment-questions/${questionId}/skip`);
+  }
+  getAssessmentWorkflow(sessionId: string): Observable<AssessmentSessionWorkflowDto> {
+    return this.api.get<AssessmentSessionWorkflowDto>(
+      `/api/assessment-sessions/${sessionId}/workflow`,
+    );
   }
 }

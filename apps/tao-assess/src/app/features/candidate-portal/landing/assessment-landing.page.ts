@@ -8,10 +8,11 @@ import {
 } from '../../../models/assessment-session.model';
 import { AssessmentService } from '../../../core/assessment.service';
 import { catchError, EMPTY, map } from 'rxjs';
+import { TaoButtonComponent } from '@tao/ui';
 
 @Component({
   selector: 'tao-assessment-landing',
-  standalone: true,
+  imports: [TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './assessment-landing.page.html',
   styleUrl: './assessment-landing.page.scss',
@@ -43,7 +44,6 @@ export class AssessmentLandingPage {
         }),
       )
       .subscribe((assessment) => {
-        this.store.assessmentSessionId.set(assessment.id);
         this.assessmentNavigationService.accessToken.set(assessment.id);
         this.assessmentNavigationService.sessionId.set(assessment.id);
         this.store.assessmentSession.set(assessment);
