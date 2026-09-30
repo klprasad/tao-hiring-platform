@@ -14,7 +14,7 @@ import { redirectTarget } from '../../../core/auth/redirect-target';
  * reachable.
  */
 @Component({
-  selector: 'tao-login',
+  selector: 'tao-acquire-login',
   imports: [TaoLoginComponent],
   templateUrl: './acquire-login.html',
   styleUrl: './acquire-login.scss',

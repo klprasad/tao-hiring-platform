@@ -1,33 +1,14 @@
 export * from './lib/feature-controls/tao-shell/tao-shell.component';
 export * from './lib/feature-controls/tao-page-header/tao-page-header.component';
 export * from './lib/feature-controls/tao-login/tao-login.component';
+export * from './lib/feature-controls/tao-empty-state/tao-empty-state.component';
 export * from './lib/native-controls/tao-card/tao-card.component';
-export * from './lib/feature-controls/tao-stat-card/tao-stat-card.component';
-export * from './lib/feature-controls/tao-status-chip/tao-status-chip.component';
-export * from './lib/feature-controls/tao-ai-badge/tao-ai-badge.component';
-export * from './lib/feature-controls/tao-ai-status/tao-ai-status.component';
 export * from './lib/native-controls/tao-data-table/tao-data-table.component';
 export * from './lib/native-controls/tao-data-table/tao-table.models';
-export * from './lib/feature-controls/tao-score/tao-score.component';
-export * from './lib/feature-controls/tao-confidence/tao-confidence.component';
-export * from './lib/feature-controls/tao-evidence/tao-evidence.component';
-export * from './lib/feature-controls/tao-competency/tao-competency.component';
-export * from './lib/feature-controls/tao-empty-state/tao-empty-state.component';
-export * from './lib/feature-controls/tao-error-state/tao-error-state.component';
 export * from './lib/native-controls/tao-loading-state/tao-loading-state.component';
-export * from './lib/feature-controls/tao-filter-bar/tao-filter-bar.component';
-export * from './lib/feature-controls/tao-document-viewer/tao-document-viewer.component';
-export * from './lib/feature-controls/tao-question-panel/tao-question-panel.component';
-export * from './lib/feature-controls/tao-answer-editor/tao-answer-editor.component';
-export * from './lib/feature-controls/tao-assessment-timer/tao-assessment-timer.component';
-export * from './lib/feature-controls/tao-recovery-banner/tao-recovery-banner.component';
 export * from './lib/native-controls/tao-progress/tao-progress.component';
 export * from './lib/native-controls/tao-stepper/tao-stepper.component';
 export * from './lib/native-controls/tao-confirm-dialog/tao-confirm-dialog.component';
-export * from './lib/feature-controls/tao-timeline/tao-timeline.component';
-export * from './lib/feature-controls/tao-resume-card/tao-resume-card.component';
-export * from './lib/feature-controls/tao-candidate-card/tao-candidate-card.component';
-export * from './lib/feature-controls/tao-interviewer-message/tao-interviewer-message.component';
 export * from './lib/native-controls/tao-button/tao-button.component';
 export * from './lib/native-controls/tao-input/tao-input.component';
 export * from './lib/native-controls/tao-autocomplete/tao-autocomplete.component';
@@ -38,9 +19,4 @@ export * from './lib/native-controls/tao-dialog/tao-dialog.component';
 export * from './lib/native-controls/tao-menu/tao-menu.component';
 export * from './lib/native-controls/tao-tabs/tao-tabs.component';
 export * from './lib/native-controls/tao-expansion-panel/tao-expansion-panel.component';
-export * from './lib/feature-controls/tao-status/tao-status.component';
-export * from './lib/feature-controls/tao-ai-state/tao-ai-state.component';
 export * from './lib/native-controls/tao-notification/tao-notification.service';
-/*
- * Public API Surface of tao-ui
- */
