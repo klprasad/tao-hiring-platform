@@ -58,6 +58,7 @@
             ],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/azure-blue.css",
+              "styles/themes.css",
               "apps/tao-acquire/src/styles.scss"
             ]
           },
@@ -157,6 +158,7 @@
             ],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/azure-blue.css",
+              "styles/themes.css",
               "apps/tao-assess/src/styles.scss"
             ]
           },

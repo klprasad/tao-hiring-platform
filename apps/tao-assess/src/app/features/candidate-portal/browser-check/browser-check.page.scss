@@ -2,9 +2,9 @@
 .notice {
   margin-top: 20px;
   padding: 14px 16px;
-  border: 1px solid #dce4ee;
-  background: #f9fbfd;
-  border-radius: 10px;
-  color: #657286;
+  border: 1px solid var(--tao-color-dce4ee);
+  background: var(--tao-color-f9fbfd);
+  border-radius: var(--tao-radius-10px);
+  color: var(--tao-color-657286);
   font-size: 13px;
 }

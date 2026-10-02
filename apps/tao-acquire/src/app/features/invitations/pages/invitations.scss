@@ -1,19 +1,19 @@
 .email-invitation {
   width: 100%;
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
-  border: 1px solid #dce8e2;
-  border-radius: 12px;
+  border: 1px solid var(--tao-color-dce8e2);
+  border-radius: var(--tao-radius-12px);
 
   overflow: hidden;
 
   &__header {
     padding: 20px 24px;
 
-    border-bottom: 1px solid #e3ebe7;
+    border-bottom: 1px solid var(--tao-color-e3ebe7);
 
-    background: #f8fbf9;
+    background: var(--tao-color-f8fbf9);
   }
 
   &__title-wrapper {
@@ -33,10 +33,10 @@
 
     flex-shrink: 0;
 
-    border-radius: 9px;
+    border-radius: var(--tao-radius-9px);
 
-    background: #e9f8f0;
-    color: #24915e;
+    background: var(--tao-color-e9f8f0);
+    color: var(--tao-color-24915e);
 
     mat-icon {
       width: 22px;
@@ -49,7 +49,7 @@
   &__title {
     margin: 0;
 
-    color: #183a58;
+    color: var(--tao-color-183a58);
 
     font-size: 18px;
     font-weight: 700;
@@ -59,7 +59,7 @@
   &__description {
     margin: 4px 0 0;
 
-    color: #687780;
+    color: var(--tao-color-687780);
 
     font-size: 13px;
     line-height: 1.5;
@@ -92,7 +92,7 @@
   margin-top: 16px;
   padding: 10px 12px;
 
-  border-radius: 6px;
+  border-radius: var(--tao-radius-6px);
 
   font-size: 13px;
   line-height: 18px;
@@ -107,19 +107,19 @@
   }
 
   &--error {
-    border: 1px solid #f1caca;
+    border: 1px solid var(--tao-color-f1caca);
 
-    background: #fff6f6;
+    background: var(--tao-color-fff6f6);
 
-    color: #b93838;
+    color: var(--tao-color-b93838);
   }
 
   &--success {
-    border: 1px solid #bde5ce;
+    border: 1px solid var(--tao-color-bde5ce);
 
-    background: #f1fbf5;
+    background: var(--tao-color-f1fbf5);
 
-    color: #218553;
+    color: var(--tao-color-218553);
   }
 }
 

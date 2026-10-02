@@ -23,12 +23,12 @@
     700 24px/32px Inter,
     system-ui,
     sans-serif;
-  color: #172033;
+  color: var(--tao-color-172033);
 }
 
 .coding__header p {
   margin: 0;
-  color: #68768a;
+  color: var(--tao-color-68768a);
   font:
     14px/22px Inter,
     system-ui,
@@ -38,7 +38,7 @@
 .eyebrow {
   display: block;
   margin-bottom: 4px;
-  color: #718096;
+  color: var(--tao-color-718096);
   font:
     700 11px/16px Inter,
     system-ui,
@@ -52,10 +52,10 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  border: 1px solid #ccebdd;
-  border-radius: 999px;
-  background: #f0faf5;
-  color: #188356;
+  border: 1px solid var(--tao-color-ccebdd);
+  border-radius: var(--tao-radius-999px);
+  background: var(--tao-color-f0faf5);
+  color: var(--tao-color-188356);
   font:
     600 12px/16px Inter,
     system-ui,
@@ -64,30 +64,30 @@
 }
 
 .coding__status--saving {
-  border-color: #dce3eb;
-  background: #f7f9fc;
-  color: #64748b;
+  border-color: var(--tao-color-dce3eb);
+  background: var(--tao-color-f7f9fc);
+  color: var(--tao-color-64748b);
 }
 
 .coding__status--error {
-  border-color: #f1caca;
-  background: #fff5f5;
-  color: #b42318;
+  border-color: var(--tao-color-f1caca);
+  background: var(--tao-color-fff5f5);
+  color: var(--tao-color-b42318);
 }
 
 .status-dot {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
-  background: #59d69e;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-59d69e);
 }
 
 .coding__status--saving .status-dot {
-  background: #94a3b8;
+  background: var(--tao-color-94a3b8);
 }
 
 .coding__status--error .status-dot {
-  background: #d64545;
+  background: var(--tao-color-d64545);
 }
 
 .coding-grid {
@@ -95,16 +95,16 @@
   grid-template-columns: minmax(320px, 34%) minmax(0, 66%);
   min-height: 650px;
   overflow: hidden;
-  border: 1px solid #dfe5ec;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 8px 28px rgba(23, 32, 51, 0.05);
+  border: 1px solid var(--tao-color-dfe5ec);
+  border-radius: var(--tao-radius-14px);
+  background: var(--tao-color-fff);
+  box-shadow: 0 8px 28px var(--tao-color-rgba-23-32-51-0-05);
 }
 
 .problem {
   padding: 26px;
-  border-right: 1px solid #dfe5ec;
-  background: #fff;
+  border-right: 1px solid var(--tao-color-dfe5ec);
+  background: var(--tao-color-fff);
 }
 
 .problem__heading {
@@ -120,9 +120,9 @@
   height: 34px;
   place-items: center;
   flex: 0 0 34px;
-  border-radius: 9px;
-  background: #edf4f9;
-  color: #183a58;
+  border-radius: var(--tao-radius-9px);
+  background: var(--tao-color-edf4f9);
+  color: var(--tao-color-183a58);
   font:
     800 11px Inter,
     system-ui,
@@ -135,12 +135,12 @@
     650 18px/26px Inter,
     system-ui,
     sans-serif;
-  color: #172033;
+  color: var(--tao-color-172033);
 }
 
 .problem p,
 .problem li {
-  color: #5e6b7e;
+  color: var(--tao-color-5e6b7e);
   font:
     14px/23px Inter,
     system-ui,
@@ -157,7 +157,7 @@
 
 .problem__section h3 {
   margin: 0 0 10px;
-  color: #273449;
+  color: var(--tao-color-273449);
   font:
     650 13px/20px Inter,
     system-ui,
@@ -175,10 +175,10 @@
 
 .hint {
   padding: 13px 14px;
-  border: 1px solid #e7edf3;
-  border-radius: 9px;
-  background: #f7f9fc;
-  color: #718096;
+  border: 1px solid var(--tao-color-e7edf3);
+  border-radius: var(--tao-radius-9px);
+  background: var(--tao-color-f7f9fc);
+  color: var(--tao-color-718096);
   font:
     13px/21px Inter,
     system-ui,
@@ -189,7 +189,7 @@
   display: grid;
   min-width: 0;
   grid-template-rows: 48px minmax(0, 1fr) 58px;
-  background: #1e1e1e;
+  background: var(--tao-color-1e1e1e);
 }
 
 .editor-panel__toolbar {
@@ -197,9 +197,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 14px;
-  border-bottom: 1px solid #303030;
-  background: #252526;
-  color: #d4d4d4;
+  border-bottom: 1px solid var(--tao-color-303030);
+  background: var(--tao-color-252526);
+  color: var(--tao-color-d4d4d4);
   font:
     12px Inter,
     system-ui,
@@ -212,12 +212,12 @@
   gap: 9px;
   height: 100%;
   padding: 0 14px;
-  border-right: 1px solid #333;
-  background: #1e1e1e;
+  border-right: 1px solid var(--tao-color-333);
+  background: var(--tao-color-1e1e1e);
 }
 
 .file-icon {
-  color: #79e2b1;
+  color: var(--tao-color-79e2b1);
   font:
     700 10px Inter,
     system-ui,
@@ -228,14 +228,14 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #aeb7c2;
+  color: var(--tao-color-aeb7c2);
 }
 
 .language__dot {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
-  background: #79e2b1;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-79e2b1);
 }
 
 .monaco-host {
@@ -249,15 +249,15 @@
   justify-content: space-between;
   gap: 16px;
   padding: 0 14px 0 18px;
-  border-top: 1px solid #303030;
-  background: #252526;
+  border-top: 1px solid var(--tao-color-303030);
+  background: var(--tao-color-252526);
 }
 
 .editor-meta {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #858d98;
+  color: var(--tao-color-858d98);
   font:
     12px Inter,
     system-ui,
@@ -271,9 +271,9 @@
   min-height: 38px;
   padding: 0 16px;
   border: 0;
-  border-radius: 8px;
-  background: #183a58;
-  color: #fff;
+  border-radius: var(--tao-radius-8px);
+  background: var(--tao-color-183a58);
+  color: var(--tao-color-fff);
   font:
     700 13px Inter,
     system-ui,
@@ -285,7 +285,7 @@
 }
 
 .primary:hover {
-  background: #224d72;
+  background: var(--tao-color-224d72);
 }
 
 .primary:active {

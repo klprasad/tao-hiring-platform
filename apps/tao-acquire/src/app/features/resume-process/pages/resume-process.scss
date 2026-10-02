@@ -21,7 +21,7 @@
 
   padding: 14px 16px;
 
-  border-radius: 8px;
+  border-radius: var(--tao-radius-8px);
 
   font-size: 13px;
   line-height: 18px;
@@ -36,7 +36,7 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    border-radius: var(--tao-radius-50);
 
     font-size: 13px;
     font-weight: 700;
@@ -52,13 +52,13 @@
   }
 
   &--error {
-    border: 1px solid #f1caca;
-    background: #fff7f7;
-    color: #a93232;
+    border: 1px solid var(--tao-color-f1caca);
+    background: var(--tao-color-fff7f7);
+    color: var(--tao-color-a93232);
 
     .message__icon {
-      background: #f7dada;
-      color: #a93232;
+      background: var(--tao-color-f7dada);
+      color: var(--tao-color-a93232);
     }
   }
 }
@@ -92,10 +92,10 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 9px;
+    border-radius: var(--tao-radius-9px);
 
-    background: #e9f8f0;
-    color: #24915e;
+    background: var(--tao-color-e9f8f0);
+    color: var(--tao-color-24915e);
 
     font-size: 24px;
     font-weight: 500;
@@ -105,7 +105,7 @@
     h3 {
       margin: 0 0 4px;
 
-      color: #183a58;
+      color: var(--tao-color-183a58);
 
       font-size: 16px;
       font-weight: 700;
@@ -117,7 +117,7 @@
 
       margin: 0;
 
-      color: #687780;
+      color: var(--tao-color-687780);
 
       font-size: 13px;
       line-height: 20px;
@@ -160,10 +160,10 @@
 
     padding: 32px;
 
-    border: 1.5px dashed #b9cec3;
-    border-radius: 10px;
+    border: 1.5px dashed var(--tao-color-b9cec3);
+    border-radius: var(--tao-radius-10px);
 
-    background: #fbfdfc;
+    background: var(--tao-color-fbfdfc);
 
     cursor: pointer;
 
@@ -175,15 +175,15 @@
       box-shadow 150ms ease;
 
     &:hover {
-      border-color: #79cfa7;
+      border-color: var(--tao-color-79cfa7);
 
-      background: #f5fbf8;
+      background: var(--tao-color-f5fbf8);
 
-      box-shadow: 0 2px 8px rgba(24, 58, 88, 0.04);
+      box-shadow: 0 2px 8px var(--tao-color-rgba-24-58-88-0-04);
     }
 
     &:focus-within {
-      border-color: #79cfa7;
+      border-color: var(--tao-color-79cfa7);
     }
 
     &--disabled {
@@ -191,8 +191,8 @@
       cursor: not-allowed;
 
       &:hover {
-        border-color: #b9cec3;
-        background: #fbfdfc;
+        border-color: var(--tao-color-b9cec3);
+        background: var(--tao-color-fbfdfc);
         box-shadow: none;
       }
     }
@@ -208,10 +208,10 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    border-radius: var(--tao-radius-50);
 
-    background: #e9f8f0;
-    color: #24915e;
+    background: var(--tao-color-e9f8f0);
+    color: var(--tao-color-24915e);
 
     font-size: 28px;
     font-weight: 400;
@@ -220,7 +220,7 @@
   &__title {
     margin-bottom: 5px;
 
-    color: #183a58;
+    color: var(--tao-color-183a58);
 
     font-size: 16px;
     font-weight: 700;
@@ -229,18 +229,18 @@
   &__description {
     margin-bottom: 14px;
 
-    color: #687780;
+    color: var(--tao-color-687780);
 
     font-size: 13px;
   }
 
   &__formats {
-    color: #899791;
+    color: var(--tao-color-899791);
 
     font-size: 12px;
 
     strong {
-      color: #5f756b;
+      color: var(--tao-color-5f756b);
       font-weight: 600;
     }
   }
@@ -259,10 +259,10 @@
 
   padding: 12px 14px;
 
-  border: 1px solid #e2ebe6;
-  border-radius: 7px;
+  border: 1px solid var(--tao-color-e2ebe6);
+  border-radius: var(--tao-radius-7px);
 
-  background: #f8fbf9;
+  background: var(--tao-color-f8fbf9);
 }
 
 .upload-rule {
@@ -270,7 +270,7 @@
   align-items: center;
   gap: 7px;
 
-  color: #687780;
+  color: var(--tao-color-687780);
 
   font-size: 12px;
 
@@ -282,17 +282,17 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    border-radius: var(--tao-radius-50);
 
-    background: #e3f5eb;
-    color: #24915e;
+    background: var(--tao-color-e3f5eb);
+    color: var(--tao-color-24915e);
 
     font-size: 10px;
     font-weight: 700;
   }
 
   strong {
-    color: #183a58;
+    color: var(--tao-color-183a58);
     font-weight: 600;
   }
 }
@@ -319,10 +319,10 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    border-radius: var(--tao-radius-50);
 
-    background: #e5f7ed;
-    color: #24915e;
+    background: var(--tao-color-e5f7ed);
+    color: var(--tao-color-24915e);
 
     font-size: 20px;
     font-weight: 700;
@@ -334,7 +334,7 @@
     h3 {
       margin: 0 0 4px;
 
-      color: #183a58;
+      color: var(--tao-color-183a58);
 
       font-size: 15px;
       font-weight: 700;
@@ -343,7 +343,7 @@
     p {
       margin: 0 0 14px;
 
-      color: #687780;
+      color: var(--tao-color-687780);
 
       font-size: 13px;
       line-height: 19px;
@@ -357,19 +357,19 @@
 
     padding: 7px 10px;
 
-    border: 1px solid #dce8e2;
-    border-radius: 5px;
+    border: 1px solid var(--tao-color-dce8e2);
+    border-radius: var(--tao-radius-5px);
 
-    background: #f8fbf9;
+    background: var(--tao-color-f8fbf9);
 
     font-size: 11px;
 
     span {
-      color: #7b8984;
+      color: var(--tao-color-7b8984);
     }
 
     strong {
-      color: #183a58;
+      color: var(--tao-color-183a58);
 
       font-family: monospace;
       font-size: 11px;

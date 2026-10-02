@@ -23,7 +23,7 @@
 
   border: 1px solid var(--mat-sys-outline-variant);
 
-  border-radius: 12px;
+  border-radius: var(--tao-radius-12px);
 
   background: var(--mat-sys-surface-container-low);
 }
@@ -150,7 +150,7 @@
   padding: 7px 12px;
 
   border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 999px;
+  border-radius: var(--tao-radius-999px);
 
   background: var(--mat-sys-surface-container-low);
 
@@ -200,7 +200,7 @@
   padding: 20px 18px 16px;
 
   border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 10px;
+  border-radius: var(--tao-radius-10px);
 
   background: var(--mat-sys-surface);
 
@@ -244,7 +244,7 @@
 
   margin-bottom: 15px;
 
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
 
   background: var(--mat-sys-surface-container-high);
 
@@ -321,27 +321,27 @@
    ================================================================ */
 
 .workflow-step--completed {
-  background: color-mix(in srgb, #16a34a 6%, var(--mat-sys-surface));
+  background: color-mix(in srgb, var(--tao-color-16a34a) 6%, var(--mat-sys-surface));
 
-  border: 1px solid #16a34a;
+  border: 1px solid var(--tao-color-16a34a);
 }
 
 .workflow-step--completed .workflow-step__icon {
-  background: #16a34a;
-  color: #ffffff;
+  background: var(--tao-color-16a34a);
+  color: var(--tao-color-ffffff);
 }
 
 .workflow-step--completed .workflow-step__arrow {
-  color: #16a34a;
+  color: var(--tao-color-16a34a);
 }
 
 .workflow-step--completed .workflow-step__title {
   color: var(--mat-sys-on-surface);
 }
 .workflow-step--completed:hover:not(:disabled) {
-  border-color: #16a34a;
+  border-color: var(--tao-color-16a34a);
 
-  box-shadow: 0 4px 12px color-mix(in srgb, #16a34a 10%, transparent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--tao-color-16a34a) 10%, transparent);
 }
 /* ================================================================
    ACTIVE

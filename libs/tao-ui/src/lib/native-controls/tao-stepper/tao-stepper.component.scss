@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  color: #8490a4;
+  color: var(--tao-color-8490a4);
   font-size: 12px;
 }
 .stepper li {
@@ -17,20 +17,20 @@
   place-items: center;
   width: 22px;
   height: 22px;
-  border: 1px solid #cbd5e1;
-  border-radius: 50%;
+  border: 1px solid var(--tao-color-cbd5e1);
+  border-radius: var(--tao-radius-50);
 }
 .stepper .current {
-  color: #183a58;
+  color: var(--tao-color-183a58);
   font-weight: 700;
 }
 .stepper .current span {
-  border-color: #183a58;
+  border-color: var(--tao-color-183a58);
 }
 .stepper .complete {
-  color: #31805d;
+  color: var(--tao-color-31805d);
 }
 .stepper .complete span {
-  border-color: #79cfa7;
-  background: #e9f7ef;
+  border-color: var(--tao-color-79cfa7);
+  background: var(--tao-color-e9f7ef);
 }

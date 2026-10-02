@@ -1,23 +1,23 @@
 :host {
   display: block;
   min-height: 100vh;
-  color: #172033;
+  color: var(--tao-color-172033);
 }
 .shell {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fb;
+  background: var(--tao-color-f5f7fb);
 }
 .sidebar {
   width: 248px;
-  background: #101827;
-  color: #d6deed;
+  background: var(--tao-color-101827);
+  color: var(--tao-color-d6deed);
   padding: 28px 18px 18px;
   display: flex;
   flex-direction: column;
 }
 .brand {
-  color: #fff;
+  color: var(--tao-color-fff);
   font-size: 19px;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -30,13 +30,13 @@
   place-items: center;
   width: 30px;
   height: 30px;
-  color: #101827;
-  background: #79e2b1;
-  border-radius: 8px;
+  color: var(--tao-color-101827);
+  background: var(--tao-color-79e2b1);
+  border-radius: var(--tao-radius-8px);
 }
 .eyebrow {
   margin: 44px 12px 12px;
-  color: #7f8da7;
+  color: var(--tao-color-7f8da7);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -47,10 +47,10 @@ nav {
   gap: 4px;
 }
 nav a {
-  color: #9aa7bc;
+  color: var(--tao-color-9aa7bc);
   text-decoration: none;
   padding: 11px 12px;
-  border-radius: 8px;
+  border-radius: var(--tao-radius-8px);
   font-size: 14px;
   display: flex;
   gap: 12px;
@@ -58,18 +58,18 @@ nav a {
 }
 nav a:hover,
 nav a.active {
-  background: #1d2a40;
-  color: #fff;
+  background: var(--tao-color-1d2a40);
+  color: var(--tao-color-fff);
 }
 nav a.active {
-  box-shadow: inset 3px 0 #79e2b1;
+  box-shadow: inset 3px 0 var(--tao-color-79e2b1);
 }
 .nav-icon {
   position: relative;
   width: 18px;
   height: 18px;
   flex: 0 0 18px;
-  color: #79e2b1;
+  color: var(--tao-color-79e2b1);
   text-align: center;
 }
 .nav-icon::before {
@@ -111,7 +111,7 @@ nav a.active {
 .sidebar-footer {
   margin-top: auto;
   padding: 16px 8px 4px;
-  border-top: 1px solid #263247;
+  border-top: 1px solid var(--tao-color-263247);
   display: flex;
   gap: 10px;
   align-items: center;
@@ -122,16 +122,16 @@ nav a.active {
   display: block;
 }
 .sidebar-footer small {
-  color: #8290a7;
+  color: var(--tao-color-8290a7);
   margin-top: 3px;
 }
 .avatar,
 .user-initials {
   display: grid;
   place-items: center;
-  background: #e4c7a2;
-  color: #432d20;
-  border-radius: 50%;
+  background: var(--tao-color-e4c7a2);
+  color: var(--tao-color-432d20);
+  border-radius: var(--tao-radius-50);
   width: 30px;
   height: 30px;
   font-size: 10px;
@@ -147,12 +147,12 @@ nav a.active {
   justify-content: space-between;
   align-items: center;
   padding: 0 38px;
-  background: #fff;
-  border-bottom: 1px solid #e4e9f1;
+  background: var(--tao-color-fff);
+  border-bottom: 1px solid var(--tao-color-e4e9f1);
 }
 .context {
   font-size: 13px;
-  color: #647086;
+  color: var(--tao-color-647086);
 }
 .top-actions {
   display: flex;
@@ -162,7 +162,7 @@ nav a.active {
 .top-actions button {
   background: none;
   border: 0;
-  color: #718096;
+  color: var(--tao-color-718096);
   font-size: 18px;
   cursor: pointer;
 }
@@ -173,7 +173,7 @@ nav a.active {
 .navigation-divider {
   height: 1px;
   margin: 16px 12px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--tao-color-rgba-255-255-255-0-08);
 }
 
 .navigation-section-title {
@@ -182,7 +182,7 @@ nav a.active {
   font-weight: 700;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--tao-color-rgba-255-255-255-0-45);
 }
 
 .child-nav-item {
@@ -192,12 +192,12 @@ nav a.active {
 }
 
 .child-nav-item.active {
-  border-left-color: #67dfb0;
+  border-left-color: var(--tao-color-67dfb0);
 }
 .shell {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fb;
+  background: var(--tao-color-f5f7fb);
 }
 
 /* ==========================================================================
@@ -211,8 +211,8 @@ nav a.active {
   width: 246px;
   min-width: 246px;
 
-  background: #0f1929;
-  color: #fff;
+  background: var(--tao-color-0f1929);
+  color: var(--tao-color-fff);
 }
 
 /* ==========================================================================
@@ -240,10 +240,10 @@ nav a.active {
   width: 30px;
   height: 30px;
 
-  border-radius: 7px;
+  border-radius: var(--tao-radius-7px);
 
-  background: #69dfb0;
-  color: #0f1929;
+  background: var(--tao-color-69dfb0);
+  color: var(--tao-color-0f1929);
 
   font-size: 18px;
   font-weight: 800;
@@ -256,7 +256,7 @@ nav a.active {
 .eyebrow {
   margin: 14px 28px 14px;
 
-  color: #7f91ad;
+  color: var(--tao-color-7f91ad);
 
   font-size: 10px;
   font-weight: 700;
@@ -286,9 +286,9 @@ nav a.active {
 
   padding: 0 14px;
 
-  border-radius: 8px;
+  border-radius: var(--tao-radius-8px);
 
-  color: #aab8cc;
+  color: var(--tao-color-aab8cc);
   text-decoration: none;
 
   font-size: 14px;
@@ -299,13 +299,13 @@ nav a.active {
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
+  background: var(--tao-color-rgba-255-255-255-0-05);
+  color: var(--tao-color-fff);
 }
 
 .nav-item.active {
-  background: #1d2b43;
-  color: #fff;
+  background: var(--tao-color-1d2b43);
+  color: var(--tao-color-fff);
 }
 
 .nav-item.active::before {
@@ -316,9 +316,9 @@ nav a.active {
 
   width: 3px;
 
-  border-radius: 0 4px 4px 0;
+  border-radius: var(--tao-radius-0-4px-4px-0);
 
-  background: #69dfb0;
+  background: var(--tao-color-69dfb0);
 
   content: "";
 }
@@ -354,13 +354,13 @@ nav a.active {
 
   margin: 18px 8px 14px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--tao-color-rgba-255-255-255-0-08);
 }
 
 .navigation-section-title {
   margin: 0 12px 8px;
 
-  color: #71839f;
+  color: var(--tao-color-71839f);
 
   font-size: 9px;
   font-weight: 700;
@@ -376,13 +376,13 @@ nav a.active {
 
   border-left: 2px solid transparent;
 
-  border-radius: 0 7px 7px 0;
+  border-radius: var(--tao-radius-0-7px-7px-0);
 }
 
 .child-nav-item.active {
-  border-left-color: #69dfb0;
+  border-left-color: var(--tao-color-69dfb0);
 
-  background: #1d2b43;
+  background: var(--tao-color-1d2b43);
 }
 
 .child-nav-item.active::before {
@@ -402,7 +402,7 @@ nav a.active {
 
   padding: 18px 20px;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid var(--tao-color-rgba-255-255-255-0-07);
 }
 
 .avatar {
@@ -413,10 +413,10 @@ nav a.active {
   width: 34px;
   height: 34px;
 
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
 
-  background: #e8c89f;
-  color: #293241;
+  background: var(--tao-color-e8c89f);
+  color: var(--tao-color-293241);
 
   font-size: 11px;
   font-weight: 700;
@@ -432,7 +432,7 @@ nav a.active {
 .user-info strong {
   overflow: hidden;
 
-  color: #fff;
+  color: var(--tao-color-fff);
 
   font-size: 12px;
 
@@ -445,7 +445,7 @@ nav a.active {
 
   margin-top: 2px;
 
-  color: #7f91ad;
+  color: var(--tao-color-7f91ad);
 
   font-size: 10px;
 
@@ -479,13 +479,13 @@ nav a.active {
 
   padding: 0 28px;
 
-  border-bottom: 1px solid #e2e7ef;
+  border-bottom: 1px solid var(--tao-color-e2e7ef);
 
-  background: #fff;
+  background: var(--tao-color-fff);
 }
 
 .context {
-  color: #53647c;
+  color: var(--tao-color-53647c);
 
   font-size: 13px;
 }
@@ -504,10 +504,10 @@ nav a.active {
   width: 30px;
   height: 30px;
 
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
 
-  background: #e8c89f;
-  color: #293241;
+  background: var(--tao-color-e8c89f);
+  color: var(--tao-color-293241);
 
   font-size: 10px;
   font-weight: 700;
@@ -542,8 +542,8 @@ nav a.active {
 
   border: 0;
 
-  background: #e8c89f;
-  color: #293241;
+  background: var(--tao-color-e8c89f);
+  color: var(--tao-color-293241);
 
   font-family: inherit;
   font-size: 10px;
@@ -551,7 +551,7 @@ nav a.active {
 
 .top-actions .user-initials:hover,
 .top-actions .user-initials:focus-visible {
-  box-shadow: 0 0 0 3px rgba(41, 50, 65, 0.15);
+  box-shadow: 0 0 0 3px var(--tao-color-rgba-41-50-65-0-15);
 }
 
 .user-menu-panel {
@@ -568,12 +568,12 @@ nav a.active {
 
   padding: 6px;
 
-  border: 1px solid #e2e7ef;
-  border-radius: 10px;
+  border: 1px solid var(--tao-color-e2e7ef);
+  border-radius: var(--tao-radius-10px);
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
-  box-shadow: 0 14px 30px rgba(15, 25, 41, 0.16);
+  box-shadow: 0 14px 30px var(--tao-color-rgba-15-25-41-0-16);
 }
 
 .user-menu-header {
@@ -582,13 +582,13 @@ nav a.active {
 
   padding: 8px 10px 10px;
 
-  border-bottom: 1px solid #eef1f6;
+  border-bottom: 1px solid var(--tao-color-eef1f6);
 }
 
 .user-menu-header strong {
   overflow: hidden;
 
-  color: #172033;
+  color: var(--tao-color-172033);
 
   font-size: 12px;
 
@@ -601,7 +601,7 @@ nav a.active {
 
   margin-top: 2px;
 
-  color: #647086;
+  color: var(--tao-color-647086);
 
   font-size: 11px;
 
@@ -618,11 +618,11 @@ nav a.active {
   padding: 9px 10px;
 
   border: 0;
-  border-radius: 7px;
+  border-radius: var(--tao-radius-7px);
 
   background: none;
 
-  color: #b3261e;
+  color: var(--tao-color-b3261e);
 
   font-family: inherit;
   font-size: 13px;
@@ -635,5 +635,5 @@ nav a.active {
 
 .top-actions .user-menu-item:hover,
 .top-actions .user-menu-item:focus-visible {
-  background: #fdecea;
+  background: var(--tao-color-fdecea);
 }

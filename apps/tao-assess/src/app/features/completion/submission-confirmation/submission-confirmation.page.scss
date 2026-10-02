@@ -10,32 +10,32 @@
   height: 62px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #edf8f2;
-  color: #168453;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-edf8f2);
+  color: var(--tao-color-168453);
   font-size: 28px;
   font-weight: 800;
 }
 .eyebrow {
   font: 700 12px system-ui;
-  color: #718096;
+  color: var(--tao-color-718096);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 .complete h1 {
   font: 700 29px/38px system-ui;
-  color: #172033;
+  color: var(--tao-color-172033);
 }
 .complete p {
   font: 15px/25px system-ui;
-  color: #687589;
+  color: var(--tao-color-687589);
 }
 .done {
   margin: 26px auto 0;
   width: max-content;
   padding: 10px 14px;
-  border-radius: 999px;
-  background: #edf8f2;
-  color: #168453;
+  border-radius: var(--tao-radius-999px);
+  background: var(--tao-color-edf8f2);
+  color: var(--tao-color-168453);
   font: 700 13px system-ui;
 }

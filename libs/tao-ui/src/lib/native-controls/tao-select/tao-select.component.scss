@@ -11,15 +11,15 @@
   width: 100%;
   margin: 0;
 
-  --mdc-outlined-text-field-outline-color: #d5ded9;
-  --mdc-outlined-text-field-hover-outline-color: #b8c8c0;
-  --mdc-outlined-text-field-focus-outline-color: #54a87d;
+  --mdc-outlined-text-field-outline-color: var(--tao-color-d5ded9);
+  --mdc-outlined-text-field-hover-outline-color: var(--tao-color-b8c8c0);
+  --mdc-outlined-text-field-focus-outline-color: var(--tao-color-54a87d);
 
-  --mdc-outlined-text-field-input-text-color: #26332e;
-  --mdc-outlined-text-field-input-text-placeholder-color: #9aa8a2;
+  --mdc-outlined-text-field-input-text-color: var(--tao-color-26332e);
+  --mdc-outlined-text-field-input-text-placeholder-color: var(--tao-color-9aa8a2);
 
-  --mdc-outlined-text-field-label-text-color: #183a58;
-  --mdc-outlined-text-field-focus-label-text-color: #54a87d;
+  --mdc-outlined-text-field-label-text-color: var(--tao-color-183a58);
+  --mdc-outlined-text-field-focus-label-text-color: var(--tao-color-54a87d);
 }
 
 /* ==========================================================
@@ -31,7 +31,7 @@
 
   margin: 0 0 6px;
 
-  color: #183a58;
+  color: var(--tao-color-183a58);
 
   font-size: 13px;
   font-weight: 500;
@@ -41,7 +41,7 @@
 .required-mark {
   margin-left: 3px;
 
-  color: #b3261e;
+  color: var(--tao-color-b3261e);
 }
 
 /* ==========================================================
@@ -67,9 +67,9 @@
 
   padding: 0;
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
-  border-radius: 6px;
+  border-radius: var(--tao-radius-6px);
 }
 
 /* ==========================================================
@@ -108,7 +108,7 @@
    ========================================================== */
 
 :host ::ng-deep .field:not(.field--label-above) .mdc-floating-label {
-  color: #183a58;
+  color: var(--tao-color-183a58);
 
   font-size: 13px;
 }
@@ -135,7 +135,7 @@
  */
 
 :host ::ng-deep .field:not(.field--label-above) .mdc-floating-label--float-above {
-  color: #183a58;
+  color: var(--tao-color-183a58);
 }
 
 /*
@@ -143,7 +143,7 @@
  */
 
 :host ::ng-deep .field:not(.field--label-above).mat-focused .mdc-floating-label--float-above {
-  color: #54a87d;
+  color: var(--tao-color-54a87d);
 }
 
 /* ==========================================================
@@ -195,7 +195,7 @@
 
   padding: 0 10px;
 
-  color: #26332e;
+  color: var(--tao-color-26332e);
 
   font-family: inherit;
   font-size: 13px;
@@ -219,7 +219,7 @@
    ========================================================== */
 
 :host ::ng-deep .field .mat-mdc-select-value {
-  color: #26332e;
+  color: var(--tao-color-26332e);
 
   font-size: 13px;
 }
@@ -243,7 +243,7 @@
    ========================================================== */
 
 :host ::ng-deep .field .mat-mdc-select-placeholder {
-  color: #9aa8a2;
+  color: var(--tao-color-9aa8a2);
 
   font-size: 13px;
 }
@@ -253,7 +253,7 @@
    ========================================================== */
 
 :host ::ng-deep .field .mat-mdc-select-arrow {
-  color: #26332e;
+  color: var(--tao-color-26332e);
 }
 
 /*
@@ -273,7 +273,7 @@
    ========================================================== */
 
 :host ::ng-deep .field .mdc-notched-outline {
-  border-radius: 6px;
+  border-radius: var(--tao-radius-6px);
 }
 
 /*
@@ -283,7 +283,7 @@
 :host ::ng-deep .field .mdc-notched-outline__leading,
 :host ::ng-deep .field .mdc-notched-outline__notch,
 :host ::ng-deep .field .mdc-notched-outline__trailing {
-  border-color: #d5ded9 !important;
+  border-color: var(--tao-color-d5ded9) !important;
 
   border-width: 1px !important;
 
@@ -308,7 +308,7 @@
 :host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__leading,
 :host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__notch,
 :host ::ng-deep .field:not(.mat-focused):hover .mdc-notched-outline__trailing {
-  border-color: #b8c8c0 !important;
+  border-color: var(--tao-color-b8c8c0) !important;
 
   border-width: 1px !important;
 }
@@ -320,7 +320,7 @@
 :host ::ng-deep .field.mat-focused .mdc-notched-outline__leading,
 :host ::ng-deep .field.mat-focused .mdc-notched-outline__notch,
 :host ::ng-deep .field.mat-focused .mdc-notched-outline__trailing {
-  border-color: #54a87d !important;
+  border-color: var(--tao-color-54a87d) !important;
 
   border-width: 2px !important;
 }
@@ -339,9 +339,9 @@
  */
 
 :host ::ng-deep .field.mat-focused .mat-mdc-text-field-wrapper {
-  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1);
+  box-shadow: 0 0 0 3px var(--tao-color-rgba-84-168-125-0-1);
 
-  border-radius: 6px;
+  border-radius: var(--tao-radius-6px);
 }
 
 /* ==========================================================
@@ -349,7 +349,7 @@
    ========================================================== */
 
 :host ::ng-deep .field mat-hint {
-  color: #6e7a8e;
+  color: var(--tao-color-6e7a8e);
 
   font-size: 12px;
 }
@@ -367,12 +367,12 @@
    ========================================================== */
 
 .field.mat-form-field-invalid {
-  --mdc-outlined-text-field-outline-color: #b3261e;
-  --mdc-outlined-text-field-hover-outline-color: #b3261e;
-  --mdc-outlined-text-field-focus-outline-color: #b3261e;
+  --mdc-outlined-text-field-outline-color: var(--tao-color-b3261e);
+  --mdc-outlined-text-field-hover-outline-color: var(--tao-color-b3261e);
+  --mdc-outlined-text-field-focus-outline-color: var(--tao-color-b3261e);
 
-  --mdc-outlined-text-field-label-text-color: #b3261e;
-  --mdc-outlined-text-field-focus-label-text-color: #b3261e;
+  --mdc-outlined-text-field-label-text-color: var(--tao-color-b3261e);
+  --mdc-outlined-text-field-focus-label-text-color: var(--tao-color-b3261e);
 }
 
 /*
@@ -382,7 +382,7 @@
 :host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__leading,
 :host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__notch,
 :host ::ng-deep .field.mat-form-field-invalid .mdc-notched-outline__trailing {
-  border-color: #b3261e !important;
+  border-color: var(--tao-color-b3261e) !important;
 
   border-width: 1px !important;
 }
@@ -394,7 +394,7 @@
 :host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__leading,
 :host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__notch,
 :host ::ng-deep .field.mat-form-field-invalid.mat-focused .mdc-notched-outline__trailing {
-  border-color: #b3261e !important;
+  border-color: var(--tao-color-b3261e) !important;
 
   border-width: 2px !important;
 }
@@ -413,7 +413,7 @@
  */
 
 :host ::ng-deep .field.mat-form-field-invalid .mdc-floating-label {
-  color: #b3261e;
+  color: var(--tao-color-b3261e);
 }
 
 /* ==========================================================
@@ -421,21 +421,21 @@
    ========================================================== */
 
 :host ::ng-deep .field .mdc-text-field--disabled {
-  background: #f5f7f6;
+  background: var(--tao-color-f5f7f6);
 }
 
 :host ::ng-deep .field .mdc-text-field--disabled .mdc-notched-outline__leading,
 :host ::ng-deep .field .mdc-text-field--disabled .mdc-notched-outline__notch,
 :host ::ng-deep .field .mdc-text-field--disabled .mdc-notched-outline__trailing {
-  border-color: #e1e8e4 !important;
+  border-color: var(--tao-color-e1e8e4) !important;
 }
 
 :host ::ng-deep .field .mdc-text-field--disabled .mat-mdc-select-value {
-  color: #9aa8a2;
+  color: var(--tao-color-9aa8a2);
 }
 
 :host ::ng-deep .field .mdc-text-field--disabled .mat-mdc-select-arrow {
-  color: #9aa8a2;
+  color: var(--tao-color-9aa8a2);
 }
 
 /* ==========================================================
@@ -445,7 +445,7 @@
 .field-error {
   margin: 3px 16px 0;
 
-  color: #b3261e;
+  color: var(--tao-color-b3261e);
 
   font-size: 12px;
   line-height: 16px;

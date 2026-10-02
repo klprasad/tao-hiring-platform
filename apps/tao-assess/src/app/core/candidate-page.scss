@@ -7,7 +7,7 @@
 }
 .eyebrow {
   margin: 0 0 10px;
-  color: #6f7d90;
+  color: var(--tao-color-6f7d90);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -15,28 +15,28 @@
 }
 h1 {
   margin: 0;
-  color: #172033;
+  color: var(--tao-color-172033);
   font-size: 32px;
   line-height: 40px;
   font-weight: 700;
 }
 h2 {
   margin: 0;
-  color: #172033;
+  color: var(--tao-color-172033);
   font-size: 24px;
   line-height: 32px;
   font-weight: 650;
 }
 p {
-  color: #5f6b7c;
+  color: var(--tao-color-5f6b7c);
   font-size: 15px;
   line-height: 24px;
 }
 .card {
-  background: #fff;
-  border: 1px solid #e3e8ef;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(24, 58, 88, 0.05);
+  background: var(--tao-color-fff);
+  border: 1px solid var(--tao-color-e3e8ef);
+  border-radius: var(--tao-radius-12px);
+  box-shadow: 0 5px 20px var(--tao-color-rgba-24-58-88-0-05);
 }
 .card--padded {
   padding: 28px;
@@ -50,7 +50,7 @@ p {
 button {
   min-height: 44px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: var(--tao-radius-8px);
   padding: 0 18px;
   font:
     600 14px/1 system-ui,
@@ -58,16 +58,16 @@ button {
   cursor: pointer;
 }
 button.primary {
-  background: #183a58;
-  color: #fff;
+  background: var(--tao-color-183a58);
+  color: var(--tao-color-fff);
 }
 button.primary:hover {
-  background: #214d73;
+  background: var(--tao-color-214d73);
 }
 button.secondary {
-  background: #fff;
-  color: #183a58;
-  border-color: #cfd7e2;
+  background: var(--tao-color-fff);
+  color: var(--tao-color-183a58);
+  border-color: var(--tao-color-cfd7e2);
 }
 button:disabled {
   opacity: 0.45;
@@ -83,24 +83,24 @@ button:disabled {
   align-items: center;
   gap: 14px;
   padding: 16px 18px;
-  border: 1px solid #e3e8ef;
-  border-radius: 10px;
+  border: 1px solid var(--tao-color-e3e8ef);
+  border-radius: var(--tao-radius-10px);
 }
 .status-icon {
   width: 28px;
   height: 28px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #edf8f2;
-  color: #1b8f5a;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-edf8f2);
+  color: var(--tao-color-1b8f5a);
   font-weight: 800;
 }
 .status-icon.warn {
-  background: #fff6df;
-  color: #a66a00;
+  background: var(--tao-color-fff6df);
+  color: var(--tao-color-a66a00);
 }
 .meta {
-  color: #778396;
+  color: var(--tao-color-778396);
   font-size: 13px;
 }

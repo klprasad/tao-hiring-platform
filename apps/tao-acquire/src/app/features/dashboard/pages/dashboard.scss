@@ -1,14 +1,14 @@
 .primary {
   border: 0;
-  border-radius: 7px;
-  background: #183a58;
-  color: #fff;
+  border-radius: var(--tao-radius-7px);
+  background: var(--tao-color-183a58);
+  color: var(--tao-color-fff);
   padding: 12px 17px;
   font-weight: 700;
   cursor: pointer;
 }
 .primary span {
-  color: #79e2b1;
+  color: var(--tao-color-79e2b1);
   font-size: 18px;
   margin-left: 6px;
 }
@@ -24,7 +24,7 @@
 }
 .metrics small {
   display: block;
-  color: #6e7a8e;
+  color: var(--tao-color-6e7a8e);
   margin-top: 8px;
 }
 .grid {
@@ -38,7 +38,7 @@
   align-items: center;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid #edf0f5;
+  border-bottom: 1px solid var(--tao-color-edf0f5);
 }
 .attention:last-child,
 .campaign:last-child {
@@ -56,35 +56,35 @@
 }
 .attention small,
 .campaign small {
-  color: #778398;
+  color: var(--tao-color-778398);
   font-size: 12px;
   margin-top: 5px;
 }
 .dot {
   width: 9px;
   height: 9px;
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
 }
 .amber {
-  background: #e6aa53;
+  background: var(--tao-color-e6aa53);
 }
 .blue {
-  background: #5d9ad5;
+  background: var(--tao-color-5d9ad5);
 }
 .green {
-  background: #57bd8d;
+  background: var(--tao-color-57bd8d);
 }
 .link {
   border: 0;
   background: none;
-  color: #286b83;
+  color: var(--tao-color-286b83);
   font-weight: 700;
   cursor: pointer;
 }
 .campaign b {
-  color: #31805d;
-  background: #e9f7ef;
+  color: var(--tao-color-31805d);
+  background: var(--tao-color-e9f7ef);
   padding: 5px 9px;
-  border-radius: 5px;
+  border-radius: var(--tao-radius-5px);
   font-size: 11px;
 }

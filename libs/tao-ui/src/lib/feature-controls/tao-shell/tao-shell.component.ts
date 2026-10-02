@@ -9,10 +9,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthStore, NavigationItem } from '@tao/core';
 
 import { TaoButtonComponent } from '../../native-controls/tao-button/tao-button.component';
+import { TaoThemeSwitcherComponent } from '../tao-theme-switcher/tao-theme-switcher.component';
 
 @Component({
   selector: 'tao-shell',
-  imports: [RouterLink, RouterLinkActive, TaoButtonComponent],
+  imports: [RouterLink, RouterLinkActive, TaoButtonComponent, TaoThemeSwitcherComponent],
   templateUrl: './tao-shell.component.html',
   styleUrl: './tao-shell.component.scss',
   host: {

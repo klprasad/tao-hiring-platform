@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { LoginCredentials, TaoLoginComponent } from '@tao/ui';
+import { LoginCredentials, TaoLoginComponent, TaoThemeSwitcherComponent } from '@tao/ui';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { redirectTarget } from '../../../core/auth/redirect-target';
@@ -15,7 +15,7 @@ import { redirectTarget } from '../../../core/auth/redirect-target';
  */
 @Component({
   selector: 'tao-acquire-login',
-  imports: [TaoLoginComponent],
+  imports: [TaoLoginComponent, TaoThemeSwitcherComponent],
   templateUrl: './acquire-login.html',
   styleUrl: './acquire-login.scss',
 })

@@ -1,15 +1,15 @@
 .primary {
   border: 0;
-  border-radius: 7px;
-  background: #183a58;
-  color: #fff;
+  border-radius: var(--tao-radius-7px);
+  background: var(--tao-color-183a58);
+  color: var(--tao-color-fff);
   padding: 12px 17px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .primary span {
-  color: #79e2b1;
+  color: var(--tao-color-79e2b1);
   font-size: 18px;
   margin-left: 6px;
 }
@@ -37,7 +37,7 @@
 }
 
 .metrics tao-card.active {
-  box-shadow: 0 0 0 2px #57bd8d;
+  box-shadow: 0 0 0 2px var(--tao-color-57bd8d);
 }
 
 .metrics strong {
@@ -48,7 +48,7 @@
 
 .metrics small {
   display: block;
-  color: #6e7a8e;
+  color: var(--tao-color-6e7a8e);
   margin-top: 8px;
 }
 
@@ -61,8 +61,8 @@
   align-items: center;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid #edf0f5;
-  color: #6e7a8e;
+  border-bottom: 1px solid var(--tao-color-edf0f5);
+  color: var(--tao-color-6e7a8e);
   font-size: 13px;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .candidate-info strong {
-  color: #172033;
+  color: var(--tao-color-172033);
   font-size: 14px;
 }
 
@@ -99,9 +99,9 @@
   flex: 0 0 32px;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: #d9e8e4;
-  color: #286b63;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-d9e8e4);
+  color: var(--tao-color-286b63);
   font-size: 10px;
   font-weight: 800;
 }
@@ -113,7 +113,7 @@
 .candidate .status {
   flex: 0 0 auto;
   padding: 5px 9px;
-  border-radius: 5px;
+  border-radius: var(--tao-radius-5px);
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
@@ -122,22 +122,22 @@
 /* Recommended / Shortlisted */
 
 .candidate .status.recommended {
-  color: #31805d;
-  background: #e9f7ef;
+  color: var(--tao-color-31805d);
+  background: var(--tao-color-e9f7ef);
 }
 
 /* Rejected */
 
 .candidate .status.rejected {
-  color: #a34b4b;
-  background: #fceaea;
+  color: var(--tao-color-a34b4b);
+  background: var(--tao-color-fceaea);
 }
 
 /* Screening */
 
 .candidate .status.screening {
-  color: #3e6e9d;
-  background: #e9f1fb;
+  color: var(--tao-color-3e6e9d);
+  background: var(--tao-color-e9f1fb);
 }
 
 /* --------------------------------------------------------------------------
@@ -147,7 +147,7 @@
 .candidate-date {
   flex: 0 0 80px;
   text-align: right;
-  color: #7b8494;
+  color: var(--tao-color-7b8494);
   font-size: 12px;
 }
 
@@ -158,6 +158,6 @@
 .empty-state {
   padding: 40px 20px;
   text-align: center;
-  color: #7b8494;
+  color: var(--tao-color-7b8494);
   font-size: 13px;
 }

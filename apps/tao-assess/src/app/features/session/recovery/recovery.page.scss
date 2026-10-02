@@ -4,9 +4,9 @@
   height: 52px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #eef3f8;
-  color: #183a58;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-eef3f8);
+  color: var(--tao-color-183a58);
   font-size: 24px;
   margin-bottom: 18px;
 }
@@ -21,10 +21,10 @@
   justify-content: space-between;
 }
 .summary span {
-  color: #7a8798;
+  color: var(--tao-color-7a8798);
   font-size: 13px;
 }
 .summary strong {
   font-size: 14px;
-  color: #263247;
+  color: var(--tao-color-263247);
 }

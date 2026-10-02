@@ -2,6 +2,8 @@ export * from './lib/feature-controls/tao-shell/tao-shell.component';
 export * from './lib/feature-controls/tao-page-header/tao-page-header.component';
 export * from './lib/feature-controls/tao-login/tao-login.component';
 export * from './lib/feature-controls/tao-empty-state/tao-empty-state.component';
+export * from './lib/feature-controls/tao-theme-switcher/tao-theme-switcher.component';
+export * from './lib/feature-controls/tao-theme-switcher/tao-theme.service';
 export * from './lib/native-controls/tao-card/tao-card.component';
 export * from './lib/native-controls/tao-data-table/tao-data-table.component';
 export * from './lib/native-controls/tao-data-table/tao-table.models';

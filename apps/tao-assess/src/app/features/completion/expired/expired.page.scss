@@ -10,23 +10,23 @@
   height: 62px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #fff6df;
-  color: #a66a00;
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-fff6df);
+  color: var(--tao-color-a66a00);
   font-size: 28px;
   font-weight: 800;
 }
 .eyebrow {
   font: 700 12px system-ui;
-  color: #718096;
+  color: var(--tao-color-718096);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 .complete h1 {
   font: 700 29px/38px system-ui;
-  color: #172033;
+  color: var(--tao-color-172033);
 }
 .complete p {
   font: 15px/25px system-ui;
-  color: #687589;
+  color: var(--tao-color-687589);
 }

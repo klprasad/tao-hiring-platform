@@ -1,9 +1,9 @@
 .card {
-  background: #fff;
-  border: 1px solid #e3e8f0;
-  border-radius: 12px;
+  background: var(--tao-color-fff);
+  border: 1px solid var(--tao-color-e3e8f0);
+  border-radius: var(--tao-radius-12px);
   padding: 22px;
-  box-shadow: 0 4px 18px rgba(23, 32, 51, 0.03);
+  box-shadow: 0 4px 18px var(--tao-color-rgba-23-32-51-0-03);
 }
 .card-heading {
   display: flex;

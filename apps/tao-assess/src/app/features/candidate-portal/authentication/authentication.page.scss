@@ -28,7 +28,7 @@
 .auth-page__eyebrow {
   margin: 0 0 12px;
 
-  color: #64748b;
+  color: var(--tao-color-64748b);
 
   font-size: 12px;
   line-height: 18px;
@@ -40,7 +40,7 @@
 .auth-page__title {
   margin: 0;
 
-  color: #102f4d;
+  color: var(--tao-color-102f4d);
 
   font-size: 32px;
   line-height: 40px;
@@ -50,7 +50,7 @@
 .auth-page__description {
   margin: 12px 0 24px;
 
-  color: #64748b;
+  color: var(--tao-color-64748b);
 
   font-size: 15px;
   line-height: 24px;
@@ -72,12 +72,12 @@
 
   box-sizing: border-box;
 
-  background: #ffffff;
+  background: var(--tao-color-ffffff);
 
-  border: 1px solid #dfe6ee;
-  border-radius: 12px;
+  border: 1px solid var(--tao-color-dfe6ee);
+  border-radius: var(--tao-radius-12px);
 
-  box-shadow: 0 8px 24px rgb(15 23 42 / 5%);
+  box-shadow: 0 8px 24px var(--tao-color-rgb-15-23-42-5);
 }
 
 /* =========================================================
@@ -94,7 +94,7 @@
 }
 
 .auth-card__label {
-  color: #183a58;
+  color: var(--tao-color-183a58);
 
   font-size: 14px;
   line-height: 20px;
@@ -109,11 +109,11 @@
 
   box-sizing: border-box;
 
-  color: #172033;
-  background: #ffffff;
+  color: var(--tao-color-172033);
+  background: var(--tao-color-ffffff);
 
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border: 1px solid var(--tao-color-cbd5e1);
+  border-radius: var(--tao-radius-8px);
 
   outline: none;
 
@@ -126,17 +126,17 @@
 }
 
 .auth-card__input:hover {
-  border-color: #94a3b8;
+  border-color: var(--tao-color-94a3b8);
 }
 
 .auth-card__input:focus {
-  border-color: #79e2b1;
+  border-color: var(--tao-color-79e2b1);
 
-  box-shadow: 0 0 0 3px rgb(121 226 177 / 18%);
+  box-shadow: 0 0 0 3px var(--tao-color-rgb-121-226-177-18);
 }
 
 .auth-card__input.ng-invalid.ng-touched {
-  border-color: #dc2626;
+  border-color: var(--tao-color-dc2626);
 }
 
 /* =========================================================
@@ -144,7 +144,7 @@
    ========================================================= */
 
 .auth-card__error {
-  color: #dc2626;
+  color: var(--tao-color-dc2626);
 
   font-size: 12px;
   line-height: 18px;
@@ -159,10 +159,10 @@
   min-height: 46px;
 
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--tao-radius-8px);
 
-  background: #183a58;
-  color: #ffffff;
+  background: var(--tao-color-183a58);
+  color: var(--tao-color-ffffff);
 
   font-family: inherit;
   font-size: 14px;
@@ -177,9 +177,9 @@
 }
 
 .auth-card__button:hover:not(:disabled) {
-  background: #214d72;
+  background: var(--tao-color-214d72);
 
-  box-shadow: 0 4px 12px rgb(24 58 88 / 18%);
+  box-shadow: 0 4px 12px var(--tao-color-rgb-24-58-88-18);
 }
 
 .auth-card__button:active:not(:disabled) {
@@ -187,7 +187,7 @@
 }
 
 .auth-card__button:disabled {
-  background: #9aa9b8;
+  background: var(--tao-color-9aa9b8);
   opacity: 1;
 
   cursor: not-allowed;
@@ -202,7 +202,7 @@
 
   text-align: center;
 
-  color: #94a3b8;
+  color: var(--tao-color-94a3b8);
 
   font-size: 12px;
   line-height: 18px;

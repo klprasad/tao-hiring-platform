@@ -13,9 +13,9 @@
 }
 
 .assessment-header__content {
-  background: var(--surface-container-low, #f8faf9);
-  border: 1px solid var(--outline-variant, #dfe5e1);
-  border-radius: 16px;
+  background: var(--surface-container-low, var(--tao-color-f8faf9));
+  border: 1px solid var(--outline-variant, var(--tao-color-dfe5e1));
+  border-radius: var(--tao-radius-16px);
   padding: 28px 32px;
 }
 
@@ -23,7 +23,7 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #6d7b76;
+  color: var(--tao-color-6d7b76);
   margin-bottom: 8px;
 }
 
@@ -39,13 +39,13 @@
   font-size: 26px;
   line-height: 1.25;
   font-weight: 700;
-  color: #1d2723;
+  color: var(--tao-color-1d2723);
 }
 
 .assessment-title-row p {
   margin: 8px 0 0;
   max-width: 650px;
-  color: #6b7772;
+  color: var(--tao-color-6b7772);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -61,10 +61,10 @@
 
   padding: 7px 12px;
 
-  border-radius: 999px;
+  border-radius: var(--tao-radius-999px);
 
-  background: #f1f3f2;
-  color: #65716c;
+  background: var(--tao-color-f1f3f2);
+  color: var(--tao-color-65716c);
 
   font-size: 12px;
   font-weight: 600;
@@ -72,14 +72,14 @@
 }
 
 .status-badge--active {
-  background: #e9f8ef;
-  color: #268053;
+  background: var(--tao-color-e9f8ef);
+  color: var(--tao-color-268053);
 }
 
 .status-dot {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
   background: currentColor;
 }
 
@@ -101,9 +101,9 @@
 
   padding: 18px;
 
-  background: #fff;
-  border: 1px solid #e2e7e4;
-  border-radius: 12px;
+  background: var(--tao-color-fff);
+  border: 1px solid var(--tao-color-e2e7e4);
+  border-radius: var(--tao-radius-12px);
 }
 
 .summary-card__icon {
@@ -113,10 +113,10 @@
   display: grid;
   place-items: center;
 
-  border-radius: 10px;
+  border-radius: var(--tao-radius-10px);
 
-  background: #eef8f3;
-  color: #43a878;
+  background: var(--tao-color-eef8f3);
+  color: var(--tao-color-43a878);
 }
 
 .summary-card__icon mat-icon {
@@ -128,14 +128,14 @@
 .summary-card span {
   display: block;
   font-size: 12px;
-  color: #77827e;
+  color: var(--tao-color-77827e);
   margin-bottom: 3px;
 }
 
 .summary-card strong {
   display: block;
   font-size: 18px;
-  color: #202a26;
+  color: var(--tao-color-202a26);
 }
 
 /* ================================================================
@@ -154,18 +154,18 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #202a26;
+  color: var(--tao-color-202a26);
 }
 
 .section-header p {
   margin: 4px 0 0;
-  color: #7a8581;
+  color: var(--tao-color-7a8581);
   font-size: 13px;
 }
 
 .round-count {
   font-size: 12px;
-  color: #68736f;
+  color: var(--tao-color-68736f);
 }
 
 /* ================================================================

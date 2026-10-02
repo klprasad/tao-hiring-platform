@@ -6,19 +6,19 @@
      TAO DESIGN TOKENS
      ========================================================== */
 
-  --tao-table-border: #d5ded9;
-  --tao-table-border-light: #edf0ee;
+  --tao-table-border: var(--tao-color-d5ded9);
+  --tao-table-border-light: var(--tao-color-edf0ee);
 
-  --tao-table-header-bg: #f8fbf9;
-  --tao-table-hover-bg: #edf8f2;
-  --tao-table-stripe-bg: #fcfdfc;
+  --tao-table-header-bg: var(--tao-color-f8fbf9);
+  --tao-table-hover-bg: var(--tao-color-edf8f2);
+  --tao-table-stripe-bg: var(--tao-color-fcfdfc);
 
-  --tao-table-text: #26332e;
-  --tao-table-header-text: #596660;
-  --tao-table-muted-text: #89938f;
+  --tao-table-text: var(--tao-color-26332e);
+  --tao-table-header-text: var(--tao-color-596660);
+  --tao-table-muted-text: var(--tao-color-89938f);
 
-  --tao-table-primary: #54a87d;
-  --tao-table-primary-dark: #319667;
+  --tao-table-primary: var(--tao-color-54a87d);
+  --tao-table-primary-dark: var(--tao-color-319667);
 
   --tao-table-row-height: 58px;
   --tao-table-header-height: 48px;
@@ -37,12 +37,12 @@
 
   box-sizing: border-box;
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
   border: 1px solid var(--tao-table-border);
-  border-radius: 12px;
+  border-radius: var(--tao-radius-12px);
 
-  box-shadow: 0 3px 14px rgba(30, 50, 40, 0.04);
+  box-shadow: 0 3px 14px var(--tao-color-rgba-30-50-40-0-04);
 }
 
 /* ============================================================
@@ -73,12 +73,12 @@
 }
 
 .table-scroll::-webkit-scrollbar-thumb {
-  background: #cbd8d1;
-  border-radius: 10px;
+  background: var(--tao-color-cbd8d1);
+  border-radius: var(--tao-radius-10px);
 }
 
 .table-scroll::-webkit-scrollbar-thumb:hover {
-  background: #aebfb5;
+  background: var(--tao-color-aebfb5);
 }
 
 /* ============================================================
@@ -92,7 +92,7 @@ table {
 
   border-spacing: 0;
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
   font-family: inherit;
 }
@@ -143,7 +143,7 @@ table {
    ============================================================ */
 
 .mat-mdc-header-cell:hover {
-  background: #f1f8f4;
+  background: var(--tao-color-f1f8f4);
 }
 
 /* ============================================================
@@ -179,11 +179,11 @@ table {
    ============================================================ */
 
 :host ::ng-deep .mat-sort-header-sorted .mat-sort-header-content {
-  color: #319667;
+  color: var(--tao-color-319667);
 }
 
 :host ::ng-deep .mat-sort-header-sorted .mat-sort-header-arrow {
-  color: #54a87d;
+  color: var(--tao-color-54a87d);
 }
 
 /* ============================================================
@@ -193,7 +193,7 @@ table {
 .mat-mdc-row {
   height: var(--tao-table-row-height);
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
   transition:
     background-color 140ms ease,
@@ -304,7 +304,7 @@ table {
 
   padding: 5px 11px;
 
-  border-radius: 999px;
+  border-radius: var(--tao-radius-999px);
 
   font-size: 11px;
   font-weight: 700;
@@ -320,7 +320,7 @@ table {
 
   flex: 0 0 7px;
 
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
 
   background: currentColor;
 }
@@ -328,36 +328,36 @@ table {
 /* Active */
 
 .table-status--active {
-  color: #34865a;
-  background: #eaf7ef;
+  color: var(--tao-color-34865a);
+  background: var(--tao-color-eaf7ef);
 }
 
 /* Draft */
 
 .table-status--draft {
-  color: #596660;
-  background: #f1f3f2;
+  color: var(--tao-color-596660);
+  background: var(--tao-color-f1f3f2);
 }
 
 /* Processing */
 
 .table-status--processing {
-  color: #a06c13;
-  background: #fff5df;
+  color: var(--tao-color-a06c13);
+  background: var(--tao-color-fff5df);
 }
 
 /* Completed */
 
 .table-status--completed {
-  color: #319667;
-  background: #edf8f2;
+  color: var(--tao-color-319667);
+  background: var(--tao-color-edf8f2);
 }
 
 /* Failed */
 
 .table-status--failed {
-  color: #b34a43;
-  background: #fdeceb;
+  color: var(--tao-color-b34a43);
+  background: var(--tao-color-fdeceb);
 }
 
 /* ============================================================
@@ -382,11 +382,11 @@ table {
 
   overflow: hidden;
 
-  border-radius: 999px;
+  border-radius: var(--tao-radius-999px);
 
-  background: #edf0ee;
+  background: var(--tao-color-edf0ee);
 
-  box-shadow: inset 0 0 0 1px #dfe7e2;
+  box-shadow: inset 0 0 0 1px var(--tao-color-dfe7e2);
 }
 
 .table-progress__fill {
@@ -396,7 +396,7 @@ table {
 
   border-radius: inherit;
 
-  background: #54a87d;
+  background: var(--tao-color-54a87d);
 }
 
 .table-progress__value {
@@ -427,7 +427,7 @@ table {
 }
 
 .table-container--clickable .mat-mdc-row:active {
-  background: #e7f5ed;
+  background: var(--tao-color-e7f5ed);
 }
 
 /* ============================================================
@@ -459,7 +459,7 @@ table {
 
 .mat-mdc-header-cell.mat-mdc-table-sticky,
 .mat-mdc-cell.mat-mdc-table-sticky {
-  background: #fff;
+  background: var(--tao-color-fff);
 
   box-shadow: 1px 0 0 var(--tao-table-border-light);
 }
@@ -494,7 +494,7 @@ table {
 mat-paginator {
   min-height: 60px;
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
   border-top: 1px solid var(--tao-table-border-light);
 
@@ -542,7 +542,7 @@ mat-paginator {
 
   height: 36px;
 
-  border-radius: 6px;
+  border-radius: var(--tao-radius-6px);
 }
 
 :host ::ng-deep .mat-mdc-paginator-page-size .mat-mdc-form-field-subscript-wrapper {
@@ -560,7 +560,7 @@ mat-paginator {
   width: 34px;
   height: 34px;
 
-  border-radius: 6px;
+  border-radius: var(--tao-radius-6px);
 
   transition:
     background-color 140ms ease,
@@ -571,9 +571,9 @@ mat-paginator {
 :host ::ng-deep .mat-mdc-paginator-navigation-previous:hover:not(:disabled),
 :host ::ng-deep .mat-mdc-paginator-navigation-next:hover:not(:disabled),
 :host ::ng-deep .mat-mdc-paginator-navigation-last:hover:not(:disabled) {
-  background: #edf8f2;
+  background: var(--tao-color-edf8f2);
 
-  color: #319667;
+  color: var(--tao-color-319667);
 }
 
 /* ============================================================
@@ -584,11 +584,11 @@ mat-paginator {
 :host ::ng-deep .mat-mdc-paginator-navigation-previous:focus-visible,
 :host ::ng-deep .mat-mdc-paginator-navigation-next:focus-visible,
 :host ::ng-deep .mat-mdc-paginator-navigation-last:focus-visible {
-  outline: 2px solid #54a87d;
+  outline: 2px solid var(--tao-color-54a87d);
 
   outline-offset: 1px;
 
-  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1);
+  box-shadow: 0 0 0 3px var(--tao-color-rgba-84-168-125-0-1);
 }
 
 /* ============================================================
@@ -609,11 +609,11 @@ mat-paginator {
    ============================================================ */
 
 :host ::ng-deep .mat-mdc-checkbox {
-  --mdc-checkbox-selected-checkmark-color: #fff;
-  --mdc-checkbox-selected-focus-icon-color: #319667;
-  --mdc-checkbox-selected-hover-icon-color: #319667;
-  --mdc-checkbox-selected-icon-color: #319667;
-  --mdc-checkbox-selected-pressed-icon-color: #287f57;
+  --mdc-checkbox-selected-checkmark-color: var(--tao-color-fff);
+  --mdc-checkbox-selected-focus-icon-color: var(--tao-color-319667);
+  --mdc-checkbox-selected-hover-icon-color: var(--tao-color-319667);
+  --mdc-checkbox-selected-icon-color: var(--tao-color-319667);
+  --mdc-checkbox-selected-pressed-icon-color: var(--tao-color-287f57);
 }
 
 /* ============================================================
@@ -635,7 +635,7 @@ mat-paginator {
 
   inset: 0;
 
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--tao-color-rgba-255-255-255-0-55);
 
   pointer-events: none;
 }
@@ -674,7 +674,7 @@ mat-paginator {
 
   outline-offset: -2px;
 
-  box-shadow: inset 0 0 0 1px #54a87d;
+  box-shadow: inset 0 0 0 1px var(--tao-color-54a87d);
 }
 
 /* ============================================================
@@ -683,7 +683,7 @@ mat-paginator {
 
 @media (max-width: 768px) {
   .table-container {
-    border-radius: 8px;
+    border-radius: var(--tao-radius-8px);
   }
 
   table {

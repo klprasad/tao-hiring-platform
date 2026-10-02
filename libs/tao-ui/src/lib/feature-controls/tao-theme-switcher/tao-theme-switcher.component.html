@@ -1,0 +1,16 @@
+<div class="theme-picker" role="group" aria-label="Color theme">
+  <span class="theme-picker__label">Theme</span>
+  @for (option of themes; track option.name) {
+    <button
+      type="button"
+      class="theme-picker__swatch"
+      [style.--theme-swatch]="option.swatch"
+      [attr.aria-label]="option.label + ' theme'"
+      [attr.aria-pressed]="themeService.theme() === option.name"
+      [attr.title]="option.label"
+      (click)="selectTheme(option.name)"
+    >
+      <span aria-hidden="true"></span>
+    </button>
+  }
+</div>

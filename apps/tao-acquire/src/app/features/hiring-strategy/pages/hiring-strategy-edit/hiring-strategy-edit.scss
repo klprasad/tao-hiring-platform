@@ -75,7 +75,7 @@
   height: 26px;
   padding: 0 9px;
 
-  border-radius: 13px;
+  border-radius: var(--tao-radius-13px);
 
   background: var(--mat-sys-surface-container-high);
   color: var(--mat-sys-on-surface-variant);

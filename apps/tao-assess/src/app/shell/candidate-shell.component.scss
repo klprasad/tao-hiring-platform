@@ -5,8 +5,8 @@
 
 .candidate-shell {
   min-height: 100vh;
-  background: #f7f9fc;
-  color: #172033;
+  background: var(--tao-color-f7f9fc);
+  color: var(--tao-color-172033);
 }
 
 /* =========================================================
@@ -18,13 +18,14 @@
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   padding: 0 28px;
 
   box-sizing: border-box;
 
-  background: #ffffff;
-  border-bottom: 1px solid #e5e9f0;
+  background: var(--tao-color-ffffff);
+  border-bottom: 1px solid var(--tao-color-e5e9f0);
 }
 
 /* =========================================================
@@ -39,7 +40,7 @@
 
   height: 100%;
 
-  color: #183a58;
+  color: var(--tao-color-183a58);
 }
 
 /* Green status dot */
@@ -50,17 +51,17 @@
 
   flex: 0 0 8px;
 
-  border-radius: 50%;
+  border-radius: var(--tao-radius-50);
 
-  background: #79e2b1;
+  background: var(--tao-color-79e2b1);
 
-  box-shadow: 0 0 0 2px rgba(121, 226, 177, 0.18);
+  box-shadow: 0 0 0 2px var(--tao-color-rgba-121-226-177-0-18);
 }
 
 /* TAO */
 
 .candidate-shell__logo {
-  color: #183a58;
+  color: var(--tao-color-183a58);
 
   font-size: 18px;
   line-height: 1;
@@ -78,13 +79,13 @@
 
   margin: 0 6px;
 
-  background: #dce2ea;
+  background: var(--tao-color-dce2ea);
 }
 
 /* Technical Assessment */
 
 .candidate-shell__title {
-  color: #64748b;
+  color: var(--tao-color-64748b);
 
   font-size: 12px;
   line-height: 18px;

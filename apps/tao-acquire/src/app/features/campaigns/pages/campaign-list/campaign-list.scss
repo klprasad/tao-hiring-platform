@@ -8,7 +8,7 @@
 
 .page {
   padding: 20px;
-  background: #f7faf8;
+  background: var(--tao-color-f7faf8);
 }
 
 /* ================================================================
@@ -26,12 +26,12 @@
 
   padding: 18px 22px;
 
-  background: #ffffff;
+  background: var(--tao-color-ffffff);
 
-  border: 1px solid #e0e6e2;
-  border-radius: 14px;
+  border: 1px solid var(--tao-color-e0e6e2);
+  border-radius: var(--tao-radius-14px);
 
-  box-shadow: 0 4px 16px rgba(30, 50, 40, 0.05);
+  box-shadow: 0 4px 16px var(--tao-color-rgba-30-50-40-0-05);
 }
 
 /* ================================================================
@@ -54,7 +54,7 @@
 .campaign-header h1 {
   margin: 0;
 
-  color: #202a26;
+  color: var(--tao-color-202a26);
 
   font-size: 24px;
   font-weight: 700;
@@ -64,7 +64,7 @@
 .campaign-header p {
   margin: 4px 0 0;
 
-  color: #7a8580;
+  color: var(--tao-color-7a8580);
 
   font-size: 13px;
   line-height: 20px;
@@ -83,12 +83,12 @@
   width: 46px;
   height: 46px;
 
-  color: #319667;
+  color: var(--tao-color-319667);
 
-  background: #edf8f2;
+  background: var(--tao-color-edf8f2);
 
-  border: 1px solid #cce8d8;
-  border-radius: 10px;
+  border: 1px solid var(--tao-color-cce8d8);
+  border-radius: var(--tao-radius-10px);
 }
 
 .campaign-mark mat-icon {
@@ -128,12 +128,12 @@
 
   box-sizing: border-box;
 
-  color: #68746f;
+  color: var(--tao-color-68746f);
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
-  border: 1px solid #d5ded9;
-  border-radius: 6px;
+  border: 1px solid var(--tao-color-d5ded9);
+  border-radius: var(--tao-radius-6px);
 
   transition:
     border-color 140ms ease,
@@ -142,13 +142,13 @@
 }
 
 .search-control:hover {
-  border-color: #b8c8c0;
+  border-color: var(--tao-color-b8c8c0);
 }
 
 .search-control:focus-within {
-  border-color: #54a87d;
+  border-color: var(--tao-color-54a87d);
 
-  box-shadow: 0 0 0 3px rgba(84, 168, 125, 0.1);
+  box-shadow: 0 0 0 3px var(--tao-color-rgba-84-168-125-0-1);
 }
 
 .search-control mat-icon {
@@ -157,7 +157,7 @@
   width: 18px;
   height: 18px;
 
-  color: #7a8580;
+  color: var(--tao-color-7a8580);
 
   font-size: 18px;
 }
@@ -170,7 +170,7 @@
 
   padding: 0;
 
-  color: #26332e;
+  color: var(--tao-color-26332e);
 
   font-family: inherit;
   font-size: 13px;
@@ -182,7 +182,7 @@
 }
 
 .search-control input::placeholder {
-  color: #89938f;
+  color: var(--tao-color-89938f);
 }
 
 /* ================================================================
@@ -194,13 +194,13 @@
 
   overflow: hidden;
 
-  background: #fff;
+  background: var(--tao-color-fff);
 
-  border: 1px solid #e0e6e2;
+  border: 1px solid var(--tao-color-e0e6e2);
 
-  border-radius: 14px;
+  border-radius: var(--tao-radius-14px);
 
-  box-shadow: 0 3px 14px rgba(30, 50, 40, 0.04);
+  box-shadow: 0 3px 14px var(--tao-color-rgba-30-50-40-0-04);
 }
 
 /* ================================================================
@@ -222,7 +222,7 @@ table {
 
   background: transparent;
 
-  color: #26332e;
+  color: var(--tao-color-26332e);
 
   cursor: pointer;
 
@@ -235,7 +235,7 @@ table {
 }
 
 .campaign-name:hover {
-  color: #319667;
+  color: var(--tao-color-319667);
 }
 
 /* ================================================================
@@ -250,7 +250,7 @@ table {
 
   padding: 4px 10px;
 
-  border-radius: 999px;
+  border-radius: var(--tao-radius-999px);
 
   font-size: 11px;
   font-weight: 700;
@@ -261,36 +261,36 @@ table {
 /* Active */
 
 .status--active {
-  background: #eaf7ef;
-  color: #34865a;
+  background: var(--tao-color-eaf7ef);
+  color: var(--tao-color-34865a);
 }
 
 /* Draft */
 
 .status--draft {
-  background: #f1f3f2;
-  color: #596660;
+  background: var(--tao-color-f1f3f2);
+  color: var(--tao-color-596660);
 }
 
 /* Processing */
 
 .status--processing {
-  background: #fff5df;
-  color: #a06c13;
+  background: var(--tao-color-fff5df);
+  color: var(--tao-color-a06c13);
 }
 
 /* Completed */
 
 .status--completed {
-  background: #eaf7ef;
-  color: #319667;
+  background: var(--tao-color-eaf7ef);
+  color: var(--tao-color-319667);
 }
 
 /* Failed */
 
 .status--failed {
-  background: #fdeceb;
-  color: #b34a43;
+  background: var(--tao-color-fdeceb);
+  color: var(--tao-color-b34a43);
 }
 
 /* ================================================================
@@ -300,7 +300,7 @@ table {
 .empty-state {
   padding: 64px;
 
-  color: #596660;
+  color: var(--tao-color-596660);
 
   text-align: center;
 }
@@ -309,7 +309,7 @@ table {
   width: 40px;
   height: 40px;
 
-  color: #7a8580;
+  color: var(--tao-color-7a8580);
 
   font-size: 40px;
 }
@@ -317,7 +317,7 @@ table {
 .empty-state h3 {
   margin: 16px 0 4px;
 
-  color: #26332e;
+  color: var(--tao-color-26332e);
 
   font-size: 16px;
 }
@@ -325,7 +325,7 @@ table {
 .empty-state p {
   margin: 0;
 
-  color: #89938f;
+  color: var(--tao-color-89938f);
 
   font-size: 13px;
 }

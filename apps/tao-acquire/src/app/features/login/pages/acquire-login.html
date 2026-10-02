@@ -1,6 +1,12 @@
-<tao-login
-  description="Sign in with your recruiter account to open the workspace."
-  [submitting]="submitting()"
-  [errorMessage]="errorMessage()"
-  (login)="onLogin($event)"
-/>
+<div class="login-page">
+  <header class="login-page__toolbar">
+    <tao-theme-switcher />
+  </header>
+
+  <tao-login
+    description="Sign in with your recruiter account to open the workspace."
+    [submitting]="submitting()"
+    [errorMessage]="errorMessage()"
+    (login)="onLogin($event)"
+  />
+</div>

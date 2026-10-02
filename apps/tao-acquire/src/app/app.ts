@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 import { AuthStore, HttpLoadingService, NavigationItem } from '@tao/core';
-import { TaoLoadingStateComponent, TaoShellComponent } from '@tao/ui';
+import { TaoLoadingStateComponent, TaoShellComponent, TaoThemeService } from '@tao/ui';
 
 import { AuthService } from './core/auth/auth.service';
 
@@ -16,6 +16,7 @@ export class App {
   private readonly authStore = inject(AuthStore);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly themeService = inject(TaoThemeService);
 
   protected loadingService = inject(HttpLoadingService);
   readonly loading = this.loadingService.isLoading;

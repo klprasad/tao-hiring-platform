@@ -1,0 +1,41 @@
+:host {
+  display: inline-flex;
+}
+
+.theme-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tao-color-6e7a8e);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.theme-picker__swatch {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--tao-color-d5ded9);
+  border-radius: var(--tao-radius-50);
+  background: var(--tao-color-fff);
+  cursor: pointer;
+}
+
+.theme-picker__swatch span {
+  width: 15px;
+  height: 15px;
+  border-radius: var(--tao-radius-50);
+  background: var(--theme-swatch);
+}
+
+.theme-picker__swatch[aria-pressed="true"] {
+  border-color: var(--tao-color-172033);
+  box-shadow: 0 0 0 2px var(--tao-color-fff);
+}
+
+.theme-picker__swatch:focus-visible {
+  outline: 2px solid var(--tao-color-54a87d);
+  outline-offset: 2px;
+}

@@ -5,21 +5,21 @@
 .labels {
   display: flex;
   justify-content: space-between;
-  color: #6e7a8e;
+  color: var(--tao-color-6e7a8e);
   font-size: 12px;
 }
 .labels b {
-  color: #286b63;
+  color: var(--tao-color-286b63);
 }
 .track {
   height: 8px;
   overflow: hidden;
-  border-radius: 10px;
-  background: #e8edf3;
+  border-radius: var(--tao-radius-10px);
+  background: var(--tao-color-e8edf3);
 }
 .track i {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: #79cfa7;
+  background: var(--tao-color-79cfa7);
 }

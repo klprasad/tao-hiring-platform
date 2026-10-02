@@ -9,7 +9,7 @@ label {
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  color: #465267;
+  color: var(--tao-color-465267);
   font-size: 14px;
   line-height: 22px;
   cursor: pointer;
@@ -18,5 +18,5 @@ input {
   width: 18px;
   height: 18px;
   margin-top: 2px;
-  accent-color: #183a58;
+  accent-color: var(--tao-color-183a58);
 }
