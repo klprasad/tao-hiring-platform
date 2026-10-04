@@ -56,8 +56,16 @@
       }
     </div>
 
-    <button class="submit" type="submit" [disabled]="!canSubmit()" [attr.aria-busy]="isBusy()">
-      {{ isBusy() ? 'Signing in...' : 'Sign in' }}
-    </button>
+    <tao-button
+      class="full-width"
+      type="submit"
+      appearance="filled"
+      color="primary"
+      size="large"
+      [fullWidth]="true"
+      [label]="isBusy() ? 'Signing in...' : 'Sign in'"
+      [disabled]="!canSubmit()"
+      [attr.aria-busy]="isBusy()"
+    />
   </form>
 </section>

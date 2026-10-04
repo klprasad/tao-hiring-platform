@@ -39,15 +39,3 @@
   justify-content: flex-end;
   margin-top: 14px;
 }
-button {
-  min-height: 42px;
-  padding: 0 17px;
-  border-radius: var(--tao-radius-8px);
-  font: 600 13px system-ui;
-  cursor: pointer;
-}
-.secondary {
-  background: var(--tao-color-fff);
-  border: 1px solid var(--tao-color-cfd7e2);
-  color: var(--tao-color-183a58);
-}

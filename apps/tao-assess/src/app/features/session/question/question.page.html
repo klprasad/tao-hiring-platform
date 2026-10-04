@@ -64,17 +64,91 @@
 
       <main>
         <!-- =================================================== -->
-        <!-- Question -->
+        <!-- Question Area -->
         <!-- =================================================== -->
 
         <article class="question">
-          <p class="eyebrow">
-            {{ currentRoundName() }}
-          </p>
+          <!-- ================================================= -->
+          <!-- Follow-up Questions -->
+          <!-- ================================================= -->
 
-          <h2>
-            {{ question.question }}
-          </h2>
+          @if (followUpQuestions().length > 0) {
+            <div class="follow-ups">
+              <!-- Follow-up Header -->
+
+              <div class="follow-ups__header">
+                <span class="eyebrow"> Follow-up Discussion </span>
+
+                <span class="follow-ups__count">
+                  {{ followUpQuestions().length }}
+                </span>
+              </div>
+
+              <!-- Follow-up Questions -->
+
+              @for (followUp of followUpQuestions(); track $index; let index = $index) {
+                <div
+                  class="question-card"
+                  [class.question-card--current]="index === 0"
+                  [class.question-card--answered]="index > 0"
+                >
+                  <!-- Question Card Header -->
+
+                  <div class="question-card__header">
+                    <span class="question-card__status">
+                      @if (index === 0) {
+                        Current
+                      } @else {
+                        Answered
+                      }
+                    </span>
+
+                    <span class="question-card__label">
+                      Follow-up {{ followUpQuestions().length - index }}
+                    </span>
+                  </div>
+
+                  <!-- Question -->
+
+                  <h3>
+                    {{ followUp.question }}
+                  </h3>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- ================================================= -->
+          <!-- Main Question -->
+          <!-- ================================================= -->
+
+          <div
+            class="question-card"
+            [class.question-card--current]="followUpQuestions().length === 0"
+            [class.question-card--answered]="followUpQuestions().length > 0"
+          >
+            <!-- Main Question Header -->
+
+            <div class="question-card__header">
+              <span class="question-card__status">
+                @if (followUpQuestions().length === 0) {
+                  Current
+                } @else {
+                  Answered
+                }
+              </span>
+
+              <span class="question-card__label">
+                {{ currentRoundName() }}
+              </span>
+            </div>
+
+            <!-- Main Question -->
+
+            <h2>
+              {{ question.question }}
+            </h2>
+          </div>
         </article>
 
         <!-- =================================================== -->
@@ -82,6 +156,10 @@
         <!-- =================================================== -->
 
         <section class="answer">
+          <!-- ================================================= -->
+          <!-- Answer Header -->
+          <!-- ================================================= -->
+
           <div class="answer__header">
             <strong> Your response </strong>
 
@@ -147,6 +225,7 @@
       </main>
     </div>
   }
+
 } @else {
   <!-- ========================================================= -->
   <!-- Loading / Error -->
@@ -155,6 +234,7 @@
   <div class="workspace workspace--loading">
     @if (store.isQuestionLoading()) {
       <div class="question-loading">Loading question…</div>
+
     } @else if (store.questionError()) {
       <div class="question-error">
         <p>
@@ -169,6 +249,7 @@
           (click)="retry()"
         />
       </div>
+
     } @else {
       <div class="question-loading">Preparing your question…</div>
     }

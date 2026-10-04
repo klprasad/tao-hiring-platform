@@ -264,30 +264,6 @@
     sans-serif;
 }
 
-.primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 38px;
-  padding: 0 16px;
-  border: 0;
-  border-radius: var(--tao-radius-8px);
-  background: var(--tao-color-183a58);
-  color: var(--tao-color-fff);
-  font:
-    700 13px Inter,
-    system-ui,
-    sans-serif;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    transform 0.15s ease;
-}
-
-.primary:hover {
-  background: var(--tao-color-224d72);
-}
-
 .primary:active {
   transform: translateY(1px);
 }

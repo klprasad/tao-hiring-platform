@@ -9,6 +9,7 @@ import {
   required,
   submit,
 } from '@angular/forms/signals';
+import { TaoButtonComponent } from '../../native-controls/tao-button/tao-button.component';
 
 /**
  * Credentials captured by the acquire login form.
@@ -59,7 +60,7 @@ const USERNAME_PATTERN = /^[A-Za-z0-9._-]+(@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+)?$/;
  */
 @Component({
   selector: 'tao-login',
-  imports: [FormField],
+  imports: [FormField, TaoButtonComponent],
   styleUrl: './tao-login.component.scss',
   templateUrl: './tao-login.component.html',
 })

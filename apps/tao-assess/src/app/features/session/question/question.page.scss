@@ -1,23 +1,41 @@
+/* ============================================================
+   Workspace
+   ============================================================ */
+
 .workspace {
   width: 100%;
   padding: 28px 40px;
+  box-sizing: border-box;
 }
+
+/* ============================================================
+   Header
+   ============================================================ */
+
 .workspace header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
+
 .round {
   font: 700 12px system-ui;
   color: var(--tao-color-708096);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+
 .workspace h1 {
   margin: 5px 0 0;
   font: 700 22px/30px system-ui;
   color: var(--tao-color-172033);
 }
+
+/* ============================================================
+   Timer
+   ============================================================ */
+
 .timer {
   padding: 10px 14px;
   border: 1px solid var(--tao-color-e1e6ed);
@@ -25,88 +43,479 @@
   background: var(--tao-color-fff);
   font: 700 14px system-ui;
   color: var(--tao-color-183a58);
+  white-space: nowrap;
 }
+
+.timer--warning {
+  border-color: var(--tao-color-e2a93b);
+  color: var(--tao-color-e2a93b);
+}
+
+.timer--expired {
+  border-color: var(--tao-color-d9534f);
+  color: var(--tao-color-d9534f);
+}
+
+/* ============================================================
+   Progress
+   ============================================================ */
+
 .progress {
   height: 5px;
-  background: var(--tao-color-e9edf2);
-  border-radius: var(--tao-radius-99px);
   margin: 22px 0 28px;
   overflow: hidden;
+
+  background: var(--tao-color-e9edf2);
+  border-radius: var(--tao-radius-99px);
 }
+
 .progress span {
   display: block;
   height: 100%;
+
   background: var(--tao-color-79e2b1);
+
+  border-radius: inherit;
+
+  transition: width 250ms ease;
 }
+
+/* ============================================================
+   Main Layout
+   ============================================================ */
+
 .workspace main {
   display: grid;
   grid-template-columns: 1fr 1.25fr;
   gap: 22px;
+  align-items: start;
 }
+
+/* ============================================================
+   Question / Answer Containers
+   ============================================================ */
+
 .question,
 .answer {
+  box-sizing: border-box;
+
   background: var(--tao-color-fff);
   border: 1px solid var(--tao-color-e2e7ee);
   border-radius: var(--tao-radius-12px);
+
   padding: 26px;
+
   box-shadow: 0 5px 18px var(--tao-color-rgba-24-58-88-0-04);
 }
+
+/* ============================================================
+   Question Container
+   ============================================================ */
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* ============================================================
+   Eyebrow
+   ============================================================ */
+
 .eyebrow {
   margin: 0 0 10px;
+
   font: 700 12px system-ui;
   color: var(--tao-color-738096);
+
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
-.question h2 {
-  font: 650 20px/31px system-ui;
-  color: var(--tao-color-1b2536);
+
+/* ============================================================
+   Follow-up Section
+   ============================================================ */
+
+.follow-ups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
+
+/* Follow-up header */
+
+.follow-ups__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 24px;
+}
+
+/*
+ * Prevent the global eyebrow margin from creating
+ * unnecessary spacing inside the follow-up header.
+ */
+
+.follow-ups__header .eyebrow {
+  margin: 0;
+}
+
+/* ============================================================
+   Follow-up Count
+   ============================================================ */
+
+.follow-ups__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 24px;
+  height: 24px;
+
+  padding: 0 8px;
+  box-sizing: border-box;
+
+  border-radius: var(--tao-radius-99px);
+
+  background: var(--tao-color-eef2f7);
+  color: var(--tao-color-47566b);
+
+  font: 600 12px/1 system-ui;
+}
+
+/* ============================================================
+   Question Cards
+   ============================================================ */
+
+.question-card {
+  box-sizing: border-box;
+
+  width: 100%;
+
+  padding: 18px;
+
+  border-radius: var(--tao-radius-9px);
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease;
+}
+
+/* ============================================================
+   Current Question
+   ============================================================ */
+
+.question-card--current {
+  border: 1px solid var(--tao-color-79cfa7);
+  background: var(--tao-color-f5fbf7);
+
+  box-shadow: 0 2px 8px var(--tao-color-rgba-24-58-88-0-04);
+}
+
+/*
+ * Make the current question visually dominant.
+ */
+
+.question-card--current .question-card__status {
+  color: var(--tao-color-1d8a5a);
+}
+
+/* ============================================================
+   Answered Question
+   ============================================================ */
+
+.question-card--answered {
+  border: 1px solid var(--tao-color-e1e5ea);
+  background: var(--tao-color-f8f9fb);
+
+  opacity: 0.72;
+}
+
+/*
+ * Answered questions are intentionally quieter
+ * than the active question.
+ */
+
+.question-card--answered .question-card__status {
+  color: var(--tao-color-708096);
+}
+
+/* ============================================================
+   Question Card Header
+   ============================================================ */
+
+.question-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 10px;
+}
+
+/* ============================================================
+   Question Status
+   ============================================================ */
+
+.question-card__status {
+  font: 700 11px system-ui;
+
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* ============================================================
+   Question Type / Label
+   ============================================================ */
+
+.question-card__label {
+  color: var(--tao-color-708096);
+
+  font: 600 11px system-ui;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   Follow-up Question Heading
+   ============================================================ */
+
+.question-card h3 {
+  margin: 0;
+
+  color: var(--tao-color-172033);
+
+  font: 650 16px/25px system-ui;
+}
+
+/* ============================================================
+   Main Question Heading
+   ============================================================ */
+
+.question-card h2 {
+  margin: 0;
+
+  color: var(--tao-color-1b2536);
+
+  font: 650 20px/31px system-ui;
+}
+
+/* ============================================================
+   Main Question
+   ============================================================ */
+
+.main-question {
+  box-sizing: border-box;
+
+  width: 100%;
+
+  padding: 20px;
+
+  border: 1px solid var(--tao-color-e2e7ee);
+  border-radius: var(--tao-radius-10px);
+
+  background: var(--tao-color-fff);
+}
+
+.main-question h2 {
+  margin: 8px 0 0;
+
+  color: var(--tao-color-1b2536);
+
+  font: 650 20px/31px system-ui;
+}
+
+/* ============================================================
+   Answer Section
+   ============================================================ */
+
+.answer {
+  min-width: 0;
+}
+
+/* ============================================================
+   Answer Header
+   ============================================================ */
+
 .answer__header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+
+  gap: 16px;
+
   margin-bottom: 12px;
+
   font: 600 13px system-ui;
   color: var(--tao-color-47566b);
 }
+
 .answer__header span {
   color: var(--tao-color-1d8a5a);
 }
+
+.answer__status--saving {
+  color: var(--tao-color-e2a93b) !important;
+}
+
+.answer__status--error {
+  color: var(--tao-color-d9534f) !important;
+}
+
+/* ============================================================
+   Answer Textarea
+   ============================================================ */
+
 .answer textarea {
   width: 100%;
-  resize: vertical;
+
   box-sizing: border-box;
+
+  resize: vertical;
+
   border: 1px solid var(--tao-color-cfd7e2);
   border-radius: var(--tao-radius-8px);
+
   padding: 14px;
+
   font: 14px/23px system-ui;
   color: var(--tao-color-243146);
+
   outline: none;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
+
 .answer textarea:focus {
   border-color: var(--tao-color-79cfa7);
+
   box-shadow: 0 0 0 3px var(--tao-color-rgba-121-226-177-0-15);
 }
+
+.answer textarea:disabled {
+  cursor: not-allowed;
+
+  background: var(--tao-color-f8f9fb);
+}
+
+/* ============================================================
+   Answer Footer
+   ============================================================ */
+
+.answer__footer {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 8px;
+}
+
+.character-count {
+  color: var(--tao-color-708096);
+
+  font: 500 12px system-ui;
+}
+
+/* ============================================================
+   Answer Actions
+   ============================================================ */
+
 .answer__actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+
   gap: 10px;
+
   margin-top: 14px;
 }
-button {
-  min-height: 42px;
-  padding: 0 16px;
-  border-radius: var(--tao-radius-8px);
-  font: 600 13px system-ui;
-  cursor: pointer;
+
+/* ============================================================
+   Loading State
+   ============================================================ */
+
+.workspace--loading {
+  min-height: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.primary {
-  border: 0;
-  background: var(--tao-color-183a58);
-  color: var(--tao-color-fff);
+
+.question-loading {
+  color: var(--tao-color-708096);
+
+  font: 500 14px system-ui;
 }
-.secondary {
-  border: 1px solid var(--tao-color-cfd7e2);
-  background: var(--tao-color-fff);
-  color: var(--tao-color-183a58);
+
+.question-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 16px;
+
+  text-align: center;
+}
+
+.question-error p {
+  margin: 0;
+
+  color: var(--tao-color-d9534f);
+
+  font: 500 14px/22px system-ui;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  .workspace {
+    padding: 24px;
+  }
+
+  .workspace main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .workspace {
+    padding: 20px 16px;
+  }
+
+  .workspace header {
+    align-items: flex-start;
+  }
+
+  .timer {
+    padding: 8px 10px;
+  }
+
+  .question,
+  .answer {
+    padding: 20px;
+  }
+
+  .question-card {
+    padding: 16px;
+  }
+
+  .question-card h2 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .question-card h3 {
+    font-size: 15px;
+    line-height: 23px;
+  }
 }

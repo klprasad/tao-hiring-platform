@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
+import { TaoButtonComponent } from '@tao/ui';
 @Component({
   selector: 'tao-secure-access',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './secure-access.page.html',
   styleUrl: './secure-access.page.scss',

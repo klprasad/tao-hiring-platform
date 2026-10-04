@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
+import { TaoButtonComponent } from '@tao/ui';
 @Component({
   selector: 'tao-recovery',
   standalone: true,
+  imports: [TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './recovery.page.html',
   styleUrl: './recovery.page.scss',

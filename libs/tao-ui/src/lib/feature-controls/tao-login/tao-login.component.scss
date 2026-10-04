@@ -109,31 +109,3 @@
   font-size: 12px;
   list-style: none;
 }
-
-.submit {
-  margin-top: 4px;
-  padding: 12px 16px;
-  background: var(--tao-color-172033);
-  border: 1px solid var(--tao-color-172033);
-  border-radius: var(--tao-radius-8px);
-  color: var(--tao-color-fff);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.submit:hover:not(:disabled) {
-  background: var(--tao-color-22314c);
-}
-
-.submit:focus-visible {
-  outline: 2px solid var(--tao-color-79e2b1);
-  outline-offset: 2px;
-}
-
-.submit:disabled {
-  background: var(--tao-color-9aa7bc);
-  border-color: var(--tao-color-9aa7bc);
-  cursor: not-allowed;
-}

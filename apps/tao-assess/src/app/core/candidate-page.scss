@@ -47,32 +47,6 @@ p {
   gap: 12px;
   margin-top: 28px;
 }
-button {
-  min-height: 44px;
-  border: 1px solid transparent;
-  border-radius: var(--tao-radius-8px);
-  padding: 0 18px;
-  font:
-    600 14px/1 system-ui,
-    sans-serif;
-  cursor: pointer;
-}
-button.primary {
-  background: var(--tao-color-183a58);
-  color: var(--tao-color-fff);
-}
-button.primary:hover {
-  background: var(--tao-color-214d73);
-}
-button.secondary {
-  background: var(--tao-color-fff);
-  color: var(--tao-color-183a58);
-  border-color: var(--tao-color-cfd7e2);
-}
-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
 .status-list {
   display: grid;
   gap: 12px;

@@ -50,18 +50,6 @@
   border-color: var(--tao-color-79cfa7);
   box-shadow: 0 0 0 3px var(--tao-color-rgba-121-226-177-0-15);
 }
-.primary {
-  width: 100%;
-  height: 44px;
-  border: 0;
-  border-radius: var(--tao-radius-8px);
-  background: var(--tao-color-183a58);
-  color: var(--tao-color-fff);
-  font-weight: 700;
-}
-.primary:disabled {
-  opacity: 0.45;
-}
 .secure {
   display: block;
   text-align: center;

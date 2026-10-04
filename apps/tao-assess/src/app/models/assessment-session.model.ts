@@ -84,10 +84,14 @@ export interface SaveCandidateResponseRequest {
 }
 
 export interface SaveCandidateResponseResult {
-  saved: boolean;
-  roundCompleted: boolean;
   assessmentCompleted: boolean;
-  nextQuestion: AssessmentQuestionDto | null;
+  questionId: string;
+  order: number;
+  question: string;
+  competencies: string[];
+  roundType: AssessmentRoundType;
+  roundDurationInMinutes: number;
+  isFollowUpQuestion: boolean;
 }
 export interface AssessmentSessionVm {
   id: string;

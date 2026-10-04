@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TaoButtonComponent } from '@tao/ui';
 @Component({
   selector: 'tao-follow-up',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TaoButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './follow-up.page.html',
   styleUrl: './follow-up.page.scss',

@@ -127,11 +127,19 @@ export class QuestionPage implements OnInit {
       answer.length > 0 &&
       !this.store.isSubmitting() &&
       !this.store.isQuestionLoading() &&
-      !this.isTimerExpired() &&
-      !this.store.submitted()
+      !this.isTimerExpired()
     );
   });
+  readonly followUpQuestions = signal<AssessmentQuestionDto[]>([]);
+  readonly activeFollowUpQuestion = computed(() => {
+    const followUps = this.followUpQuestions();
 
+    return followUps.length > 0 ? followUps[0] : null;
+  });
+
+  readonly hasFollowUpQuestions = computed(() => this.followUpQuestions().length > 0);
+
+  readonly responseQuestion = computed(() => this.followUpQuestions()[0] ?? this.currentQuestion());
   // ===========================================================================
   // Lifecycle
   // ===========================================================================
@@ -258,6 +266,7 @@ export class QuestionPage implements OnInit {
   private setQuestion(question: AssessmentQuestionDto): void {
     this.store.setCurrentQuestion(question);
 
+    this.followUpQuestions.set([]);
     this.response.set('');
 
     this.store.markSaved();
@@ -332,7 +341,7 @@ export class QuestionPage implements OnInit {
       .subscribe((result) => {
         this.store.setCodingSaveState('saved');
 
-        this.handleSubmitResult(result);
+        this.handleCodingSubmitResult(result);
       });
   }
 
@@ -345,7 +354,7 @@ export class QuestionPage implements OnInit {
       return;
     }
 
-    const question = this.store.currentQuestion();
+    const question = this.responseQuestion();
 
     if (!question) {
       return;
@@ -357,8 +366,11 @@ export class QuestionPage implements OnInit {
 
     const answer = this.response().trim();
 
-    this.store.setSubmitting(true);
+    if (!answer) {
+      return;
+    }
 
+    this.store.setSubmitting(true);
     this.store.setResponse(answer);
 
     const request = {
@@ -371,7 +383,6 @@ export class QuestionPage implements OnInit {
         finalize(() => {
           this.store.setSubmitting(false);
         }),
-
         catchError((error) => {
           console.error('Failed to save candidate response', error);
 
@@ -403,6 +414,7 @@ export class QuestionPage implements OnInit {
   private handleSubmitResult(result: SaveCandidateResponseResult): void {
     this.store.markSaved();
 
+    // Assessment completed
     if (result.assessmentCompleted) {
       this.store.submit();
 
@@ -411,9 +423,53 @@ export class QuestionPage implements OnInit {
       return;
     }
 
+    // Backend returned a follow-up question
+    if (result.isFollowUpQuestion) {
+      const question: AssessmentQuestionDto = {
+        questionId: result.questionId,
+        order: result.order,
+        question: result.question,
+        roundType: result.roundType,
+        roundName: '',
+        roundDurationInMinutes: result.roundDurationInMinutes,
+        isFollowUpQuestion: result.isFollowUpQuestion,
+        competencies: result.competencies,
+      };
+      this.addFollowUpQuestion(question);
+
+      return;
+    }
+
+    // No follow-up question.
+    // The current main question is now completed,
+    // so ask backend for the next authoritative question.
+    // No more follow-up questions.
+    // Now move to the next main question.
+    this.followUpQuestions.set([]);
     this.refreshWorkflowState();
   }
+  private handleCodingSubmitResult(result: SaveCandidateResponseResult): void {
+    if (result.assessmentCompleted) {
+      this.store.submit();
 
+      this.assessmentNavigationService.finalReview();
+
+      return;
+    }
+
+    // Coding never has follow-up questions.
+    this.refreshWorkflowState();
+  }
+  private addFollowUpQuestion(question: AssessmentQuestionDto): void {
+    this.followUpQuestions.update((questions) => [question, ...questions]);
+
+    // New follow-up becomes the active question.
+    this.response.set('');
+
+    this.store.setResponse('');
+
+    this.store.markSaved();
+  }
   // ===========================================================================
   // Refresh Workflow
   // ===========================================================================

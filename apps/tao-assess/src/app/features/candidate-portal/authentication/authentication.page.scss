@@ -151,49 +151,6 @@
 }
 
 /* =========================================================
-   BUTTON
-   ========================================================= */
-
-.auth-card__button {
-  width: 100%;
-  min-height: 46px;
-
-  border: 0;
-  border-radius: var(--tao-radius-8px);
-
-  background: var(--tao-color-183a58);
-  color: var(--tao-color-ffffff);
-
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    background-color 160ms ease,
-    transform 160ms ease,
-    box-shadow 160ms ease;
-}
-
-.auth-card__button:hover:not(:disabled) {
-  background: var(--tao-color-214d72);
-
-  box-shadow: 0 4px 12px var(--tao-color-rgb-24-58-88-18);
-}
-
-.auth-card__button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.auth-card__button:disabled {
-  background: var(--tao-color-9aa9b8);
-  opacity: 1;
-
-  cursor: not-allowed;
-}
-
-/* =========================================================
    SECURITY MESSAGE
    ========================================================= */
 
