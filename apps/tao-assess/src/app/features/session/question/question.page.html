@@ -135,15 +135,6 @@
 
           <div class="answer__actions">
             <tao-button
-              label="Ask a follow-up"
-              appearance="outlined"
-              color="basic"
-              size="small"
-              [disabled]="store.isSubmitting() || store.isQuestionLoading() || isTimerExpired()"
-              (click)="followUp()"
-            />
-
-            <tao-button
               label="Continue"
               appearance="filled"
               color="primary"

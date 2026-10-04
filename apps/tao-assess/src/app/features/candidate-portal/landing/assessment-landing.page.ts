@@ -31,7 +31,7 @@ export class AssessmentLandingPage {
 
   createAssessmentSession() {
     const payload = {
-      candidateApplicationId: '01A0ECCE-C010-7821-893F-445133731F3C',
+      candidateApplicationId: '01A0E6F3-196E-7042-894F-E165A49D0390',
       assessmentStrategyId: '01A0ECCF-6BFD-76A4-8662-124170D3C4E0',
     };
     this.assessmentSessionService

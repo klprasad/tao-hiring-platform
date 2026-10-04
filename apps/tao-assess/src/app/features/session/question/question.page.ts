@@ -483,45 +483,6 @@ export class QuestionPage implements OnInit {
   }
 
   // ===========================================================================
-  // Follow-up Question
-  // ===========================================================================
-
-  followUp(): void {
-    const question = this.store.currentQuestion();
-
-    if (!question) {
-      return;
-    }
-
-    if (this.store.isSubmitting() || this.store.isQuestionLoading() || this.isTimerExpired()) {
-      return;
-    }
-
-    this.store.setQuestionLoading(true);
-
-    this.store.setQuestionError(null);
-
-    this.assessmentService
-      .getFollowUpQuestion(question.questionId)
-      .pipe(
-        finalize(() => {
-          this.store.setQuestionLoading(false);
-        }),
-
-        catchError((error) => {
-          console.error('Failed to load follow-up question', error);
-
-          this.store.setQuestionError('Unable to load the follow-up question.');
-
-          return EMPTY;
-        }),
-      )
-      .subscribe((followUpQuestion) => {
-        this.setQuestion(followUpQuestion);
-      });
-  }
-
-  // ===========================================================================
   // Retry
   // ===========================================================================
 

@@ -75,6 +75,7 @@ export interface AssessmentQuestionDto {
   roundType: AssessmentRoundType;
   roundName: string;
   roundDurationInMinutes: number;
+  isFollowUpQuestion: boolean;
   competencies: string[];
 }
 

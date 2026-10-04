@@ -48,24 +48,6 @@
       </div>
 
       <!-- ==========================================================
-           COMPETENCIES
-           ========================================================== -->
-
-      @if (question().competencies?.length) {
-        <section class="problem__section">
-          <h3>Competencies</h3>
-
-          <ul>
-            @for (competency of question().competencies; track competency) {
-              <li>
-                {{ competency }}
-              </li>
-            }
-          </ul>
-        </section>
-      }
-
-      <!-- ==========================================================
            ASSESSMENT GUIDANCE
            ========================================================== -->
 
