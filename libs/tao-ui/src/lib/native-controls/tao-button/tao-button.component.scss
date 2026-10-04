@@ -260,19 +260,19 @@ button.tao-button--icon.tao-button--primary:hover:not(:disabled) {
    ================================================================ */
 
 button.tao-button--icon.tao-button--basic {
-  border: 1px solid var(--tao-color-d5ded9) !important;
+  border: var(--tao-shell-topbar-icon-border, 1px solid var(--tao-color-d5ded9)) !important;
 
-  background: var(--tao-color-fff) !important;
+  background: var(--tao-shell-topbar-icon-bg, var(--tao-color-fff)) !important;
 
-  color: var(--tao-color-66726d) !important;
+  color: var(--tao-shell-topbar-icon-color, var(--tao-color-66726d)) !important;
 }
 
 button.tao-button--icon.tao-button--basic:hover:not(:disabled) {
-  border-color: var(--tao-color-b8c8c0) !important;
+  border-color: var(--tao-shell-topbar-icon-border-hover, var(--tao-color-b8c8c0)) !important;
 
-  background: var(--tao-color-f3f6f4) !important;
+  background: var(--tao-shell-topbar-icon-hover-bg, var(--tao-color-f3f6f4)) !important;
 
-  color: var(--tao-color-34433d) !important;
+  color: var(--tao-shell-topbar-icon-color, var(--tao-color-34433d)) !important;
 }
 
 /* ================================================================

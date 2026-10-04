@@ -2,6 +2,14 @@
 :root {
   color-scheme: light;
   --tao-font-family: "Segoe UI", sans-serif;
+  --tao-shell-topbar-bg: rgb(15 25 41);
+  --tao-shell-topbar-border: rgb(48 52 61);
+  --tao-shell-topbar-text: rgb(245 247 250);
+  --tao-shell-topbar-icon-bg: transparent;
+  --tao-shell-topbar-icon-border: 1px solid transparent;
+  --tao-shell-topbar-icon-border-hover: rgb(73 80 92);
+  --tao-shell-topbar-icon-color: rgb(245 247 250);
+  --tao-shell-topbar-icon-hover-bg: rgb(42 47 58);
   --tao-radius-0-4px-4px-0: 0 4px 4px 0;
   --tao-radius-0-7px-7px-0: 0 7px 7px 0;
   --tao-radius-10px: 10px;
@@ -40,6 +48,13 @@
 
 :root,
 :root[data-tao-theme="emerald"] {
+  --tao-shell-sidebar-bg: var(--tao-shell-topbar-bg);
+  --tao-shell-sidebar-active: rgb(29 42 64);
+  --tao-shell-sidebar-divider: rgba(255, 255, 255, 0.08);
+  --tao-shell-sidebar-muted: rgb(170 184 204);
+  --tao-shell-sidebar-accent: rgb(121 226 177);
+  --tao-shell-sidebar-accent-strong: rgb(105 223 176);
+  --tao-shell-sidebar-mark-text: rgb(16 24 39);
   --tao-color-0f1929: rgb(15 25 41);
   --tao-color-101827: rgb(16 24 39);
   --tao-color-102f4d: rgb(16 47 77);
@@ -302,14 +317,31 @@
 }
 
 :root[data-tao-theme="ocean"] {
-  --tao-color-0f1929: rgb(29 15 41);
-  --tao-color-101827: rgb(29 16 39);
+  --tao-shell-sidebar-bg: var(--tao-shell-topbar-bg);
+  --tao-shell-sidebar-active: rgb(0 100 169);
+  --tao-shell-sidebar-divider: rgba(255, 255, 255, 0.08);
+  --tao-shell-sidebar-muted: rgb(240 244 248);
+  --tao-shell-sidebar-accent: rgb(144 202 249);
+  --tao-shell-sidebar-accent-strong: rgb(33 150 243);
+  --tao-shell-sidebar-mark-text: rgb(13 41 65);
+  --tao-shell-topbar-bg: rgb(23 25 31);
+  --tao-shell-topbar-border: rgb(48 52 61);
+  --tao-shell-topbar-text: rgb(245 247 250);
+  --tao-shell-topbar-icon-bg: transparent;
+  --tao-shell-topbar-icon-border: 1px solid transparent;
+  --tao-shell-topbar-icon-border-hover: rgb(73 80 92);
+  --tao-shell-topbar-icon-color: rgb(245 247 250);
+  --tao-shell-topbar-icon-hover-bg: rgb(42 47 58);
+  --tao-shell-topbar-user-bg: rgb(25 118 210);
+  --tao-shell-topbar-user-text: rgb(255 255 255);
+  --tao-color-0f1929: rgb(24 32 74);
+  --tao-color-101827: rgb(23 32 68);
   --tao-color-102f4d: rgb(41 16 77);
   --tao-color-168453: rgb(22 80 132);
-  --tao-color-16a34a: rgb(22 123 163);
-  --tao-color-172033: rgb(40 23 51);
+  --tao-color-16a34a: rgb(25 118 210);
+  --tao-color-172033: rgb(27 33 64);
   --tao-color-17203322: rgba(40, 23, 51, 0.13333333333333333);
-  --tao-color-183a58: rgb(49 24 88);
+  --tao-color-183a58: rgb(8 73 125);
   --tao-color-188356: rgb(24 78 131);
   --tao-color-1b2536: rgb(42 27 54);
   --tao-color-1b8f5a: rgb(27 90 143);
@@ -325,8 +357,8 @@
   --tao-color-22314c: rgb(57 34 76);
   --tao-color-224d72: rgb(64 34 114);
   --tao-color-243146: rgb(54 36 70);
-  --tao-color-247d55: rgb(36 83 125);
-  --tao-color-24865a: rgb(36 88 134);
+  --tao-color-247d55: rgb(8 82 140);
+  --tao-color-24865a: rgb(13 94 156);
   --tao-color-24915e: rgb(36 96 145);
   --tao-color-252526: #252526;
   --tao-color-263247: rgb(56 38 71);
@@ -341,7 +373,7 @@
   --tao-color-303030: #303030;
   --tao-color-303a36: #303a36;
   --tao-color-31805d: rgb(49 91 128);
-  --tao-color-319667: rgb(49 104 150);
+  --tao-color-319667: rgb(11 105 183);
   --tao-color-333: #333;
   --tao-color-344257: rgb(70 52 87);
   --tao-color-34433d: #34433d;
@@ -357,7 +389,7 @@
   --tao-color-526075: rgb(100 82 117);
   --tao-color-536176: rgb(101 83 118);
   --tao-color-53647c: rgb(104 83 124);
-  --tao-color-54a87d: rgb(84 134 168);
+  --tao-color-54a87d: rgb(33 136 214);
   --tao-color-57bd8d: rgb(87 144 189);
   --tao-color-596660: #596660;
   --tao-color-59d69e: rgb(89 155 214);
@@ -380,7 +412,7 @@
   --tao-color-687589: #687589;
   --tao-color-68768a: rgb(121 104 138);
   --tao-color-687780: #687780;
-  --tao-color-69dfb0: rgb(105 162 223);
+  --tao-color-69dfb0: rgb(33 150 243);
   --tao-color-6b7772: #6b7772;
   --tao-color-6d7b76: #6d7b76;
   --tao-color-6e7a8e: #6e7a8e;
@@ -395,8 +427,8 @@
   --tao-color-778396: #778396;
   --tao-color-778398: #778398;
   --tao-color-788598: #788598;
-  --tao-color-79cfa7: rgb(121 168 207);
-  --tao-color-79e2b1: rgb(121 179 226);
+  --tao-color-79cfa7: rgb(66 165 245);
+  --tao-color-79e2b1: rgb(144 202 249);
   --tao-color-7a8580: #7a8580;
   --tao-color-7a8581: #7a8581;
   --tao-color-7a8798: #7a8798;
@@ -410,7 +442,7 @@
   --tao-color-858d98: #858d98;
   --tao-color-89938f: #89938f;
   --tao-color-899791: #899791;
-  --tao-color-8bc4a6: rgb(139 174 196);
+  --tao-color-8bc4a6: rgb(159 168 218);
   --tao-color-8c1d18: #8c1d18;
   --tao-color-94a3b8: rgb(166 148 184);
   --tao-color-991b1b: #991b1b;
@@ -467,7 +499,7 @@
   --tao-color-e1e8e4: #e1e8e4;
   --tao-color-e2e7e4: #e2e7e4;
   --tao-color-e2e7ee: rgb(232 226 238);
-  --tao-color-e2e7ef: rgb(233 226 239);
+  --tao-color-e2e7ef: rgb(220 227 234);
   --tao-color-e2ebe6: rgb(226 232 235);
   --tao-color-e3e8ef: rgb(233 227 239);
   --tao-color-e3e8f0: rgb(234 227 240);
@@ -485,7 +517,7 @@
   --tao-color-e8ecea: #e8ecea;
   --tao-color-e8edf3: rgb(237 232 243);
   --tao-color-e9edf2: rgb(237 233 242);
-  --tao-color-e9f1fb: rgb(241 233 251);
+  --tao-color-e9f1fb: rgb(227 242 253);
   --tao-color-e9f7ef: rgb(233 242 247);
   --tao-color-e9f8ef: rgb(233 243 248);
   --tao-color-e9f8f0: rgb(233 242 248);
@@ -494,7 +526,7 @@
   --tao-color-edf0f4: rgb(240 237 244);
   --tao-color-edf0f5: rgb(241 237 245);
   --tao-color-edf4f9: rgb(241 237 249);
-  --tao-color-edf8f2: rgb(237 244 248);
+  --tao-color-edf8f2: rgb(227 242 253);
   --tao-color-eef1f6: rgb(242 238 246);
   --tao-color-eef3f8: rgb(242 238 248);
   --tao-color-eef7f2: rgb(238 244 247);
@@ -508,18 +540,18 @@
   --tao-color-f1f3f2: #f1f3f2;
   --tao-color-f1f8f4: rgb(241 246 248);
   --tao-color-f1fbf5: rgb(241 248 251);
-  --tao-color-f2faf5: rgb(242 248 250);
+  --tao-color-f2faf5: rgb(235 245 251);
   --tao-color-f3c2bf: #f3c2bf;
   --tao-color-f3f6f4: rgb(243 245 246);
-  --tao-color-f4f8fb: rgb(246 244 251);
+  --tao-color-f4f8fb: rgb(245 248 250);
   --tao-color-f5f7f6: #f5f7f6;
-  --tao-color-f5f7fb: rgb(249 245 251);
+  --tao-color-f5f7fb: rgb(245 245 245);
   --tao-color-f5fbf8: rgb(245 249 251);
   --tao-color-f7dada: #f7dada;
-  --tao-color-f7f9fc: rgb(250 247 252);
+  --tao-color-f7f9fc: rgb(248 249 250);
   --tao-color-f7faf8: rgb(247 249 250);
   --tao-color-f8faf9: rgb(248 249 250);
-  --tao-color-f8fbf9: rgb(248 250 251);
+  --tao-color-f8fbf9: rgb(250 251 252);
   --tao-color-f9fbfd: rgb(251 249 253);
   --tao-color-fafcfb: rgb(250 251 252);
   --tao-color-fbfdfc: rgb(251 252 253);
@@ -564,14 +596,22 @@
 }
 
 :root[data-tao-theme="amethyst"] {
-  --tao-color-0f1929: rgb(41 15 23);
-  --tao-color-101827: rgb(39 16 22);
+  --tao-shell-sidebar-bg: var(--tao-shell-topbar-bg);
+  --tao-shell-sidebar-active: rgb(63 31 91);
+  --tao-shell-sidebar-divider: rgba(255, 255, 255, 0.08);
+  --tao-shell-sidebar-muted: rgb(170 184 204);
+  --tao-shell-sidebar-accent: rgb(216 180 254);
+  --tao-shell-sidebar-accent-strong: rgb(192 132 252);
+  --tao-shell-sidebar-mark-text: rgb(16 24 39);
+  --tao-workflow-completed-tint: 14%;
+  --tao-color-0f1929: rgb(33 16 46);
+  --tao-color-101827: rgb(42 20 58);
   --tao-color-102f4d: rgb(77 16 42);
   --tao-color-168453: rgb(92 22 132);
   --tao-color-16a34a: rgb(86 22 163);
-  --tao-color-172033: rgb(51 23 30);
+  --tao-color-172033: rgb(39 19 56);
   --tao-color-17203322: rgba(51, 23, 30, 0.13333333333333333);
-  --tao-color-183a58: rgb(88 24 53);
+  --tao-color-183a58: rgb(88 28 135);
   --tao-color-188356: rgb(95 24 131);
   --tao-color-1b2536: rgb(54 27 35);
   --tao-color-1b8f5a: rgb(100 27 143);
@@ -587,8 +627,8 @@
   --tao-color-22314c: rgb(76 34 46);
   --tao-color-224d72: rgb(114 34 70);
   --tao-color-243146: rgb(70 36 46);
-  --tao-color-247d55: rgb(92 36 125);
-  --tao-color-24865a: rgb(98 36 134);
+  --tao-color-247d55: rgb(109 40 217);
+  --tao-color-24865a: rgb(124 58 237);
   --tao-color-24915e: rgb(103 36 145);
   --tao-color-252526: #252526;
   --tao-color-263247: rgb(71 38 47);
@@ -603,7 +643,7 @@
   --tao-color-303030: #303030;
   --tao-color-303a36: #303a36;
   --tao-color-31805d: rgb(100 49 128);
-  --tao-color-319667: rgb(111 49 150);
+  --tao-color-319667: rgb(124 58 237);
   --tao-color-333: #333;
   --tao-color-344257: rgb(87 52 63);
   --tao-color-34433d: #34433d;
@@ -619,7 +659,7 @@
   --tao-color-526075: rgb(117 82 93);
   --tao-color-536176: rgb(118 83 94);
   --tao-color-53647c: rgb(124 83 97);
-  --tao-color-54a87d: rgb(132 84 168);
+  --tao-color-54a87d: rgb(168 85 247);
   --tao-color-57bd8d: rgb(149 87 189);
   --tao-color-596660: #596660;
   --tao-color-59d69e: rgb(168 89 214);
@@ -642,7 +682,7 @@
   --tao-color-687589: #687589;
   --tao-color-68768a: rgb(138 104 115);
   --tao-color-687780: #687780;
-  --tao-color-69dfb0: rgb(186 105 223);
+  --tao-color-69dfb0: rgb(168 85 247);
   --tao-color-6b7772: #6b7772;
   --tao-color-6d7b76: #6d7b76;
   --tao-color-6e7a8e: #6e7a8e;
@@ -657,8 +697,8 @@
   --tao-color-778396: #778396;
   --tao-color-778398: #778398;
   --tao-color-788598: #788598;
-  --tao-color-79cfa7: rgb(174 121 207);
-  --tao-color-79e2b1: rgb(186 121 226);
+  --tao-color-79cfa7: rgb(167 139 250);
+  --tao-color-79e2b1: rgb(192 132 252);
   --tao-color-7a8580: #7a8580;
   --tao-color-7a8581: #7a8581;
   --tao-color-7a8798: #7a8798;
@@ -672,7 +712,7 @@
   --tao-color-858d98: #858d98;
   --tao-color-89938f: #89938f;
   --tao-color-899791: #899791;
-  --tao-color-8bc4a6: rgb(171 139 196);
+  --tao-color-8bc4a6: rgb(216 180 254);
   --tao-color-8c1d18: #8c1d18;
   --tao-color-94a3b8: rgb(184 148 160);
   --tao-color-991b1b: #991b1b;
@@ -747,7 +787,7 @@
   --tao-color-e8ecea: #e8ecea;
   --tao-color-e8edf3: rgb(243 232 236);
   --tao-color-e9edf2: rgb(242 233 236);
-  --tao-color-e9f1fb: rgb(251 233 240);
+  --tao-color-e9f1fb: rgb(237 233 254);
   --tao-color-e9f7ef: rgb(240 233 247);
   --tao-color-e9f8ef: rgb(240 233 248);
   --tao-color-e9f8f0: rgb(241 233 248);
@@ -756,32 +796,32 @@
   --tao-color-edf0f4: rgb(244 237 239);
   --tao-color-edf0f5: rgb(245 237 239);
   --tao-color-edf4f9: rgb(249 237 243);
-  --tao-color-edf8f2: rgb(243 237 248);
+  --tao-color-edf8f2: rgb(243 232 255);
   --tao-color-eef1f6: rgb(246 238 240);
   --tao-color-eef3f8: rgb(248 238 242);
   --tao-color-eef7f2: rgb(243 238 247);
   --tao-color-eef8f3: rgb(244 238 248);
   --tao-color-efc5c2: #efc5c2;
   --tao-color-f0dfb5: #f0dfb5;
-  --tao-color-f0edf9: rgb(249 241 237);
+  --tao-color-f0edf9: rgb(243 232 255);
   --tao-color-f0f3f1: #f0f3f1;
   --tao-color-f0faf5: rgb(246 240 250);
   --tao-color-f1caca: #f1caca;
   --tao-color-f1f3f2: #f1f3f2;
   --tao-color-f1f8f4: rgb(245 241 248);
-  --tao-color-f1fbf5: rgb(246 241 251);
-  --tao-color-f2faf5: rgb(246 242 250);
+  --tao-color-f1fbf5: rgb(248 243 255);
+  --tao-color-f2faf5: rgb(245 235 255);
   --tao-color-f3c2bf: #f3c2bf;
   --tao-color-f3f6f4: rgb(244 243 246);
-  --tao-color-f4f8fb: rgb(251 244 247);
+  --tao-color-f4f8fb: rgb(248 243 255);
   --tao-color-f5f7f6: #f5f7f6;
-  --tao-color-f5f7fb: rgb(251 245 247);
-  --tao-color-f5fbf8: rgb(249 245 251);
+  --tao-color-f5f7fb: rgb(246 240 252);
+  --tao-color-f5fbf8: rgb(247 240 255);
   --tao-color-f7dada: #f7dada;
-  --tao-color-f7f9fc: rgb(252 247 249);
+  --tao-color-f7f9fc: rgb(250 246 255);
   --tao-color-f7faf8: rgb(248 247 250);
   --tao-color-f8faf9: rgb(249 248 250);
-  --tao-color-f8fbf9: rgb(249 248 251);
+  --tao-color-f8fbf9: rgb(250 247 255);
   --tao-color-f9fbfd: rgb(253 249 251);
   --tao-color-fafcfb: rgb(251 250 252);
   --tao-color-fbfdfc: rgb(252 251 253);
@@ -826,14 +866,22 @@
 }
 
 :root[data-tao-theme="rose"] {
-  --tao-color-0f1929: rgb(41 37 15);
-  --tao-color-101827: rgb(39 37 16);
+  --tao-shell-sidebar-bg: var(--tao-shell-topbar-bg);
+  --tao-shell-sidebar-active: rgb(91 18 47);
+  --tao-shell-sidebar-divider: rgba(255, 255, 255, 0.08);
+  --tao-shell-sidebar-muted: rgb(170 184 204);
+  --tao-shell-sidebar-accent: rgb(244 143 177);
+  --tao-shell-sidebar-accent-strong: rgb(240 98 146);
+  --tao-shell-sidebar-mark-text: rgb(16 24 39);
+  --tao-workflow-completed-tint: 14%;
+  --tao-color-0f1929: rgb(44 14 29);
+  --tao-color-101827: rgb(52 16 32);
   --tao-color-102f4d: rgb(77 61 16);
   --tao-color-168453: rgb(132 22 44);
   --tao-color-16a34a: rgb(163 22 76);
-  --tao-color-172033: rgb(51 49 23);
+  --tao-color-172033: rgb(57 18 34);
   --tao-color-17203322: rgba(51, 49, 23, 0.13333333333333333);
-  --tao-color-183a58: rgb(88 70 24);
+  --tao-color-183a58: rgb(136 14 79);
   --tao-color-188356: rgb(131 24 42);
   --tao-color-1b2536: rgb(54 51 27);
   --tao-color-1b8f5a: rgb(143 27 51);
@@ -849,8 +897,8 @@
   --tao-color-22314c: rgb(76 72 34);
   --tao-color-224d72: rgb(114 91 34);
   --tao-color-243146: rgb(70 65 36);
-  --tao-color-247d55: rgb(125 36 54);
-  --tao-color-24865a: rgb(134 36 56);
+  --tao-color-247d55: rgb(173 20 87);
+  --tao-color-24865a: rgb(194 24 91);
   --tao-color-24915e: rgb(145 36 60);
   --tao-color-252526: #252526;
   --tao-color-263247: rgb(71 67 38);
@@ -865,7 +913,7 @@
   --tao-color-303030: #303030;
   --tao-color-303a36: #303a36;
   --tao-color-31805d: rgb(128 49 64);
-  --tao-color-319667: rgb(150 49 71);
+  --tao-color-319667: rgb(194 24 91);
   --tao-color-333: #333;
   --tao-color-344257: rgb(87 82 52);
   --tao-color-34433d: #34433d;
@@ -881,7 +929,7 @@
   --tao-color-526075: rgb(117 112 82);
   --tao-color-536176: rgb(118 113 83);
   --tao-color-53647c: rgb(124 117 83);
-  --tao-color-54a87d: rgb(168 84 106);
+  --tao-color-54a87d: rgb(233 30 99);
   --tao-color-57bd8d: rgb(189 87 110);
   --tao-color-596660: #596660;
   --tao-color-59d69e: rgb(214 89 114);
@@ -904,7 +952,7 @@
   --tao-color-687589: #687589;
   --tao-color-68768a: rgb(138 132 104);
   --tao-color-687780: #687780;
-  --tao-color-69dfb0: rgb(223 105 122);
+  --tao-color-69dfb0: rgb(233 30 99);
   --tao-color-6b7772: #6b7772;
   --tao-color-6d7b76: #6d7b76;
   --tao-color-6e7a8e: #6e7a8e;
@@ -919,8 +967,8 @@
   --tao-color-778396: #778396;
   --tao-color-778398: #778398;
   --tao-color-788598: #788598;
-  --tao-color-79cfa7: rgb(207 121 139);
-  --tao-color-79e2b1: rgb(226 121 144);
+  --tao-color-79cfa7: rgb(240 98 146);
+  --tao-color-79e2b1: rgb(244 143 177);
   --tao-color-7a8580: #7a8580;
   --tao-color-7a8581: #7a8581;
   --tao-color-7a8798: #7a8798;
@@ -934,7 +982,7 @@
   --tao-color-858d98: #858d98;
   --tao-color-89938f: #89938f;
   --tao-color-899791: #899791;
-  --tao-color-8bc4a6: rgb(196 139 155);
+  --tao-color-8bc4a6: rgb(248 187 208);
   --tao-color-8c1d18: #8c1d18;
   --tao-color-94a3b8: rgb(184 178 148);
   --tao-color-991b1b: #991b1b;
@@ -1009,7 +1057,7 @@
   --tao-color-e8ecea: #e8ecea;
   --tao-color-e8edf3: rgb(243 241 232);
   --tao-color-e9edf2: rgb(242 240 233);
-  --tao-color-e9f1fb: rgb(251 247 233);
+  --tao-color-e9f1fb: rgb(252 228 236);
   --tao-color-e9f7ef: rgb(247 233 238);
   --tao-color-e9f8ef: rgb(248 233 238);
   --tao-color-e9f8f0: rgb(248 233 237);
@@ -1018,32 +1066,32 @@
   --tao-color-edf0f4: rgb(244 243 237);
   --tao-color-edf0f5: rgb(245 244 237);
   --tao-color-edf4f9: rgb(249 245 237);
-  --tao-color-edf8f2: rgb(248 237 240);
+  --tao-color-edf8f2: rgb(253 231 239);
   --tao-color-eef1f6: rgb(246 245 238);
   --tao-color-eef3f8: rgb(248 246 238);
   --tao-color-eef7f2: rgb(247 238 241);
   --tao-color-eef8f3: rgb(248 238 241);
   --tao-color-efc5c2: #efc5c2;
   --tao-color-f0dfb5: #f0dfb5;
-  --tao-color-f0edf9: rgb(243 249 237);
+  --tao-color-f0edf9: rgb(253 231 239);
   --tao-color-f0f3f1: #f0f3f1;
   --tao-color-f0faf5: rgb(250 240 243);
   --tao-color-f1caca: #f1caca;
   --tao-color-f1f3f2: #f1f3f2;
   --tao-color-f1f8f4: rgb(248 241 243);
-  --tao-color-f1fbf5: rgb(251 241 244);
-  --tao-color-f2faf5: rgb(250 242 245);
+  --tao-color-f1fbf5: rgb(255 242 247);
+  --tao-color-f2faf5: rgb(255 240 245);
   --tao-color-f3c2bf: #f3c2bf;
   --tao-color-f3f6f4: rgb(246 243 244);
-  --tao-color-f4f8fb: rgb(251 249 244);
+  --tao-color-f4f8fb: rgb(255 245 248);
   --tao-color-f5f7f6: #f5f7f6;
-  --tao-color-f5f7fb: rgb(251 251 245);
-  --tao-color-f5fbf8: rgb(251 245 247);
+  --tao-color-f5f7fb: rgb(252 241 244);
+  --tao-color-f5fbf8: rgb(255 241 246);
   --tao-color-f7dada: #f7dada;
-  --tao-color-f7f9fc: rgb(252 251 247);
+  --tao-color-f7f9fc: rgb(255 247 249);
   --tao-color-f7faf8: rgb(250 247 248);
   --tao-color-f8faf9: rgb(250 248 249);
-  --tao-color-f8fbf9: rgb(251 248 249);
+  --tao-color-f8fbf9: rgb(255 247 249);
   --tao-color-f9fbfd: rgb(253 252 249);
   --tao-color-fafcfb: rgb(252 250 251);
   --tao-color-fbfdfc: rgb(253 251 252);
@@ -1085,4 +1133,154 @@
   --tao-color-rgba-30-50-40-0-06: rgba(50, 30, 35, 0.06);
   --tao-color-rgba-41-50-65-0-15: rgba(65, 62, 41, 0.15);
   --tao-color-rgba-84-168-125-0-1: rgba(168, 84, 106, 0.1);
+}
+
+:root[data-tao-theme="ocean"] .topbar {
+  border-bottom-color: var(--tao-shell-topbar-border) !important;
+  background-color: var(--tao-shell-topbar-bg) !important;
+}
+
+:root[data-tao-theme="ocean"] .topbar .context,
+:root[data-tao-theme="ocean"] .topbar .theme-picker {
+  color: var(--tao-shell-topbar-text) !important;
+}
+
+:root[data-tao-theme="ocean"] .topbar .theme-picker__swatch[aria-pressed="true"] {
+  border-color: var(--tao-shell-topbar-text) !important;
+  box-shadow: 0 0 0 2px var(--tao-shell-topbar-bg) !important;
+}
+
+:root[data-tao-theme="ocean"] .topbar .user-initials {
+  background: var(--tao-shell-topbar-user-bg) !important;
+  color: var(--tao-shell-topbar-user-text) !important;
+}
+
+:root[data-tao-theme] .topbar tao-button button.tao-button--icon.tao-button--basic {
+  border: var(--tao-shell-topbar-icon-border) !important;
+  background: var(--tao-shell-topbar-icon-bg) !important;
+  color: var(--tao-shell-topbar-icon-color) !important;
+}
+
+:root[data-tao-theme]
+  .topbar
+  tao-button
+  button.tao-button--icon.tao-button--basic:hover:not(:disabled) {
+  border-color: var(--tao-shell-topbar-icon-border-hover) !important;
+  background: var(--tao-shell-topbar-icon-hover-bg) !important;
+}
+
+:root[data-tao-theme="amethyst"] {
+  --tao-shell-sidebar-active: rgb(89 18 51);
+  --tao-shell-sidebar-accent: rgb(244 143 177);
+  --tao-shell-sidebar-accent-strong: rgb(236 64 122);
+  --tao-shell-sidebar-mark-text: rgb(62 16 39);
+  --mat-sys-on-surface-variant: rgb(83 74 82);
+  --tao-color-0f1929: rgb(62 16 39);
+  --tao-color-101827: rgb(62 16 39);
+  --tao-color-172033: rgb(62 16 39);
+  --tao-color-183a58: rgb(136 14 79);
+  --tao-color-214d72: rgb(136 14 79);
+  --tao-color-16a34a: rgb(233 30 99);
+  --tao-color-247d55: rgb(194 24 91);
+  --tao-color-24865a: rgb(233 30 99);
+  --tao-color-24915e: rgb(216 27 96);
+  --tao-color-286b83: rgb(173 20 87);
+  --tao-color-31805d: rgb(173 20 87);
+  --tao-color-319667: rgb(194 24 91);
+  --tao-color-34865a: rgb(216 27 96);
+  --tao-color-35845c: rgb(194 24 91);
+  --tao-color-3e6e9d: rgb(236 64 122);
+  --tao-color-3ea371: rgb(236 64 122);
+  --tao-color-43a878: rgb(240 98 146);
+  --tao-color-54a87d: rgb(236 64 122);
+  --tao-color-57bd8d: rgb(240 98 146);
+  --tao-color-67dfb0: rgb(244 143 177);
+  --tao-color-69dfb0: rgb(236 64 122);
+  --tao-color-79cfa7: rgb(240 98 146);
+  --tao-color-79e2b1: rgb(244 143 177);
+  --tao-color-8bc4a6: rgb(248 187 208);
+  --tao-color-d5ded9: rgb(238 204 216);
+  --tao-color-edf8f2: rgb(252 228 236);
+  --tao-color-e9f1fb: rgb(252 228 236);
+  --tao-color-e9f7ef: rgb(252 228 236);
+  --tao-color-e9f8ef: rgb(253 236 242);
+  --tao-color-e9f8f0: rgb(253 236 242);
+  --tao-color-eaf7ef: rgb(253 236 242);
+  --tao-color-edf0f4: rgb(250 235 241);
+  --tao-color-edf0f5: rgb(250 235 241);
+  --tao-color-edf4f9: rgb(250 235 241);
+  --tao-color-eef1f6: rgb(250 235 241);
+  --tao-color-eef3f8: rgb(250 235 241);
+  --tao-color-eef7f2: rgb(250 235 241);
+  --tao-color-eef8f3: rgb(250 235 241);
+  --tao-color-f0edf9: rgb(252 228 236);
+  --tao-color-f0faf5: rgb(253 236 242);
+  --tao-color-f1f8f4: rgb(253 236 242);
+  --tao-color-f1fbf5: rgb(255 242 247);
+  --tao-color-f2faf5: rgb(252 228 236);
+  --tao-color-f3f6f4: rgb(250 239 243);
+  --tao-color-f4f8fb: rgb(255 242 247);
+  --tao-color-f5f7fb: rgb(245 247 251);
+  --tao-color-f5fbf8: rgb(255 242 247);
+  --tao-color-f7f9fc: rgb(255 248 250);
+  --tao-color-f8fbf9: rgb(255 248 250);
+  --tao-color-rgba-84-168-125-0-1: rgba(233, 30, 99, 0.1);
+}
+
+:root[data-tao-theme="rose"] {
+  --tao-shell-sidebar-active: rgb(104 49 12);
+  --tao-shell-sidebar-accent: rgb(255 204 128);
+  --tao-shell-sidebar-accent-strong: rgb(255 152 0);
+  --tao-shell-sidebar-mark-text: rgb(62 35 8);
+  --mat-sys-on-surface-variant: rgb(83 72 58);
+  --tao-color-0f1929: rgb(62 35 8);
+  --tao-color-101827: rgb(62 35 8);
+  --tao-color-172033: rgb(62 35 8);
+  --tao-color-183a58: rgb(230 81 0);
+  --tao-color-214d72: rgb(230 81 0);
+  --tao-color-16a34a: rgb(245 124 0);
+  --tao-color-247d55: rgb(230 81 0);
+  --tao-color-24865a: rgb(245 124 0);
+  --tao-color-24915e: rgb(239 108 0);
+  --tao-color-286b83: rgb(230 81 0);
+  --tao-color-31805d: rgb(230 81 0);
+  --tao-color-319667: rgb(194 65 12);
+  --tao-color-34865a: rgb(239 108 0);
+  --tao-color-35845c: rgb(230 81 0);
+  --tao-color-3e6e9d: rgb(251 140 0);
+  --tao-color-3ea371: rgb(251 140 0);
+  --tao-color-43a878: rgb(255 167 38);
+  --tao-color-54a87d: rgb(251 140 0);
+  --tao-color-57bd8d: rgb(255 167 38);
+  --tao-color-67dfb0: rgb(255 204 128);
+  --tao-color-69dfb0: rgb(255 152 0);
+  --tao-color-79cfa7: rgb(255 183 77);
+  --tao-color-79e2b1: rgb(255 204 128);
+  --tao-color-8bc4a6: rgb(255 224 178);
+  --tao-color-d5ded9: rgb(239 218 194);
+  --tao-color-edf8f2: rgb(255 243 224);
+  --tao-color-e9f1fb: rgb(255 243 224);
+  --tao-color-e9f7ef: rgb(255 243 224);
+  --tao-color-e9f8ef: rgb(255 248 235);
+  --tao-color-e9f8f0: rgb(255 248 235);
+  --tao-color-eaf7ef: rgb(255 248 235);
+  --tao-color-edf0f4: rgb(250 239 225);
+  --tao-color-edf0f5: rgb(250 239 225);
+  --tao-color-edf4f9: rgb(250 239 225);
+  --tao-color-eef1f6: rgb(250 239 225);
+  --tao-color-eef3f8: rgb(250 239 225);
+  --tao-color-eef7f2: rgb(250 239 225);
+  --tao-color-eef8f3: rgb(250 239 225);
+  --tao-color-f0edf9: rgb(255 243 224);
+  --tao-color-f0faf5: rgb(255 248 235);
+  --tao-color-f1f8f4: rgb(255 248 235);
+  --tao-color-f1fbf5: rgb(255 250 241);
+  --tao-color-f2faf5: rgb(255 243 224);
+  --tao-color-f3f6f4: rgb(250 243 234);
+  --tao-color-f4f8fb: rgb(255 250 241);
+  --tao-color-f5f7fb: rgb(245 247 251);
+  --tao-color-f5fbf8: rgb(255 246 232);
+  --tao-color-f7f9fc: rgb(255 251 245);
+  --tao-color-f8fbf9: rgb(255 251 245);
+  --tao-color-rgba-84-168-125-0-1: rgba(245, 124, 0, 0.1);
 }

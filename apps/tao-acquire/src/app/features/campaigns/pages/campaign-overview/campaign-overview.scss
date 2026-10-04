@@ -321,27 +321,31 @@
    ================================================================ */
 
 .workflow-step--completed {
-  background: color-mix(in srgb, var(--tao-color-16a34a) 6%, var(--mat-sys-surface));
+  background: color-mix(
+    in srgb,
+    var(--mat-sys-primary) var(--tao-workflow-completed-tint, 6%),
+    var(--mat-sys-surface)
+  );
 
-  border: 1px solid var(--tao-color-16a34a);
+  border: 1px solid var(--mat-sys-primary);
 }
 
 .workflow-step--completed .workflow-step__icon {
-  background: var(--tao-color-16a34a);
+  background: var(--mat-sys-primary);
   color: var(--tao-color-ffffff);
 }
 
 .workflow-step--completed .workflow-step__arrow {
-  color: var(--tao-color-16a34a);
+  color: var(--mat-sys-primary);
 }
 
 .workflow-step--completed .workflow-step__title {
   color: var(--mat-sys-on-surface);
 }
 .workflow-step--completed:hover:not(:disabled) {
-  border-color: var(--tao-color-16a34a);
+  border-color: var(--mat-sys-primary);
 
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--tao-color-16a34a) 10%, transparent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
 }
 /* ================================================================
    ACTIVE

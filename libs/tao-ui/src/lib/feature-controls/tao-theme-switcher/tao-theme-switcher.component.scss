@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--tao-color-6e7a8e);
+  color: var(--tao-shell-topbar-text, var(--tao-color-6e7a8e));
   font-size: 12px;
   white-space: nowrap;
 }
@@ -31,8 +31,8 @@
 }
 
 .theme-picker__swatch[aria-pressed="true"] {
-  border-color: var(--tao-color-172033);
-  box-shadow: 0 0 0 2px var(--tao-color-fff);
+  border-color: var(--tao-shell-topbar-text, var(--tao-color-172033));
+  box-shadow: 0 0 0 2px var(--tao-shell-topbar-bg, var(--tao-color-fff));
 }
 
 .theme-picker__swatch:focus-visible {

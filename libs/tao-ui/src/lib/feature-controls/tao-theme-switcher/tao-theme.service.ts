@@ -4,8 +4,8 @@ import { DestroyRef, Injectable, inject, signal } from '@angular/core';
 export const TAO_THEMES = [
   { name: 'emerald', label: 'Emerald', swatch: '#319667' },
   { name: 'ocean', label: 'Ocean', swatch: '#316896' },
-  { name: 'amethyst', label: 'Amethyst', swatch: '#7a3196' },
-  { name: 'rose', label: 'Rose', swatch: '#963147' },
+  { name: 'amethyst', label: 'Pink', swatch: '#e91e63' },
+  { name: 'rose', label: 'Orange', swatch: '#f57c00' },
 ] as const;
 
 export type TaoThemeName = (typeof TAO_THEMES)[number]['name'];

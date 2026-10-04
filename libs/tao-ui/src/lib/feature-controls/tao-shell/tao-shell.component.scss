@@ -10,7 +10,7 @@
 }
 .sidebar {
   width: 248px;
-  background: var(--tao-color-101827);
+  background: var(--tao-shell-sidebar-bg);
   color: var(--tao-color-d6deed);
   padding: 28px 18px 18px;
   display: flex;
@@ -30,13 +30,13 @@
   place-items: center;
   width: 30px;
   height: 30px;
-  color: var(--tao-color-101827);
-  background: var(--tao-color-79e2b1);
+  color: var(--tao-shell-sidebar-mark-text);
+  background: var(--tao-shell-sidebar-accent);
   border-radius: var(--tao-radius-8px);
 }
 .eyebrow {
   margin: 44px 12px 12px;
-  color: var(--tao-color-7f8da7);
+  color: var(--tao-shell-sidebar-muted);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -47,7 +47,7 @@ nav {
   gap: 4px;
 }
 nav a {
-  color: var(--tao-color-9aa7bc);
+  color: var(--tao-shell-sidebar-muted);
   text-decoration: none;
   padding: 11px 12px;
   border-radius: var(--tao-radius-8px);
@@ -58,18 +58,18 @@ nav a {
 }
 nav a:hover,
 nav a.active {
-  background: var(--tao-color-1d2a40);
+  background: var(--tao-shell-sidebar-active);
   color: var(--tao-color-fff);
 }
 nav a.active {
-  box-shadow: inset 3px 0 var(--tao-color-79e2b1);
+  box-shadow: inset 3px 0 var(--tao-shell-sidebar-accent);
 }
 .nav-icon {
   position: relative;
   width: 18px;
   height: 18px;
   flex: 0 0 18px;
-  color: var(--tao-color-79e2b1);
+  color: var(--tao-shell-sidebar-accent);
   text-align: center;
 }
 .nav-icon::before {
@@ -111,7 +111,7 @@ nav a.active {
 .sidebar-footer {
   margin-top: auto;
   padding: 16px 8px 4px;
-  border-top: 1px solid var(--tao-color-263247);
+  border-top: 1px solid var(--tao-shell-sidebar-divider);
   display: flex;
   gap: 10px;
   align-items: center;
@@ -122,7 +122,7 @@ nav a.active {
   display: block;
 }
 .sidebar-footer small {
-  color: var(--tao-color-8290a7);
+  color: var(--tao-shell-sidebar-muted);
   margin-top: 3px;
 }
 .avatar,
@@ -147,12 +147,12 @@ nav a.active {
   justify-content: space-between;
   align-items: center;
   padding: 0 38px;
-  background: var(--tao-color-fff);
-  border-bottom: 1px solid var(--tao-color-e4e9f1);
+  background: var(--tao-shell-topbar-bg, var(--tao-color-fff));
+  border-bottom: 1px solid var(--tao-shell-topbar-border, var(--tao-color-e4e9f1));
 }
 .context {
   font-size: 13px;
-  color: var(--tao-color-647086);
+  color: var(--tao-shell-topbar-text, var(--tao-color-647086));
 }
 .top-actions {
   display: flex;
@@ -211,7 +211,7 @@ nav a.active {
   width: 246px;
   min-width: 246px;
 
-  background: var(--tao-color-0f1929);
+  background: var(--tao-shell-sidebar-bg);
   color: var(--tao-color-fff);
 }
 
@@ -242,8 +242,8 @@ nav a.active {
 
   border-radius: var(--tao-radius-7px);
 
-  background: var(--tao-color-69dfb0);
-  color: var(--tao-color-0f1929);
+  background: var(--tao-shell-sidebar-accent-strong);
+  color: var(--tao-shell-sidebar-mark-text);
 
   font-size: 18px;
   font-weight: 800;
@@ -256,7 +256,7 @@ nav a.active {
 .eyebrow {
   margin: 14px 28px 14px;
 
-  color: var(--tao-color-7f91ad);
+  color: var(--tao-shell-sidebar-muted);
 
   font-size: 10px;
   font-weight: 700;
@@ -288,7 +288,7 @@ nav a.active {
 
   border-radius: var(--tao-radius-8px);
 
-  color: var(--tao-color-aab8cc);
+  color: var(--tao-shell-sidebar-muted);
   text-decoration: none;
 
   font-size: 14px;
@@ -304,7 +304,7 @@ nav a.active {
 }
 
 .nav-item.active {
-  background: var(--tao-color-1d2b43);
+  background: var(--tao-shell-sidebar-active);
   color: var(--tao-color-fff);
 }
 
@@ -318,7 +318,7 @@ nav a.active {
 
   border-radius: var(--tao-radius-0-4px-4px-0);
 
-  background: var(--tao-color-69dfb0);
+  background: var(--tao-shell-sidebar-accent-strong);
 
   content: "";
 }
@@ -354,13 +354,13 @@ nav a.active {
 
   margin: 18px 8px 14px;
 
-  background: var(--tao-color-rgba-255-255-255-0-08);
+  background: var(--tao-shell-sidebar-divider);
 }
 
 .navigation-section-title {
   margin: 0 12px 8px;
 
-  color: var(--tao-color-71839f);
+  color: var(--tao-shell-sidebar-muted);
 
   font-size: 9px;
   font-weight: 700;
@@ -380,9 +380,9 @@ nav a.active {
 }
 
 .child-nav-item.active {
-  border-left-color: var(--tao-color-69dfb0);
+  border-left-color: var(--tao-shell-sidebar-accent-strong);
 
-  background: var(--tao-color-1d2b43);
+  background: var(--tao-shell-sidebar-active);
 }
 
 .child-nav-item.active::before {
@@ -479,13 +479,13 @@ nav a.active {
 
   padding: 0 28px;
 
-  border-bottom: 1px solid var(--tao-color-e2e7ef);
+  border-bottom: 1px solid var(--tao-shell-topbar-border, var(--tao-color-e2e7ef));
 
-  background: var(--tao-color-fff);
+  background: var(--tao-shell-topbar-bg, var(--tao-color-fff));
 }
 
 .context {
-  color: var(--tao-color-53647c);
+  color: var(--tao-shell-topbar-text, var(--tao-color-53647c));
 
   font-size: 13px;
 }
@@ -506,8 +506,8 @@ nav a.active {
 
   border-radius: var(--tao-radius-50);
 
-  background: var(--tao-color-e8c89f);
-  color: var(--tao-color-293241);
+  background: var(--tao-shell-topbar-user-bg, var(--tao-color-e8c89f));
+  color: var(--tao-shell-topbar-user-text, var(--tao-color-293241));
 
   font-size: 10px;
   font-weight: 700;
@@ -542,8 +542,8 @@ nav a.active {
 
   border: 0;
 
-  background: var(--tao-color-e8c89f);
-  color: var(--tao-color-293241);
+  background: var(--tao-shell-topbar-user-bg, var(--tao-color-e8c89f));
+  color: var(--tao-shell-topbar-user-text, var(--tao-color-293241));
 
   font-family: inherit;
   font-size: 10px;
