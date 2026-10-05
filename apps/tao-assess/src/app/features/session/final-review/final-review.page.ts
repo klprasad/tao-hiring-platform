@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { TaoButtonComponent } from '@tao/ui';
+import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 @Component({
   selector: 'tao-final-review',
   imports: [TaoButtonComponent],
@@ -11,9 +12,10 @@ import { TaoButtonComponent } from '@tao/ui';
 })
 export class FinalReviewPage {
   readonly store = inject(AssessmentSessionStore);
+  private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   readonly router = inject(Router);
   submit(): void {
     this.store.submit();
-    this.router.navigate(['/session/demo-session/submitted']);
+    this.assessmentNavigationService.submitted();
   }
 }

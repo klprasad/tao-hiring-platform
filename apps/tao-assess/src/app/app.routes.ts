@@ -83,8 +83,20 @@ export const routes: Routes = [
             (m) => m.CodingWorkspacePage,
           ),
       },
-
-      // remaining session routes...
+      {
+        path: 'final-review',
+        loadComponent: () =>
+          import('./features/session/final-review/final-review.page').then(
+            (m) => m.FinalReviewPage,
+          ),
+      },
+      {
+        path: 'submitted',
+        loadComponent: () =>
+          import('./features/completion/submission-confirmation/submission-confirmation.page').then(
+            (m) => m.SubmissionConfirmationPage,
+          ),
+      },
     ],
   },
 

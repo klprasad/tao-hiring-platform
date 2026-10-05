@@ -4,7 +4,7 @@
   <p>Review the completion summary. Submission is a one-time action.</p>
   <div class="card summary">
     <div>
-      <span>Rounds completed</span><strong>{{ store.landing()?.rounds.length }}</strong>
+      <span>Rounds completed</span><strong>{{ store.rounds()?.length }}</strong>
     </div>
     <div>
       <span>Total assessment time</span
@@ -16,13 +16,13 @@
     After submission, your assessment cannot be reopened from the candidate application.
   </div>
   <div class="actions">
-    <tao-button
+    <!-- <tao-button
       label="Back"
       appearance="outlined"
       color="basic"
       (click)="router.navigate(['/session/question'])"
-    ></tao-button
-    ><tao-button
+    ></tao-button> -->
+    <tao-button
       label="Submit Final Assessment"
       appearance="filled"
       color="primary"
