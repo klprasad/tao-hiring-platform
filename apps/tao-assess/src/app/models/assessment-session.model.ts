@@ -169,7 +169,7 @@ export interface AssessmentRoundWorkflowDto {
   remainingQuestions: number;
 
   completionPercentage: number;
-
+  durationInMinutes: number;
   startedOn: string | null;
   completedOn: string | null;
 }

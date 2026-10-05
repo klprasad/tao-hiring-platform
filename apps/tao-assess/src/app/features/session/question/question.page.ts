@@ -267,7 +267,13 @@ export class QuestionPage implements OnInit {
     this.store.setCurrentQuestion(question);
 
     this.followUpQuestions.set([]);
+    // Reset technical/system-design response.
     this.response.set('');
+    this.store.setResponse('');
+
+    // Reset coding response.
+    this.store.setCodingCode('');
+    this.store.setCodingSaveState('saved');
 
     this.store.markSaved();
   }

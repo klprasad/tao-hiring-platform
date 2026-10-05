@@ -1,14 +1,18 @@
 <div class="coding">
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+
   <header class="coding__header">
-    <div>
-      <span class="eyebrow">Coding round</span>
-
+    <div class="coding__title">
       <h1>Implement your solution</h1>
-
-      <p>Write your solution in C#. Your code is saved automatically.</p>
+      <p>
+        Write your solution in
+        {{ languageConfig().label }}. Your code is saved automatically.
+      </p>
     </div>
 
-    <div
+    <!-- <div
       class="coding__status"
       [class.coding__status--saving]="store.codingSaveState() === 'saving'"
       [class.coding__status--error]="store.codingSaveState() === 'error'"
@@ -22,71 +26,90 @@
             ? 'Save failed'
             : 'Saved'
       }}
-    </div>
+    </div> -->
   </header>
 
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+
   <div class="coding-grid">
-    <!-- ============================================================
-         QUESTION / PROBLEM
-         ============================================================ -->
+    <!-- ==========================================================
+         QUESTION
+         ========================================================== -->
 
     <aside class="problem">
       <div class="problem__heading">
         <span class="problem__number">
-          {{ question().order }}
+          {{ currentQuestionNumber() }}
         </span>
 
-        <div>
+        <div class="problem__title">
           <span class="eyebrow"> Problem </span>
 
-          <h2>Question {{ question().order }}</h2>
+          <h2>Question {{ currentQuestionNumber() }}</h2>
         </div>
       </div>
 
-      <div class="problem__description">
-        {{ question().question }}
-      </div>
+      <!--
+        Question is converted to HTML by formatQuestion().
+        No external markdown library is required.
+      -->
 
-      <!-- ==========================================================
-           ASSESSMENT GUIDANCE
-           ========================================================== -->
+      <div class="problem__description" [innerHTML]="formattedQuestion()"></div>
+
+      <!-- ========================================================
+           GUIDANCE
+           ======================================================== -->
 
       <section class="problem__section">
         <h3>Assessment guidance</h3>
 
         <div class="hint">
-          Focus on correctness, clarity and production considerations. Keep your implementation
-          clean, readable and maintainable.
+          <span class="hint__icon"> ✓ </span>
+
+          <span>
+            Focus on correctness, clarity and production considerations. Keep your implementation
+            clean, readable and maintainable.
+          </span>
         </div>
       </section>
     </aside>
 
-    <!-- ============================================================
-         CODE EDITOR
-         ============================================================ -->
+    <!-- ==========================================================
+         EDITOR
+         ========================================================== -->
 
     <section class="editor-panel">
       <div class="editor-panel__toolbar">
         <div class="file-tab">
-          <span class="file-icon">C#</span>
-          <span>Solution.cs</span>
+          <span class="file-icon">
+            {{ languageConfig().icon }}
+          </span>
+
+          <span>
+            {{ languageConfig().fileName }}
+          </span>
         </div>
 
         <div class="language">
           <span class="language__dot"></span>
-          C#
+
+          {{ languageConfig().label }}
         </div>
       </div>
 
-      <div #editorHost class="monaco-host" aria-label="C# code editor"></div>
+      <div #editorHost class="monaco-host" aria-label="Code editor"></div>
 
       <footer class="editor-panel__footer">
         <div class="editor-meta">
-          <span>Autosave enabled</span>
+          <span> Autosave enabled </span>
 
           <span>•</span>
 
-          <span>C#</span>
+          <span>
+            {{ languageConfig().label }}
+          </span>
         </div>
 
         <tao-button

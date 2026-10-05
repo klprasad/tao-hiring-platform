@@ -62,7 +62,7 @@
 
 .progress {
   height: 5px;
-  margin: 22px 0 28px;
+  margin: 16px 0 16px;
   overflow: hidden;
 
   background: var(--tao-color-e9edf2);
@@ -125,10 +125,7 @@
 
 .eyebrow {
   margin: 0 0 10px;
-
-  font: 700 12px system-ui;
-  color: var(--tao-color-738096);
-
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }

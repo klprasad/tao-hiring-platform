@@ -2,7 +2,6 @@ import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core'
 
 import {
   AssessmentQuestionDto,
-  AssessmentRoundType,
   AssessmentSessionVm,
   AssessmentSessionWorkflowDto,
   AssessmentRoundWorkflowDto,
@@ -84,7 +83,7 @@ export class AssessmentSessionStore {
 
   readonly remainingRounds = computed(() => this.assessmentWorkflow()?.remainingRounds ?? 0);
 
-  readonly totalQuestions = computed(() => this.assessmentWorkflow()?.totalQuestions ?? 0);
+  readonly totalQuestions = computed(() => this.currentRound()?.totalQuestions ?? 0);
 
   readonly completedQuestions = computed(() => this.assessmentWorkflow()?.completedQuestions ?? 0);
 
@@ -93,7 +92,7 @@ export class AssessmentSessionStore {
   readonly remainingQuestions = computed(() => this.assessmentWorkflow()?.remainingQuestions ?? 0);
 
   /**
-   * Backend authoritative progress.
+   * Backend authoritative assessment progress.
    */
   readonly progressPercent = computed(() => this.assessmentWorkflow()?.completionPercentage ?? 0);
 
@@ -131,10 +130,20 @@ export class AssessmentSessionStore {
 
   readonly currentQuestionId = computed(() => this.assessmentWorkflow()?.currentQuestionId ?? null);
 
+  /**
+   * Current main-question number inside the current round.
+   *
+   * Follow-up questions do not increase this number because
+   * they belong to the same main question.
+   */
   readonly currentQuestionNumber = computed(() => {
-    const workflow = this.assessmentWorkflow();
+    const round = this.currentRound();
 
-    return (workflow?.completedQuestions ?? 0) + 1;
+    const completed = round?.completedQuestions ?? 0;
+
+    const skipped = round?.skippedQuestions ?? 0;
+
+    return completed + skipped + 1;
   });
 
   // ===========================================================================
@@ -220,49 +229,41 @@ export class AssessmentSessionStore {
   // Timer
   // ===========================================================================
 
+  /**
+   * Remaining time in the current round.
+   *
+   * This is always calculated from the current round's
+   * durationInMinutes.
+   */
   readonly remainingSeconds = signal(0);
 
   readonly timerRunning = signal(false);
 
   /**
-   * Server-provided assessment expiration timestamp.
+   * Current round duration in seconds.
+   *
+   * Example:
+   *
+   * durationInMinutes = 45
+   * => 2700 seconds
    */
-  readonly assessmentExpiresAt = computed(() => {
-    const expiresOn = this.assessmentWorkflow()?.assessmentExpiresOn;
+  readonly roundDurationSeconds = computed(() => {
+    const durationMinutes = this.currentRound()?.durationInMinutes ?? 0;
 
-    if (!expiresOn) {
-      return null;
-    }
-
-    const timestamp = new Date(expiresOn).getTime();
-
-    return Number.isFinite(timestamp) ? timestamp : null;
+    return Math.max(0, durationMinutes * 60);
   });
 
   /**
-   * Server-provided assessment start timestamp.
+   * Local round expiry timestamp.
+   *
+   * This is recalculated whenever a new round starts.
    */
-  readonly assessmentStartedAt = computed(() => {
-    const startedOn = this.assessmentWorkflow()?.startedOn;
-
-    if (!startedOn) {
-      return null;
-    }
-
-    const timestamp = new Date(startedOn).getTime();
-
-    return Number.isFinite(timestamp) ? timestamp : null;
-  });
+  private roundExpiresAt: number | null = null;
 
   /**
-   * Timer is expired only when the server gave us
-   * an expiration timestamp AND that timestamp has passed.
+   * True when the current round timer has expired.
    */
-  readonly isTimerExpired = computed(() => {
-    const expiresAt = this.assessmentExpiresAt();
-
-    return expiresAt !== null && this.remainingSeconds() <= 0;
-  });
+  readonly isTimerExpired = computed(() => this.timerRunning() && this.remainingSeconds() <= 0);
 
   /**
    * Warning when one minute or less remains.
@@ -276,7 +277,8 @@ export class AssessmentSessionStore {
   /**
    * Human-readable timer.
    *
-   * MM:SS for normal assessments.
+   * MM:SS normally.
+   *
    * HH:MM:SS when more than one hour remains.
    */
   readonly remainingTime = computed(() => {
@@ -291,9 +293,7 @@ export class AssessmentSessionStore {
     if (hours > 0) {
       return [
         hours.toString().padStart(2, '0'),
-
         minutes.toString().padStart(2, '0'),
-
         seconds.toString().padStart(2, '0'),
       ].join(':');
     }
@@ -302,55 +302,65 @@ export class AssessmentSessionStore {
   });
 
   /**
-   * Optional timer progress.
+   * Remaining timer percentage.
+   *
+   * Example:
+   *
+   * 45 minute round
+   * 45:00 => 100
+   * 22:30 => 50
+   * 00:00 => 0
    */
   readonly timerPercent = computed(() => {
-    const startedAt = this.assessmentStartedAt();
-
-    const expiresAt = this.assessmentExpiresAt();
+    const total = this.roundDurationSeconds();
 
     const remaining = this.remainingSeconds();
 
-    if (startedAt === null || expiresAt === null) {
+    if (total <= 0) {
       return 0;
     }
 
-    const totalSeconds = Math.max(0, Math.floor((expiresAt - startedAt) / 1000));
-
-    if (totalSeconds === 0) {
-      return 0;
-    }
-
-    return Math.min(100, Math.max(0, Math.round((remaining / totalSeconds) * 100)));
+    return Math.min(100, Math.max(0, Math.round((remaining / total) * 100)));
   });
 
   private timerId: ReturnType<typeof setInterval> | undefined;
 
+  // ===========================================================================
+  // Timer Methods
+  // ===========================================================================
+
   /**
-   * Start timer from server expiration timestamp.
+   * Start/restart the timer for the current round.
    *
-   * IMPORTANT:
-   * We do not decrement a local counter blindly.
+   * The duration comes from:
    *
-   * Every tick calculates:
+   * currentRound().durationInMinutes
    *
-   *   expiresAt - Date.now()
-   *
-   * This keeps the timer synchronized with the
-   * server-authoritative expiry time.
+   * We calculate against an absolute expiry timestamp
+   * instead of blindly decrementing remainingSeconds.
    */
-  startAssessmentTimer(): void {
+  startRoundTimer(): void {
     this.stopTimer();
 
-    const expiresAt = this.assessmentExpiresAt();
+    const durationSeconds = this.roundDurationSeconds();
 
-    if (expiresAt === null) {
+    if (durationSeconds <= 0) {
       this.remainingSeconds.set(0);
+      this.roundExpiresAt = null;
       return;
     }
 
+    const startedAt = Date.now();
+
+    this.roundExpiresAt = startedAt + durationSeconds * 1000;
+
     const updateRemainingTime = (): void => {
-      const remaining = Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000));
+      if (this.roundExpiresAt === null) {
+        this.stopTimer();
+        return;
+      }
+
+      const remaining = Math.max(0, Math.ceil((this.roundExpiresAt - Date.now()) / 1000));
 
       this.remainingSeconds.set(remaining);
 
@@ -372,16 +382,31 @@ export class AssessmentSessionStore {
     this.timerId = setInterval(updateRemainingTime, 1000);
   }
 
+  /**
+   * Stop the current round timer.
+   */
   stopTimer(): void {
     if (this.timerId !== undefined) {
       clearInterval(this.timerId);
-
       this.timerId = undefined;
     }
 
     this.timerRunning.set(false);
   }
 
+  /**
+   * Reset timer without starting it.
+   */
+  resetTimer(): void {
+    this.stopTimer();
+
+    this.roundExpiresAt = null;
+    this.remainingSeconds.set(this.roundDurationSeconds());
+  }
+
+  /**
+   * Handle round timer expiration.
+   */
   private handleTimerExpired(): void {
     this.expired.set(true);
     this.timerRunning.set(false);
@@ -392,21 +417,33 @@ export class AssessmentSessionStore {
   // ===========================================================================
 
   /**
-   * Store the authoritative workflow.
+   * Store authoritative workflow state.
+   *
+   * The timer is restarted only when the backend
+   * moves the assessment to another round.
+   *
+   * Follow-up questions remain in the same round,
+   * therefore they do not restart the timer.
    */
   setAssessmentWorkflow(workflow: AssessmentSessionWorkflowDto): void {
+    const previousRoundId = this.assessmentWorkflow()?.currentRoundId;
+
+    const newRoundId = workflow.currentRoundId;
+
     this.assessmentWorkflow.set(workflow);
 
     this.syncWorkflowState(workflow);
 
-    /**
-     * Start/synchronize timer whenever
-     * workflow is received.
-     */
-    if (workflow.status === 'InProgress') {
-      this.startAssessmentTimer();
-    } else {
+    if (workflow.status !== 'InProgress') {
       this.stopTimer();
+      return;
+    }
+
+    /**
+     * First workflow load OR round changed.
+     */
+    if (previousRoundId !== newRoundId) {
+      this.startRoundTimer();
     }
   }
 
@@ -474,7 +511,7 @@ export class AssessmentSessionStore {
   start(): void {
     this.started.set(true);
 
-    this.startAssessmentTimer();
+    this.startRoundTimer();
   }
 
   // ===========================================================================

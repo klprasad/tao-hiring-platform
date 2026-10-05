@@ -1,66 +1,59 @@
 @if (currentQuestion(); as question) {
-  <!-- ========================================================= -->
-  <!-- Coding Question -->
-  <!-- ========================================================= -->
+  <div class="workspace">
+    <!-- ===================================================== -->
+    <!-- Header -->
+    <!-- ===================================================== -->
 
-  @if (question.roundType === assessmentType.Coding) {
-    <tao-coding-workspace [question]="question" (continue)="onCodingContinue($event)" />
-  }
-
-  <!-- ========================================================= -->
-  <!-- Technical / System Design -->
-  <!-- ========================================================= -->
-
-  @else {
-    <div class="workspace">
-      <!-- ===================================================== -->
-      <!-- Header -->
-      <!-- ===================================================== -->
-
-      <header class="workspace__header">
-        <div>
-          <span class="eyebrow">
-            {{ currentRoundName() }}
-          </span>
-
-          <span class="question-position">
-            Question
-            {{ currentQuestionNumber() }}
-            of
-            {{ totalQuestions() }}
-          </span>
+    <header class="workspace__header">
+      <div>
+        <div class="eyebrow">
+          {{ currentRoundName() }}
         </div>
 
-        <!-- =================================================== -->
-        <!-- Timer -->
-        <!-- =================================================== -->
-
-        <div
-          class="timer"
-          [class.timer--warning]="isTimerWarning()"
-          [class.timer--expired]="isTimerExpired()"
-        >
-          {{ store.remainingTime() }}
+        <div class="question-position">
+          Question
+          {{ currentQuestionNumber() }}
+          of
+          {{ totalQuestions() }}
         </div>
-      </header>
-
-      <!-- ===================================================== -->
-      <!-- Progress -->
-      <!-- ===================================================== -->
-
-      <div
-        class="progress"
-        role="progressbar"
-        [attr.aria-valuenow]="progressPercent()"
-        aria-valuemin="0"
-        aria-valuemax="100"
-      >
-        <span [style.width.%]="progressPercent()"></span>
       </div>
 
-      <!-- ===================================================== -->
-      <!-- Main -->
-      <!-- ===================================================== -->
+      <!-- =================================================== -->
+      <!-- Timer -->
+      <!-- =================================================== -->
+
+      <div
+        class="timer"
+        [class.timer--warning]="isTimerWarning()"
+        [class.timer--expired]="isTimerExpired()"
+      >
+        {{ store.remainingTime() }}
+      </div>
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- Progress -->
+    <!-- ===================================================== -->
+
+    <div
+      class="progress"
+      role="progressbar"
+      [attr.aria-valuenow]="progressPercent()"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <span [style.width.%]="progressPercent()"></span>
+    </div>
+    <!-- ========================================================= -->
+    <!-- Coding Question -->
+    <!-- ========================================================= -->
+
+    @if (question.roundType === assessmentType.Coding) {
+      <tao-coding-workspace [question]="question" (continue)="onCodingContinue($event)" />
+    } @else {
+      <!-- ========================================================= -->
+      <!-- Technical / System Design -->
+      <!-- ========================================================= -->
 
       <main>
         <!-- =================================================== -->
@@ -223,6 +216,6 @@
           </div>
         </section>
       </main>
-    </div>
-  }
+    }
+  </div>
 }
