@@ -79,7 +79,7 @@ export class QuestionPage implements OnInit {
    *
    * Backend value is already 1-based.
    */
-  readonly currentQuestionNumber = computed(() => this.store.currentQuestionOrder() ?? 1);
+  readonly currentQuestionNumber = computed(() => this.store.currentQuestionNumber() ?? 1);
 
   readonly totalQuestions = computed(() => this.store.totalQuestions());
 
@@ -341,7 +341,7 @@ export class QuestionPage implements OnInit {
       .subscribe((result) => {
         this.store.setCodingSaveState('saved');
 
-        this.handleCodingSubmitResult(result);
+        this.completeQuestion();
       });
   }
 
@@ -415,7 +415,7 @@ export class QuestionPage implements OnInit {
     this.store.markSaved();
 
     // Assessment completed
-    if (result.assessmentCompleted) {
+    if (result && result.assessmentCompleted) {
       this.store.submit();
 
       this.assessmentNavigationService.finalReview();
@@ -424,7 +424,7 @@ export class QuestionPage implements OnInit {
     }
 
     // Backend returned a follow-up question
-    if (result.isFollowUpQuestion) {
+    if (result && result.isFollowUpQuestion) {
       const question: AssessmentQuestionDto = {
         questionId: result.questionId,
         order: result.order,
@@ -439,27 +439,9 @@ export class QuestionPage implements OnInit {
 
       return;
     }
-
-    // No follow-up question.
-    // The current main question is now completed,
-    // so ask backend for the next authoritative question.
-    // No more follow-up questions.
-    // Now move to the next main question.
-    this.followUpQuestions.set([]);
-    this.refreshWorkflowState();
+    this.completeQuestion();
   }
-  private handleCodingSubmitResult(result: SaveCandidateResponseResult): void {
-    if (result.assessmentCompleted) {
-      this.store.submit();
 
-      this.assessmentNavigationService.finalReview();
-
-      return;
-    }
-
-    // Coding never has follow-up questions.
-    this.refreshWorkflowState();
-  }
   private addFollowUpQuestion(question: AssessmentQuestionDto): void {
     this.followUpQuestions.update((questions) => [question, ...questions]);
 
@@ -503,25 +485,8 @@ export class QuestionPage implements OnInit {
         }),
       )
       .subscribe((workflow) => {
-        /**
-         * This updates:
-         *
-         * completedQuestions
-         * remainingQuestions
-         * completionPercentage
-         * currentRoundOrder
-         * currentQuestionOrder
-         * currentQuestionId
-         * currentStage
-         * canResume
-         * isInterrupted
-         * assessmentExpiresOn
-         */
         this.store.setAssessmentWorkflow(workflow);
 
-        /**
-         * Assessment completed.
-         */
         if (workflow.status === 'Completed' || workflow.remainingQuestions === 0) {
           this.store.submit();
 
@@ -538,6 +503,34 @@ export class QuestionPage implements OnInit {
       });
   }
 
+  private completeQuestion(): void {
+    const question = this.responseQuestion();
+
+    if (!question) {
+      return;
+    }
+    this.assessmentService
+      .completeAssessmentQuestion(question.questionId)
+      .pipe(
+        finalize(() => {
+          this.store.setSubmitting(false);
+        }),
+        catchError((error) => {
+          console.error('Failed to save candidate response', error);
+
+          this.store.saveError();
+
+          return EMPTY;
+        }),
+      )
+      .subscribe(() => {
+        // No follow-up question.
+        // The current main question is now completed,
+        // Now move to the next main question.
+        this.followUpQuestions.set([]);
+        this.refreshWorkflowState();
+      });
+  }
   // ===========================================================================
   // Retry
   // ===========================================================================

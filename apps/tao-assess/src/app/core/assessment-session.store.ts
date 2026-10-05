@@ -131,17 +131,11 @@ export class AssessmentSessionStore {
 
   readonly currentQuestionId = computed(() => this.assessmentWorkflow()?.currentQuestionId ?? null);
 
-  /**
-   * Backend question order.
-   *
-   * This is 1-based.
-   *
-   * Example:
-   * Question 1 of 4
-   */
-  readonly currentQuestionOrder = computed(
-    () => this.assessmentWorkflow()?.currentQuestionOrder ?? null,
-  );
+  readonly currentQuestionNumber = computed(() => {
+    const workflow = this.assessmentWorkflow();
+
+    return (workflow?.completedQuestions ?? 0) + 1;
+  });
 
   // ===========================================================================
   // Candidate / Assessment State

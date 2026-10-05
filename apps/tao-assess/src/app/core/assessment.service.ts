@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   AssessmentSessionDto,
   AssessmentSessionWorkflowDto,
+  SaveCandidateResponseResult,
 } from '../models/assessment-session.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -28,8 +29,11 @@ export class AssessmentService {
   getFollowUpQuestion(questionId: string): Observable<any> {
     return this.api.post(`/api/assessment-questions/${questionId}/follow-up`);
   }
-  saveCandidateResponse(questionId: string, request: any): Observable<any> {
-    return this.api.post(`/api/assessment-questions/${questionId}/response`, request);
+  saveCandidateResponse(questionId: string, request: any): Observable<SaveCandidateResponseResult> {
+    return this.api.post<SaveCandidateResponseResult>(
+      `/api/assessment-questions/${questionId}/response`,
+      request,
+    );
   }
   saveCodeResponse(questionId: string, request: any): Observable<any> {
     return this.api.post(`/api/assessment-questions/${questionId}/code-response`, request);
@@ -41,5 +45,8 @@ export class AssessmentService {
     return this.api.get<AssessmentSessionWorkflowDto>(
       `/api/assessment-sessions/${sessionId}/workflow`,
     );
+  }
+  completeAssessmentQuestion(questionId: string): Observable<any> {
+    return this.api.post(`/api/assessment-questions/${questionId}/complete`);
   }
 }

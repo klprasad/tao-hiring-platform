@@ -225,33 +225,4 @@
       </main>
     </div>
   }
-
-} @else {
-  <!-- ========================================================= -->
-  <!-- Loading / Error -->
-  <!-- ========================================================= -->
-
-  <div class="workspace workspace--loading">
-    @if (store.isQuestionLoading()) {
-      <div class="question-loading">Loading question…</div>
-
-    } @else if (store.questionError()) {
-      <div class="question-error">
-        <p>
-          {{ store.questionError() }}
-        </p>
-
-        <tao-button
-          label="Retry"
-          appearance="outlined"
-          color="primary"
-          size="small"
-          (click)="retry()"
-        />
-      </div>
-
-    } @else {
-      <div class="question-loading">Preparing your question…</div>
-    }
-  </div>
 }
