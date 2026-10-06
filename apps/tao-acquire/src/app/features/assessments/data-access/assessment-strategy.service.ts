@@ -7,6 +7,7 @@ import {
   AssessmentDto,
   updateAssessmentRoundRequest,
 } from '../models/assessment-strategy.models';
+import { sendIvitationsRespose } from '../../invitations/models/invitations.model';
 
 /**
  * Assessment strategy API client.
@@ -57,6 +58,11 @@ export class AssessmentStrategyService {
     return this.api.post<void, ApproveAssessmentStrategyRequest>(
       `/api/campaigns/assessment-strategies/${assessmentStrategyId}/approve`,
       request,
+    );
+  }
+  sendInvitations(campaignId: string): Observable<ApiResponse<sendIvitationsRespose>> {
+    return this.api.post<ApiResponse<sendIvitationsRespose>, void>(
+      `/api/candidate-applications/${campaignId}/send-recommended-emails`,
     );
   }
 }

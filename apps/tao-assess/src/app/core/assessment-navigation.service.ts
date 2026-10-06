@@ -9,27 +9,27 @@ export class AssessmentNavigationService {
   readonly accessToken = signal('demo');
   readonly sessionId = signal('demo');
   access(): Promise<boolean> {
-    return this.router.navigate(['/access']);
+    return this.router.navigate(['/candidate']);
   }
 
   authentication(): Promise<boolean> {
-    return this.router.navigate(['/login']);
+    return this.router.navigate(['candidate/login']);
   }
 
   landing(): Promise<boolean> {
-    return this.router.navigate(['/access', 'landing']);
+    return this.router.navigate(['/candidate', 'landing']);
   }
 
   consent(): Promise<boolean> {
-    return this.router.navigate(['/access', 'consent']);
+    return this.router.navigate(['/candidate', 'consent']);
   }
 
   browserCheck(): Promise<boolean> {
-    return this.router.navigate(['/access', 'browser-check']);
+    return this.router.navigate(['/candidate', 'browser-check']);
   }
 
   ready(): Promise<boolean> {
-    return this.router.navigate(['/access', 'ready']);
+    return this.router.navigate(['/candidate', 'ready']);
   }
 
   sessionWelcome(): Promise<boolean> {

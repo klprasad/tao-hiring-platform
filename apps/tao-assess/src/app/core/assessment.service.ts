@@ -1,5 +1,5 @@
 import { inject, Injectable, Service } from '@angular/core';
-import { ApiClientService } from '@tao/core';
+import { ApiClientService, UserSummary } from '@tao/core';
 import { Observable } from 'rxjs';
 import {
   AssessmentSessionDto,
@@ -7,6 +7,7 @@ import {
   SaveCandidateResponseResult,
 } from '../models/assessment-session.model';
 import { HttpClient } from '@angular/common/http';
+import { loginModelDto } from '../models/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,5 +52,11 @@ export class AssessmentService {
   }
   advanceAssessment(sessionId: string): Observable<any> {
     return this.api.post(`/api/assessment-sessions/${sessionId}/advance`);
+  }
+  candidateSignUp(invitationId: string, request: loginModelDto): Observable<any> {
+    return this.api.post(`/api/candidate/invitations/${invitationId}/signup`, request);
+  }
+  getAuthUser(): Observable<UserSummary> {
+    return this.api.get<UserSummary>(`api/auth/me`);
   }
 }

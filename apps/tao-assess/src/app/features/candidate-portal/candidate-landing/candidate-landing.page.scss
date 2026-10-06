@@ -1,0 +1,153 @@
+:host {
+  display: block;
+  min-height: 100vh;
+
+  color: var(--tao-color-172033);
+}
+.actions {
+  display: flex;
+  gap: 24px;
+}
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.signup {
+  display: grid;
+  place-items: center;
+
+  min-height: 100vh;
+
+  padding: 32px 20px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.signup-card {
+  display: grid;
+  gap: 18px;
+
+  width: 100%;
+  max-width: 380px;
+
+  padding: 32px;
+
+  box-sizing: border-box;
+
+  background: var(--tao-color-fff);
+
+  border: 1px solid var(--tao-color-e3e8f0);
+
+  border-radius: var(--tao-radius-16px);
+
+  box-shadow: 0 18px 42px var(--tao-color-rgba-23-32-51-0-08);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.signup-header {
+  display: grid;
+  gap: 6px;
+}
+
+.eyebrow {
+  margin: 0;
+
+  color: var(--tao-color-6e7a8e);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+
+  color: var(--tao-color-172033);
+
+  font-size: 24px;
+  line-height: 32px;
+
+  font-weight: 700;
+}
+
+.description {
+  margin: 0;
+
+  color: var(--tao-color-6e7a8e);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.signup-form {
+  display: grid;
+  gap: 18px;
+}
+
+/*
+ * tao-input is a custom component.
+ * Force it to occupy the complete card width.
+ */
+.signup-form tao-input {
+  display: block;
+  width: 100%;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.form-error {
+  margin: 0;
+
+  padding: 10px 12px;
+
+  background: var(--tao-color-fdeceb);
+
+  border: 1px solid var(--tao-color-f3c2bf);
+
+  border-left: 3px solid var(--tao-color-b3261e);
+
+  border-radius: var(--tao-radius-8px);
+
+  color: var(--tao-color-8c1d18);
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.full-width {
+  width: 100%;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .signup {
+    padding: 24px 16px;
+  }
+
+  .signup-card {
+    max-width: 100%;
+    padding: 24px;
+  }
+}

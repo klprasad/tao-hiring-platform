@@ -4,56 +4,57 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login',
+    redirectTo: 'candidate/login',
   },
   {
-    path: 'login',
-    loadComponent: () =>
-      import('./features/candidate-portal/authentication/authentication.page').then(
-        (m) => m.AuthenticationPage,
-      ),
-  },
-  {
-    path: 'access',
-    canActivate: [authGuard],
+    path: 'candidate',
     children: [
-      // {
-      //   path: '',
-      //   pathMatch: 'full',
-      //   loadComponent: () =>
-      //     import('./features/candidate-portal/secure-access/secure-access.page').then(
-      //       (m) => m.SecureAccessPage,
-      //     ),
-      // },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'landing',
+        redirectTo: 'login',
       },
       {
-        path: 'landing',
+        path: 'invitations/:invitationId',
         loadComponent: () =>
-          import('./features/candidate-portal/landing/assessment-landing.page').then(
-            (m) => m.AssessmentLandingPage,
+          import('./features/candidate-portal/candidate-landing/candidate-landing.page').then(
+            (m) => m.CandidateLandingPage,
+          ),
+      },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./features/candidate-portal/authentication/authentication.page').then(
+            (m) => m.AuthenticationPage,
           ),
       },
 
       {
         path: 'consent',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/candidate-portal/consent/consent.page').then((m) => m.ConsentPage),
       },
 
       {
         path: 'browser-check',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/candidate-portal/browser-check/browser-check.page').then(
             (m) => m.BrowserCheckPage,
           ),
       },
-
+      {
+        path: 'landing',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/candidate-portal/assessment-landing/assessment-landing.page').then(
+            (m) => m.AssessmentLandingPage,
+          ),
+      },
       {
         path: 'ready',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/candidate-portal/ready/assessment-ready.page').then(
             (m) => m.AssessmentReadyPage,
@@ -63,6 +64,7 @@ export const routes: Routes = [
   },
   {
     path: 'session/:sessionId',
+    canActivate: [authGuard],
     children: [
       {
         path: 'welcome',

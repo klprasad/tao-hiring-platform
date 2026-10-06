@@ -3,7 +3,7 @@ import { AssessmentNavigationService } from '../../../core/assessment-navigation
 import { LoginCredentials, TaoLoginComponent } from '@tao/ui';
 import { AuthService } from '../../../core/auth.service';
 @Component({
-  selector: 'tao-authentication',
+  selector: 'tao-assess-authentication',
   standalone: true,
   imports: [TaoLoginComponent],
   templateUrl: './authentication.page.html',
@@ -22,7 +22,7 @@ export class AuthenticationPage {
 
     try {
       await this.authService.signIn(credentials);
-      await this.assessmentNavigationService.landing();
+      await this.assessmentNavigationService.consent();
     } catch {
       this.errorMessage.set('Sign-in failed. Check your user name and password and try again.');
     } finally {

@@ -24,6 +24,17 @@
 
             {{ statusLabel() }}
           </span>
+          <div>
+            @if (isApproved()) {
+              <tao-button
+                appearance="filled"
+                label="Send Invitations"
+                tooltip="Send Invitations"
+                color="primary"
+                (click)="sendInvitations()"
+              />
+            }
+          </div>
         </div>
       </div>
     </section>

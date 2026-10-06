@@ -1,0 +1,102 @@
+<div class="candidate-landing">
+  @if (mode() === 'entry') {
+    <div class="landing-card">
+      <h1>Welcome to your assessment</h1>
+
+      <p>Please sign in or create an account to continue with your assessment.</p>
+
+      <div class="actions">
+        <tao-button
+          type="button"
+          label="Sign Up"
+          appearance="filled"
+          color="primary"
+          (click)="showSignUp()"
+        >
+        </tao-button>
+
+        <tao-button
+          type="button"
+          appearance="filled"
+          color="primary"
+          label="Login"
+          (click)="showLogin()"
+        >
+        </tao-button>
+      </div>
+    </div>
+  }
+
+  @if (mode() === 'signup') {
+    <section class="signup">
+      <div class="signup-card">
+        <header class="signup-header">
+          <p class="eyebrow">TAO Hiring Platform</p>
+
+          <h1 class="title">Create your account</h1>
+
+          <p class="description">Create an account to access your assessment.</p>
+        </header>
+
+        <form class="signup-form" novalidate [formGroup]="signUpForm" (ngSubmit)="signUp()">
+          <tao-input
+            formControlName="email"
+            label="Email"
+            placeholder="you@example.com"
+            type="email"
+            autocomplete="email"
+            [required]="true"
+          />
+
+          <tao-input
+            formControlName="password"
+            label="Password"
+            placeholder="Enter your password"
+            type="password"
+            autocomplete="new-password"
+            [required]="true"
+          />
+
+          <tao-input
+            formControlName="confirmPassword"
+            label="Confirm Password"
+            placeholder="Re-enter your password"
+            type="password"
+            autocomplete="new-password"
+            [required]="true"
+          />
+
+          <tao-button
+            class="full-width"
+            type="submit"
+            appearance="filled"
+            color="primary"
+            size="large"
+            [fullWidth]="true"
+            [label]="isSubmitting() ? 'Creating account...' : 'Create Account'"
+            [disabled]="signUpForm.invalid || isSubmitting()"
+            [attr.aria-busy]="isSubmitting()"
+          />
+
+          <tao-button
+            type="button"
+            class="full-width"
+            label="Back to login"
+            size="large"
+            [fullWidth]="true"
+            appearance="outlined"
+            color="basic"
+            (click)="back()"
+          >
+          </tao-button>
+        </form>
+      </div>
+    </section>
+  }
+
+  @if (mode() === 'login') {
+    <div class="authentication-container">
+      <tao-assess-authentication> </tao-assess-authentication>
+    </div>
+  }
+</div>

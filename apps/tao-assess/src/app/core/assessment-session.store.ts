@@ -17,6 +17,9 @@ export type QuestionType = 'technical' | 'follow-up' | 'coding';
 export class AssessmentSessionStore {
   private readonly destroyRef = inject(DestroyRef);
 
+  readonly invitationId = signal<string | null>(null);
+  readonly candidateApplicationId = signal<string | null>(null);
+  readonly assessmentStategyId = signal<string | null>(null);
   // ===========================================================================
   // Current Question
   // ===========================================================================

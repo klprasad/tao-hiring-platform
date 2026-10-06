@@ -79,11 +79,6 @@ export class App {
           route: 'assessment-strategy',
           icon: 'assessments',
         },
-        {
-          label: 'Invitations',
-          route: 'invitations',
-          icon: 'invitations',
-        },
       ],
     },
   ];

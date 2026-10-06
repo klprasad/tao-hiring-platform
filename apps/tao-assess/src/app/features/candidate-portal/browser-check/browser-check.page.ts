@@ -141,7 +141,7 @@ export class BrowserCheckPage {
     }
 
     this.store.markBrowserReady();
-    this.assessmentNavigationService.ready();
+    this.assessmentNavigationService.landing();
   }
 
   ngOnDestroy(): void {

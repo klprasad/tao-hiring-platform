@@ -96,11 +96,11 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./features/candidates/pages/candidates').then((m) => m.Candidates),
           },
-          {
-            path: 'invitations',
-            loadComponent: () =>
-              import('./features/invitations/pages/invitations').then((m) => m.Invitations),
-          },
+          // {
+          //   path: 'invitations',
+          //   loadComponent: () =>
+          //     import('./features/invitations/pages/invitations').then((m) => m.Invitations),
+          // },
           {
             path: 'resume-imports',
             loadComponent: () =>

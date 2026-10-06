@@ -293,4 +293,15 @@ export class AssessmentOverview implements OnInit {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');
     this.router.navigate(['/campaigns', campaignId]);
   }
+  sendInvitations() {
+    this.service
+      .sendInvitations(this.campaignId)
+      .pipe(
+        catchError(() => {
+          this.errorMessage.set('Send Invitations failed. Please try again.');
+          return EMPTY;
+        }),
+      )
+      .subscribe();
+  }
 }

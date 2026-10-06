@@ -30,9 +30,13 @@ export class AssessmentLandingPage {
   }
 
   createAssessmentSession() {
+    const candidateApplicationId = this.store.candidateApplicationId();
+    const assessmentStrategyId = this.store.assessmentSessionId();
+    if (!candidateApplicationId || !assessmentStrategyId) return;
+
     const payload = {
-      candidateApplicationId: '01A11063-C441-77E7-9CDA-5C9EFC0E04E1',
-      assessmentStrategyId: '01A11064-3717-75E8-B7A9-7B65C3F9716C',
+      candidateApplicationId: candidateApplicationId,
+      assessmentStrategyId: assessmentStrategyId,
     };
     this.assessmentSessionService
       .createAssessmentSession(payload)
@@ -51,6 +55,6 @@ export class AssessmentLandingPage {
   }
 
   continue(): void {
-    this.assessmentNavigationService.consent();
+    this.assessmentNavigationService.ready();
   }
 }
