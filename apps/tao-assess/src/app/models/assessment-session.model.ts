@@ -176,3 +176,7 @@ export interface AssessmentRoundWorkflowDto {
   startedOn: string | null;
   completedOn: string | null;
 }
+export interface AssessmentContextDto {
+  candidateApplicationId: string;
+  assessmentStrategyId: string;
+}

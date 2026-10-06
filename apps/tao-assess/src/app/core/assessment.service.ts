@@ -1,12 +1,13 @@
-import { inject, Injectable, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ApiClientService, UserSummary } from '@tao/core';
 import { Observable } from 'rxjs';
 import {
+  AssessmentContextDto,
+  AssessmentQuestionDto,
   AssessmentSessionDto,
   AssessmentSessionWorkflowDto,
   SaveCandidateResponseResult,
 } from '../models/assessment-session.model';
-import { HttpClient } from '@angular/common/http';
 import { loginModelDto } from '../models/login.model';
 
 @Injectable({
@@ -14,22 +15,17 @@ import { loginModelDto } from '../models/login.model';
 })
 export class AssessmentService {
   private readonly api = inject(ApiClientService);
-  private readonly http = inject(HttpClient);
   createAssessmentSession(request: any): Observable<AssessmentSessionDto> {
     return this.api.post<AssessmentSessionDto, any>('/api/assessment-sessions', request);
   }
-  getCurrentAssessmentSession(assessmentSessionId: string): Observable<AssessmentSessionDto> {
-    return this.http.get<AssessmentSessionDto>('assets/assessmentsession.json');
-  }
+
   startAssessment(sessionId: string): Observable<any> {
     return this.api.post(`/api/assessment-sessions/${sessionId}/start`);
   }
   getCurrentQuestion(sessionId: string): Observable<any> {
     return this.api.post(`/api/assessment-sessions/${sessionId}/current-question`);
   }
-  getFollowUpQuestion(questionId: string): Observable<any> {
-    return this.api.post(`/api/assessment-questions/${questionId}/follow-up`);
-  }
+
   saveCandidateResponse(questionId: string, request: any): Observable<SaveCandidateResponseResult> {
     return this.api.post<SaveCandidateResponseResult>(
       `/api/assessment-questions/${questionId}/response`,
@@ -50,13 +46,18 @@ export class AssessmentService {
   completeAssessmentQuestion(questionId: string): Observable<any> {
     return this.api.post(`/api/assessment-questions/${questionId}/complete`);
   }
-  advanceAssessment(sessionId: string): Observable<any> {
-    return this.api.post(`/api/assessment-sessions/${sessionId}/advance`);
+  advanceAssessment(sessionId: string): Observable<AssessmentQuestionDto> {
+    return this.api.post<AssessmentQuestionDto>(`/api/assessment-sessions/${sessionId}/advance`);
   }
   candidateSignUp(invitationId: string, request: loginModelDto): Observable<any> {
     return this.api.post(`/api/candidate/invitations/${invitationId}/signup`, request);
   }
   getAuthUser(): Observable<UserSummary> {
-    return this.api.get<UserSummary>(`api/auth/me`);
+    return this.api.get<UserSummary>(`/api/auth/me`);
+  }
+  getAssessmentContext(invitationId: string): Observable<AssessmentContextDto> {
+    return this.api.get<AssessmentContextDto>(
+      `/api/candidate/invitations/${invitationId}/assessment-context`,
+    );
   }
 }

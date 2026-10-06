@@ -22,7 +22,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'login',
+        path: 'login/:invitationId',
         loadComponent: () =>
           import('./features/candidate-portal/authentication/authentication.page').then(
             (m) => m.AuthenticationPage,
