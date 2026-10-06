@@ -49,4 +49,7 @@ export class AssessmentService {
   completeAssessmentQuestion(questionId: string): Observable<any> {
     return this.api.post(`/api/assessment-questions/${questionId}/complete`);
   }
+  advanceAssessment(sessionId: string): Observable<any> {
+    return this.api.post(`/api/assessment-sessions/${sessionId}/advance`);
+  }
 }

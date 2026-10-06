@@ -52,7 +52,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
    *
    * We don't use ngx-markdown.
    */
-  readonly formattedQuestion = computed(() => this.formatQuestion(this.question().question));
+  readonly formattedQuestion = computed(() => this.formatQuestion(this.question().primaryQuestion));
 
   /**
    * Emits actual source code.

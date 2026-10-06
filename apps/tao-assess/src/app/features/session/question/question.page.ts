@@ -240,7 +240,7 @@ export class QuestionPage implements OnInit {
     this.store.setQuestionError(null);
 
     this.assessmentService
-      .getCurrentQuestion(sessionId)
+      .advanceAssessment(sessionId)
       .pipe(
         finalize(() => {
           this.store.setQuestionLoading(false);
@@ -256,6 +256,7 @@ export class QuestionPage implements OnInit {
       )
       .subscribe((question) => {
         this.setQuestion(question);
+        this.refreshWorkflowState();
       });
   }
 
@@ -433,13 +434,16 @@ export class QuestionPage implements OnInit {
     if (result && result.isFollowUpQuestion) {
       const question: AssessmentQuestionDto = {
         questionId: result.questionId,
-        order: result.order,
-        question: result.question,
+        questionOrder: result.order,
+        primaryQuestion: result.question,
         roundType: result.roundType,
-        roundName: '',
+        roundId: '',
         roundDurationInMinutes: result.roundDurationInMinutes,
         isFollowUpQuestion: result.isFollowUpQuestion,
         competencies: result.competencies,
+        roundOrder: 1,
+        isNewRound: false,
+        assessmentCompleted: false,
       };
       this.addFollowUpQuestion(question);
 
@@ -500,12 +504,6 @@ export class QuestionPage implements OnInit {
 
           return;
         }
-
-        /**
-         * Backend has moved to the next
-         * authoritative question.
-         */
-        this.loadCurrentQuestion();
       });
   }
 
@@ -534,7 +532,7 @@ export class QuestionPage implements OnInit {
         // The current main question is now completed,
         // Now move to the next main question.
         this.followUpQuestions.set([]);
-        this.refreshWorkflowState();
+        this.loadCurrentQuestion();
       });
   }
   // ===========================================================================

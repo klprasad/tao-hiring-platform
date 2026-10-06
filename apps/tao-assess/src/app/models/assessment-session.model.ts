@@ -70,13 +70,16 @@ export enum AssessmentCompetencyPriority {
 }
 export interface AssessmentQuestionDto {
   questionId: string;
-  order: number;
-  question: string;
+  questionOrder: number;
+  primaryQuestion: string;
   roundType: AssessmentRoundType;
-  roundName: string;
+  roundId: string;
+  roundOrder: number;
   roundDurationInMinutes: number;
   isFollowUpQuestion: boolean;
   competencies: string[];
+  isNewRound: boolean;
+  assessmentCompleted: boolean;
 }
 
 export interface SaveCandidateResponseRequest {

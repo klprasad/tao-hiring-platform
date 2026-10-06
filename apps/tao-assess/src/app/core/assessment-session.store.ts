@@ -73,9 +73,7 @@ export class AssessmentSessionStore {
   // Workflow Progress
   // ===========================================================================
 
-  readonly completionPercentage = computed(
-    () => this.assessmentWorkflow()?.completionPercentage ?? 0,
-  );
+  readonly completionPercentage = computed(() => this.currentRound()?.completionPercentage ?? 0);
 
   readonly totalRounds = computed(() => this.assessmentWorkflow()?.totalRounds ?? 0);
 
@@ -85,16 +83,16 @@ export class AssessmentSessionStore {
 
   readonly totalQuestions = computed(() => this.currentRound()?.totalQuestions ?? 0);
 
-  readonly completedQuestions = computed(() => this.assessmentWorkflow()?.completedQuestions ?? 0);
+  // readonly completedQuestions = computed(() => this.assessmentWorkflow()?.completedQuestions ?? 0);
 
-  readonly skippedQuestions = computed(() => this.assessmentWorkflow()?.skippedQuestions ?? 0);
+  // readonly skippedQuestions = computed(() => this.assessmentWorkflow()?.skippedQuestions ?? 0);
 
-  readonly remainingQuestions = computed(() => this.assessmentWorkflow()?.remainingQuestions ?? 0);
+  // readonly remainingQuestions = computed(() => this.assessmentWorkflow()?.remainingQuestions ?? 0);
 
   /**
    * Backend authoritative assessment progress.
    */
-  readonly progressPercent = computed(() => this.assessmentWorkflow()?.completionPercentage ?? 0);
+  readonly progressPercent = computed(() => this.currentRound()?.completionPercentage ?? 0);
 
   // ===========================================================================
   // Current Round
