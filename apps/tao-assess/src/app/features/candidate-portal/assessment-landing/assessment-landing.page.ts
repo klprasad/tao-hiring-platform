@@ -32,7 +32,7 @@ export class AssessmentLandingPage {
 
   createAssessmentSession() {
     const candidateApplicationId = this.store.candidateApplicationId();
-    const assessmentStrategyId = this.store.assessmentStategyId();
+    const assessmentStrategyId = this.store.assessmentStrategyId();
     if (!candidateApplicationId || !assessmentStrategyId) return;
 
     const payload = {

@@ -19,7 +19,7 @@ export class AssessmentSessionStore {
 
   readonly invitationId = signal<string | null>(null);
   readonly candidateApplicationId = signal<string | null>(null);
-  readonly assessmentStategyId = signal<string | null>(null);
+  readonly assessmentStrategyId = signal<string | null>(null);
   // ===========================================================================
   // Current Question
   // ===========================================================================
@@ -151,8 +151,6 @@ export class AssessmentSessionStore {
   // Candidate / Assessment State
   // ===========================================================================
 
-  readonly candidateEmail = signal('john@example.com');
-
   readonly consentAccepted = signal(false);
 
   readonly browserReady = signal(false);
@@ -212,15 +210,15 @@ export class AssessmentSessionStore {
 
   readonly response = signal('');
 
-  readonly codingCode = signal(
-    `public class Solution
+  private readonly defaultCodingTemplate = `public class Solution
 {
     public void Process()
     {
         // Write your solution here
     }
-}`,
-  );
+}`;
+
+  readonly codingCode = signal(this.defaultCodingTemplate);
 
   readonly savedState = signal<'saved' | 'saving' | 'error'>('saved');
 
@@ -468,15 +466,7 @@ export class AssessmentSessionStore {
 
     this.response.set('');
 
-    this.codingCode.set(
-      `public class Solution
-{
-    public void Process()
-    {
-        // Write your solution here
-    }
-}`,
-    );
+    this.codingCode.set(this.defaultCodingTemplate);
 
     this.savedState.set('saved');
 
@@ -555,12 +545,6 @@ export class AssessmentSessionStore {
     this.stopTimer();
 
     this.submitted.set(true);
-  }
-
-  terminate(): void {
-    this.stopTimer();
-
-    this.expired.set(true);
   }
 
   // ===========================================================================

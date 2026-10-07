@@ -111,7 +111,7 @@ export class CandidateLandingPage {
       );
 
       this.authStore.signIn(user);
-      this.store.assessmentStategyId.set(context.assessmentStrategyId);
+      this.store.assessmentStrategyId.set(context.assessmentStrategyId);
       this.store.candidateApplicationId.set(context.candidateApplicationId);
       this.assessmentNavigationService.consent();
     } finally {

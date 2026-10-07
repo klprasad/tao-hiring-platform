@@ -43,7 +43,7 @@ export class AuthenticationPage {
           this.assessmentService.getAssessmentContext(invitationId),
         );
 
-        this.store.assessmentStategyId.set(context.assessmentStrategyId);
+        this.store.assessmentStrategyId.set(context.assessmentStrategyId);
         this.store.candidateApplicationId.set(context.candidateApplicationId);
       }
 
