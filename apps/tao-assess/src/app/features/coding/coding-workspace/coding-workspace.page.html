@@ -111,7 +111,14 @@
             {{ languageConfig().label }}
           </span>
         </div>
-
+        <tao-button
+          label="Skip Question"
+          appearance="outlined"
+          color="basic"
+          type="button"
+          (click)="skipQuestion()"
+        >
+        </tao-button>
         <tao-button
           label="Continue"
           appearance="filled"

@@ -403,6 +403,31 @@ export class QuestionPage implements OnInit {
       });
   }
 
+  skipQuestion(): void {
+    const question = this.responseQuestion();
+
+    if (!question) {
+      return;
+    }
+
+    this.assessmentService
+      .skipQuestion(question.questionId)
+      .pipe(
+        finalize(() => {
+          this.store.setSubmitting(false);
+        }),
+        catchError((error) => {
+          console.error('Failed to save candidate response', error);
+
+          this.store.saveError();
+
+          return EMPTY;
+        }),
+      )
+      .subscribe((result) => {
+        this.handleSubmitResult(result);
+      });
+  }
   // ===========================================================================
   // Submit Result
   // ===========================================================================

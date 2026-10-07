@@ -49,7 +49,11 @@
     <!-- ========================================================= -->
 
     @if (question.roundType === assessmentType.Coding) {
-      <tao-coding-workspace [question]="question" (continue)="onCodingContinue($event)" />
+      <tao-coding-workspace
+        [question]="question"
+        (skip)="skipQuestion()"
+        (continue)="onCodingContinue($event)"
+      />
     } @else {
       <!-- ========================================================= -->
       <!-- Technical / System Design -->
@@ -205,6 +209,14 @@
           <!-- ================================================= -->
 
           <div class="answer__actions">
+            <tao-button
+              label="Skip Question"
+              appearance="outlined"
+              color="basic"
+              size="small"
+              [disabled]="!canContinue()"
+              (click)="skipQuestion()"
+            />
             <tao-button
               label="Continue"
               appearance="filled"

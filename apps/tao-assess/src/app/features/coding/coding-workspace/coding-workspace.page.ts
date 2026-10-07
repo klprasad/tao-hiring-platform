@@ -60,6 +60,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
    * Do NOT JSON.stringify here.
    */
   readonly continue = output<string>();
+  readonly skip = output<boolean>();
   private editor?: Monaco.editor.IStandaloneCodeEditor;
   private model?: Monaco.editor.ITextModel;
 
@@ -252,7 +253,13 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
 
     this.continue.emit(code);
   }
+  skipQuestion(): void {
+    if (!this.editor) {
+      return;
+    }
 
+    this.skip.emit(true);
+  }
   /**
    * Convert the assessment question into readable HTML.
    *
