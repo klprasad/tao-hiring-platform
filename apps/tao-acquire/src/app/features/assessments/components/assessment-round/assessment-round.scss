@@ -461,6 +461,11 @@
   min-width: 0;
 }
 
+.competency-remove-button {
+  align-self: end;
+  margin-bottom: 2px;
+}
+
 /* ================================================================
    VALIDATION
    ================================================================ */
@@ -523,8 +528,8 @@
     grid-template-columns: 1fr;
   }
 
-  .remove-button {
-    width: 100%;
+  .competency-remove-button {
+    justify-self: end;
   }
 }
 .form-field {

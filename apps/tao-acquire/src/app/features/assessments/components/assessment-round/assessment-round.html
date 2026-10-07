@@ -204,7 +204,7 @@
         </div>
 
         <div class="competency-edit-list">
-          @for (competency of competencyForms.controls; track $index; let i = $index) {
+          @for (competency of competencyForms.controls; track competency; let i = $index) {
             <div class="competency-edit-row" [formGroupName]="i">
               <div class="form-field competency-name">
                 <tao-input
@@ -235,6 +235,7 @@
               </div>
 
               <tao-button
+                class="competency-remove-button"
                 label="Remove competency"
                 icon="delete"
                 appearance="icon"
