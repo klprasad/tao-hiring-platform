@@ -428,10 +428,13 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  gap: 10px;
+  gap: 12px;
 
   margin-top: 14px;
+}
+
+.answer__actions tao-button {
+  flex: 0 0 auto;
 }
 
 /* ============================================================

@@ -18,6 +18,7 @@ import type * as Monaco from 'monaco-editor';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentQuestionDto } from '../../../models/assessment-session.model';
 import { TaoButtonComponent } from '@tao/ui';
+import { ToasterService } from '@tao/core';
 
 export type CodingLanguage = 'csharp' | 'java' | 'python' | 'typescript' | 'javascript';
 
@@ -40,51 +41,27 @@ interface MonacoLanguageConfig {
 export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   @ViewChild('editorHost', { static: true })
   private readonly editorHost!: ElementRef<HTMLDivElement>;
-
+  readonly toaster = inject(ToasterService);
   readonly store = inject(AssessmentSessionStore);
   readonly question = input.required<AssessmentQuestionDto>();
   readonly language = input<CodingLanguage>('csharp');
   readonly currentQuestionNumber = computed(() => this.store.currentQuestionNumber() ?? 1);
   readonly languageConfig = computed(() => this.getLanguageConfig(this.language()));
-
-  /**
-   * Formatted question HTML.
-   *
-   * We don't use ngx-markdown.
-   */
   readonly formattedQuestion = computed(() => this.formatQuestion(this.question().primaryQuestion));
 
-  /**
-   * Emits actual source code.
-   *
-   * Do NOT JSON.stringify here.
-   */
   readonly continue = output<string>();
   readonly skip = output<boolean>();
   private editor?: Monaco.editor.IStandaloneCodeEditor;
   private model?: Monaco.editor.ITextModel;
 
-  /**
-   * Correct type for the Monaco namespace returned
-   * by loader.init().
-   */
   private monaco?: typeof import('monaco-editor');
-  private saveTimer?: ReturnType<typeof setTimeout>;
   private currentQuestionId?: string;
   private viewInitialized = false;
 
   constructor() {
-    /**
-     * Detect question changes.
-     *
-     * When Question 1 -> Question 2 happens,
-     * clear the existing Monaco editor.
-     */
     effect(() => {
       const question = this.question();
-
       const questionId = question.questionId;
-
       if (!this.viewInitialized) {
         this.currentQuestionId = questionId;
         return;
@@ -92,7 +69,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
 
       if (this.currentQuestionId && this.currentQuestionId !== questionId) {
         this.currentQuestionId = questionId;
-
         this.resetEditor();
       }
     });
@@ -102,7 +78,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
      */
     effect(() => {
       const language = this.language();
-
       if (!this.model || !this.monaco) {
         return;
       }
@@ -162,34 +137,15 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
       this.currentQuestionId = this.question().questionId;
 
       /**
-       * Always start clean.
-       */
-      this.store.setCodingCode('');
-      this.store.setCodingSaveState('saved');
-
-      /**
        * Autosave candidate code locally in the store.
        */
       this.editor.onDidChangeModelContent(() => {
         if (!this.editor) {
           return;
         }
-
-        const value = this.editor.getValue();
-        this.store.setCodingCode(value);
-        this.store.setCodingSaveState('saving');
-
-        if (this.saveTimer) {
-          clearTimeout(this.saveTimer);
-        }
-
-        this.saveTimer = setTimeout(() => {
-          this.store.setCodingSaveState('saved');
-        }, 700);
       });
     } catch (error) {
-      console.error('Failed to initialize Monaco editor', error);
-      this.store.setCodingSaveState('error');
+      this.toaster.error('Failed to initialize Monaco editor');
     }
   }
 
@@ -227,12 +183,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
      * code cannot be recovered using Ctrl+Z.
      */
     this.editor.pushUndoStop();
-
-    /**
-     * Reset store.
-     */
-    this.store.setCodingCode('');
-    this.store.setCodingSaveState('saved');
   }
 
   /**
@@ -246,43 +196,26 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
     }
 
     const code = this.editor.getValue();
-
     if (!code.trim()) {
       return;
     }
-
     this.continue.emit(code);
   }
+
   skipQuestion(): void {
     if (!this.editor) {
       return;
     }
-
     this.skip.emit(true);
   }
-  /**
-   * Convert the assessment question into readable HTML.
-   *
-   * Supported syntax:
-   *
-   * ### Heading
-   * **bold**
-   * `inline code`
-   * - bullet
-   * 1. numbered item
-   * ```csharp
-   * code
-   * ```
-   */
+
   private formatQuestion(value: string): string {
     if (!value) {
       return '';
     }
 
     const escaped = this.escapeHtml(value);
-
     const lines = escaped.replace(/\r\n/g, '\n').split('\n');
-
     const html: string[] = [];
 
     let inCodeBlock = false;
@@ -328,28 +261,19 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
       if (trimmed.startsWith('```')) {
         if (!inCodeBlock) {
           closeLists();
-
           inCodeBlock = true;
-
           codeLanguage = trimmed.substring(3).trim();
-
           codeLines = [];
-
           continue;
         }
 
         inCodeBlock = false;
-
         const languageClass = codeLanguage ? ` language-${codeLanguage}` : '';
-
         html.push(
           `<pre class="question-code${languageClass}"><code>${codeLines.join('\n')}</code></pre>`,
         );
-
         codeLanguage = '';
-
         codeLines = [];
-
         continue;
       }
 
@@ -363,9 +287,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
        */
       if (!trimmed) {
         closeLists();
-
         html.push('<div class="question-spacer"></div>');
-
         continue;
       }
 
@@ -374,25 +296,19 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
        */
       if (trimmed.startsWith('### ')) {
         closeLists();
-
         html.push(`<h3>${formatInline(trimmed.substring(4))}</h3>`);
-
         continue;
       }
 
       if (trimmed.startsWith('## ')) {
         closeLists();
-
         html.push(`<h2>${formatInline(trimmed.substring(3))}</h2>`);
-
         continue;
       }
 
       if (trimmed.startsWith('# ')) {
         closeLists();
-
         html.push(`<h1>${formatInline(trimmed.substring(2))}</h1>`);
-
         continue;
       }
 
@@ -400,7 +316,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
        * Unordered list.
        */
       const unorderedMatch = trimmed.match(/^[-*]\s+(.+)$/);
-
       if (unorderedMatch) {
         if (inOrderedList) {
           html.push('</ol>');
@@ -411,9 +326,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
           html.push('<ul>');
           inUnorderedList = true;
         }
-
         html.push(`<li>${formatInline(unorderedMatch[1])}</li>`);
-
         continue;
       }
 
@@ -434,7 +347,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
         }
 
         html.push(`<li>${formatInline(orderedMatch[1])}</li>`);
-
         continue;
       }
 
@@ -442,7 +354,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
        * Normal paragraph.
        */
       closeLists();
-
       html.push(`<p>${formatInline(trimmed)}</p>`);
     }
 
@@ -517,11 +428,6 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.saveTimer) {
-      clearTimeout(this.saveTimer);
-      this.saveTimer = undefined;
-    }
-
     this.editor?.dispose();
     this.editor = undefined;
 

@@ -159,25 +159,6 @@
 
           <div class="answer__header">
             <strong> Your response </strong>
-
-            <span
-              [class.answer__status--saving]="store.savedState() === 'saving'"
-              [class.answer__status--error]="store.savedState() === 'error'"
-            >
-              @switch (store.savedState()) {
-                @case ('saving') {
-                  Saving…
-                }
-
-                @case ('error') {
-                  Save failed
-                }
-
-                @default {
-                  Saved
-                }
-              }
-            </span>
           </div>
 
           <!-- ================================================= -->
@@ -214,7 +195,6 @@
               appearance="outlined"
               color="basic"
               size="small"
-              [disabled]="!canContinue()"
               (click)="skipQuestion()"
             />
             <tao-button

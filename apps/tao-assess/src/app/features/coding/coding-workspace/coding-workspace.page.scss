@@ -574,6 +574,14 @@
     sans-serif;
 }
 
+.editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
 /* ================================================================
    RESPONSIVE
    ================================================================ */

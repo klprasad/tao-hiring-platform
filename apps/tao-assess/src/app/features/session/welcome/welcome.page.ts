@@ -5,6 +5,7 @@ import { AssessmentNavigationService } from '../../../core/assessment-navigation
 import { TaoButtonComponent } from '@tao/ui';
 import { catchError, EMPTY } from 'rxjs';
 import { AssessmentService } from '../../../core/assessment.service';
+import { ToasterService } from '@tao/core';
 @Component({
   selector: 'tao-assessment-welcome',
   imports: [TaoButtonComponent],
@@ -16,6 +17,7 @@ export class WelcomePage {
   readonly store = inject(AssessmentSessionStore);
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   private readonly assessmentService = inject(AssessmentService);
+  private readonly toaster = inject(ToasterService);
   begin(): void {
     this.refreshWorkflowState();
   }
@@ -23,16 +25,15 @@ export class WelcomePage {
     const sessionId = this.store.assessmentSessionId();
 
     if (!sessionId) {
-      this.store.setQuestionError('Assessment session is not available.');
+      this.toaster.error('Assessment session is not available.');
       return;
     }
 
     this.assessmentService
       .getAssessmentWorkflow(sessionId)
       .pipe(
-        catchError((error) => {
-          console.error('Failed to refresh assessment workflow', error);
-          this.store.setQuestionError('Unable to refresh assessment progress.');
+        catchError(() => {
+          this.toaster.error('Failed to refresh assessment workflow');
           return EMPTY;
         }),
       )

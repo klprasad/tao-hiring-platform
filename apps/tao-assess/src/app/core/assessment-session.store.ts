@@ -26,12 +26,6 @@ export class AssessmentSessionStore {
 
   readonly currentQuestion = signal<AssessmentQuestionDto | null>(null);
 
-  readonly isQuestionLoading = signal(false);
-
-  readonly isSubmitting = signal(false);
-
-  readonly questionError = signal<string | null>(null);
-
   // ===========================================================================
   // Assessment Configuration
   // ===========================================================================
@@ -203,26 +197,6 @@ export class AssessmentSessionStore {
       ],
     };
   });
-
-  // ===========================================================================
-  // Answers
-  // ===========================================================================
-
-  readonly response = signal('');
-
-  private readonly defaultCodingTemplate = `public class Solution
-{
-    public void Process()
-    {
-        // Write your solution here
-    }
-}`;
-
-  readonly codingCode = signal(this.defaultCodingTemplate);
-
-  readonly savedState = signal<'saved' | 'saving' | 'error'>('saved');
-
-  readonly codingSaveState = signal<'saved' | 'saving' | 'error'>('saved');
 
   // ===========================================================================
   // Timer
@@ -463,28 +437,6 @@ export class AssessmentSessionStore {
 
   setCurrentQuestion(question: AssessmentQuestionDto): void {
     this.currentQuestion.set(question);
-
-    this.response.set('');
-
-    this.codingCode.set(this.defaultCodingTemplate);
-
-    this.savedState.set('saved');
-
-    this.codingSaveState.set('saved');
-
-    this.questionError.set(null);
-  }
-
-  setQuestionLoading(value: boolean): void {
-    this.isQuestionLoading.set(value);
-  }
-
-  setSubmitting(value: boolean): void {
-    this.isSubmitting.set(value);
-  }
-
-  setQuestionError(error: string | null): void {
-    this.questionError.set(error);
   }
 
   // ===========================================================================
@@ -503,38 +455,6 @@ export class AssessmentSessionStore {
     this.started.set(true);
 
     this.startRoundTimer();
-  }
-
-  // ===========================================================================
-  // Response
-  // ===========================================================================
-
-  setResponse(value: string): void {
-    this.response.set(value);
-
-    this.savedState.set('saving');
-  }
-
-  markSaved(): void {
-    this.savedState.set('saved');
-  }
-
-  saveError(): void {
-    this.savedState.set('error');
-  }
-
-  // ===========================================================================
-  // Coding
-  // ===========================================================================
-
-  setCodingCode(value: string): void {
-    this.codingCode.set(value);
-
-    this.codingSaveState.set('saving');
-  }
-
-  setCodingSaveState(value: 'saved' | 'saving' | 'error'): void {
-    this.codingSaveState.set(value);
   }
 
   // ===========================================================================

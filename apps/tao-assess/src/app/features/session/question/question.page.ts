@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
@@ -24,67 +17,28 @@ import {
 import { CodingWorkspacePage } from '../../coding/coding-workspace/coding-workspace.page';
 
 import { TaoButtonComponent, TaoTextareaComponent } from '@tao/ui';
+import { ToasterService } from '@tao/core';
 
 @Component({
   selector: 'tao-question',
   standalone: true,
   imports: [FormsModule, CodingWorkspacePage, TaoButtonComponent, TaoTextareaComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './question.page.html',
   styleUrl: './question.page.scss',
 })
 export class QuestionPage implements OnInit {
-  // ===========================================================================
-  // Dependencies
-  // ===========================================================================
-
   readonly store = inject(AssessmentSessionStore);
-
+  private readonly toaster = inject(ToasterService);
   private readonly assessmentService = inject(AssessmentService);
-
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
 
-  // ===========================================================================
-  // Constants
-  // ===========================================================================
-
   readonly assessmentType = AssessmentRoundType;
-
-  // ===========================================================================
-  // Local State
-  // ===========================================================================
-
   readonly response = signal('');
 
-  // ===========================================================================
-  // Computed State
-  // ===========================================================================
-
   readonly currentQuestion = computed(() => this.store.currentQuestion());
-
-  readonly isCodingQuestion = computed(
-    () => this.currentQuestion()?.roundType === AssessmentRoundType.Coding,
-  );
-
-  readonly isTechnicalQuestion = computed(
-    () => this.currentQuestion()?.roundType === AssessmentRoundType.TechnicalDiscussion,
-  );
-
-  readonly isSystemDesignQuestion = computed(
-    () => this.currentQuestion()?.roundType === AssessmentRoundType.SystemDesign,
-  );
-
-  /**
-   * Current question number.
-   *
-   * Backend value is already 1-based.
-   */
   readonly currentQuestionNumber = computed(() => this.store.currentQuestionNumber() ?? 1);
-
   readonly totalQuestions = computed(() => this.store.totalQuestions());
-
   readonly progressPercent = computed(() => this.store.progressPercent());
-
   readonly currentRoundName = computed(() => {
     const type = this.store.currentRoundType();
 
@@ -102,116 +56,56 @@ export class QuestionPage implements OnInit {
         return 'Assessment';
     }
   });
-
   readonly isTimerExpired = computed(() => this.store.isTimerExpired() || this.store.expired());
-
   readonly isTimerWarning = computed(() => this.store.isTimerWarning());
 
-  /**
-   * Response/editor disabled state.
-   *
-   * The editor should NOT be disabled just because
-   * the timer initially contains 0.
-   */
-  readonly isResponseDisabled = computed(
-    () => this.store.isSubmitting() || this.store.isQuestionLoading() || this.isTimerExpired(),
-  );
+  readonly isResponseDisabled = computed(() => this.isTimerExpired());
 
-  /**
-   * Whether Continue can be clicked.
-   */
   readonly canContinue = computed(() => {
     const answer = this.response().trim();
 
-    return (
-      answer.length > 0 &&
-      !this.store.isSubmitting() &&
-      !this.store.isQuestionLoading() &&
-      !this.isTimerExpired()
-    );
+    return answer.length > 0 && !this.isResponseDisabled();
   });
   readonly followUpQuestions = signal<AssessmentQuestionDto[]>([]);
-  readonly activeFollowUpQuestion = computed(() => {
-    const followUps = this.followUpQuestions();
-
-    return followUps.length > 0 ? followUps[0] : null;
-  });
-
-  readonly hasFollowUpQuestions = computed(() => this.followUpQuestions().length > 0);
-
   readonly responseQuestion = computed(() => this.followUpQuestions()[0] ?? this.currentQuestion());
-  // ===========================================================================
-  // Lifecycle
-  // ===========================================================================
 
   ngOnInit(): void {
     this.loadAssessment();
   }
 
-  // ===========================================================================
-  // Initial Assessment Loading
-  // ===========================================================================
-
-  /**
-   * Initial sequence:
-   *
-   * 1. Get authoritative workflow.
-   * 2. Store workflow.
-   * 3. Timer starts from assessmentExpiresOn.
-   * 4. Get actual current question.
-   */
   private loadAssessment(): void {
     const sessionId = this.store.assessmentSessionId();
 
     if (!sessionId) {
-      this.store.setQuestionError('Assessment session is not available.');
-
+      const message = 'Assessment session is not available.';
+      this.notifyError(message);
       return;
     }
 
-    /**
-     * If workflow is already available,
-     * don't make an unnecessary workflow request.
-     */
     if (this.store.assessmentWorkflow()) {
       this.loadCurrentQuestion();
       return;
     }
-
-    this.store.setQuestionLoading(true);
-
-    this.store.setQuestionError(null);
 
     this.assessmentService
       .getAssessmentWorkflow(sessionId)
       .pipe(
         switchMap((workflow) => {
           this.store.setAssessmentWorkflow(workflow);
-
           if (
             workflow.status === 'Completed' ||
             workflow.status === 'Expired' ||
             workflow.remainingQuestions === 0
           ) {
             this.store.submit();
-
             this.assessmentNavigationService.finalReview();
-
             return EMPTY;
           }
-
           return this.assessmentService.getCurrentQuestion(sessionId);
         }),
-
-        finalize(() => {
-          this.store.setQuestionLoading(false);
-        }),
-
         catchError((error) => {
-          console.error('Failed to load assessment', error);
-
-          this.store.setQuestionError('Unable to load the assessment.');
-
+          const message = 'Unable to load the assessment.';
+          this.notifyError(message, 'Failed to load assessment', error);
           return EMPTY;
         }),
       )
@@ -222,35 +116,21 @@ export class QuestionPage implements OnInit {
       });
   }
 
-  // ===========================================================================
-  // Current Question
-  // ===========================================================================
-
   private loadCurrentQuestion(): void {
     const sessionId = this.store.assessmentSessionId();
 
     if (!sessionId) {
-      this.store.setQuestionError('Assessment session is not available.');
-
+      const message = 'Assessment session is not available.';
+      this.notifyError(message);
       return;
     }
-
-    this.store.setQuestionLoading(true);
-
-    this.store.setQuestionError(null);
 
     this.assessmentService
       .advanceAssessment(sessionId)
       .pipe(
-        finalize(() => {
-          this.store.setQuestionLoading(false);
-        }),
-
         catchError((error) => {
-          console.error('Failed to load current question', error);
-
-          this.store.setQuestionError('Unable to load the current question.');
-
+          const message = 'Unable to load the current question.';
+          this.notifyError(message, 'Failed to load current question', error);
           return EMPTY;
         }),
       )
@@ -260,70 +140,36 @@ export class QuestionPage implements OnInit {
       });
   }
 
-  // ===========================================================================
-  // Set Question
-  // ===========================================================================
-
   private setQuestion(question: AssessmentQuestionDto): void {
     this.store.setCurrentQuestion(question);
-
     this.followUpQuestions.set([]);
-    // Reset technical/system-design response.
     this.response.set('');
-    this.store.setResponse('');
 
     // Reset coding response.
-    this.store.setCodingCode('');
-    this.store.setCodingSaveState('saved');
-
-    this.store.markSaved();
   }
-
-  // ===========================================================================
-  // Text Response
-  // ===========================================================================
 
   onResponse(value: string): void {
     if (this.isResponseDisabled()) {
       return;
     }
-
     this.response.set(value);
-
-    this.store.setResponse(value);
   }
-
-  // ===========================================================================
-  // Coding Question
-  // ===========================================================================
 
   onCodingContinue(code: string): void {
     const question = this.store.currentQuestion();
-
     if (!question) {
       return;
     }
-
     if (!code.trim()) {
       return;
     }
-
-    if (this.store.isSubmitting() || this.store.isQuestionLoading() || this.isTimerExpired()) {
+    if (this.isTimerExpired()) {
       return;
     }
-
     this.saveCodingResponse(code, question.questionId);
   }
 
   private saveCodingResponse(code: string, questionId: string): void {
-    if (this.store.isSubmitting()) {
-      return;
-    }
-
-    this.store.setSubmitting(true);
-
-    this.store.setCodingSaveState('saving');
-
     const request = {
       code,
     };
@@ -331,30 +177,19 @@ export class QuestionPage implements OnInit {
     this.assessmentService
       .saveCodeResponse(questionId, request)
       .pipe(
-        finalize(() => {
-          this.store.setSubmitting(false);
-        }),
-
         catchError((error) => {
-          console.error('Failed to save coding response', error);
-
-          this.store.setCodingSaveState('error');
-
-          this.store.saveError();
-
+          this.notifyError(
+            'Unable to save your code response.',
+            'Failed to save coding response',
+            error,
+          );
           return EMPTY;
         }),
       )
-      .subscribe((result) => {
-        this.store.setCodingSaveState('saved');
-
+      .subscribe(() => {
         this.completeQuestion();
       });
   }
-
-  // ===========================================================================
-  // Continue - Technical / System Design
-  // ===========================================================================
 
   next(): void {
     if (!this.canContinue()) {
@@ -367,19 +202,11 @@ export class QuestionPage implements OnInit {
       return;
     }
 
-    if (this.store.isSubmitting()) {
-      return;
-    }
-
     const answer = this.response().trim();
 
     if (!answer) {
       return;
     }
-
-    this.store.setSubmitting(true);
-    this.store.setResponse(answer);
-
     const request = {
       response: answer,
     };
@@ -387,14 +214,12 @@ export class QuestionPage implements OnInit {
     this.assessmentService
       .saveCandidateResponse(question.questionId, request)
       .pipe(
-        finalize(() => {
-          this.store.setSubmitting(false);
-        }),
         catchError((error) => {
-          console.error('Failed to save candidate response', error);
-
-          this.store.saveError();
-
+          this.notifyError(
+            'Unable to save your response.',
+            'Failed to save candidate response',
+            error,
+          );
           return EMPTY;
         }),
       )
@@ -413,45 +238,22 @@ export class QuestionPage implements OnInit {
     this.assessmentService
       .skipQuestion(question.questionId)
       .pipe(
-        finalize(() => {
-          this.store.setSubmitting(false);
-        }),
         catchError((error) => {
-          console.error('Failed to save candidate response', error);
-
-          this.store.saveError();
-
+          this.notifyError('Unable to skip the question.', 'Failed to skip question', error);
           return EMPTY;
         }),
       )
-      .subscribe((result) => {
-        this.handleSubmitResult(result);
+      .subscribe(() => {
+        this.followUpQuestions.set([]);
+        this.loadCurrentQuestion();
       });
   }
-  // ===========================================================================
-  // Submit Result
-  // ===========================================================================
 
-  /**
-   * After saving:
-   *
-   * Save Response
-   *      ↓
-   * Refresh Workflow
-   *      ↓
-   * Update Store
-   *      ↓
-   * Load Current Question
-   */
   private handleSubmitResult(result: SaveCandidateResponseResult): void {
-    this.store.markSaved();
-
     // Assessment completed
     if (result && result.assessmentCompleted) {
       this.store.submit();
-
       this.assessmentNavigationService.finalReview();
-
       return;
     }
 
@@ -471,7 +273,6 @@ export class QuestionPage implements OnInit {
         assessmentCompleted: false,
       };
       this.addFollowUpQuestion(question);
-
       return;
     }
     this.completeQuestion();
@@ -482,10 +283,6 @@ export class QuestionPage implements OnInit {
 
     // New follow-up becomes the active question.
     this.response.set('');
-
-    this.store.setResponse('');
-
-    this.store.markSaved();
   }
   // ===========================================================================
   // Refresh Workflow
@@ -495,27 +292,16 @@ export class QuestionPage implements OnInit {
     const sessionId = this.store.assessmentSessionId();
 
     if (!sessionId) {
-      this.store.setQuestionError('Assessment session is not available.');
-
+      const message = 'Assessment session is not available.';
+      this.notifyError(message);
       return;
     }
-
-    this.store.setQuestionLoading(true);
-
-    this.store.setQuestionError(null);
-
     this.assessmentService
       .getAssessmentWorkflow(sessionId)
       .pipe(
-        finalize(() => {
-          this.store.setQuestionLoading(false);
-        }),
-
         catchError((error) => {
-          console.error('Failed to refresh assessment workflow', error);
-
-          this.store.setQuestionError('Unable to refresh assessment progress.');
-
+          const message = 'Unable to refresh assessment progress.';
+          this.notifyError(message, 'Failed to refresh assessment workflow', error);
           return EMPTY;
         }),
       )
@@ -524,9 +310,7 @@ export class QuestionPage implements OnInit {
 
         if (workflow.status === 'Completed' || workflow.remainingQuestions === 0) {
           this.store.submit();
-
           this.assessmentNavigationService.finalReview();
-
           return;
         }
       });
@@ -541,30 +325,25 @@ export class QuestionPage implements OnInit {
     this.assessmentService
       .completeAssessmentQuestion(question.questionId)
       .pipe(
-        finalize(() => {
-          this.store.setSubmitting(false);
-        }),
         catchError((error) => {
-          console.error('Failed to save candidate response', error);
-
-          this.store.saveError();
-
+          this.notifyError(
+            'Unable to complete the question.',
+            'Failed to complete assessment question',
+            error,
+          );
           return EMPTY;
         }),
       )
       .subscribe(() => {
-        // No follow-up question.
-        // The current main question is now completed,
-        // Now move to the next main question.
         this.followUpQuestions.set([]);
         this.loadCurrentQuestion();
       });
   }
-  // ===========================================================================
-  // Retry
-  // ===========================================================================
 
-  retry(): void {
-    this.loadAssessment();
+  private notifyError(message: string, context?: string, error?: unknown): void {
+    if (context && error !== undefined) {
+      console.error(context, error);
+    }
+    this.toaster.error(message);
   }
 }
