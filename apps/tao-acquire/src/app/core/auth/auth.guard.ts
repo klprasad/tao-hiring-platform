@@ -13,9 +13,12 @@ export const authGuard: CanActivateFn = (_route, state) => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
-  if (authStore.isAuthenticated()) {
+  if (authStore.isAuthenticated() && authStore.user()?.role !== 'Candidate') {
     return true;
   }
 
+  if (authStore.user()?.role == 'Candidate') {
+    return router.navigateByUrl('/no-access');
+  }
   return router.createUrlTree(['/login'], { queryParams: { redirectTo: state.url } });
 };

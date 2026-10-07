@@ -1,0 +1,29 @@
+<div class="no-access-page">
+  <div class="no-access-page__content">
+    <div class="no-access-page__icon">
+      <mat-icon>lock</mat-icon>
+    </div>
+
+    <div class="no-access-page__eyebrow">ACCESS RESTRICTED</div>
+
+    <h1 class="no-access-page__title">You don't have access</h1>
+
+    <p class="no-access-page__description">
+      Your account does not have permission to access TAO Acquire. Please contact your administrator
+      if you believe you should have access to this application.
+    </p>
+
+    <div class="no-access-page__actions">
+      <tao-button
+        type="button"
+        label="Back to Login"
+        appearance="filled"
+        color="primary"
+        (click)="goToLogin()"
+      >
+      </tao-button>
+    </div>
+
+    <p class="no-access-page__help">If you need access, please contact your TAO administrator.</p>
+  </div>
+</div>

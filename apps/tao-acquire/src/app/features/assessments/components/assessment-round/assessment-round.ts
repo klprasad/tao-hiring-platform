@@ -62,6 +62,8 @@ export class AssessmentRound {
    */
   readonly editing = input(false);
 
+  readonly canEdit = input(true);
+
   /**
    * Raised when user clicks Edit.
    */
@@ -76,6 +78,9 @@ export class AssessmentRound {
    * Raised when user cancels editing.
    */
   readonly cancel = output<number>();
+
+  /** Raised when the user requests removal of this round. */
+  readonly remove = output<number>();
 
   readonly difficulties: AssessmentDifficulty[] = ['Easy', 'Medium', 'Hard'];
 
@@ -157,6 +162,10 @@ export class AssessmentRound {
 
   onCancel(): void {
     this.cancel.emit(this.round().order);
+  }
+
+  onRemove(): void {
+    this.remove.emit(this.round().order);
   }
 
   onSave(): void {

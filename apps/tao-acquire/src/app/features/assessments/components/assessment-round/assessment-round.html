@@ -39,15 +39,28 @@
         </div>
       </div>
 
-      <tao-button
-        label="Edit"
-        icon="edit"
-        appearance="outlined"
-        color="basic"
-        size="small"
-        tooltip="Edit round"
-        (click)="onEdit()"
-      />
+      @if (canEdit()) {
+        <div class="round-actions">
+          <tao-button
+            label="Remove"
+            icon="delete"
+            appearance="icon"
+            color="warn"
+            size="small"
+            tooltip="Remove round"
+            (click)="onRemove()"
+          />
+          <tao-button
+            label="Edit"
+            icon="edit"
+            appearance="outlined"
+            color="basic"
+            size="small"
+            tooltip="Edit round"
+            (click)="onEdit()"
+          />
+        </div>
+      }
     </header>
 
     <!-- Competencies -->
@@ -113,7 +126,7 @@
           />
 
           <tao-button
-            label="Save"
+            label="Done"
             icon="check"
             appearance="filled"
             color="primary"

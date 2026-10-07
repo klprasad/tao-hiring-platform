@@ -116,5 +116,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/reports/pages/reports').then((module) => module.Reports),
   },
+  {
+    path: 'no-access',
+    loadComponent: () => import('./features/no-access/no-access').then((m) => m.NoAccess),
+  },
   { path: '**', redirectTo: '' },
 ];

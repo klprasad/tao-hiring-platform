@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AssessmentRound } from '../../components/assessment-round/assessment-round';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentStrategyService } from '../../data-access/assessment-strategy.service';
-import { catchError, EMPTY, map } from 'rxjs';
+import { catchError, EMPTY, finalize, map } from 'rxjs';
 import {
   AssessmentRoundVm,
   AssessmentStrategyStatus,
@@ -34,7 +34,9 @@ export class AssessmentOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(AssessmentStrategyService);
-  readonly editingRoundOrder = signal<number | null>(null);
+  readonly editingRoundOrders = signal<number[]>([]);
+  readonly hasUnsavedChanges = signal(false);
+  readonly isSaving = signal(false);
   readonly errorMessage = signal('');
   readonly authStore = inject(AuthStore);
   readonly assessment = signal<AssessmentVm | null>(null);
@@ -145,7 +147,9 @@ export class AssessmentOverview implements OnInit {
     return this.assessment()?.status === 'Approved';
   });
   startEditingRound(order: number): void {
-    this.editingRoundOrder.set(order);
+    this.editingRoundOrders.update((orders) =>
+      orders.includes(order) ? orders : [...orders, order],
+    );
   }
   ngOnInit(): void {
     this.loadAssessmentStrategy();
@@ -268,26 +272,64 @@ export class AssessmentOverview implements OnInit {
       round.order === updatedRound.order ? updatedRound : round,
     );
 
+    this.assessment.set({ ...assessment, rounds: updatedRounds });
+    this.hasUnsavedChanges.set(true);
+    this.cancelEditingRound(updatedRound.order);
+  }
+
+  removeRound(order: number): void {
+    const assessment = this.assessment();
+
+    if (!assessment || !window.confirm(`Remove round ${order} from this assessment?`)) {
+      return;
+    }
+
+    this.assessment.set({
+      ...assessment,
+      rounds: assessment.rounds.filter((round) => round.order !== order),
+    });
+    this.editingRoundOrders.update((orders) =>
+      orders.filter((editingOrder) => editingOrder !== order),
+    );
+    this.hasUnsavedChanges.set(true);
+  }
+
+  saveAssessment(): void {
+    const assessment = this.assessment();
+
+    if (!assessment || !this.hasUnsavedChanges() || this.editingRoundOrders().length > 0) {
+      return;
+    }
+
     const payload: updateAssessmentRoundRequest = {
       assessmentName: assessment.assessmentName,
-      rounds: updatedRounds,
+      rounds: assessment.rounds.map((round, index) => ({ ...round, order: index + 1 })),
     };
+
+    this.errorMessage.set('');
+    this.isSaving.set(true);
     this.service
       .updateAssessmentRounds(assessment.id, payload)
       .pipe(
         map(mapAssessmentDtoToVm),
         catchError(() => {
-          this.errorMessage.set('The assessment strategy could not be approved. Please try again.');
+          this.errorMessage.set('The assessment could not be saved. Please try again.');
           return EMPTY;
         }),
+        finalize(() => this.isSaving.set(false)),
       )
       .subscribe((response) => {
-        if (response) this.assessment.set(response);
+        if (response) {
+          this.assessment.set(response);
+          this.hasUnsavedChanges.set(false);
+          this.editingRoundOrders.set([]);
+        }
       });
-    this.editingRoundOrder.set(null);
   }
-  cancelEditingRound(): void {
-    this.editingRoundOrder.set(null);
+  cancelEditingRound(order: number): void {
+    this.editingRoundOrders.update((orders) =>
+      orders.filter((editingOrder) => editingOrder !== order),
+    );
   }
   cancel(): void {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');

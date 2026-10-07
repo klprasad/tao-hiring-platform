@@ -126,23 +126,38 @@
         @for (round of rounds(); track round.order) {
           <tao-assessment-round
             [round]="round"
-            [editing]="editingRoundOrder() === round.order"
+            [canEdit]="!isApproved()"
+            [editing]="!isApproved() && editingRoundOrders().includes(round.order)"
             (edit)="startEditingRound($event)"
             (save)="saveRound($event)"
-            (cancel)="cancelEditingRound()"
+            (cancel)="cancelEditingRound($event)"
+            (remove)="removeRound($event)"
           />
         }
       </div>
     </section>
+    @if (errorMessage()) {
+      <p class="assessment-error" role="alert">{{ errorMessage() }}</p>
+    }
     <div class="form-actions">
       <tao-button type="button" label="Back" appearance="outlined" (click)="cancel()" />
 
-      @if (assessment.status === 'Generated') {
+      @if (!isApproved()) {
+        <tao-button
+          type="button"
+          label="Save Assessment"
+          icon="save"
+          appearance="filled"
+          color="primary"
+          [disabled]="!hasUnsavedChanges() || editingRoundOrders().length > 0 || isSaving()"
+          (click)="saveAssessment()"
+        />
         <tao-button
           type="button"
           label="Approve"
           appearance="filled"
           color="primary"
+          [disabled]="hasUnsavedChanges() || editingRoundOrders().length > 0 || isSaving()"
           (click)="approveStrategy()"
         />
       }
