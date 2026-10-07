@@ -1,3 +1,5 @@
+@import "material-icons/iconfont/material-icons.css";
+
 html,
 body {
   margin: 0;
@@ -6,5 +8,17 @@ body {
 }
 * {
   box-sizing: border-box;
+}
+
+.mat-mdc-snack-bar-container.tao-toast--success {
+  --mat-snack-bar-container-color: #176b4d;
+  --mat-snack-bar-supporting-text-color: #ffffff;
+  --mat-snack-bar-button-color: #ffffff;
+}
+
+.mat-mdc-snack-bar-container.tao-toast--error {
+  --mat-snack-bar-container-color: #a12f2f;
+  --mat-snack-bar-supporting-text-color: #ffffff;
+  --mat-snack-bar-button-color: #ffffff;
 }
 /* You can add global styles to this file, and also import other style files */

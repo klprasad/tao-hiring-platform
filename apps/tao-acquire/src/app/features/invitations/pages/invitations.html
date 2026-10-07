@@ -29,28 +29,6 @@
         formControlName="emailBody"
       />
 
-      <!-- API / application error -->
-      @if (errorMessage()) {
-        <div class="message message--error" role="alert">
-          <mat-icon>error_outline</mat-icon>
-
-          <span>
-            {{ errorMessage() }}
-          </span>
-        </div>
-      }
-
-      <!-- Success -->
-      @if (successMessage()) {
-        <div class="message message--success" role="status">
-          <mat-icon>check_circle_outline</mat-icon>
-
-          <span>
-            {{ successMessage() }}
-          </span>
-        </div>
-      }
-
       <!-- Actions -->
       <div class="email-invitation__actions">
         <tao-button

@@ -14,10 +14,6 @@
     </tao-button>
   </tao-page-header>
 
-  @if (errorMessage()) {
-    <p class="error" role="alert">{{ errorMessage() }}</p>
-  }
-
   <div class="content">
     <tao-campaign-form (submitted)="createCampaign($event)" (cancelled)="cancel()">
     </tao-campaign-form>

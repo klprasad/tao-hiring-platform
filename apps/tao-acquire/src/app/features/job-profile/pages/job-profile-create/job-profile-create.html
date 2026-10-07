@@ -11,9 +11,6 @@
       (click)="cancel()"
     />
   </tao-page-header>
-  @if (errorMessage()) {
-    <p class="error" role="alert">{{ errorMessage() }}</p>
-  }
   <div class="content">
     <tao-job-profile-form (submitted)="createProfile($event)" (cancelled)="cancel()" />
   </div>

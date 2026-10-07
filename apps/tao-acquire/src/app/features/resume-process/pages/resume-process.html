@@ -4,17 +4,6 @@
     description="Import candidate resumes into this campaign."
   />
 
-  @if (errorMessage()) {
-    <div class="message message--error" role="alert">
-      <span class="message__icon">!</span>
-
-      <div>
-        <strong>Import failed</strong>
-        <p>{{ errorMessage() }}</p>
-      </div>
-    </div>
-  }
-
   <tao-card title="Import Resumes">
     <div class="import-section">
       <!-- Information -->

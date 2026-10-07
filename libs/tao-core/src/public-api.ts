@@ -24,3 +24,6 @@ export * from './lib/config/app-config.service';
 export * from './lib/http/http-context.tokens';
 export * from './lib/http/http-loading.interceptor';
 export * from './lib/http/loading.service';
+
+// Notifications
+export * from './lib/notifications/toaster.service';

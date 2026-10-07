@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AuthStore } from '@tao/core';
+import { AuthStore, ToasterService } from '@tao/core';
 import { TaoButtonComponent, TaoInputComponent } from '@tao/ui';
 import { catchError, firstValueFrom, forkJoin, throwError } from 'rxjs';
 
@@ -24,7 +24,7 @@ export class CandidateLandingPage {
   readonly store = inject(AssessmentSessionStore);
   private readonly assessmentService = inject(AssessmentService);
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
-
+  private readonly toaster = inject(ToasterService);
   readonly mode = signal<'entry' | 'signup' | 'login'>('entry');
   readonly isSubmitting = signal(false);
 
@@ -85,7 +85,9 @@ export class CandidateLandingPage {
       await firstValueFrom(
         this.assessmentService.candidateSignUp(invitationId, request).pipe(
           catchError((error) => {
-            console.error('Failed to create assessment session', error);
+            this.toaster.error(
+              'Candidate signUp failed, please check User Email, password and try again.',
+            );
             return throwError(() => error);
           }),
         ),
@@ -95,13 +97,13 @@ export class CandidateLandingPage {
         forkJoin({
           user: this.assessmentService.getAuthUser().pipe(
             catchError((error) => {
-              console.error('Failed to load auth user', error);
+              this.toaster.error('Failed to load auth user');
               return throwError(() => error);
             }),
           ),
           context: this.assessmentService.getAssessmentContext(invitationId).pipe(
             catchError((error) => {
-              console.error('Failed to load assessment context', error);
+              this.toaster.error('Failed to load assessment context');
               return throwError(() => error);
             }),
           ),

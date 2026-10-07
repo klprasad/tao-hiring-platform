@@ -16,12 +16,14 @@ import {
   httpLoadingInterceptor,
   authInterceptor,
   initializeAppConfig,
+  ToasterService,
 } from '@tao/core';
 
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    ToasterService,
     provideBrowserGlobalErrorListeners(),
 
     provideAnimationsAsync(),

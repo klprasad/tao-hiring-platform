@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
+import { ToasterService } from '@tao/core';
 import { TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
 import { ResumeImportService } from '../data-access/resume-import.service';
 import {
@@ -19,7 +20,7 @@ export class ResumeProcess {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(ResumeImportService);
   private readonly router = inject(Router);
-  readonly errorMessage = signal('');
+  private readonly toaster = inject(ToasterService);
   readonly isUploading = signal(false);
   readonly batchId = signal<string | undefined>(undefined);
 
@@ -39,7 +40,7 @@ export class ResumeProcess {
     const files = Array.from(input.files ?? []);
 
     if (!this.campaignId) {
-      this.errorMessage.set('A campaign is required to import resumes.');
+      this.toaster.error('A campaign is required to import resumes.');
       return;
     }
 
@@ -48,13 +49,12 @@ export class ResumeProcess {
     }
 
     this.isUploading.set(true);
-    this.errorMessage.set('');
 
     this.service
       .importResumes(this.campaignId, files)
       .pipe(
         catchError(() => {
-          this.errorMessage.set('The resumes could not be imported. Please try again.');
+          this.toaster.error('The resumes could not be imported. Please try again.');
           this.isUploading.set(false);
           return EMPTY;
         }),
@@ -62,6 +62,7 @@ export class ResumeProcess {
       .subscribe((response) => {
         this.batchId.set(response);
         this.isUploading.set(false);
+        this.toaster.success('Resume import started successfully.');
         input.value = '';
         this.candidatesScreening();
       });

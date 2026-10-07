@@ -2,6 +2,7 @@ import { Component, inject, output, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, map } from 'rxjs';
 
+import { ToasterService } from '@tao/core';
 import { TaoButtonComponent, TaoPageHeaderComponent } from '@tao/ui';
 import { JobProfileFormComponent } from '../../components/job-profile-form/job-profile-form';
 import { JobProfileService } from '../../data-access/job-profile.service';
@@ -21,8 +22,8 @@ export class JobProfileCreateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(JobProfileService);
+  private readonly toaster = inject(ToasterService);
 
-  readonly errorMessage = signal('');
   readonly isSubmitting = signal(false);
   readonly jobProfile = output<JobProfileVm>();
   /**
@@ -39,25 +40,25 @@ export class JobProfileCreateComponent {
 
   createProfile(value: JobProfileFormValue): void {
     if (!this.campaignId) {
-      this.errorMessage.set('A campaign is required before generating a job profile.');
+      this.toaster.error('A campaign is required before generating a job profile.');
       return;
     }
 
     this.isSubmitting.set(true);
-    this.errorMessage.set('');
 
     this.service
       .createJobProfile(this.campaignId, mapJobProfileFormToCreateDto(value))
       .pipe(
         map(mapCreateJobProfileDtoToVm),
         catchError(() => {
-          this.errorMessage.set('The job profile could not be generated. Please try again.');
+          this.toaster.error('The job profile could not be generated. Please try again.');
           this.isSubmitting.set(false);
           return EMPTY;
         }),
       )
       .subscribe((response) => {
         this.isSubmitting.set(false);
+        this.toaster.success('Job profile generated successfully.');
         this.jobProfile.emit(response);
         //this.router.navigate(['/campaigns', this.campaignId, 'job-profile']);
       });

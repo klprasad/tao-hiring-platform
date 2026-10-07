@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginCredentials, TaoLoginComponent } from '@tao/ui';
+import { ToasterService } from '@tao/core';
 
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 import { AssessmentService } from '../../../core/assessment.service';
@@ -22,13 +23,12 @@ export class AuthenticationPage {
   private readonly assessmentService = inject(AssessmentService);
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   private readonly store = inject(AssessmentSessionStore);
+  private readonly toaster = inject(ToasterService);
 
   protected readonly submitting = signal(false);
-  protected readonly errorMessage = signal<string | null>(null);
 
   protected async onLogin(credentials: LoginCredentials): Promise<void> {
     this.submitting.set(true);
-    this.errorMessage.set(null);
 
     try {
       await this.authService.signIn(credentials);
@@ -47,9 +47,10 @@ export class AuthenticationPage {
         this.store.candidateApplicationId.set(context.candidateApplicationId);
       }
 
+      this.toaster.success('Signed in successfully.');
       await this.assessmentNavigationService.consent();
     } catch {
-      this.errorMessage.set('Sign-in failed. Check your user name and password and try again.');
+      this.toaster.error('Sign-in failed. Check your user name and password and try again.');
     } finally {
       this.submitting.set(false);
     }

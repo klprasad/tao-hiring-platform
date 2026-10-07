@@ -9,6 +9,7 @@ import {
 import { AssessmentService } from '../../../core/assessment.service';
 import { catchError, EMPTY, map } from 'rxjs';
 import { TaoButtonComponent } from '@tao/ui';
+import { ToasterService } from '@tao/core';
 
 @Component({
   selector: 'tao-assessment-landing',
@@ -19,7 +20,7 @@ import { TaoButtonComponent } from '@tao/ui';
 })
 export class AssessmentLandingPage {
   readonly store = inject(AssessmentSessionStore);
-
+  private readonly toaster = inject(ToasterService);
   private readonly assessmentSessionService = inject(AssessmentService);
 
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
@@ -43,7 +44,7 @@ export class AssessmentLandingPage {
       .pipe(
         map(mapAssessmentSession),
         catchError((error) => {
-          console.error('Failed to create assessment session', error);
+          this.toaster.error('Failed to create assessment session');
           return EMPTY;
         }),
       )

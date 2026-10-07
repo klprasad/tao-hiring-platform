@@ -5,6 +5,7 @@ import { AssessmentNavigationService } from '../../../core/assessment-navigation
 import { AssessmentService } from '../../../core/assessment.service';
 import { catchError, EMPTY } from 'rxjs';
 import { TaoButtonComponent } from '@tao/ui';
+import { ToasterService } from '@tao/core';
 @Component({
   selector: 'tao-assessment-ready',
   imports: [TaoButtonComponent],
@@ -15,6 +16,7 @@ import { TaoButtonComponent } from '@tao/ui';
 export class AssessmentReadyPage {
   readonly store = inject(AssessmentSessionStore);
   readonly assessmentService = inject(AssessmentService);
+  private readonly toaster = inject(ToasterService);
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
   starting = false;
   start(): void {
@@ -32,7 +34,7 @@ export class AssessmentReadyPage {
         catchError((error) => {
           this.starting = false;
 
-          console.error('Failed to start assessment', error);
+          this.toaster.error('Failed to start assessment');
 
           return EMPTY;
         }),

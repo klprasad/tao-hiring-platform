@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TaoButtonComponent, TaoTextareaComponent } from '@tao/ui';
 
 import { ActivatedRoute } from '@angular/router';
+import { ToasterService } from '@tao/core';
 
 import { InvitationsService } from '../data-access/invitations.service';
 
@@ -22,6 +23,7 @@ export class Invitations {
   private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
   private readonly invitationsService = inject(InvitationsService);
+  private readonly toaster = inject(ToasterService);
 
   /**
    * Campaign identifier.
@@ -39,16 +41,6 @@ export class Invitations {
   readonly sending = signal(false);
 
   /**
-   * Error message.
-   */
-  readonly errorMessage = signal('');
-
-  /**
-   * Success message.
-   */
-  readonly successMessage = signal('');
-
-  /**
    * Email form.
    */
   readonly form = this.fb.nonNullable.group({
@@ -56,8 +48,6 @@ export class Invitations {
   });
 
   sendInvitation(): void {
-    this.clearMessage();
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -69,7 +59,7 @@ export class Invitations {
       this.form.controls.emailBody.setValue('');
       this.form.controls.emailBody.markAsTouched();
 
-      this.errorMessage.set('Please enter an email message.');
+      this.toaster.error('Please enter an email message.');
 
       return;
     }
@@ -79,22 +69,17 @@ export class Invitations {
       next: () => {
         this.sending.set(false);
 
-        this.successMessage.set('Email invitation sent successfully.');
+        this.toaster.success('Email invitation sent successfully.');
       },
 
       error: (error) => {
         this.sending.set(false);
 
-        this.errorMessage.set(
+        this.toaster.error(
           error?.error?.detail ?? 'Unable to send the email invitation. Please try again.',
         );
       },
     });
-  }
-
-  clearMessage(): void {
-    this.errorMessage.set('');
-    this.successMessage.set('');
   }
 
   private resolveCampaignId(): string {

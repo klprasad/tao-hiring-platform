@@ -21,7 +21,7 @@ import {
   updateAssessmentRoundRequest,
 } from '../../models/assessment-strategy.models';
 import { TaoButtonComponent } from '@tao/ui';
-import { AuthStore } from '@tao/core';
+import { AuthStore, ToasterService } from '@tao/core';
 
 @Component({
   selector: 'tao-assessment-overview',
@@ -34,10 +34,10 @@ export class AssessmentOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(AssessmentStrategyService);
+  private readonly toaster = inject(ToasterService);
   readonly editingRoundOrders = signal<number[]>([]);
   readonly hasUnsavedChanges = signal(false);
   readonly isSaving = signal(false);
-  readonly errorMessage = signal('');
   readonly authStore = inject(AuthStore);
   readonly assessment = signal<AssessmentVm | null>(null);
   readonly status = AssessmentStrategyStatus;
@@ -157,18 +157,16 @@ export class AssessmentOverview implements OnInit {
 
   createStrategy(): void {
     if (!this.campaignId) {
-      this.errorMessage.set('A campaign is required to create an assessment strategy.');
+      this.toaster.error('A campaign is required to create an assessment strategy.');
       return;
     }
-
-    this.errorMessage.set('');
 
     this.service
       .createAssessmentStrategy(this.campaignId)
       .pipe(
         map(mapAssessmentDtoToVm),
         catchError(() => {
-          this.errorMessage.set('The assessment strategy could not be created. Please try again.');
+          this.toaster.error('The assessment strategy could not be created. Please try again.');
           return EMPTY;
         }),
       )
@@ -190,9 +188,7 @@ export class AssessmentOverview implements OnInit {
             this.createStrategy();
             return EMPTY;
           } else {
-            this.errorMessage.set(
-              'The assessment strategy could not be created. Please try again.',
-            );
+            this.toaster.error('The assessment strategy could not be created. Please try again.');
             return EMPTY;
           }
         }),
@@ -225,17 +221,15 @@ export class AssessmentOverview implements OnInit {
     }
 
     if (!approvedByUserId) {
-      this.errorMessage.set('You must be signed in to approve an assessment strategy.');
+      this.toaster.error('You must be signed in to approve an assessment strategy.');
       return;
     }
-
-    this.errorMessage.set('');
 
     this.service
       .approveAssessmentStrategy(id, { approvedByUserId })
       .pipe(
         catchError(() => {
-          this.errorMessage.set('The assessment strategy could not be approved. Please try again.');
+          this.toaster.error('The assessment strategy could not be approved. Please try again.');
           return EMPTY;
         }),
       )
@@ -250,6 +244,7 @@ export class AssessmentOverview implements OnInit {
             approvedOn: new Date().toISOString(),
           });
         }
+        this.toaster.success('Assessment strategy approved.');
       });
   }
 
@@ -306,14 +301,13 @@ export class AssessmentOverview implements OnInit {
       rounds: assessment.rounds.map((round, index) => ({ ...round, order: index + 1 })),
     };
 
-    this.errorMessage.set('');
     this.isSaving.set(true);
     this.service
       .updateAssessmentRounds(assessment.id, payload)
       .pipe(
         map(mapAssessmentDtoToVm),
         catchError(() => {
-          this.errorMessage.set('The assessment could not be saved. Please try again.');
+          this.toaster.error('The assessment could not be saved. Please try again.');
           return EMPTY;
         }),
         finalize(() => this.isSaving.set(false)),
@@ -323,6 +317,7 @@ export class AssessmentOverview implements OnInit {
           this.assessment.set(response);
           this.hasUnsavedChanges.set(false);
           this.editingRoundOrders.set([]);
+          this.toaster.success('Assessment saved successfully.');
         }
       });
   }
@@ -340,10 +335,10 @@ export class AssessmentOverview implements OnInit {
       .sendInvitations(this.campaignId)
       .pipe(
         catchError(() => {
-          this.errorMessage.set('Send Invitations failed. Please try again.');
+          this.toaster.error('Sending invitations failed. Please try again.');
           return EMPTY;
         }),
       )
-      .subscribe();
+      .subscribe(() => this.toaster.success('Invitations sent successfully.'));
   }
 }
