@@ -204,9 +204,6 @@ export class QuestionPage implements OnInit {
 
     const answer = this.response().trim();
 
-    if (!answer) {
-      return;
-    }
     const request = {
       response: answer,
     };
@@ -234,7 +231,11 @@ export class QuestionPage implements OnInit {
     if (!question) {
       return;
     }
-
+    if (question.isFollowUpQuestion) {
+      this.response.set('');
+      this.next();
+      return;
+    }
     this.assessmentService
       .skipQuestion(question.questionId)
       .pipe(
