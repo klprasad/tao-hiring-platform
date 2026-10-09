@@ -1,0 +1,199 @@
+.round-result {
+  display: grid;
+  gap: 16px;
+}
+
+.round-result__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.round-result__eyebrow,
+.round-result__meta {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 12px;
+}
+
+.round-result h2 {
+  margin: 3px 0 4px;
+  color: var(--mat-sys-on-surface);
+  font-size: 21px;
+}
+
+.round-result__score {
+  text-align: right;
+}
+.round-result__score strong {
+  display: block;
+  color: var(--mat-sys-primary);
+  font-size: 30px;
+}
+.round-result__score span {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 11px;
+}
+.round-result__progress {
+  margin-top: 18px;
+}
+
+.round-result__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--tao-radius-8px);
+  background: var(--mat-sys-outline-variant);
+
+  > div {
+    padding: 12px 14px;
+    background: var(--mat-sys-surface);
+  }
+  strong {
+    display: block;
+    color: var(--mat-sys-on-surface);
+    font-size: 18px;
+  }
+  span {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 11px;
+  }
+}
+
+.round-result__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.evaluation {
+  display: grid;
+  gap: 18px;
+}
+.evaluation__title {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--mat-sys-on-surface);
+  font-size: 12px;
+  font-weight: 700;
+}
+.evaluation__block ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.evaluation__block p {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 12px;
+}
+.evaluation__block--warning {
+  padding-top: 14px;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.evidence-list {
+  display: grid;
+  gap: 8px;
+}
+.evidence-item {
+  padding: 10px 12px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--tao-radius-8px);
+}
+.evidence-item strong {
+  display: block;
+  color: var(--mat-sys-on-surface);
+  font-size: 12px;
+}
+.evidence-item span {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 11px;
+}
+.evidence-item p {
+  margin: 5px 0 0;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.questions {
+  display: grid;
+  gap: 10px;
+}
+.question {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--tao-radius-10px);
+  background: var(--mat-sys-surface);
+
+  &.is-selected {
+    border-color: var(--tao-shell-sidebar-accent);
+    background: var(--mat-sys-surface-container-low);
+  }
+  &__index {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--tao-radius-50);
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-primary);
+    font-weight: 700;
+  }
+  &__topline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 11px;
+  }
+  &__status {
+    color: var(--mat-sys-primary);
+    font-weight: 600;
+  }
+  & h3 {
+    margin: 5px 0 5px;
+    color: var(--mat-sys-on-surface);
+    font-size: 13px;
+  }
+  & p {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  &__signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  &__signals span {
+    padding: 3px 7px;
+    border-radius: var(--tao-radius-999px);
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-primary);
+    font-size: 10px;
+  }
+}
+
+.empty-copy {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 13px;
+}

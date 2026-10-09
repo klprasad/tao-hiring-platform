@@ -1,0 +1,142 @@
+<main class="assessment-results-page">
+  <header class="assessment-results-page__header">
+    <tao-page-header
+      kicker="TAO Acquire"
+      title="Assessment Results"
+      description="Review candidate assessment outcomes, inspect round performance, and drill into question-level evidence."
+    >
+      @if (selectedCandidate()) {
+        <tao-button
+          label="Back to candidates"
+          icon="arrow_back"
+          appearance="outlined"
+          color="basic"
+          size="small"
+          tooltip="Back to candidates"
+          (click)="backToCandidates()"
+        />
+      }
+    </tao-page-header>
+  </header>
+
+  @if (loadingCandidates()) {
+    <section class="assessment-results-page__state">
+      <tao-loading-state label="Loading assessment results" [loading]="true" />
+    </section>
+  } @else if (hasError() && !candidates().length) {
+    <section class="assessment-results-page__state">
+      <tao-card title="Unable to load assessment results">
+        <p class="state-copy">The assessment results could not be loaded. Please try again.</p>
+      </tao-card>
+    </section>
+  } @else if (!candidates().length) {
+    <section class="assessment-results-page__state">
+      <tao-empty-state
+        title="No assessment results"
+        message="No candidate assessment results are available for this campaign yet."
+      />
+    </section>
+  } @else if (!selectedCandidate()) {
+    <!-- ==================================================
+         CANDIDATE RESULTS
+    =================================================== -->
+
+    <section class="candidate-results" aria-label="Candidate assessment results">
+      <tao-card>
+        <div class="candidate-results__header">
+          <div class="candidate-results__heading">
+            <h2>Candidates</h2>
+
+            <p>Select a candidate to view their assessment results.</p>
+          </div>
+
+          <div class="candidate-results__count">
+            <strong>
+              {{ candidates().length }}
+            </strong>
+
+            <span> candidate{{ candidates().length === 1 ? '' : 's' }} </span>
+          </div>
+        </div>
+
+        <div class="candidate-results__table">
+          <tao-data-table
+            [columns]="columns"
+            [rows]="candidates()"
+            [config]="tableConfig"
+            (rowClick)="selectCandidate($event.row)"
+          />
+        </div>
+      </tao-card>
+    </section>
+  } @else {
+    <!-- ==================================================
+         CANDIDATE ASSESSMENT DETAIL
+    =================================================== -->
+
+    <section class="candidate-detail" aria-live="polite">
+      @if (loadingSummary()) {
+        <tao-loading-state label="Loading candidate assessment" [loading]="true" />
+      } @else if (summary()) {
+        <tao-candidate-assessment-summary
+          [candidate]="selectedCandidate()!"
+          [summary]="summary()!"
+          [selectedRoundId]="selectedRound()?.roundId ?? null"
+          (roundSelected)="selectRound($event)"
+        />
+
+        <!-- Round result -->
+
+        @if (loadingRound()) {
+          <section class="detail-loading">
+            <tao-loading-state label="Loading round results" [loading]="true" />
+          </section>
+        } @else if (selectedRound()) {
+          <section class="drilldown">
+            <header class="drilldown__header">
+              <div>
+                <span class="drilldown__eyebrow"> Round detail </span>
+
+                <h2>
+                  Round {{ selectedRound()!.order }}
+                  <span aria-hidden="true">·</span>
+                  {{ selectedRound()!.roundType }}
+                </h2>
+              </div>
+            </header>
+
+            <tao-assessment-round-results
+              [result]="selectedRound()!"
+              [selectedQuestionId]="selectedQuestion()?.questionId ?? null"
+              (questionSelected)="selectQuestion($event)"
+            />
+          </section>
+        }
+
+        <!-- Question result -->
+
+        @if (loadingQuestion()) {
+          <section class="detail-loading">
+            <tao-loading-state label="Loading question result" [loading]="true" />
+          </section>
+        } @else if (selectedQuestion()) {
+          <section class="drilldown">
+            <header class="drilldown__header">
+              <div>
+                <span class="drilldown__eyebrow"> Question detail </span>
+
+                <h2>Question {{ selectedQuestion()!.order }}</h2>
+              </div>
+            </header>
+
+            <tao-assessment-question-result [result]="selectedQuestion()!" />
+          </section>
+        }
+      } @else {
+        <tao-card title="Unable to load candidate result">
+          <p class="state-copy">The candidate assessment summary could not be loaded.</p>
+        </tao-card>
+      }
+    </section>
+  }
+</main>

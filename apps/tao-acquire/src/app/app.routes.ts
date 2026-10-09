@@ -106,6 +106,13 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./features/resume-process/pages/resume-process').then((m) => m.ResumeProcess),
           },
+          {
+            path: 'assessment-results',
+            loadComponent: () =>
+              import('./features/assessment-results/pages/assessment-result-overview/assessment-result-overview').then(
+                (m) => m.AssessmentResultOverview,
+              ),
+          },
         ],
       },
     ],

@@ -1,0 +1,120 @@
+<section class="question-result" aria-label="Question assessment result">
+  <tao-card>
+    <div class="question-result__header">
+      <div>
+        <p class="question-result__eyebrow">Question {{ result().order }}</p>
+        <h2>Evaluation</h2>
+        <div class="question-result__status">{{ result().status }}</div>
+      </div>
+      <div class="question-result__score">
+        <strong>{{ formatScore(result().score) }}</strong>
+        <span>Score</span>
+      </div>
+    </div>
+
+    @if (result().score !== null) {
+      <div class="question-result__progress">
+        <tao-progress [value]="result().score ?? 0" [label]="result().score + '%'" />
+      </div>
+    }
+  </tao-card>
+
+  <tao-card title="Question">
+    <div class="question-result__question">
+      {{ result().primaryQuestion }}
+    </div>
+  </tao-card>
+
+  <div class="question-result__columns">
+    <tao-card title="Evaluation details">
+      <div class="details">
+        <div class="detail">
+          <span>Confidence</span>
+          <strong>{{
+            result().confidence === null ? 'Not available' : result().confidence + '%'
+          }}</strong>
+        </div>
+        <div class="detail">
+          <span>Candidate code</span>
+          <strong>{{ result().hasCandidateCode ? 'Available' : 'Not submitted' }}</strong>
+        </div>
+        <div class="detail">
+          <span>Conversation</span>
+          <strong>{{ result().hasConversation ? 'Available' : 'Not available' }}</strong>
+        </div>
+      </div>
+    </tao-card>
+
+    <tao-card title="Competencies assessed">
+      @if (result().competencies.length) {
+        <div class="competencies">
+          @for (
+            competency of result().competencies;
+            track trackCompetency($index, competency.name)
+          ) {
+            <div class="competency">
+              <div>
+                <strong>{{ competency.name }}</strong>
+                <span
+                  >{{ competency.priority }} priority · Pass ≥
+                  {{ competency.minimumPassPercentage }}%</span
+                >
+              </div>
+              <b [class.is-pass]="competency.isPassed">{{ competency.score }}%</b>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="empty-copy">No competency-level evaluation is available.</p>
+      }
+    </tao-card>
+  </div>
+
+  <div class="question-result__columns">
+    <tao-card title="Strengths">
+      @if (result().strengths.length) {
+        <ul class="bullet-list">
+          @for (item of result().strengths; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="empty-copy">No strengths were identified.</p>
+      }
+    </tao-card>
+
+    <tao-card title="Gaps">
+      @if (result().gaps.length) {
+        <ul class="bullet-list">
+          @for (item of result().gaps; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="empty-copy">No gaps were identified.</p>
+      }
+    </tao-card>
+  </div>
+
+  <tao-card title="Evidence">
+    @if (result().evidence.length) {
+      <div class="evidence-list">
+        @for (item of result().evidence; track item.id ?? $index) {
+          <article class="evidence">
+            <div>
+              <strong>{{ item.title ?? item.type ?? 'Evidence' }}</strong>
+              @if (item.source) {
+                <span>{{ item.source }}</span>
+              }
+            </div>
+            @if (item.content) {
+              <p>{{ item.content }}</p>
+            }
+          </article>
+        }
+      </div>
+    } @else {
+      <p class="empty-copy">No evidence was captured for this question.</p>
+    }
+  </tao-card>
+</section>

@@ -79,6 +79,11 @@ export class App {
           route: 'assessment-strategy',
           icon: 'assessments',
         },
+        {
+          label: 'Assessment Results',
+          route: 'assessment-results',
+          icon: 'assessments',
+        },
       ],
     },
   ];

@@ -1,0 +1,168 @@
+<section class="summary" aria-label="Candidate assessment summary">
+  <!-- Candidate header -->
+  <header class="summary__hero">
+    <div class="summary__identity">
+      <div class="summary__avatar" aria-hidden="true">
+        {{ candidate().candidateName.charAt(0).toUpperCase() }}
+      </div>
+
+      <div class="summary__identity-content">
+        <p class="summary__eyebrow">Candidate assessment</p>
+
+        <h2>
+          {{ candidate().candidateName }}
+        </h2>
+
+        <p class="summary__meta">
+          <span>{{ candidate().email }}</span>
+
+          @if (candidate().currentLocation) {
+            <span class="summary__meta-separator" aria-hidden="true"> • </span>
+
+            <span>{{ candidate().currentLocation }}</span>
+          }
+        </p>
+      </div>
+    </div>
+
+    <div class="summary__recommendation" [class]="recommendationClass(summary().recommendation)">
+      <span class="summary__recommendation-label"> System recommendation </span>
+
+      <strong>
+        {{ recommendationLabel(summary().recommendation) }}
+      </strong>
+    </div>
+  </header>
+
+  <!-- Assessment metrics -->
+  <section class="summary__metrics" aria-label="Assessment metrics">
+    <article class="metric">
+      <div class="metric__header">
+        <span class="metric__label"> Overall score </span>
+
+        <strong class="metric__value"> {{ summary().overallScore }}% </strong>
+      </div>
+
+      <tao-progress [value]="summary().overallScore" [label]="summary().overallScore + '%'" />
+    </article>
+
+    <article class="metric">
+      <div class="metric__header">
+        <span class="metric__label"> Confidence </span>
+
+        <strong class="metric__value"> {{ summary().overallConfidence }}% </strong>
+      </div>
+
+      <tao-progress
+        [value]="summary().overallConfidence"
+        [label]="summary().overallConfidence + '%'"
+      />
+    </article>
+
+    <article class="metric metric--status">
+      <span class="metric__label"> Assessment status </span>
+
+      <strong class="metric__value">
+        {{ candidate().completedOn ? 'Completed' : 'Pending' }}
+      </strong>
+
+      <span class="metric__hint">
+        {{ candidate().completedOn ? 'Assessment submitted' : 'Assessment not completed' }}
+      </span>
+    </article>
+  </section>
+
+  <!-- Executive summary -->
+  <tao-card title="Executive summary">
+    <div class="summary__section-content">
+      <p class="summary__copy">
+        {{ summary().executiveSummary }}
+      </p>
+    </div>
+  </tao-card>
+
+  <!-- Competency matrix -->
+  <tao-card title="Competency matrix">
+    <div class="competencies" role="list" aria-label="Candidate competency results">
+      @for (competency of summary().competencies; track trackCompetency($index, competency)) {
+        <article class="competency" role="listitem">
+          <div class="competency__main">
+            <strong class="competency__name">
+              {{ competency.name }}
+            </strong>
+
+            <span class="competency__priority"> {{ competency.priority }} priority </span>
+          </div>
+
+          <div class="competency__score">
+            <strong> {{ competency.score }}% </strong>
+
+            <span> Pass ≥ {{ competency.minimumPassPercentage }}% </span>
+          </div>
+
+          <span class="competency__result" [class.is-pass]="competency.isPassed">
+            {{ competency.isPassed ? 'Pass' : 'Below threshold' }}
+          </span>
+        </article>
+      } @empty {
+        <div class="summary__empty">
+          <p>No competency results are available.</p>
+        </div>
+      }
+    </div>
+  </tao-card>
+
+  <!-- Assessment rounds -->
+  <tao-card title="Assessment rounds">
+    <div class="rounds" role="list" aria-label="Assessment rounds">
+      @for (round of summary().rounds; track trackRound($index, round)) {
+        <article
+          class="round"
+          role="listitem"
+          [class.is-selected]="selectedRoundId() === round.roundId"
+        >
+          <!-- Round number -->
+          <div class="round__number" aria-hidden="true">
+            {{ round.order }}
+          </div>
+
+          <!-- Round information -->
+          <div class="round__content">
+            <span class="round__eyebrow"> Round {{ round.order }} </span>
+
+            <h3 class="round__title">
+              {{ round.roundType }}
+            </h3>
+
+            <div class="round__stats">
+              <span> {{ round.totalQuestions }} questions </span>
+
+              <span> {{ round.completedQuestions }} completed </span>
+
+              <span> {{ round.skippedQuestions }} skipped </span>
+
+              <span> {{ round.confidence }}% confidence </span>
+            </div>
+          </div>
+
+          <!-- Score + action -->
+          <div class="round__actions">
+            <strong class="round__score"> {{ round.score }}% </strong>
+
+            <tao-button
+              label="View results"
+              appearance="text"
+              color="primary"
+              size="small"
+              (click)="selectRound(round)"
+            />
+          </div>
+        </article>
+      } @empty {
+        <div class="summary__empty">
+          <p>No round results are available.</p>
+        </div>
+      }
+    </div>
+  </tao-card>
+</section>
