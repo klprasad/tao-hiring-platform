@@ -154,6 +154,195 @@ raw `<table>` or Material table to approximate it.
   that TAO controls require the TAO Angular application; do not silently replace them
   with regular HTML controls.
 
+## Sample Feature Page: Candidate List
+
+This mock demonstrates the expected feature-page composition: semantic page wrapper,
+shared page header, shared action button, cards, a reactive form built from TAO fields,
+a data table, and loading/empty states. It deliberately contains no API client or
+router. The parent page owns navigation and responds to the component outputs.
+
+### `candidate-list.ts`
+
+```ts
+import { Component, inject, output, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  TaoButtonComponent,
+  TaoCardComponent,
+  TaoDataTableComponent,
+  TaoEmptyStateComponent,
+  TaoInputComponent,
+  TaoLoadingStateComponent,
+  TaoPageHeaderComponent,
+  TaoSelectComponent,
+  TaoTableColumn,
+  TaoTableConfig,
+  TaoTextareaComponent,
+} from '@tao/ui';
+
+interface CandidateRow {
+  id: number;
+  name: string;
+  role: string;
+  status: string;
+}
+
+@Component({
+  selector: 'tao-candidate-list',
+  imports: [
+    ReactiveFormsModule,
+    TaoButtonComponent,
+    TaoCardComponent,
+    TaoDataTableComponent,
+    TaoEmptyStateComponent,
+    TaoInputComponent,
+    TaoLoadingStateComponent,
+    TaoPageHeaderComponent,
+    TaoSelectComponent,
+    TaoTextareaComponent,
+  ],
+  templateUrl: './candidate-list.html',
+  styleUrl: './candidate-list.scss',
+})
+export class CandidateListComponent {
+  readonly createRequested = output<void>();
+  readonly candidateSelected = output<CandidateRow>();
+  readonly candidateDetailsSubmitted = output<{
+    name: string;
+    status: string;
+    notes: string;
+  }>();
+
+  private readonly formBuilder = inject(FormBuilder);
+
+  readonly loading = signal(false);
+  readonly showValidationErrors = signal(false);
+  readonly rows = signal<CandidateRow[]>([
+    { id: 101, name: 'Jordan Lee', role: 'Product Designer', status: 'Review' },
+    { id: 102, name: 'Morgan Patel', role: 'Frontend Engineer', status: 'Interview' },
+  ]);
+  readonly statusOptions = ['Review', 'Interview', 'Offer'];
+
+  readonly candidateDetailsForm = this.formBuilder.nonNullable.group({
+    name: ['', Validators.required],
+    status: ['', Validators.required],
+    notes: '',
+  });
+
+  readonly columns: TaoTableColumn<CandidateRow>[] = [
+    { key: 'name', label: 'Candidate', sortable: true },
+    { key: 'role', label: 'Role', sortable: true },
+    { key: 'status', label: 'Status', type: 'status', sortable: true },
+  ];
+
+  readonly tableConfig: TaoTableConfig = {
+    sortable: true,
+    pagination: true,
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 25],
+    rowHover: true,
+    density: 'comfortable',
+  };
+
+  submitCandidateDetails(): void {
+    this.showValidationErrors.set(true);
+
+    if (this.candidateDetailsForm.invalid) {
+      this.candidateDetailsForm.markAllAsTouched();
+      return;
+    }
+
+    this.candidateDetailsSubmitted.emit(this.candidateDetailsForm.getRawValue());
+  }
+
+  requestCreate(): void {
+    this.createRequested.emit();
+  }
+
+  selectCandidate(candidate: CandidateRow): void {
+    this.candidateSelected.emit(candidate);
+  }
+}
+```
+
+The mock records and `CandidateRow` shape are example data only. Replace them with the
+feature's supplied model. Keep outputs only when the parent needs to handle those user
+actions; connect them to the actual route or behavior in the consuming application.
+
+### `candidate-list.html`
+
+```html
+<main class="candidate-page">
+  <tao-page-header
+    kicker="TAO Acquire"
+    title="Candidates"
+    description="Review candidates across your open roles."
+  >
+    <tao-button
+      label="Add candidate"
+      icon="add"
+      appearance="filled"
+      color="primary"
+      size="small"
+      (click)="requestCreate()"
+    />
+  </tao-page-header>
+
+  <tao-card title="Candidate details">
+    <form [formGroup]="candidateDetailsForm" (ngSubmit)="submitCandidateDetails()">
+      <tao-input
+        label="Full name"
+        placeholder="Enter candidate name"
+        formControlName="name"
+        [required]="true"
+        [showErrors]="showValidationErrors()"
+      />
+
+      <tao-select
+        label="Application status"
+        placeholder="Select a status"
+        formControlName="status"
+        [options]="statusOptions"
+        [required]="true"
+        [showErrors]="showValidationErrors()"
+      />
+
+      <tao-textarea
+        label="Notes"
+        placeholder="Add relevant notes"
+        formControlName="notes"
+        [rows]="3"
+      />
+
+      <tao-button type="submit" label="Save candidate" appearance="filled" color="primary" />
+    </form>
+  </tao-card>
+
+  <tao-card title="Candidate list">
+    @if (loading()) {
+    <tao-loading-state [loading]="true" label="Loading candidates" />
+    } @else if (rows().length === 0) {
+    <tao-empty-state
+      title="No candidates yet"
+      message="Candidates added to this workspace will appear here."
+    />
+    } @else {
+    <tao-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [config]="tableConfig"
+      (rowClick)="selectCandidate($event.row)"
+    />
+    }
+  </tao-card>
+</main>
+```
+
+The matching `candidate-list.scss` should contain only page layout rules and existing
+theme tokens, for example `.candidate-page { color: var(--tao-color-172033); }`. Do not
+write CSS for the internal elements of the TAO controls. Add responsive layout styles
+only when the page needs them.
+
 ## Theme Tokens And CSS
 
 The page inherits TAO's active theme. Reuse the `--tao-*` CSS custom properties; do
