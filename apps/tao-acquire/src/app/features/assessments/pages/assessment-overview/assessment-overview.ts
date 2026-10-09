@@ -20,8 +20,8 @@ import {
   mapAssessmentDtoToVm,
   updateAssessmentRoundRequest,
 } from '../../models/assessment-strategy.models';
-import { TaoButtonComponent } from '@tao/ui';
-import { AuthStore, ToasterService } from '@tao/core';
+import { TaoButtonComponent, TaoDialogService, ToasterService } from '@tao/ui';
+import { AuthStore } from '@tao/core';
 
 @Component({
   selector: 'tao-assessment-overview',
@@ -34,6 +34,7 @@ export class AssessmentOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(AssessmentStrategyService);
+  private readonly dialogService = inject(TaoDialogService);
   private readonly toaster = inject(ToasterService);
   readonly editingRoundOrders = signal<number[]>([]);
   readonly hasUnsavedChanges = signal(false);
@@ -273,9 +274,17 @@ export class AssessmentOverview implements OnInit {
   }
 
   removeRound(order: number): void {
+    this.dialogService
+      .showConfirmBox('Remove assessment round?', `Remove round ${order} from this assessment?`)
+      .subscribe((confirmed) => {
+        if (confirmed) this.applyRoundRemoval(order);
+      });
+  }
+
+  private applyRoundRemoval(order: number): void {
     const assessment = this.assessment();
 
-    if (!assessment || !window.confirm(`Remove round ${order} from this assessment?`)) {
+    if (!assessment) {
       return;
     }
 

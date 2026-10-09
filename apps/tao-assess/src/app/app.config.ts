@@ -16,8 +16,8 @@ import {
   authInterceptor,
   httpLoadingInterceptor,
   initializeAppConfig,
-  ToasterService,
 } from '@tao/core';
+import { ToasterService } from '@tao/ui';
 
 import { routes } from './app.routes';
 

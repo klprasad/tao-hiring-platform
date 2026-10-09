@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AuthStore, ToasterService } from '@tao/core';
-import { TaoButtonComponent, TaoInputComponent } from '@tao/ui';
+import { AuthStore } from '@tao/core';
+import { TaoButtonComponent, TaoInputComponent, ToasterService } from '@tao/ui';
 import { catchError, firstValueFrom, forkJoin, throwError } from 'rxjs';
 
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';

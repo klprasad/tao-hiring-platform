@@ -1,8 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
-import { TaoButtonComponent, TaoPageHeaderComponent } from '@tao/ui';
-import { ToasterService } from '@tao/core';
+import { TaoButtonComponent, TaoPageHeaderComponent, ToasterService } from '@tao/ui';
 import { MatIconModule } from '@angular/material/icon';
 import { CampaignFormComponent } from '../../components/campaign-form/campaign-form';
 import { CampaignService } from '../../data-access/campaign.service';

@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
-import { TaoButtonComponent } from '@tao/ui';
+import { TaoButtonComponent, ToasterService } from '@tao/ui';
 import { catchError, EMPTY } from 'rxjs';
 import { AssessmentService } from '../../../core/assessment.service';
-import { ToasterService } from '@tao/core';
 @Component({
   selector: 'tao-assessment-welcome',
   imports: [TaoButtonComponent],

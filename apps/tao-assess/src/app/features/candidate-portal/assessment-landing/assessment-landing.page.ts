@@ -8,8 +8,7 @@ import {
 } from '../../../models/assessment-session.model';
 import { AssessmentService } from '../../../core/assessment.service';
 import { catchError, EMPTY, map } from 'rxjs';
-import { TaoButtonComponent } from '@tao/ui';
-import { ToasterService } from '@tao/core';
+import { TaoButtonComponent, ToasterService } from '@tao/ui';
 
 @Component({
   selector: 'tao-assessment-landing',

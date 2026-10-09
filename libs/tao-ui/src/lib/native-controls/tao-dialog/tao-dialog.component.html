@@ -1,11 +1,15 @@
-@if (open()) {
-  <section class="dialog" role="dialog" aria-modal="true" [attr.aria-label]="title()">
-    <h2 mat-dialog-title>{{ title() }}</h2>
-    <mat-dialog-content>{{ message() }}<ng-content /></mat-dialog-content
-    ><mat-dialog-actions align="end"
-      ><tao-button label="Cancel" appearance="outlined" (click)="cancelled.emit()" /><tao-button
-        label="Confirm"
-        (click)="confirmed.emit()"
-    /></mat-dialog-actions>
-  </section>
-}
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content>
+  <p class="dialog__message">{{ data.message }}</p>
+
+  <ng-content />
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (type === 'confirm') {
+    <tao-button label="Cancel" appearance="outlined" (click)="cancel()" />
+  }
+
+  <tao-button [label]="type === 'alert' ? 'OK' : 'Confirm'" (click)="confirm()" />
+</mat-dialog-actions>

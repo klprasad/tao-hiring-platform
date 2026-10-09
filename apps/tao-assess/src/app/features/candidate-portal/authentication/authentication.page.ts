@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoginCredentials, TaoLoginComponent } from '@tao/ui';
-import { ToasterService } from '@tao/core';
+import { LoginCredentials, TaoLoginComponent, ToasterService } from '@tao/ui';
 
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 import { AssessmentService } from '../../../core/assessment.service';

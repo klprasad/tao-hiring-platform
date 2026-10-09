@@ -5,6 +5,7 @@
     "@angular/common": "^22.1.0",
     "@angular/core": "^22.1.0",
     "@angular/forms": "^22.1.0",
+    "@angular/material": "^22.1.5",
     "@tao/core": "^0.0.1"
   },
   "dependencies": {

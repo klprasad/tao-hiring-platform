@@ -4,11 +4,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatIconModule } from '@angular/material/icon';
 
-import { TaoButtonComponent, TaoTextareaComponent } from '@tao/ui';
+import { TaoButtonComponent, TaoTextareaComponent, ToasterService } from '@tao/ui';
 
 import { ActivatedRoute } from '@angular/router';
-import { ToasterService } from '@tao/core';
-
 import { InvitationsService } from '../data-access/invitations.service';
 
 @Component({

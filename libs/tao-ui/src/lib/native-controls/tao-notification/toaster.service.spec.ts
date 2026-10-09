@@ -37,7 +37,7 @@ describe('ToasterService', () => {
       expect.objectContaining({
         data: { message: 'Could not save' },
         announcementMessage: 'Could not save',
-        duration: 6000,
+        duration: 30000,
         panelClass: 'tao-toast--error',
         politeness: 'assertive',
       }),

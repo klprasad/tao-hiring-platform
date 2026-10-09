@@ -17,8 +17,7 @@ import type * as Monaco from 'monaco-editor';
 
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentQuestionDto } from '../../../models/assessment-session.model';
-import { TaoButtonComponent } from '@tao/ui';
-import { ToasterService } from '@tao/core';
+import { TaoButtonComponent, ToasterService } from '@tao/ui';
 
 export type CodingLanguage = 'csharp' | 'java' | 'python' | 'typescript' | 'javascript';
 

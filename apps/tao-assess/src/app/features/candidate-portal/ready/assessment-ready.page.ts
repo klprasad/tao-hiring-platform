@@ -4,8 +4,7 @@ import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentNavigationService } from '../../../core/assessment-navigation.service';
 import { AssessmentService } from '../../../core/assessment.service';
 import { catchError, EMPTY } from 'rxjs';
-import { TaoButtonComponent } from '@tao/ui';
-import { ToasterService } from '@tao/core';
+import { TaoButtonComponent, ToasterService } from '@tao/ui';
 @Component({
   selector: 'tao-assessment-ready',
   imports: [TaoButtonComponent],

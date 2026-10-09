@@ -11,13 +11,18 @@ body {
 }
 
 .mat-mdc-snack-bar-container.tao-toast--success {
-  --mat-snack-bar-container-color: #176b4d;
+  --mat-snack-bar-container-color: #50c878;
   --mat-snack-bar-supporting-text-color: #ffffff;
   --mat-snack-bar-button-color: #ffffff;
 }
 
 .mat-mdc-snack-bar-container.tao-toast--error {
-  --mat-snack-bar-container-color: #a12f2f;
+  --mat-snack-bar-container-color: #ff0000;
+  --mat-snack-bar-supporting-text-color: #ffffff;
+  --mat-snack-bar-button-color: #ffffff;
+}
+.mat-mdc-snack-bar-container.tao-toast--info {
+  --mat-snack-bar-container-color: #4169e1;
   --mat-snack-bar-supporting-text-color: #ffffff;
   --mat-snack-bar-button-color: #ffffff;
 }

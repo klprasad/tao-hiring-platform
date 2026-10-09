@@ -16,8 +16,7 @@ import {
 
 import { CodingWorkspacePage } from '../../coding/coding-workspace/coding-workspace.page';
 
-import { TaoButtonComponent, TaoTextareaComponent } from '@tao/ui';
-import { ToasterService } from '@tao/core';
+import { TaoButtonComponent, TaoTextareaComponent, ToasterService } from '@tao/ui';
 
 @Component({
   selector: 'tao-question',

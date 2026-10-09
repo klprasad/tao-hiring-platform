@@ -2,8 +2,7 @@ import { Component, inject, output, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, map } from 'rxjs';
 
-import { ToasterService } from '@tao/core';
-import { TaoButtonComponent, TaoPageHeaderComponent } from '@tao/ui';
+import { TaoButtonComponent, TaoPageHeaderComponent, ToasterService } from '@tao/ui';
 import { JobProfileFormComponent } from '../../components/job-profile-form/job-profile-form';
 import { JobProfileService } from '../../data-access/job-profile.service';
 import {

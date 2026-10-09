@@ -13,6 +13,9 @@ export class ToasterService {
   error(message: string, duration = 30000): void {
     this.show(message, 'tao-toast--error', duration, 'assertive');
   }
+  info(message: string, duration = 4000): void {
+    this.show(message, 'tao-toast--info', duration, 'polite');
+  }
 
   private show(
     message: string,
