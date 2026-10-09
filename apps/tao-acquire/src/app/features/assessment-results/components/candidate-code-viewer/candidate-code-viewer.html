@@ -1,0 +1,16 @@
+<tao-card title="Submitted code">
+  <div class="code-viewer">
+    <div class="code-viewer__header">
+      <div>
+        <span class="code-viewer__eyebrow">Candidate submission</span>
+        <strong>Read-only source code</strong>
+      </div>
+
+      <span class="code-viewer__language">
+        {{ language() === 'csharp' ? 'C#' : language() === 'java' ? 'Java' : language() === 'python' ? 'Python' : language() === 'typescript' ? 'TypeScript' : 'JavaScript' }}
+      </span>
+    </div>
+
+    <div #editorHost class="monaco-host" aria-label="Candidate submitted code"></div>
+  </div>
+</tao-card>

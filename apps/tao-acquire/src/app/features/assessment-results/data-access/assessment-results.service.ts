@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { ApiClientService } from '@tao/core';
 import {
   AssessmentCandidate,
+  AssessmentQuestionCodeResponse,
+  AssessmentQuestionConversationResponse,
   AssessmentQuestionResult,
   AssessmentRoundResult,
   AssessmentSummary,
@@ -31,6 +33,23 @@ export class AssessmentResultService {
   getQuestionResults(sessionId: string, questionId: string): Observable<AssessmentQuestionResult> {
     return this.api.get<AssessmentQuestionResult>(
       `/api/assessment-results/${sessionId}/questions/${questionId}`,
+    );
+  }
+  getCodingQuestionResponse(
+    sessionId: string,
+    questionId: string,
+  ): Observable<AssessmentQuestionCodeResponse> {
+    return this.api.get<AssessmentQuestionCodeResponse>(
+      `/api/assessment-results/${sessionId}/questions/${questionId}/code`,
+    );
+  }
+
+  getQuestionResponse(
+    sessionId: string,
+    questionId: string,
+  ): Observable<AssessmentQuestionConversationResponse> {
+    return this.api.get<AssessmentQuestionConversationResponse>(
+      `/api/assessment-results/${sessionId}/questions/${questionId}/conversation`,
     );
   }
 }

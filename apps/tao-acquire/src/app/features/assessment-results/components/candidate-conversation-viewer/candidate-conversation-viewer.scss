@@ -1,0 +1,66 @@
+.conversation {
+  display: grid;
+  gap: 14px;
+}
+
+.message {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+
+  gap: 10px;
+}
+
+.message__avatar {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: var(--tao-radius-50);
+
+  background: var(--mat-sys-surface-container-high);
+
+  color: var(--mat-sys-on-surface-variant);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.message--candidate .message__avatar {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary);
+}
+
+.message__body {
+  min-width: 0;
+}
+
+.message__header {
+  margin-bottom: 5px;
+
+  color: var(--mat-sys-on-surface);
+
+  font-size: 12px;
+}
+
+.message__content {
+  padding: 11px 13px;
+
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--tao-radius-10px);
+
+  background: var(--mat-sys-surface-container-low);
+
+  color: var(--mat-sys-on-surface-variant);
+
+  font-size: 12px;
+  line-height: 1.65;
+
+  white-space: pre-wrap;
+}
+
+.message--candidate .message__content {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}

@@ -1,0 +1,44 @@
+.code-viewer {
+  display: grid;
+  gap: 12px;
+}
+
+.code-viewer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.code-viewer__header strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--mat-sys-on-surface);
+  font-size: 13px;
+}
+
+.code-viewer__eyebrow {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-viewer__language {
+  padding: 4px 8px;
+  border-radius: var(--tao-radius-999px);
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.monaco-host {
+  width: 100%;
+  min-height: 360px;
+  height: 520px;
+  overflow: hidden;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--tao-radius-10px);
+}

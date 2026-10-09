@@ -39,6 +39,7 @@
       <div class="evaluation">
         <div class="evaluation__block">
           <span class="evaluation__title">Strengths</span>
+
           @if (result().strengths.length) {
             <ul>
               @for (strength of result().strengths; track strength) {
@@ -52,6 +53,7 @@
 
         <div class="evaluation__block evaluation__block--warning">
           <span class="evaluation__title">Gaps</span>
+
           @if (result().gaps.length) {
             <ul>
               @for (gap of result().gaps; track gap) {
@@ -66,23 +68,19 @@
     </tao-card>
 
     <tao-card title="Evidence">
-      @if (result().evidence.length) {
-        <div class="evidence-list">
-          @for (item of result().evidence; track item.id ?? $index) {
-            <article class="evidence-item">
-              <strong>{{ item.title ?? item.type ?? 'Evidence' }}</strong>
-              @if (item.source) {
-                <span>{{ item.source }}</span>
-              }
-              @if (item.content) {
-                <p>{{ item.content }}</p>
-              }
-            </article>
-          }
-        </div>
-      } @else {
-        <p class="empty-copy">No evidence was captured for this round.</p>
-      }
+      <div class="evaluation__block evaluation__block--evidence">
+        <span class="evaluation__title"> Assessment evidence </span>
+
+        @if (result().evidence.length) {
+          <ul>
+            @for (evidence of result().evidence; track evidence) {
+              <li>{{ evidence }}</li>
+            }
+          </ul>
+        } @else {
+          <p>No evidence was captured for this round.</p>
+        }
+      </div>
     </tao-card>
   </div>
 

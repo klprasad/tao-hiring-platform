@@ -15,6 +15,8 @@ import {
 import { AssessmentResultService } from '../../data-access/assessment-results.service';
 import {
   AssessmentCandidate,
+  AssessmentQuestionCodeResponse,
+  AssessmentQuestionConversationResponse,
   AssessmentQuestionResult,
   AssessmentRoundResult,
   AssessmentRoundSummary,
@@ -23,6 +25,8 @@ import {
 import { CandidateAssessmentSummaryComponent } from '../../components/candidate-assessment-summary/candidate-assessment-summary';
 import { AssessmentRoundResultsComponent } from '../../components/assessment-round-results/assessment-round-results';
 import { AssessmentQuestionResultComponent } from '../../components/assessment-question-result/assessment-question-result';
+import { CandidateCodeViewer } from '../../components/candidate-code-viewer/candidate-code-viewer';
+import { CandidateConversationViewer } from '../../components/candidate-conversation-viewer/candidate-conversation-viewer';
 
 interface CandidateResultRow {
   candidate: AssessmentCandidate;
@@ -45,6 +49,8 @@ interface CandidateResultRow {
     CandidateAssessmentSummaryComponent,
     AssessmentRoundResultsComponent,
     AssessmentQuestionResultComponent,
+    CandidateCodeViewer,
+    CandidateConversationViewer,
   ],
   templateUrl: './assessment-result-overview.html',
   styleUrl: './assessment-result-overview.scss',
@@ -78,6 +84,13 @@ export class AssessmentResultOverview {
   readonly loadingQuestion = signal(false);
   readonly hasError = signal(false);
 
+  readonly questionConversation = signal<AssessmentQuestionConversationResponse | null>(null);
+
+  readonly questionCode = signal<AssessmentQuestionCodeResponse | null>(null);
+
+  readonly loadingResponse = signal(false);
+
+  readonly responseError = signal(false);
   readonly columns: TaoTableColumn<CandidateResultRow>[] = [
     { key: 'candidateName', label: 'Candidate', sortable: true },
     { key: 'email', label: 'Email', sortable: true },
@@ -105,6 +118,7 @@ export class AssessmentResultOverview {
           this.summary.set(null);
           this.selectedRound.set(null);
           this.selectedQuestion.set(null);
+          this.resetQuestionResponse();
           this.loadingSummary.set(true);
           this.hasError.set(false);
         }),
@@ -128,6 +142,7 @@ export class AssessmentResultOverview {
         tap(({ round }) => {
           this.selectedRound.set(null);
           this.selectedQuestion.set(null);
+          this.resetQuestionResponse();
           this.loadingRound.set(true);
         }),
         switchMap(({ sessionId, round }) =>
@@ -149,6 +164,7 @@ export class AssessmentResultOverview {
         takeUntilDestroyed(this.destroyRef),
         tap(() => {
           this.selectedQuestion.set(null);
+          this.resetQuestionResponse();
           this.loadingQuestion.set(true);
         }),
         switchMap(({ sessionId, question }) =>
@@ -165,12 +181,49 @@ export class AssessmentResultOverview {
         this.selectedQuestion.set(result);
       });
   }
+  loadCandidateResponse(): void {
+    const candidate = this.selectedCandidate();
+    const question = this.selectedQuestion();
+    const round = this.selectedRound();
 
+    if (!candidate?.assessmentSessionId || !question?.questionId || !round) {
+      return;
+    }
+
+    const sessionId = candidate.assessmentSessionId;
+    const questionId = question.questionId;
+
+    this.questionConversation.set(null);
+    this.questionCode.set(null);
+    this.responseError.set(false);
+    this.loadingResponse.set(true);
+
+    if (this.isCodingRound(round.roundType)) {
+      this.api
+        .getCodingQuestionResponse(sessionId, questionId)
+        .pipe(finalize(() => this.loadingResponse.set(false)))
+        .subscribe({
+          next: (response) => this.questionCode.set(response),
+          error: () => this.responseError.set(true),
+        });
+
+      return;
+    }
+
+    this.api
+      .getQuestionResponse(sessionId, questionId)
+      .pipe(finalize(() => this.loadingResponse.set(false)))
+      .subscribe({
+        next: (response) => this.questionConversation.set(response),
+        error: () => this.responseError.set(true),
+      });
+  }
   backToCandidates(): void {
     this.selectedCandidate.set(null);
     this.summary.set(null);
     this.selectedRound.set(null);
     this.selectedQuestion.set(null);
+    this.resetQuestionResponse();
 
     this.loadingSummary.set(false);
     this.loadingRound.set(false);
@@ -195,6 +248,17 @@ export class AssessmentResultOverview {
 
   trackCandidate(_: number, row: CandidateResultRow): string {
     return row.candidate.assessmentSessionId;
+  }
+
+  private isCodingRound(roundType: string): boolean {
+    return roundType.trim().toLowerCase().includes('coding');
+  }
+
+  private resetQuestionResponse(): void {
+    this.questionConversation.set(null);
+    this.questionCode.set(null);
+    this.loadingResponse.set(false);
+    this.responseError.set(false);
   }
 
   private loadCandidates(): void {

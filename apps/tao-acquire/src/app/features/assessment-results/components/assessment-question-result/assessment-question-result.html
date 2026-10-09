@@ -1,13 +1,25 @@
 <section class="question-result" aria-label="Question assessment result">
+  <!-- =====================================================
+       QUESTION SCORE
+  ====================================================== -->
+
   <tao-card>
     <div class="question-result__header">
       <div>
         <p class="question-result__eyebrow">Question {{ result().order }}</p>
+
         <h2>Evaluation</h2>
-        <div class="question-result__status">{{ result().status }}</div>
+
+        <div class="question-result__status">
+          {{ result().status }}
+        </div>
       </div>
+
       <div class="question-result__score">
-        <strong>{{ formatScore(result().score) }}</strong>
+        <strong>
+          {{ formatScore(result().score) }}
+        </strong>
+
         <span>Score</span>
       </div>
     </div>
@@ -19,28 +31,45 @@
     }
   </tao-card>
 
+  <!-- =====================================================
+       QUESTION
+  ====================================================== -->
+
   <tao-card title="Question">
     <div class="question-result__question">
       {{ result().primaryQuestion }}
     </div>
   </tao-card>
 
+  <!-- =====================================================
+       EVALUATION DETAILS / COMPETENCIES
+  ====================================================== -->
+
   <div class="question-result__columns">
     <tao-card title="Evaluation details">
       <div class="details">
         <div class="detail">
           <span>Confidence</span>
-          <strong>{{
-            result().confidence === null ? 'Not available' : result().confidence + '%'
-          }}</strong>
+
+          <strong>
+            {{ result().confidence === null ? 'Not available' : result().confidence + '%' }}
+          </strong>
         </div>
+
         <div class="detail">
           <span>Candidate code</span>
-          <strong>{{ result().hasCandidateCode ? 'Available' : 'Not submitted' }}</strong>
+
+          <strong>
+            {{ result().hasCandidateCode ? 'Available' : 'Not submitted' }}
+          </strong>
         </div>
+
         <div class="detail">
           <span>Conversation</span>
-          <strong>{{ result().hasConversation ? 'Available' : 'Not available' }}</strong>
+
+          <strong>
+            {{ result().hasConversation ? 'Available' : 'Not available' }}
+          </strong>
         </div>
       </div>
     </tao-card>
@@ -54,13 +83,17 @@
           ) {
             <div class="competency">
               <div>
-                <strong>{{ competency.name }}</strong>
-                <span
-                  >{{ competency.priority }} priority · Pass ≥
-                  {{ competency.minimumPassPercentage }}%</span
-                >
+                <strong>
+                  {{ competency.name }}
+                </strong>
+
+                <span>
+                  {{ competency.priority }} priority · Pass ≥
+                  {{ competency.minimumPassPercentage }}%
+                </span>
               </div>
-              <b [class.is-pass]="competency.isPassed">{{ competency.score }}%</b>
+
+              <b [class.is-pass]="competency.isPassed"> {{ competency.score }}% </b>
             </div>
           }
         </div>
@@ -69,6 +102,10 @@
       }
     </tao-card>
   </div>
+
+  <!-- =====================================================
+       STRENGTHS / GAPS
+  ====================================================== -->
 
   <div class="question-result__columns">
     <tao-card title="Strengths">
@@ -96,25 +133,68 @@
     </tao-card>
   </div>
 
-  <tao-card title="Evidence">
-    @if (result().evidence.length) {
-      <div class="evidence-list">
-        @for (item of result().evidence; track item.id ?? $index) {
-          <article class="evidence">
-            <div>
-              <strong>{{ item.title ?? item.type ?? 'Evidence' }}</strong>
-              @if (item.source) {
-                <span>{{ item.source }}</span>
-              }
-            </div>
-            @if (item.content) {
-              <p>{{ item.content }}</p>
+  <!-- =====================================================
+       CANDIDATE RESPONSE
+  ====================================================== -->
+
+  @if (canViewResponse()) {
+    <tao-card title="Candidate response">
+      <div class="candidate-response">
+        <div class="candidate-response__intro">
+          <div class="candidate-response__icon" aria-hidden="true">
+            @if (isCodingRound()) {
+              <span>⌘</span>
+            } @else {
+              <span>◈</span>
             }
-          </article>
-        }
+          </div>
+
+          <div>
+            <strong>
+              {{ isCodingRound() ? 'Submitted code' : 'Candidate conversation' }}
+            </strong>
+
+            <p>
+              {{
+                isCodingRound()
+                  ? 'Review the code submitted by the candidate for this question.'
+                  : 'Review the candidate responses and assessment conversation.'
+              }}
+            </p>
+          </div>
+        </div>
+
+        <div class="candidate-response__actions">
+          <tao-button
+            [label]="isCodingRound() ? 'View submitted code' : 'View conversation'"
+            [icon]="isCodingRound() ? 'code' : 'chat'"
+            appearance="outlined"
+            color="primary"
+            size="small"
+            (click)="responseRequested.emit()"
+          />
+        </div>
       </div>
-    } @else {
-      <p class="empty-copy">No evidence was captured for this question.</p>
-    }
+    </tao-card>
+  }
+
+  <!-- =====================================================
+       EVIDENCE
+  ====================================================== -->
+
+  <tao-card title="Evidence">
+    <div class="evaluation__block evaluation__block--evidence">
+      <span class="evaluation__title"> Assessment evidence </span>
+
+      @if (result().evidence.length) {
+        <ul>
+          @for (evidence of result().evidence; track evidence) {
+            <li>{{ evidence }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="empty-copy">No evidence was captured for this question.</p>
+      }
+    </div>
   </tao-card>
 </section>

@@ -129,7 +129,27 @@
               </div>
             </header>
 
-            <tao-assessment-question-result [result]="selectedQuestion()!" />
+            <tao-assessment-question-result
+              [result]="selectedQuestion()!"
+              [roundType]="selectedRound()?.roundType ?? ''"
+              (responseRequested)="loadCandidateResponse()"
+            />
+
+            @if (loadingResponse()) {
+              <section class="response-loading">
+                <tao-loading-state label="Loading candidate response" [loading]="true" />
+              </section>
+            } @else if (responseError()) {
+              <tao-card title="Unable to load response">
+                <p class="empty-copy">
+                  The candidate response could not be loaded. Please try again.
+                </p>
+              </tao-card>
+            } @else if (questionCode()) {
+              <tao-candidate-code-viewer [response]="questionCode()!" />
+            } @else if (questionConversation()) {
+              <tao-candidate-conversation-viewer [response]="questionConversation()!" />
+            }
           </section>
         }
       } @else {

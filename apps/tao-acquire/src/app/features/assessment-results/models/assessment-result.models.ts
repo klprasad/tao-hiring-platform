@@ -40,15 +40,6 @@ export interface AssessmentSummary {
   rounds: AssessmentRoundSummary[];
 }
 
-export interface AssessmentEvidence {
-  id?: string;
-  type?: string;
-  title?: string;
-  source?: string;
-  content?: string;
-  [key: string]: unknown;
-}
-
 export interface AssessmentQuestionResult {
   questionId: string;
   order: number;
@@ -58,7 +49,7 @@ export interface AssessmentQuestionResult {
   confidence: number | null;
   strengths: string[];
   gaps: string[];
-  evidence: AssessmentEvidence[];
+  evidence: string[];
   competencies: AssessmentCompetency[];
   hasConversation: boolean;
   hasCandidateCode: boolean;
@@ -73,9 +64,27 @@ export interface AssessmentRoundResult {
   confidence: number;
   strengths: string[];
   gaps: string[];
-  evidence: AssessmentEvidence[];
+  evidence: string[];
   questions: AssessmentQuestionResult[];
 }
 
-export type AssessmentResultRecommendation =
-  'Recommended' | 'NotRecommended' | 'NeedsReview' | string;
+export interface AssessmentQuestionCodeResponse {
+  assessmentSessionId: string;
+  roundId: string;
+  questionId: string;
+  code: string;
+}
+
+export type AssessmentConversationRole = 'assistant' | 'candidate';
+
+export interface AssessmentConversationMessage {
+  role: AssessmentConversationRole;
+  content: string;
+}
+
+export interface AssessmentQuestionConversationResponse {
+  assessmentSessionId: string;
+  roundId: string;
+  questionId: string;
+  messages: AssessmentConversationMessage[];
+}

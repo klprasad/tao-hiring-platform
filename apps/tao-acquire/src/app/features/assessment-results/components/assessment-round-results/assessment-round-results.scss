@@ -98,31 +98,6 @@
   border-top: 1px solid var(--mat-sys-outline-variant);
 }
 
-.evidence-list {
-  display: grid;
-  gap: 8px;
-}
-.evidence-item {
-  padding: 10px 12px;
-  border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: var(--tao-radius-8px);
-}
-.evidence-item strong {
-  display: block;
-  color: var(--mat-sys-on-surface);
-  font-size: 12px;
-}
-.evidence-item span {
-  color: var(--mat-sys-on-surface-variant);
-  font-size: 11px;
-}
-.evidence-item p {
-  margin: 5px 0 0;
-  color: var(--mat-sys-on-surface-variant);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
 .questions {
   display: grid;
   gap: 10px;

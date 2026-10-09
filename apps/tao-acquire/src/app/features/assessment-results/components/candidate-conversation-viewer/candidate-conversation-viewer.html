@@ -1,0 +1,29 @@
+<tao-card title="Candidate conversation">
+  <div class="conversation">
+    @for (message of response().messages; track $index) {
+      <article
+        class="message"
+        [class.message--candidate]="message.role === 'candidate'"
+        [class.message--assistant]="message.role === 'assistant'"
+      >
+        <div class="message__avatar">
+          {{ message.role === 'candidate' ? 'C' : 'AI' }}
+        </div>
+
+        <div class="message__body">
+          <div class="message__header">
+            <strong>
+              {{ message.role === 'candidate' ? 'Candidate' : 'TAO AI' }}
+            </strong>
+          </div>
+
+          <div class="message__content">
+            {{ message.content }}
+          </div>
+        </div>
+      </article>
+    } @empty {
+      <p class="empty-copy">No conversation messages are available.</p>
+    }
+  </div>
+</tao-card>
