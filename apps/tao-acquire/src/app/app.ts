@@ -82,7 +82,7 @@ export class App {
         {
           label: 'Assessment Results',
           route: 'assessment-results',
-          icon: 'assessments',
+          icon: 'assessment-results',
         },
       ],
     },

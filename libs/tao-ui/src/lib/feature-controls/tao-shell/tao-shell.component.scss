@@ -53,7 +53,6 @@ nav a {
   border-radius: var(--tao-radius-8px);
   font-size: 14px;
   display: flex;
-  gap: 12px;
   align-items: center;
 }
 nav a:hover,
@@ -107,6 +106,9 @@ nav a.active {
 }
 .nav-icon-job-profiles::before {
   content: "\2692";
+}
+.nav-icon-assessment-results::before {
+  content: "\25A5";
 }
 .sidebar-footer {
   margin-top: auto;
