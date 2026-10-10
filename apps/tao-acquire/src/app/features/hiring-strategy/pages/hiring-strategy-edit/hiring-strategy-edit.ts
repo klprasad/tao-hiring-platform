@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatChipsModule } from '@angular/material/chips';
 import {
@@ -7,7 +8,7 @@ import {
   JobProfileContent,
   JobProfileSkill,
 } from '../../models/hiring-strategy.models';
-import { TaoButtonComponent, TaoCardComponent } from '@tao/ui';
+import { TaoButtonComponent, TaoCardComponent, TaoInputComponent } from '@tao/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HiringStrategyService } from '../../data-access/hiring-strategy.service';
 import { catchError, EMPTY } from 'rxjs';
@@ -17,7 +18,13 @@ import { AuthStore } from '@tao/core';
   selector: 'tao-hiring-strategy-edit',
   styleUrl: './hiring-strategy-edit.scss',
   templateUrl: './hiring-strategy-edit.html',
-  imports: [MatChipsModule, TaoCardComponent, TaoButtonComponent],
+  imports: [
+    MatChipsModule,
+    ReactiveFormsModule,
+    TaoCardComponent,
+    TaoButtonComponent,
+    TaoInputComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HiringStrategyEdit {
@@ -28,6 +35,12 @@ export class HiringStrategyEdit {
   readonly status = HiringStrategyStatus;
   readonly isApproving = signal(false);
   readonly errorMessage = signal('');
+  readonly isEditingResumeMatchThreshold = signal(false);
+  readonly resumeMatchThresholdControl = new FormControl('0', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.min(0), Validators.max(100)],
+  });
+  readonly savedResumeMatchThreshold = signal<number | null>(null);
   /**
    * Job profile received from the API.
    */
@@ -70,8 +83,12 @@ export class HiringStrategyEdit {
   /**
    * Resume match threshold formatted for display.
    */
+  readonly resumeMatchThreshold = computed(
+    () => this.savedResumeMatchThreshold() ?? this.profileContent().recommendedResumeMatchThreshold,
+  );
+
   readonly resumeMatchLabel = computed(() => {
-    return `${this.profileContent().recommendedResumeMatchThreshold}%`;
+    return `${this.resumeMatchThreshold()}%`;
   });
 
   /**
@@ -158,6 +175,29 @@ export class HiringStrategyEdit {
       .filter((item) => typeof item === 'string')
       .map((item) => item.trim())
       .filter(Boolean);
+  }
+
+  editResumeMatchThreshold(): void {
+    this.resumeMatchThresholdControl.setValue(String(this.resumeMatchThreshold()));
+    this.resumeMatchThresholdControl.markAsPristine();
+    this.resumeMatchThresholdControl.markAsUntouched();
+    this.isEditingResumeMatchThreshold.set(true);
+  }
+
+  saveResumeMatchThreshold(): void {
+    if (this.resumeMatchThresholdControl.invalid) {
+      this.resumeMatchThresholdControl.markAsTouched();
+      return;
+    }
+
+    this.savedResumeMatchThreshold.set(Number(this.resumeMatchThresholdControl.value));
+    this.isEditingResumeMatchThreshold.set(false);
+
+    //call api to save the strategy.
+  }
+
+  cancelResumeMatchThresholdEdit(): void {
+    this.isEditingResumeMatchThreshold.set(false);
   }
 
   approve(): void {

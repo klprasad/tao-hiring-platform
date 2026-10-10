@@ -6,17 +6,42 @@
 .metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: stretch;
+  gap: 16px;
 }
 
 .metric-card {
-  padding: 1.5rem;
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  min-height: 184px;
+  padding: 0;
   text-align: center;
+}
+
+.metric-card--editable {
+  align-items: center;
+  text-align: center;
+}
+
+.metric-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.metric-actions {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: 10px;
+  gap: 5px;
 }
 
 .metric-label {
   display: block;
   font-size: 0.875rem;
   color: var(--mat-sys-on-surface-variant);
+  margin-bottom: 10px;
 }
 
 .metric-value {

@@ -8,21 +8,70 @@
     </div>
 
     <!-- Key Metrics -->
-    <section class="metrics">
+    <section class="metrics section-card">
       <tao-card class="metric-card">
-        <span class="metric-label"> Minimum Experience </span>
+        <div class="metric-content">
+          <span class="metric-label"> Minimum Experience </span>
 
-        <span class="metric-value">
-          {{ experienceLabel() }}
-        </span>
+          <span class="metric-value">
+            {{ experienceLabel() }}
+          </span>
+        </div>
       </tao-card>
 
-      <tao-card class="metric-card">
-        <span class="metric-label"> Resume Match Threshold </span>
+      <tao-card class="metric-card metric-card--editable">
+        <div class="metric-content">
+          <span class="metric-label"> Resume Match Threshold </span>
 
-        <span class="metric-value">
-          {{ resumeMatchLabel() }}
-        </span>
+          @if (isEditingResumeMatchThreshold()) {
+            <tao-input
+              label="Resume match threshold"
+              type="number"
+              suffix="%"
+              [formControl]="resumeMatchThresholdControl"
+            />
+          } @else {
+            <span class="metric-value">
+              {{ resumeMatchLabel() }}
+            </span>
+          }
+        </div>
+
+        @if (profile().status !== 'Approved') {
+          <div class="metric-actions">
+            @if (isEditingResumeMatchThreshold()) {
+              <tao-button
+                type="button"
+                label="Save threshold"
+                tooltip="Save threshold"
+                icon="save"
+                appearance="icon"
+                color="primary"
+                [disabled]="resumeMatchThresholdControl.invalid"
+                (click)="saveResumeMatchThreshold()"
+              />
+              <tao-button
+                type="button"
+                label="Cancel editing"
+                tooltip="Cancel editing"
+                icon="close"
+                appearance="icon"
+                color="warn"
+                (click)="cancelResumeMatchThresholdEdit()"
+              />
+            } @else {
+              <tao-button
+                type="button"
+                label="Edit threshold"
+                tooltip="Edit threshold"
+                icon="edit"
+                appearance="icon"
+                color="primary"
+                (click)="editResumeMatchThreshold()"
+              />
+            }
+          </div>
+        }
       </tao-card>
     </section>
 
