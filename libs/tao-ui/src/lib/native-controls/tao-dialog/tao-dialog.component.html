@@ -8,8 +8,13 @@
 
 <mat-dialog-actions align="end">
   @if (type === 'confirm') {
-    <tao-button label="Cancel" appearance="outlined" (click)="cancel()" />
+    <tao-button label="Cancel" appearance="outlined" color="basic" (click)="cancel()" />
   }
 
-  <tao-button [label]="type === 'alert' ? 'OK' : 'Confirm'" (click)="confirm()" />
+  <tao-button
+    [label]="type === 'alert' ? 'OK' : 'Confirm'"
+    appearance="filled"
+    color="primary"
+    (click)="confirm()"
+  />
 </mat-dialog-actions>
