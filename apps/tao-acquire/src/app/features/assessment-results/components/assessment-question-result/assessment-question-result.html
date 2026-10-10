@@ -36,9 +36,7 @@
   ====================================================== -->
 
   <tao-card title="Question">
-    <div class="question-result__question">
-      {{ result().primaryQuestion }}
-    </div>
+    <div class="problem__description" [innerHTML]="formattedQuestion()"></div>
   </tao-card>
 
   <!-- =====================================================

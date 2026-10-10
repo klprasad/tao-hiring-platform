@@ -1,7 +1,9 @@
 <div class="progress">
-  <div class="labels">
-    <span>{{ label() }}</span
-    ><b>{{ value() }}%</b>
-  </div>
-  <mat-progress-bar mode="determinate" [value]="value()" />
+  @if (!hideLabel()) {
+    <div class="labels">
+      <span>{{ label() }}</span
+      ><b>{{ value() }}%</b>
+    </div>
+  }
+  <mat-progress-bar class="progressbar" mode="determinate" [value]="value()" />
 </div>

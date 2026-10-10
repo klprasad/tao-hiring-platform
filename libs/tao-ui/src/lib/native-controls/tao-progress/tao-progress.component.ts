@@ -10,4 +10,5 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class TaoProgressComponent {
   readonly value = input(0);
   readonly label = input('Progress');
+  readonly hideLabel = input(true);
 }

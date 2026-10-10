@@ -239,15 +239,10 @@
 
 .problem__description {
   flex: 1 1 auto;
-
   min-height: 0;
-
   overflow-y: auto;
-
   padding-right: 12px;
-
   color: var(--tao-color-4b5870);
-
   font:
     14px/23px Inter,
     system-ui,
@@ -260,9 +255,7 @@
 
 .problem__description ::ng-deep p {
   margin: 0 0 14px;
-
   color: var(--tao-color-4b5870);
-
   line-height: 1.65;
 }
 
@@ -271,28 +264,23 @@
 .problem__description ::ng-deep h1,
 .problem__description ::ng-deep h2,
 .problem__description ::ng-deep h3 {
-  color: var(--tao-color-172033);
-
+  color: var(--tao-color-4b5870);
   font-weight: 700;
-
   line-height: 1.35;
 }
 
 .problem__description ::ng-deep h1 {
   margin: 4px 0 16px;
-
   font-size: 21px;
 }
 
 .problem__description ::ng-deep h2 {
   margin: 24px 0 12px;
-
   font-size: 18px;
 }
 
 .problem__description ::ng-deep h3 {
   margin: 22px 0 11px;
-
   font-size: 16px;
 }
 
@@ -301,25 +289,20 @@
 .problem__description ::ng-deep ul,
 .problem__description ::ng-deep ol {
   margin: 8px 0 18px;
-
   padding-left: 24px;
 }
 
 .problem__description ::ng-deep li {
   margin-bottom: 8px;
-
   padding-left: 3px;
-
   color: var(--tao-color-4b5870);
-
   line-height: 1.6;
 }
 
 /* Bold */
 
 .problem__description ::ng-deep strong {
-  color: var(--tao-color-273449);
-
+  color: var(--tao-color-4b5870);
   font-weight: 700;
 }
 
@@ -327,45 +310,21 @@
 
 .problem__description ::ng-deep code {
   padding: 2px 6px;
-
-  border: 1px solid var(--tao-color-e1e7ee);
-
+  border: 1px solid var(--tao-color-4b5870);
   border-radius: 5px;
-
-  background: var(--tao-color-f5f7fa);
-
-  color: var(--tao-color-183a58);
-
-  font:
-    12px/1.5 "Cascadia Code",
-    "Consolas",
-    monospace;
+  color: var(--tao-color-4b5870);
 }
 
 /* Code blocks */
 
 .problem__description ::ng-deep .question-code {
   margin: 14px 0;
-
   padding: 14px 16px;
-
   overflow-x: auto;
-
-  border: 1px solid var(--tao-color-303030);
-
+  border: 1px solid var(--tao-color-4b5870);
   border-radius: 8px;
-
-  background: var(--tao-color-1e1e1e);
-
-  color: var(--tao-color-d4d4d4);
-
-  font:
-    12px/1.6 "Cascadia Code",
-    "Consolas",
-    monospace;
-
+  color: var(--tao-color-4b5870);
   white-space: pre;
-
   tab-size: 4;
 }
 
