@@ -121,13 +121,13 @@ export class JobProfileOverview implements OnInit {
 
     const apiError = error as {
       error?: {
-        detail?: unknown;
+        message?: unknown;
       };
     };
 
     return (
-      typeof apiError.error?.detail === 'string' &&
-      apiError.error.detail === `Job Profile for campaign '${campaignId}' was not found.`
+      typeof apiError.error?.message === 'string' &&
+      apiError.error.message === `Job Profile for campaign '${campaignId}' was not found.`
     );
   };
   private describeError(error: unknown, fallback: string): string {

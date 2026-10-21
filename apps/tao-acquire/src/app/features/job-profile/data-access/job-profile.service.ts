@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ApiClientService, ApiResponse } from '@tao/core';
+import { ApiClientService } from '@tao/core';
 import {
   ApproveJobProfileRequest,
   CreateJobProfileDto,
@@ -44,11 +44,8 @@ export class JobProfileService {
    *
    * Returns the id of the newly generated job profile.
    */
-  regenerateJobProfile(
-    jobProfileId: string,
-    request: CreateJobProfileRequest,
-  ): Observable<ApiResponse<string>> {
-    return this.api.put<ApiResponse<string>, CreateJobProfileRequest>(
+  regenerateJobProfile(jobProfileId: string, request: CreateJobProfileRequest): Observable<string> {
+    return this.api.put<string, CreateJobProfileRequest>(
       `/api/jobprofiles/${jobProfileId}/regenerate`,
       request,
     );

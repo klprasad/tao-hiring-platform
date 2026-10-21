@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ApiClientService, ApiResponse } from '@tao/core';
+import { ApiClientService } from '@tao/core';
 import { CampaignCreateRequest, CampaignDto, CampaignWorkflowDto } from '../models/campaign.model';
 import { Users } from '../models/users.model';
 
@@ -60,8 +60,8 @@ export class CampaignService {
    *
    * Returns the id of the newly created campaign.
    */
-  createCampaign(request: CampaignCreateRequest): Observable<ApiResponse<string>> {
-    return this.api.post<ApiResponse<string>, CampaignCreateRequest>(`${this.baseUrl}/`, request);
+  createCampaign(request: CampaignCreateRequest): Observable<string> {
+    return this.api.post<string, CampaignCreateRequest>(`${this.baseUrl}/`, request);
   }
 
   /**
@@ -72,17 +72,14 @@ export class CampaignService {
    * `multipart/form-data` with a repeated `Resumes` field.
    * Returns the id of the resume import batch.
    */
-  importResumes(campaignId: string, files: readonly File[]): Observable<ApiResponse<string>> {
+  importResumes(campaignId: string, files: readonly File[]): Observable<string> {
     const formData = new FormData();
 
     for (const file of files) {
       formData.append('Resumes', file, file.name);
     }
 
-    return this.api.post<ApiResponse<string>>(
-      `${this.baseUrl}/${campaignId}/resume-imports`,
-      formData,
-    );
+    return this.api.post<string>(`${this.baseUrl}/${campaignId}/resume-imports`, formData);
   }
 
   getUsers(): Observable<Users[]> {

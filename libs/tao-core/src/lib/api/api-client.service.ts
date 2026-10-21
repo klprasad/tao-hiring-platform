@@ -6,12 +6,15 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, map, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { ApiError, ApiException } from './api-error';
+import { API_RESPONSE_ERROR_NOTIFIER } from './api-response';
 import { AppConfigService } from '../config/app-config.service';
 import { SKIP_LOADING } from '../http/http-context.tokens';
+
+type ApiClientResponse<T> = T extends { success: boolean; data: infer TData } ? TData : T;
 
 /**
  * Generic options supported by all API requests.
@@ -69,6 +72,7 @@ export interface ApiRequestOptions {
 export class ApiClientService {
   private readonly http = inject(HttpClient);
   private readonly appConfig = inject(AppConfigService);
+  private readonly responseErrorNotifier = inject(API_RESPONSE_ERROR_NOTIFIER, { optional: true });
 
   private buildUrl(endpoint: string): string {
     const baseUrl = this.appConfig.apiUrl.replace(/\/$/, '');
@@ -80,10 +84,14 @@ export class ApiClientService {
   /**
    * HTTP GET request.
    */
-  get<TResponse>(url: string, options?: ApiRequestOptions): Observable<TResponse> {
-    return this.http
-      .get<TResponse>(this.buildUrl(url), this.buildOptions(options))
-      .pipe(catchError((error) => this.handleError(error, 'GET', url)));
+  get<TResponse>(
+    url: string,
+    options?: ApiRequestOptions,
+  ): Observable<ApiClientResponse<TResponse>> {
+    return this.http.get<TResponse>(this.buildUrl(url), this.buildOptions(options)).pipe(
+      map((response) => this.unwrapResponse(response)),
+      catchError((error) => this.handleError(error, 'GET', url)),
+    );
   }
 
   /**
@@ -93,10 +101,11 @@ export class ApiClientService {
     url: string,
     body?: TRequest,
     options?: ApiRequestOptions,
-  ): Observable<TResponse> {
-    return this.http
-      .post<TResponse>(this.buildUrl(url), body, this.buildOptions(options))
-      .pipe(catchError((error) => this.handleError(error, 'POST', url)));
+  ): Observable<ApiClientResponse<TResponse>> {
+    return this.http.post<TResponse>(this.buildUrl(url), body, this.buildOptions(options)).pipe(
+      map((response) => this.unwrapResponse(response)),
+      catchError((error) => this.handleError(error, 'POST', url)),
+    );
   }
 
   /**
@@ -106,10 +115,11 @@ export class ApiClientService {
     url: string,
     body?: TRequest,
     options?: ApiRequestOptions,
-  ): Observable<TResponse> {
-    return this.http
-      .put<TResponse>(this.buildUrl(url), body, this.buildOptions(options))
-      .pipe(catchError((error) => this.handleError(error, 'PUT', url)));
+  ): Observable<ApiClientResponse<TResponse>> {
+    return this.http.put<TResponse>(this.buildUrl(url), body, this.buildOptions(options)).pipe(
+      map((response) => this.unwrapResponse(response)),
+      catchError((error) => this.handleError(error, 'PUT', url)),
+    );
   }
 
   /**
@@ -117,10 +127,61 @@ export class ApiClientService {
    *
    * DELETE endpoints commonly return 204 No Content.
    */
-  delete<TResponse = void>(url: string, options?: ApiRequestOptions): Observable<TResponse> {
-    return this.http
-      .delete<TResponse>(this.buildUrl(url), this.buildOptions(options))
-      .pipe(catchError((error) => this.handleError(error, 'DELETE', url)));
+  delete<TResponse = void>(
+    url: string,
+    options?: ApiRequestOptions,
+  ): Observable<ApiClientResponse<TResponse>> {
+    return this.http.delete<TResponse>(this.buildUrl(url), this.buildOptions(options)).pipe(
+      map((response) => this.unwrapResponse(response)),
+      catchError((error) => this.handleError(error, 'DELETE', url)),
+    );
+  }
+
+  private unwrapResponse<TResponse>(response: TResponse): ApiClientResponse<TResponse> {
+    if (!response || typeof response !== 'object' || !('success' in response)) {
+      return response as ApiClientResponse<TResponse>;
+    }
+
+    const apiResponse = response as {
+      success: unknown;
+      data?: unknown;
+      message?: unknown;
+      errors?: unknown;
+    };
+    if (apiResponse.success === true) {
+      if (
+        apiResponse.data === null &&
+        typeof apiResponse.message === 'string' &&
+        apiResponse.message.trim()
+      ) {
+        this.responseErrorNotifier?.success(apiResponse.message);
+      }
+
+      return apiResponse.data as ApiClientResponse<TResponse>;
+    }
+
+    const message =
+      typeof apiResponse.message === 'string' && apiResponse.message.trim()
+        ? apiResponse.message
+        : (this.formatErrors(apiResponse.errors) ?? 'The request failed.');
+
+    throw new ApiException(message, 200);
+  }
+
+  private formatErrors(errors: unknown): string | undefined {
+    if (typeof errors === 'string' && errors.trim()) {
+      return errors;
+    }
+
+    if (!errors || typeof errors !== 'object') {
+      return undefined;
+    }
+
+    const messages = Object.values(errors).flatMap((value) =>
+      Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [],
+    );
+
+    return messages.length > 0 ? messages.join(' ') : undefined;
   }
 
   /**
@@ -188,44 +249,23 @@ export class ApiClientService {
     console.error(`[API ${method}] ${url}`, error);
 
     if (error instanceof ApiException) {
+      this.responseErrorNotifier?.error(error.message);
       return throwError(() => error);
     }
 
     if (error instanceof HttpErrorResponse) {
-      const apiError = this.extractApiError(error);
-
+      const apiResponse = error.error;
       const message =
-        apiError.detail ?? apiError.title ?? error.message ?? 'An unexpected error occurred.';
+        typeof apiResponse.message === 'string' && apiResponse.message.trim()
+          ? apiResponse.message
+          : (this.formatErrors(apiResponse.errors) ?? 'The request failed.');
 
-      return throwError(() => new ApiException(message, error.status, apiError));
+      this.responseErrorNotifier?.error(message);
+      return throwError(() => new ApiException(message, error.status, apiResponse));
     }
 
-    return throwError(() => new ApiException('An unexpected error occurred.', 0));
-  }
-  private extractApiError(error: HttpErrorResponse): ApiError {
-    const backendError = error.error;
-
-    // ASP.NET Core ProblemDetails response
-    if (backendError && typeof backendError === 'object') {
-      return {
-        ...(backendError as ApiError),
-        status: (backendError as ApiError).status ?? error.status,
-      };
-    }
-
-    // Plain-text backend response
-    if (typeof backendError === 'string') {
-      return {
-        status: error.status,
-        detail: backendError,
-      };
-    }
-
-    // Network/client-side error
-    return {
-      status: error.status,
-      title: error.statusText,
-      detail: error.message,
-    };
+    const message = 'An unexpected error occurred.';
+    this.responseErrorNotifier?.error(message);
+    return throwError(() => new ApiException(message, 0));
   }
 }

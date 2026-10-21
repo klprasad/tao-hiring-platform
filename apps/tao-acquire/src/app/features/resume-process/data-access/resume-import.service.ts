@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ApiClientService, ApiResponse } from '@tao/core';
+import { ApiClientService } from '@tao/core';
 import {
   candidateScreeningRespose,
   RESUME_IMPORT_FORM_FIELD,

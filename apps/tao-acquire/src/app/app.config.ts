@@ -13,6 +13,7 @@ import { provideRouter } from '@angular/router';
 
 import {
   AppConfigService,
+  API_RESPONSE_ERROR_NOTIFIER,
   httpLoadingInterceptor,
   authInterceptor,
   initializeAppConfig,
@@ -24,6 +25,7 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     ToasterService,
+    { provide: API_RESPONSE_ERROR_NOTIFIER, useExisting: ToasterService },
     provideBrowserGlobalErrorListeners(),
 
     provideAnimationsAsync(),

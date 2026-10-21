@@ -1,3 +1,5 @@
+import { InjectionToken } from '@angular/core';
+
 /**
  * Standard API response returned by the backend.
  *
@@ -18,13 +20,26 @@ export interface ApiResponse<T> {
   /**
    * Response payload.
    */
-  value: T;
+  data: T;
 
   /**
    * Optional human-readable message.
    */
   message?: string;
+
+  success: boolean;
+  errors: any;
+  traceId: string;
 }
+
+export interface ApiResponseErrorNotifier {
+  error(message: string): void;
+  success(message: string): void;
+}
+
+export const API_RESPONSE_ERROR_NOTIFIER = new InjectionToken<ApiResponseErrorNotifier>(
+  'API_RESPONSE_ERROR_NOTIFIER',
+);
 
 /**
  * Metadata returned by APIs when additional information
