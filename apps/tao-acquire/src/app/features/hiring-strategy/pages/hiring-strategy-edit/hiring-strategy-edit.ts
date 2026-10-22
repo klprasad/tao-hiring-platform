@@ -7,6 +7,7 @@ import {
   HiringStrategyStatus,
   JobProfileContent,
   JobProfileSkill,
+  ThresholdUpdateRequest,
 } from '../../models/hiring-strategy.models';
 import { TaoButtonComponent, TaoCardComponent, TaoInputComponent } from '@tao/ui';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,6 +41,8 @@ export class HiringStrategyEdit {
     nonNullable: true,
     validators: [Validators.required, Validators.min(0), Validators.max(100)],
   });
+
+  readonly campaignId = this.resolveCampaignId();
   readonly savedResumeMatchThreshold = signal<number | null>(null);
   /**
    * Job profile received from the API.
@@ -190,10 +193,15 @@ export class HiringStrategyEdit {
       return;
     }
 
-    this.savedResumeMatchThreshold.set(Number(this.resumeMatchThresholdControl.value));
-    this.isEditingResumeMatchThreshold.set(false);
-
     //call api to save the strategy.
+    const payload: ThresholdUpdateRequest = {
+      thresholdPercentage: Number(this.resumeMatchThresholdControl.value),
+    };
+
+    this.service.updateThreshold(this.campaignId, payload).subscribe(() => {
+      this.savedResumeMatchThreshold.set(Number(this.resumeMatchThresholdControl.value));
+      this.isEditingResumeMatchThreshold.set(false);
+    });
   }
 
   cancelResumeMatchThresholdEdit(): void {
@@ -234,5 +242,13 @@ export class HiringStrategyEdit {
   cancel(): void {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');
     this.router.navigate(campaignId ? ['/campaigns', campaignId] : ['/job-profiles']);
+  }
+  private resolveCampaignId(): string {
+    return (
+      this.route.snapshot.paramMap.get('campaignId') ??
+      this.route.parent?.snapshot.paramMap.get('campaignId') ??
+      this.route.snapshot.queryParamMap.get('campaignId') ??
+      ''
+    );
   }
 }

@@ -11,6 +11,7 @@ import { JobProfileVm } from '../../models/job-profile.vm';
 import { JobProfilePreviewComponent } from '../../components/job-profile-preview/job-profile-preview';
 import { JobProfileEditComponent } from '../job-profile-edit/job-profile-edit';
 import { JobProfileCreateComponent } from '../job-profile-create/job-profile-create';
+import { CampaignService } from '../../../campaigns/data-access/campaign.service';
 
 @Component({
   imports: [
@@ -28,6 +29,7 @@ export class JobProfileOverview implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(JobProfileService);
+  private readonly campaignService = inject(CampaignService);
   private readonly authStore = inject(AuthStore);
 
   readonly loadedProfile = signal<JobProfileVm | null>(null);
@@ -38,7 +40,8 @@ export class JobProfileOverview implements OnInit {
   readonly status = JobProfileStatus;
 
   ngOnInit(): void {
-    this.loadJobProfile();
+    const campaignId = this.route.snapshot.paramMap.get('campaignId');
+    if (campaignId) this.loadCampaignWorkflows(campaignId);
   }
   reloadJobProfile() {
     this.isEditing.set(false);
@@ -95,7 +98,16 @@ export class JobProfileOverview implements OnInit {
         this.router.navigate(['/campaigns', profile.campaignId, 'hiring-strategy-create']);
       });
   }
-
+  loadCampaignWorkflows(campaignId: string): void {
+    this.campaignService.getCampaignWorkflows(campaignId).subscribe((workflowVm) => {
+      if (workflowVm.hasJobProfile) {
+        this.loadJobProfile();
+      } else {
+        this.loadedProfile.set(null);
+        this.profileNotFound.set(true);
+      }
+    });
+  }
   private loadProfileByCampaign(id: string): void {
     this.service
       .getJobProfileByCampaign(id)

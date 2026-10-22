@@ -2,7 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiClientService } from '@tao/core';
-import { ApproveHiringStrategyRequest, HiringStrategyDto } from '../models/hiring-strategy.models';
+import {
+  ApproveHiringStrategyRequest,
+  HiringStrategyDto,
+  ThresholdUpdateRequest,
+} from '../models/hiring-strategy.models';
 
 /**
  * Hiring strategy API client.
@@ -49,6 +53,13 @@ export class HiringStrategyService {
   ): Observable<void> {
     return this.api.post<void, ApproveHiringStrategyRequest>(
       `/api/campaigns/${hiringStrategyId}/approve`,
+      request,
+    );
+  }
+
+  updateThreshold(campaignId: string, request: ThresholdUpdateRequest): Observable<void> {
+    return this.api.put<void, ThresholdUpdateRequest>(
+      `/api/campaigns/api/campaigns/${campaignId}/hiring-strategy/threshold`,
       request,
     );
   }

@@ -54,3 +54,6 @@ export interface JobProfileContent {
   preferredSkills: JobProfileSkill[];
   recruiterGuidance: string[];
 }
+export interface ThresholdUpdateRequest {
+  thresholdPercentage: number;
+}
