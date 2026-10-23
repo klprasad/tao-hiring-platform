@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, input } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +24,7 @@ export class TaoInputComponent implements ControlValueAccessor {
   readonly showErrors = input(false);
 
   protected readonly ngControl = inject(NgControl, { optional: true, self: true });
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   protected readonly errorStateMatcher: ErrorStateMatcher = {
     isErrorState: () =>
       Boolean(this.ngControl?.invalid && (this.ngControl.touched || this.ngControl.dirty)),
@@ -42,6 +43,7 @@ export class TaoInputComponent implements ControlValueAccessor {
 
   writeValue(value: string | null): void {
     this.value = value ?? '';
+    this.changeDetectorRef.markForCheck();
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -54,6 +56,7 @@ export class TaoInputComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+    this.changeDetectorRef.markForCheck();
   }
 
   protected onInput(event: Event): void {

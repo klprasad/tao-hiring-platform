@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -38,6 +39,15 @@ describe('JobProfileEditComponent', () => {
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(JobProfileEditComponent);
+    fixture.componentRef.setInput('profile', {
+      id: 'profile-1',
+      campaignId: 'campaign-1',
+      originalJobDescription: 'A useful role description with enough detail.',
+      generatedContent: 'AI-generated job profile content.',
+      structuredProfile: '{"competencies":[],"qualifications":[]}',
+      status: 1,
+      generatedOn: '2026-09-01T00:00:00Z',
+    });
     fixture.detectChanges();
   });
 

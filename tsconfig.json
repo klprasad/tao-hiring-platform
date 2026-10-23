@@ -30,7 +30,13 @@
       "path": "./apps/tao-acquire/tsconfig.app.json"
     },
     {
+      "path": "./apps/tao-acquire/tsconfig.spec.json"
+    },
+    {
       "path": "./apps/tao-assess/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/tao-assess/tsconfig.spec.json"
     },
     {
       "path": "./libs/tao-ui/tsconfig.lib.json"

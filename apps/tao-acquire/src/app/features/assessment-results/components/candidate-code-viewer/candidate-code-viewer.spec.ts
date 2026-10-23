@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CandidateCodeViewer } from './candidate-code-viewer';
 
@@ -18,7 +19,7 @@ describe('CandidateCodeViewer', () => {
       code: 'return true;',
     });
     component = fixture.componentInstance;
-    spyOn(component, 'ngAfterViewInit').and.resolveTo();
+    vi.spyOn(component, 'ngAfterViewInit').mockResolvedValue();
     fixture.detectChanges();
   });
 

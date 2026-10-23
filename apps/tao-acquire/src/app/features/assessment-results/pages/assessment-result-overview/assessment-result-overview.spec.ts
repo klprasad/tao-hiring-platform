@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
@@ -9,19 +10,22 @@ describe('AssessmentResultOverview', () => {
   let fixture: ComponentFixture<AssessmentResultOverview>;
 
   const serviceMock = {
-    getCandidatesResults: jasmine.createSpy().and.returnValue(of([])),
-    getAssessmentSummary: jasmine.createSpy(),
-    getAssessmentRoundResults: jasmine.createSpy(),
-    getQuestionResults: jasmine.createSpy(),
-    getCodingQuestionResponse: jasmine.createSpy(),
-    getQuestionResponse: jasmine.createSpy(),
+    getCandidatesResults: vi.fn().mockReturnValue(of([])),
+    getAssessmentSummary: vi.fn(),
+    getAssessmentRoundResults: vi.fn(),
+    getQuestionResults: vi.fn(),
+    getCodingQuestionResponse: vi.fn(),
+    getQuestionResponse: vi.fn(),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AssessmentResultOverview],
       providers: [
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => 'campaign-1' } } } },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => 'campaign-1' } } },
+        },
         { provide: AssessmentResultService, useValue: serviceMock },
       ],
     }).compileComponents();

@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
@@ -60,7 +61,7 @@ describe('Login', () => {
 
   const createPage = async (redirectTo?: string) => {
     await TestBed.configureTestingModule({
-      imports: [Login],
+      imports: [AcquireLogin],
       providers: [
         provideRouter([]),
         provideHttpClient(),
@@ -82,7 +83,7 @@ describe('Login', () => {
 
     const navigateByUrl = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
 
-    fixture = TestBed.createComponent(Login);
+    fixture = TestBed.createComponent(AcquireLogin);
     await fixture.whenStable();
 
     return { navigateByUrl };
@@ -91,7 +92,7 @@ describe('Login', () => {
   it('renders the acquire login form', async () => {
     await createPage();
 
-    expect(host().querySelector('tao-acquire-login')).toBeTruthy();
+    expect(host().querySelector('tao-login')).toBeTruthy();
   });
 
   it('signs the user in before navigating to the dashboard', async () => {

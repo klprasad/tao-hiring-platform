@@ -1,7 +1,6 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { vi } from 'vitest';
-
 import { ToasterService } from './toaster.service';
 
 describe('ToasterService', () => {

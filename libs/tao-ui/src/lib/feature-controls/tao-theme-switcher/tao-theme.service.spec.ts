@@ -1,9 +1,22 @@
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 
 import { TaoThemeService } from './tao-theme.service';
 
 describe('TaoThemeService', () => {
+  const storage = new Map<string, string>();
+
   beforeEach(() => {
+    storage.clear();
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: (key: string) => storage.get(key) ?? null,
+        setItem: (key: string, value: string) => storage.set(key, value),
+        removeItem: (key: string) => storage.delete(key),
+        clear: () => storage.clear(),
+      },
+    });
     document.cookie = 'tao-theme=; Path=/; Max-Age=0; SameSite=Lax';
     localStorage.removeItem('tao-theme');
   });
