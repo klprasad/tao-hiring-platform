@@ -22,6 +22,7 @@ import {
 } from '../../models/assessment-strategy.models';
 import { TaoButtonComponent, TaoDialogService, ToasterService } from '@tao/ui';
 import { AuthStore } from '@tao/core';
+import { CampaignService } from '../../../campaigns/data-access/campaign.service';
 
 @Component({
   selector: 'tao-assessment-overview',
@@ -35,6 +36,7 @@ export class AssessmentOverview implements OnInit {
   private readonly router = inject(Router);
   private readonly service = inject(AssessmentStrategyService);
   private readonly dialogService = inject(TaoDialogService);
+  private readonly campaignService = inject(CampaignService);
   private readonly toaster = inject(ToasterService);
   readonly editingRoundOrders = signal<number[]>([]);
   readonly hasUnsavedChanges = signal(false);
@@ -153,9 +155,18 @@ export class AssessmentOverview implements OnInit {
     );
   }
   ngOnInit(): void {
-    this.loadAssessmentStrategy();
+    this.loadCampaignWorkflows();
   }
 
+  loadCampaignWorkflows(): void {
+    this.campaignService.getCampaignWorkflows(this.campaignId).subscribe((workflowVm) => {
+      if (workflowVm.hasAssessmentStrategy) {
+        this.loadAssessmentStrategy();
+      } else {
+        this.createStrategy();
+      }
+    });
+  }
   createStrategy(): void {
     if (!this.campaignId) {
       this.toaster.error('A campaign is required to create an assessment strategy.');
