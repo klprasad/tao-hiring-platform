@@ -92,11 +92,15 @@
           </span>
         </div>
 
-        <div class="language">
-          <span class="language__dot"></span>
-
-          {{ languageConfig().label }}
-        </div>
+        <label class="language" for="editor-language">
+          <span class="language__dot" aria-hidden="true"></span>
+          <span class="visually-hidden">Editor language</span>
+          <select id="editor-language" [value]="language()" (change)="onLanguageChange($event)">
+            @for (option of availableLanguages; track option.id) {
+              <option [value]="option.id">{{ option.label }}</option>
+            }
+          </select>
+        </label>
       </div>
 
       <div #editorHost class="monaco-host" aria-label="Code editor"></div>

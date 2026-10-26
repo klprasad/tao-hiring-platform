@@ -488,6 +488,35 @@
   background: var(--tao-color-79e2b1);
 }
 
+.language select {
+  max-width: 180px;
+  padding: 6px 26px 6px 8px;
+  border: 1px solid var(--tao-color-303030);
+  border-radius: 4px;
+  background: var(--tao-color-252526);
+  color: var(--tao-color-d4d4d4);
+  color-scheme: dark;
+  font: inherit;
+  cursor: pointer;
+}
+
+.language select:focus-visible {
+  outline: 2px solid var(--tao-color-79e2b1);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Monaco */
 
 .monaco-host {

@@ -30,11 +30,20 @@ describe('CodingWorkspacePage', () => {
     });
   });
 
-  it('formats supported question markdown and maps the selected language', () => {
+  it('renders major language options and maps the selected language', () => {
     expect(fixture.componentInstance.formattedQuestion()).toContain('<h1>Task</h1>');
     expect(fixture.componentInstance.formattedQuestion()).toContain('<code>value</code>');
 
-    fixture.componentRef.setInput('language', 'python');
+    fixture.detectChanges();
+    const selector = fixture.nativeElement.querySelector('#editor-language') as HTMLSelectElement;
+    expect(selector.options.length).toBeGreaterThanOrEqual(15);
+    expect(Array.from(selector.options).map((option) => option.textContent?.trim())).toContain(
+      'Python',
+    );
+
+    fixture.componentInstance.selectLanguage('python');
+    fixture.detectChanges();
     expect(fixture.componentInstance.languageConfig().monacoId).toBe('python');
+    expect(selector.value).toBe('python');
   });
 });
