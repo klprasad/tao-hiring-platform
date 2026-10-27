@@ -61,6 +61,9 @@ export class CampaignWorkflowVm {
       this.resumeImportCompletedOn = data.resumeImportCompletedOn
         ? new Date(data.resumeImportCompletedOn)
         : null;
+      this.candidatesScreeningCompletedOn = data.candidatesScreeningCompletedOn
+        ? new Date(data.candidatesScreeningCompletedOn)
+        : null;
     }
   }
 }

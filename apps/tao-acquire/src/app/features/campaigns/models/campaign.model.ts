@@ -124,6 +124,10 @@ export interface CampaignWorkflowDto {
   successfulResumes: number;
   failedResumes: number;
   resumeImportCompletedOn: string | null;
+
+  hasInvitations: boolean;
+  invitationsCompletedOn: string | null;
+  candidatesScreeningCompletedOn: string | null;
 }
 export function mapCampaignWorkflowDtoToVm(dto: CampaignWorkflowDto): CampaignWorkflowVm {
   return new CampaignWorkflowVm({
@@ -162,6 +166,13 @@ export function mapCampaignWorkflowDtoToVm(dto: CampaignWorkflowDto): CampaignWo
     failedResumes: dto.failedResumes,
     resumeImportCompletedOn: dto.resumeImportCompletedOn
       ? new Date(dto.resumeImportCompletedOn)
+      : null,
+    hasInvitations: dto.hasInvitations,
+    invitationsCompletedOn: dto.invitationsCompletedOn
+      ? new Date(dto.invitationsCompletedOn)
+      : null,
+    candidatesScreeningCompletedOn: dto.candidatesScreeningCompletedOn
+      ? new Date(dto.candidatesScreeningCompletedOn)
       : null,
   });
 }
