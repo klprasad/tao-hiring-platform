@@ -1,4 +1,72 @@
 {
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build shared libraries",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "build:libs"],
+      "problemMatcher": []
+    },
+    {
+      "label": "serve Acquire (4201)",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "serve:acquire"],
+      "dependsOn": "build shared libraries",
+      "dependsOrder": "sequence",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": "Local:.*4201"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "serve Assess (4200)",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "serve:assess"],
+      "dependsOn": "build shared libraries",
+      "dependsOrder": "sequence",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": "Local:.*4200"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Start Acquire and Assess",
+      "dependsOn": [
+        "serve Acquire (4201)",
+        "serve Assess (4200)"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    }
+  ]
+}{
   // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
   "version": "2.0.0",
   "tasks": [
