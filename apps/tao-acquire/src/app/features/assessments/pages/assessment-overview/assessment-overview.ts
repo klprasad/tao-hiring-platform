@@ -359,6 +359,9 @@ export class AssessmentOverview implements OnInit {
           return EMPTY;
         }),
       )
-      .subscribe(() => this.toaster.success('Invitations sent successfully.'));
+      .subscribe(() => {
+        this.toaster.success('Invitations sent successfully.');
+        this.router.navigate(['/campaigns', this.campaignId]);
+      });
   }
 }
