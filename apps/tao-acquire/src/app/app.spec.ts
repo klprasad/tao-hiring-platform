@@ -21,9 +21,6 @@ describe('App', () => {
   const host = (): HTMLElement => fixture.nativeElement as HTMLElement;
 
   beforeEach(async () => {
-    // A signed-in identity survives a reload, so every test starts from a clean session.
-    sessionStorage.clear();
-
     await TestBed.configureTestingModule({
       imports: [App],
       providers: [provideRouter([])],

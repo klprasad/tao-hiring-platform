@@ -21,6 +21,7 @@ import {
 import { ToasterService } from '@tao/ui';
 
 import { routes } from './app.routes';
+import { AuthService } from './core/auth/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,8 +38,12 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const http = inject(HttpClient);
       const configService = inject(AppConfigService);
+      const authService = inject(AuthService);
 
-      return initializeAppConfig(http, configService)();
+      return (async () => {
+        await initializeAppConfig(http, configService)();
+        await authService.restoreSession();
+      })();
     }),
   ],
 };

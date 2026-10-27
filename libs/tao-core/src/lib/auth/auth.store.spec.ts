@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 
 import { AuthStore } from './auth.store';
-import { AUTH_STORAGE_KEY } from './auth-storage';
 import { UserSummary } from '../contracts/user-summary';
 
 const user: UserSummary = {
@@ -27,7 +26,6 @@ describe('AuthStore', () => {
   };
 
   beforeEach(() => {
-    sessionStorage.clear();
     store = reloadStore();
   });
 
@@ -51,13 +49,13 @@ describe('AuthStore', () => {
     expect(store.isAuthenticated()).toBe(false);
   });
 
-  it('should keep the identity across a reload', () => {
+  it('should not treat an identity as authenticated after a reload', () => {
     store.signIn(user);
 
     const reloaded = reloadStore();
 
-    expect(reloaded.user()).toEqual(user);
-    expect(reloaded.isAuthenticated()).toBe(true);
+    expect(reloaded.user()).toBeNull();
+    expect(reloaded.isAuthenticated()).toBe(false);
   });
 
   it('should stay signed out after a reload when the user signed out', () => {
@@ -65,19 +63,5 @@ describe('AuthStore', () => {
     store.signOut();
 
     expect(reloadStore().user()).toBeNull();
-  });
-
-  it('should ignore an unreadable stored identity', () => {
-    sessionStorage.setItem(AUTH_STORAGE_KEY, '{ not json');
-
-    expect(reloadStore().user()).toBeNull();
-    expect(sessionStorage.getItem(AUTH_STORAGE_KEY)).toBeNull();
-  });
-
-  it('should ignore a stored value that is not an identity', () => {
-    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ email: 'nobody@tao.example' }));
-
-    expect(reloadStore().user()).toBeNull();
-    expect(sessionStorage.getItem(AUTH_STORAGE_KEY)).toBeNull();
   });
 });

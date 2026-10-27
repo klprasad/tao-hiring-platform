@@ -26,7 +26,7 @@ export class App {
 
   /** Clears the session and returns the user to the login screen. */
   protected async onSignOut(): Promise<void> {
-    this.authService.signOut();
+    await this.authService.signOut();
 
     await this.router.navigate(['/login']);
   }

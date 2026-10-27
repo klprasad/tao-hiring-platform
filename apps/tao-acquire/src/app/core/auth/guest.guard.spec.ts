@@ -23,9 +23,6 @@ const recruiter: UserSummary = {
 
 describe('guestGuard', () => {
   beforeEach(() => {
-    // A signed-in identity survives a reload, so every test starts from a clean session.
-    sessionStorage.clear();
-
     TestBed.configureTestingModule({ providers: [provideRouter([])] });
   });
 

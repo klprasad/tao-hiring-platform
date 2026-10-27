@@ -5,17 +5,6 @@ import { LoginCredentials } from '@tao/ui';
 import { Observable, firstValueFrom } from 'rxjs';
 import { loginModelDto } from '../../features/login/models/login.model';
 
-/**
- * Placeholder sign-in.
- *
- * The platform has no authentication endpoint yet (see `copilot.md`), so
- * `signIn` turns credentials that already passed form validation into a local
- * identity. It does **not** verify the credentials, and it stores neither the
- * password nor a token.
- *
- * Replace this implementation with the real API call before treating the login
- * screen as a security boundary.
- */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly authStore = inject(AuthStore);
@@ -28,21 +17,44 @@ export class AuthService {
    * surface in the caller's `catch` block.
    */
   async signIn(credentials: LoginCredentials): Promise<void> {
-    const user = await firstValueFrom(this.login(credentials));
+    await firstValueFrom(this.login(credentials));
+    const user = await firstValueFrom(this.getCurrentUser());
 
     this.authStore.signIn(user);
   }
 
-  login(request: LoginCredentials): Observable<UserSummary> {
+  login(request: LoginCredentials): Observable<void> {
     const payload: loginModelDto = {
       email: request.username,
       password: request.password,
     };
-    return this.api.post<UserSummary, loginModelDto>(`api/auth/login`, payload);
+    return this.api.post<void, loginModelDto>(`api/auth/login`, payload, {
+      skipErrorNotification: true,
+    });
   }
-  /** Signs the current user out. */
-  signOut(): void {
-    this.authStore.signOut();
+
+  getCurrentUser(): Observable<UserSummary> {
+    return this.api.get<UserSummary>('api/auth/me', { skipErrorNotification: true });
+  }
+
+  /** Loads the profile only when the server confirms the cookie session. */
+  async restoreSession(): Promise<void> {
+    try {
+      this.authStore.signIn(await firstValueFrom(this.getCurrentUser()));
+    } catch {
+      this.authStore.signOut();
+    }
+  }
+
+  /** Ends the server session and clears its in-memory profile. */
+  async signOut(): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.api.post<void>('api/auth/logout', undefined, { skipErrorNotification: true }),
+      );
+    } finally {
+      this.authStore.signOut();
+    }
   }
 
   /** Current identity, or `null` when nobody is signed in. */

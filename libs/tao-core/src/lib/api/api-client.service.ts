@@ -51,6 +51,9 @@ export interface ApiRequestOptions {
    * Whether to skip default loading indicator
    */
   skipLoading?: boolean;
+
+  /** Whether to suppress the default API error notification for this request. */
+  skipErrorNotification?: boolean;
 }
 
 /**
@@ -90,7 +93,7 @@ export class ApiClientService {
   ): Observable<ApiClientResponse<TResponse>> {
     return this.http.get<TResponse>(this.buildUrl(url), this.buildOptions(options)).pipe(
       map((response) => this.unwrapResponse(response)),
-      catchError((error) => this.handleError(error, 'GET', url)),
+      catchError((error) => this.handleError(error, 'GET', url, options?.skipErrorNotification)),
     );
   }
 
@@ -104,7 +107,7 @@ export class ApiClientService {
   ): Observable<ApiClientResponse<TResponse>> {
     return this.http.post<TResponse>(this.buildUrl(url), body, this.buildOptions(options)).pipe(
       map((response) => this.unwrapResponse(response)),
-      catchError((error) => this.handleError(error, 'POST', url)),
+      catchError((error) => this.handleError(error, 'POST', url, options?.skipErrorNotification)),
     );
   }
 
@@ -118,7 +121,7 @@ export class ApiClientService {
   ): Observable<ApiClientResponse<TResponse>> {
     return this.http.put<TResponse>(this.buildUrl(url), body, this.buildOptions(options)).pipe(
       map((response) => this.unwrapResponse(response)),
-      catchError((error) => this.handleError(error, 'PUT', url)),
+      catchError((error) => this.handleError(error, 'PUT', url, options?.skipErrorNotification)),
     );
   }
 
@@ -133,7 +136,7 @@ export class ApiClientService {
   ): Observable<ApiClientResponse<TResponse>> {
     return this.http.delete<TResponse>(this.buildUrl(url), this.buildOptions(options)).pipe(
       map((response) => this.unwrapResponse(response)),
-      catchError((error) => this.handleError(error, 'DELETE', url)),
+      catchError((error) => this.handleError(error, 'DELETE', url, options?.skipErrorNotification)),
     );
   }
 
@@ -245,11 +248,20 @@ export class ApiClientService {
    * Authentication, logging, notifications, etc. can later
    * be moved into interceptors if required.
    */
-  private handleError(error: unknown, method: string, url: string): Observable<never> {
-    console.error(`[API ${method}] ${url}`, error);
+  private handleError(
+    error: unknown,
+    method: string,
+    url: string,
+    skipErrorNotification = false,
+  ): Observable<never> {
+    if (!skipErrorNotification) {
+      console.error(`[API ${method}] ${url}`, error);
+    }
 
     if (error instanceof ApiException) {
-      this.responseErrorNotifier?.error(error.message);
+      if (!skipErrorNotification) {
+        this.responseErrorNotifier?.error(error.message);
+      }
       return throwError(() => error);
     }
 
@@ -260,12 +272,16 @@ export class ApiClientService {
           ? apiResponse.message
           : (this.formatErrors(apiResponse.errors) ?? 'The request failed.');
 
-      this.responseErrorNotifier?.error(message);
+      if (!skipErrorNotification) {
+        this.responseErrorNotifier?.error(message);
+      }
       return throwError(() => new ApiException(message, error.status, apiResponse));
     }
 
     const message = 'An unexpected error occurred.';
-    this.responseErrorNotifier?.error(message);
+    if (!skipErrorNotification) {
+      this.responseErrorNotifier?.error(message);
+    }
     return throwError(() => new ApiException(message, 0));
   }
 }

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
@@ -10,11 +10,6 @@ import { AcquireLogin } from './acquire-login';
 describe('Login', () => {
   let fixture: ComponentFixture<AcquireLogin>;
   let http: HttpTestingController;
-
-  beforeEach(() => {
-    // A signed-in identity survives a reload, so every test starts from a clean session.
-    sessionStorage.clear();
-  });
 
   const recruiter: UserSummary = {
     id: 'recruiter-001',
@@ -37,10 +32,7 @@ describe('Login', () => {
     input!.dispatchEvent(new Event('input'));
   };
 
-  /**
-   * Submits the form and answers the sign-in request the page sends, so the
-   * pending promise in the component can settle.
-   */
+  /** Submits the form and completes the login and current-user requests. */
   const submitCredentials = async (username: string, password: string): Promise<void> => {
     typeInto('#tao-login-username', username);
     typeInto('#tao-login-password', password);
@@ -54,7 +46,9 @@ describe('Login', () => {
 
     expect(request.request.body).toEqual({ email: username, password });
 
-    request.flush(recruiter);
+    request.flush(null, { status: 204, statusText: 'No Content' });
+    await fixture.whenStable();
+    http.expectOne((req) => req.url.endsWith('/api/auth/me')).flush(recruiter);
 
     await vi.waitFor(() => expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(true));
   };
@@ -138,6 +132,32 @@ describe('Login', () => {
     http
       .expectOne((req) => req.url.endsWith('/api/auth/login'))
       .flush({ message: 'Invalid credentials' }, { status: 401, statusText: 'Unauthorized' });
+
+    await vi.waitFor(() => expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(false));
+
+    expect(navigateByUrl).not.toHaveBeenCalled();
+  });
+
+  it('does not authenticate when the server cannot load the current user', async () => {
+    const { navigateByUrl } = await createPage();
+
+    typeInto('#tao-login-username', 'alex.morgan');
+    typeInto('#tao-login-password', 'secret123');
+    await fixture.whenStable();
+    host()
+      .querySelector('form')!
+      .dispatchEvent(new Event('submit', { cancelable: true }));
+
+    http
+      .expectOne((req) => req.url.endsWith('/api/auth/login'))
+      .flush(null, {
+        status: 204,
+        statusText: 'No Content',
+      });
+    await fixture.whenStable();
+    http
+      .expectOne((req) => req.url.endsWith('/api/auth/me'))
+      .flush({ message: 'Unauthorized' }, { status: 401, statusText: 'Unauthorized' });
 
     await vi.waitFor(() => expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(false));
 

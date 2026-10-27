@@ -74,6 +74,20 @@ describe('ApiClientService', () => {
     expect(requestError).toMatchObject({ message: 'Access denied' });
   });
 
+  it('can suppress notifications for expected authentication failures', () => {
+    let requestError: unknown;
+
+    apiClient
+      .get('/api/auth/me', { skipErrorNotification: true })
+      .subscribe({ error: (caught) => (requestError = caught) });
+    httpTestingController
+      .expectOne('https://api.test/api/auth/me')
+      .flush({ message: 'Unauthorized' }, { status: 401, statusText: 'Unauthorized' });
+
+    expect(error).not.toHaveBeenCalled();
+    expect(requestError).toMatchObject({ status: 401 });
+  });
+
   it('preserves responses that are not API envelopes', () => {
     let response: unknown;
 
