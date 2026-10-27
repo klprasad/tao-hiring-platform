@@ -227,7 +227,7 @@ export class QuestionPage implements OnInit {
       return;
     }
     if (question.isFollowUpQuestion) {
-      this.response.set('');
+      this.response.set('Do not know the answer');
       this.next();
       return;
     }
