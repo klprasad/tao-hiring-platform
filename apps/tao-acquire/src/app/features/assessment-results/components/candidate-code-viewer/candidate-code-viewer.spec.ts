@@ -17,6 +17,7 @@ describe('CandidateCodeViewer', () => {
       roundId: 'round-1',
       questionId: 'question-1',
       code: 'return true;',
+      language: 'python',
     });
     component = fixture.componentInstance;
     vi.spyOn(component, 'ngAfterViewInit').mockResolvedValue();
@@ -25,5 +26,6 @@ describe('CandidateCodeViewer', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.languageConfig()?.label).toBe('Python');
   });
 });

@@ -7,6 +7,7 @@ import {
   AssessmentSessionDto,
   AssessmentSessionWorkflowDto,
   SaveCandidateResponseResult,
+  updateCodingLanguageReq,
 } from '../models/assessment-session.model';
 import { loginModelDto } from '../models/login.model';
 
@@ -58,6 +59,12 @@ export class AssessmentService {
   getAssessmentContext(invitationId: string): Observable<AssessmentContextDto> {
     return this.api.get<AssessmentContextDto>(
       `/api/candidate/invitations/${invitationId}/assessment-context`,
+    );
+  }
+  updateCodingLanguage(questionId: string, request: updateCodingLanguageReq): Observable<void> {
+    return this.api.put<void, updateCodingLanguageReq>(
+      `/api/assessment-questions/${questionId}/language`,
+      request,
     );
   }
 }

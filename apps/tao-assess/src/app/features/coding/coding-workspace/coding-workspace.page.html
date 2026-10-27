@@ -7,8 +7,11 @@
     <div class="coding__title">
       <h1>Implement your solution</h1>
       <p>
-        Write your solution in
-        {{ languageConfig().label }}. Your code is saved automatically.
+        @if (languageConfig(); as config) {
+          Write your solution in {{ config.label }}. Your code is saved automatically.
+        } @else {
+          Select a coding language to begin.
+        }
       </p>
     </div>
 
@@ -84,18 +87,23 @@
       <div class="editor-panel__toolbar">
         <div class="file-tab">
           <span class="file-icon">
-            {{ languageConfig().icon }}
+            {{ languageConfig()?.icon ?? '--' }}
           </span>
 
           <span>
-            {{ languageConfig().fileName }}
+            {{ languageConfig()?.fileName ?? 'Select language' }}
           </span>
         </div>
 
         <label class="language" for="editor-language">
           <span class="language__dot" aria-hidden="true"></span>
           <span class="visually-hidden">Editor language</span>
-          <select id="editor-language" [value]="language()" (change)="onLanguageChange($event)">
+          <select
+            id="editor-language"
+            [value]="language() ?? ''"
+            (change)="onLanguageChange($event)"
+          >
+            <option value="" disabled>Select language</option>
             @for (option of availableLanguages; track option.id) {
               <option [value]="option.id">{{ option.label }}</option>
             }
@@ -112,7 +120,7 @@
           <span>•</span>
 
           <span>
-            {{ languageConfig().label }}
+            {{ languageConfig()?.label ?? 'No language selected' }}
           </span>
         </div>
         <div class="editor-actions">
@@ -129,6 +137,7 @@
             appearance="filled"
             color="primary"
             type="button"
+            [disabled]="!language()"
             (click)="next()"
           >
           </tao-button>

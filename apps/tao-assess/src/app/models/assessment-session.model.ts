@@ -180,3 +180,6 @@ export interface AssessmentContextDto {
   candidateApplicationId: string;
   assessmentStrategyId: string;
 }
+export interface updateCodingLanguageReq {
+  language: string;
+}

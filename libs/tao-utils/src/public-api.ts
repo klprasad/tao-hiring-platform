@@ -1,4 +1,5 @@
 export * from './lib/format-status';
+export * from './lib/coding-languages';
 export * from './lib/patterns';
 export * from './lib/validators';
 /*

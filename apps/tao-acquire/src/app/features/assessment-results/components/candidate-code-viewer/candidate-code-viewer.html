@@ -7,7 +7,7 @@
       </div>
 
       <span class="code-viewer__language">
-        {{ language() === 'csharp' ? 'C#' : language() === 'java' ? 'Java' : language() === 'python' ? 'Python' : language() === 'typescript' ? 'TypeScript' : 'JavaScript' }}
+        {{ languageConfig()?.label ?? response().language }}
       </span>
     </div>
 

@@ -73,6 +73,7 @@ export interface AssessmentQuestionCodeResponse {
   roundId: string;
   questionId: string;
   code: string;
+  language: string;
 }
 
 export type AssessmentConversationRole = 'assistant' | 'candidate';

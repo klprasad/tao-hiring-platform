@@ -5,19 +5,14 @@ import {
   ElementRef,
   OnDestroy,
   ViewChild,
+  computed,
   input,
 } from '@angular/core';
 import loader from '@monaco-editor/loader';
 import type * as Monaco from 'monaco-editor';
 import { TaoCardComponent } from '@tao/ui';
+import { getCodingLanguageConfig } from '@tao/utils';
 import { AssessmentQuestionCodeResponse } from '../../models/assessment-result.models';
-
-export type CodingLanguage = 'csharp' | 'java' | 'python' | 'typescript' | 'javascript';
-
-interface MonacoLanguageConfig {
-  monacoId: string;
-  label: string;
-}
 
 @Component({
   selector: 'tao-candidate-code-viewer',
@@ -32,7 +27,7 @@ export class CandidateCodeViewer implements AfterViewInit, OnDestroy {
   private readonly editorHost!: ElementRef<HTMLDivElement>;
 
   readonly response = input.required<AssessmentQuestionCodeResponse>();
-  readonly language = input<CodingLanguage>('csharp');
+  readonly languageConfig = computed(() => getCodingLanguageConfig(this.response().language));
 
   private editor?: Monaco.editor.IStandaloneCodeEditor;
   private model?: Monaco.editor.ITextModel;
@@ -44,8 +39,11 @@ export class CandidateCodeViewer implements AfterViewInit, OnDestroy {
       if (!this.monaco) {
         return;
       }
-      const config = this.getLanguageConfig(this.language());
-      this.model = this.monaco.editor.createModel(this.response().code, config.monacoId);
+      const config = this.languageConfig();
+      this.model = this.monaco.editor.createModel(
+        this.response().code,
+        config?.monacoId ?? 'plaintext',
+      );
 
       this.editor = this.monaco.editor.create(this.editorHost.nativeElement, {
         model: this.model,
@@ -87,17 +85,5 @@ export class CandidateCodeViewer implements AfterViewInit, OnDestroy {
     this.model = undefined;
 
     this.monaco = undefined;
-  }
-
-  private getLanguageConfig(language: CodingLanguage): MonacoLanguageConfig {
-    const configs: Record<CodingLanguage, MonacoLanguageConfig> = {
-      csharp: { monacoId: 'csharp', label: 'C#' },
-      java: { monacoId: 'java', label: 'Java' },
-      python: { monacoId: 'python', label: 'Python' },
-      typescript: { monacoId: 'typescript', label: 'TypeScript' },
-      javascript: { monacoId: 'javascript', label: 'JavaScript' },
-    };
-
-    return configs[language];
   }
 }

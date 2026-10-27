@@ -191,10 +191,6 @@ export class QuestionPage implements OnInit {
   }
 
   next(): void {
-    if (!this.canContinue()) {
-      return;
-    }
-
     const question = this.responseQuestion();
 
     if (!question) {
