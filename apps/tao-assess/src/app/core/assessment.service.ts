@@ -54,7 +54,7 @@ export class AssessmentService {
     return this.api.post(`/api/candidate/invitations/${invitationId}/signup`, request);
   }
   getAuthUser(): Observable<UserSummary> {
-    return this.api.get<UserSummary>(`/api/auth/me`);
+    return this.api.get<UserSummary>(`/api/assess/auth/me`);
   }
   getAssessmentContext(invitationId: string): Observable<AssessmentContextDto> {
     return this.api.get<AssessmentContextDto>(

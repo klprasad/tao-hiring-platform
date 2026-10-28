@@ -28,13 +28,13 @@ export class AuthService {
       email: request.username,
       password: request.password,
     };
-    return this.api.post<void, loginModelDto>(`api/auth/login`, payload, {
+    return this.api.post<void, loginModelDto>(`api/acquire/auth/login`, payload, {
       skipErrorNotification: true,
     });
   }
 
   getCurrentUser(): Observable<UserSummary> {
-    return this.api.get<UserSummary>('api/auth/me', { skipErrorNotification: true });
+    return this.api.get<UserSummary>('api/acquire/auth/me', { skipErrorNotification: true });
   }
 
   /** Loads the profile only when the server confirms the cookie session. */
@@ -50,7 +50,7 @@ export class AuthService {
   async signOut(): Promise<void> {
     try {
       await firstValueFrom(
-        this.api.post<void>('api/auth/logout', undefined, { skipErrorNotification: true }),
+        this.api.post<void>('api/acquire/auth/logout', undefined, { skipErrorNotification: true }),
       );
     } finally {
       this.authStore.signOut();

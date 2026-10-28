@@ -42,13 +42,13 @@ describe('Login', () => {
       .querySelector('form')!
       .dispatchEvent(new Event('submit', { cancelable: true }));
 
-    const request = http.expectOne((req) => req.url.endsWith('/api/auth/login'));
+    const request = http.expectOne((req) => req.url.endsWith('/api/acquire/auth/login'));
 
     expect(request.request.body).toEqual({ email: username, password });
 
     request.flush(null, { status: 204, statusText: 'No Content' });
     await fixture.whenStable();
-    http.expectOne((req) => req.url.endsWith('/api/auth/me')).flush(recruiter);
+    http.expectOne((req) => req.url.endsWith('/api/acquire/auth/me')).flush(recruiter);
 
     await vi.waitFor(() => expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(true));
   };
@@ -130,7 +130,7 @@ describe('Login', () => {
       .dispatchEvent(new Event('submit', { cancelable: true }));
 
     http
-      .expectOne((req) => req.url.endsWith('/api/auth/login'))
+      .expectOne((req) => req.url.endsWith('/api/acquire/auth/login'))
       .flush({ message: 'Invalid credentials' }, { status: 401, statusText: 'Unauthorized' });
 
     await vi.waitFor(() => expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(false));
@@ -149,14 +149,14 @@ describe('Login', () => {
       .dispatchEvent(new Event('submit', { cancelable: true }));
 
     http
-      .expectOne((req) => req.url.endsWith('/api/auth/login'))
+      .expectOne((req) => req.url.endsWith('/api/acquire/auth/login'))
       .flush(null, {
         status: 204,
         statusText: 'No Content',
       });
     await fixture.whenStable();
     http
-      .expectOne((req) => req.url.endsWith('/api/auth/me'))
+      .expectOne((req) => req.url.endsWith('/api/acquire/auth/me'))
       .flush({ message: 'Unauthorized' }, { status: 401, statusText: 'Unauthorized' });
 
     await vi.waitFor(() => expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(false));
@@ -177,7 +177,7 @@ describe('Login', () => {
     await fixture.whenStable();
 
     expect(TestBed.inject(AuthStore).isAuthenticated()).toBe(false);
-    expect(http.match((req) => req.url.endsWith('/api/auth/login')).length).toBe(0);
+    expect(http.match((req) => req.url.endsWith('/api/acquire/auth/login')).length).toBe(0);
     expect(navigateByUrl).not.toHaveBeenCalled();
   });
 });

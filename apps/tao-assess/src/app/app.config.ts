@@ -14,6 +14,7 @@ import { provideRouter } from '@angular/router';
 import {
   AppConfigService,
   API_RESPONSE_ERROR_NOTIFIER,
+  TAO_APPLICATION_ID,
   authInterceptor,
   httpLoadingInterceptor,
   initializeAppConfig,
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     ToasterService,
     { provide: API_RESPONSE_ERROR_NOTIFIER, useExisting: ToasterService },
+    { provide: TAO_APPLICATION_ID, useValue: 'assess' },
     provideBrowserGlobalErrorListeners(),
 
     provideAnimationsAsync(),
