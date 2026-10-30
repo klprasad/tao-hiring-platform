@@ -14,6 +14,7 @@ export interface TaoDialogData {
   selector: 'tao-dialog',
   imports: [MatDialogModule, TaoButtonComponent],
   templateUrl: './tao-dialog.component.html',
+  styleUrl: './tao-dialog.component.scss',
 })
 export class TaoDialogComponent {
   readonly data = inject<TaoDialogData>(MAT_DIALOG_DATA);

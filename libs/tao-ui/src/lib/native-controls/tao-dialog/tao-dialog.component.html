@@ -6,7 +6,7 @@
   <ng-content />
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" class="action-buttons">
   @if (type === 'confirm') {
     <tao-button label="Cancel" appearance="outlined" color="basic" (click)="cancel()" />
   }

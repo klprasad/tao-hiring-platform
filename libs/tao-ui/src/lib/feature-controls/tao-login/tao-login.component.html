@@ -11,14 +11,14 @@
     }
 
     <div class="field">
-      <label class="field-label" for="tao-login-username">User name or email</label>
+      <label class="field-label" for="tao-login-username">email</label>
 
       <input
         id="tao-login-username"
         class="field-input"
         type="text"
         autocomplete="username"
-        placeholder="firstname.lastname or you@example.com"
+        placeholder="you@example.com"
         [formField]="loginForm.username"
         (blur)="normalizeUsername()"
         [attr.aria-invalid]="showUsernameErrors()"
