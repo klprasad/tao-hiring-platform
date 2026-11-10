@@ -40,17 +40,23 @@ describe('CandidateShellComponent', () => {
     expect(fixture.nativeElement.querySelector('[role="alertdialog"]')).toBeNull();
   });
 
-  it('shows a dismissible warning when an active assessment loses window focus', () => {
+  it('shows a dismissible warning when an active assessment regains window focus', () => {
     TestBed.inject(AssessmentSessionStore).started.set(true);
 
     window.dispatchEvent(new Event('blur'));
     fixture.detectChanges();
 
     const host = fixture.nativeElement as HTMLElement;
+    expect(fixture.componentInstance.focusWarningPending()).toBe(true);
+    expect(host.querySelector('[role="alertdialog"]')).toBeNull();
+
+    window.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
     expect(host.querySelector('[role="alertdialog"]')).toBeTruthy();
     host.querySelector<HTMLButtonElement>('[role="alertdialog"] button')?.click();
     fixture.detectChanges();
     expect(host.querySelector('[role="alertdialog"]')).toBeNull();
+    expect(fixture.componentInstance.focusWarningPending()).toBe(false);
   });
 
   it('shows a warning when an active assessment tab becomes hidden', () => {
@@ -60,8 +66,16 @@ describe('CandidateShellComponent', () => {
 
     document.dispatchEvent(new Event('visibilitychange'));
     fixture.detectChanges();
+    expect(fixture.componentInstance.focusWarningPending()).toBe(true);
+    expect(fixture.nativeElement.querySelector('[role="alertdialog"]')).toBeNull();
 
-    expect(fixture.nativeElement.querySelector('[role="alertdialog"]')).toBeTruthy();
+    Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'visible' });
+    document.dispatchEvent(new Event('visibilitychange'));
+    window.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('[role="alertdialog"]')).toHaveLength(1);
+    expect(fixture.componentInstance.focusWarningPending()).toBe(true);
 
     if (visibilityDescriptor) {
       Object.defineProperty(document, 'visibilityState', visibilityDescriptor);

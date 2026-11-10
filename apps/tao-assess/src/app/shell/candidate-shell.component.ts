@@ -18,36 +18,61 @@ export class CandidateShellComponent {
   protected loadingService = inject(HttpLoadingService);
   readonly loading = this.loadingService.isLoading;
   readonly focusWarningVisible = signal(false);
+  readonly focusWarningPending = signal(false);
 
-  private readonly handleWindowBlur = (): void => this.showFocusWarningForActiveAssessment();
+  private readonly handleWindowBlur = (): void => this.recordFocusLoss();
+
+  private readonly handleWindowFocus = (): void => this.showWarningAfterFocusReturns();
 
   private readonly handleVisibilityChange = (): void => {
     if (document.visibilityState === 'hidden') {
-      this.showFocusWarningForActiveAssessment();
+      this.recordFocusLoss();
+    } else {
+      this.showWarningAfterFocusReturns();
+    }
+  };
+
+  private readonly handleBeforeUnload = (event: BeforeUnloadEvent): void => {
+    if (this.isAssessmentActive()) {
+      event.preventDefault();
+      event.returnValue = '';
     }
   };
 
   constructor() {
     window.addEventListener('blur', this.handleWindowBlur);
+    window.addEventListener('focus', this.handleWindowFocus);
     document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
 
     this.destroyRef.onDestroy(() => {
       window.removeEventListener('blur', this.handleWindowBlur);
+      window.removeEventListener('focus', this.handleWindowFocus);
       document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+      window.removeEventListener('beforeunload', this.handleBeforeUnload);
     });
   }
 
   dismissFocusWarning(): void {
     this.focusWarningVisible.set(false);
+    this.focusWarningPending.set(false);
   }
 
-  private showFocusWarningForActiveAssessment(): void {
-    if (
-      this.sessionStore.started() &&
-      !this.sessionStore.submitted() &&
-      !this.sessionStore.expired()
-    ) {
+  private recordFocusLoss(): void {
+    if (this.isAssessmentActive()) {
+      this.focusWarningPending.set(true);
+    }
+  }
+
+  private showWarningAfterFocusReturns(): void {
+    if (this.focusWarningPending() && this.isAssessmentActive()) {
       this.focusWarningVisible.set(true);
     }
+  }
+
+  private isAssessmentActive(): boolean {
+    return (
+      this.sessionStore.started() && !this.sessionStore.submitted() && !this.sessionStore.expired()
+    );
   }
 }

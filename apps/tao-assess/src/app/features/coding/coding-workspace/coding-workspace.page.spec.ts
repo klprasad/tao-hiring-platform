@@ -85,4 +85,24 @@ describe('CodingWorkspacePage', () => {
     expect(fixture.componentInstance.language()).toBeNull();
     expect(fixture.componentInstance.languageConfig()).toBeNull();
   });
+
+  it('blocks clipboard shortcuts and paste events before Monaco handles them', () => {
+    fixture.detectChanges();
+    const editorHost = fixture.nativeElement.querySelector('.monaco-host') as HTMLDivElement;
+
+    for (const key of ['c', 'x', 'v']) {
+      const event = new KeyboardEvent('keydown', {
+        key,
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true,
+      });
+      editorHost.dispatchEvent(event);
+      expect(event.defaultPrevented).toBe(true);
+    }
+
+    const pasteEvent = new Event('paste', { bubbles: true, cancelable: true });
+    editorHost.dispatchEvent(pasteEvent);
+    expect(pasteEvent.defaultPrevented).toBe(true);
+  });
 });

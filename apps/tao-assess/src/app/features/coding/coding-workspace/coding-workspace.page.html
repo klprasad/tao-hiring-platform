@@ -111,15 +111,7 @@
         </label>
       </div>
 
-      <div
-        #editorHost
-        class="monaco-host"
-        aria-label="Code editor"
-        (copy)="$event.preventDefault()"
-        (cut)="$event.preventDefault()"
-        (paste)="$event.preventDefault()"
-        (drop)="$event.preventDefault()"
-      ></div>
+      <div #editorHost class="monaco-host" aria-label="Code editor"></div>
 
       <footer class="editor-panel__footer">
         <div class="editor-meta">

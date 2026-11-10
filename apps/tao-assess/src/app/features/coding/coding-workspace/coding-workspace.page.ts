@@ -55,6 +55,22 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   private monaco?: typeof import('monaco-editor');
   private currentQuestionId?: string;
   private viewInitialized = false;
+  private readonly preventClipboardEvent = (event: Event): void => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  };
+  private readonly preventClipboardShortcut = (event: KeyboardEvent): void => {
+    const key = event.key.toLowerCase();
+    const hasClipboardModifier = event.ctrlKey || event.metaKey;
+    const isClipboardShortcut =
+      (hasClipboardModifier && ['c', 'x', 'v'].includes(key)) ||
+      (event.ctrlKey && key === 'insert') ||
+      (event.shiftKey && ['insert', 'delete'].includes(key));
+
+    if (isClipboardShortcut) {
+      this.preventClipboardEvent(event);
+    }
+  };
 
   constructor() {
     effect(() => {
@@ -87,6 +103,8 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   }
 
   async ngAfterViewInit(): Promise<void> {
+    this.addClipboardGuards();
+
     try {
       /**
        * loader.init() returns the Monaco namespace.
@@ -403,6 +421,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.removeClipboardGuards();
     this.editor?.dispose();
     this.editor = undefined;
 
@@ -410,5 +429,23 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
     this.model = undefined;
 
     this.monaco = undefined;
+  }
+
+  private addClipboardGuards(): void {
+    const host = this.editorHost.nativeElement;
+    host.addEventListener('keydown', this.preventClipboardShortcut, true);
+
+    for (const eventName of ['copy', 'cut', 'paste', 'drop']) {
+      host.addEventListener(eventName, this.preventClipboardEvent, true);
+    }
+  }
+
+  private removeClipboardGuards(): void {
+    const host = this.editorHost.nativeElement;
+    host.removeEventListener('keydown', this.preventClipboardShortcut, true);
+
+    for (const eventName of ['copy', 'cut', 'paste', 'drop']) {
+      host.removeEventListener(eventName, this.preventClipboardEvent, true);
+    }
   }
 }
