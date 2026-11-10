@@ -172,6 +172,10 @@
             [disabled]="isResponseDisabled()"
             [ngModel]="response()"
             (ngModelChange)="onResponse($event)"
+            (copy)="$event.preventDefault()"
+            (cut)="$event.preventDefault()"
+            (paste)="$event.preventDefault()"
+            (drop)="$event.preventDefault()"
           />
 
           <!-- ================================================= -->

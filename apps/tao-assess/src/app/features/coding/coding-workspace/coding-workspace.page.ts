@@ -104,6 +104,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
       this.editor = this.monaco!.editor.create(this.editorHost.nativeElement, {
         model: this.model,
         theme: 'vs-dark',
+        contextmenu: false,
         automaticLayout: true,
         minimap: {
           enabled: false,
