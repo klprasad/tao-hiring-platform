@@ -16,4 +16,25 @@
     <tao-loading-state [loading]="loading()"></tao-loading-state>
     <router-outlet></router-outlet>
   </main>
+
+  @if (focusWarningVisible()) {
+    <div class="focus-warning__backdrop">
+      <section
+        class="focus-warning"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="focus-warning-title"
+        aria-describedby="focus-warning-description"
+      >
+        <h2 id="focus-warning-title">Stay in your assessment</h2>
+        <p id="focus-warning-description">
+          This assessment tab became hidden or lost focus. Please keep this window active while you
+          complete your assessment.
+        </p>
+        <button type="button" autofocus (click)="dismissFocusWarning()">
+          Return to assessment
+        </button>
+      </section>
+    </div>
+  }
 </div>
