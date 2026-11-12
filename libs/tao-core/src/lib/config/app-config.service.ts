@@ -31,6 +31,14 @@ export class AppConfigService {
     return config.apiUrl;
   }
 
+  get allowCopyPaste(): boolean {
+    return this.config()?.allowCopyPaste ?? false;
+  }
+
+  get maxAllowedWindowLeavePopups(): number {
+    return Math.max(0, this.config()?.maxAllowedWindowLeavePopups ?? 2);
+  }
+
   get value(): AppConfig {
     const config = this.config();
 

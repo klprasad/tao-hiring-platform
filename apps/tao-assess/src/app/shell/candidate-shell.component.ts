@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AppConfigService, HttpLoadingService } from '@tao/core';
 import { TaoLoadingStateComponent, TaoThemeSwitcherComponent } from '@tao/ui';
-import { HttpLoadingService } from '@tao/core';
+import { AssessmentNavigationService } from '../core/assessment-navigation.service';
 import { AssessmentSessionStore } from '../core/assessment-session.store';
 
 @Component({
@@ -14,11 +15,15 @@ import { AssessmentSessionStore } from '../core/assessment-session.store';
 })
 export class CandidateShellComponent {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly appConfig = inject(AppConfigService);
+  private readonly assessmentNavigation = inject(AssessmentNavigationService);
   private readonly sessionStore = inject(AssessmentSessionStore);
   protected loadingService = inject(HttpLoadingService);
   readonly loading = this.loadingService.isLoading;
   readonly focusWarningVisible = signal(false);
   readonly focusWarningPending = signal(false);
+  readonly focusWarningCount = signal(0);
+  readonly maxAllowedWindowLeavePopups = this.appConfig.maxAllowedWindowLeavePopups;
 
   private readonly handleWindowBlur = (): void => this.recordFocusLoss();
 
@@ -55,7 +60,6 @@ export class CandidateShellComponent {
 
   dismissFocusWarning(): void {
     this.focusWarningVisible.set(false);
-    this.focusWarningPending.set(false);
   }
 
   private recordFocusLoss(): void {
@@ -66,6 +70,17 @@ export class CandidateShellComponent {
 
   private showWarningAfterFocusReturns(): void {
     if (this.focusWarningPending() && this.isAssessmentActive()) {
+      this.focusWarningPending.set(false);
+      const count = this.focusWarningCount() + 1;
+      this.focusWarningCount.set(count);
+
+      if (count > this.appConfig.maxAllowedWindowLeavePopups) {
+        this.sessionStore.submit();
+        this.focusWarningVisible.set(false);
+        void this.assessmentNavigation.submitted();
+        return;
+      }
+
       this.focusWarningVisible.set(true);
     }
   }

@@ -17,6 +17,7 @@ import {
 import { CodingWorkspacePage } from '../../coding/coding-workspace/coding-workspace.page';
 
 import { TaoButtonComponent, TaoTextareaComponent, ToasterService } from '@tao/ui';
+import { AppConfigService } from '@tao/core';
 
 @Component({
   selector: 'tao-question',
@@ -27,6 +28,7 @@ import { TaoButtonComponent, TaoTextareaComponent, ToasterService } from '@tao/u
 })
 export class QuestionPage implements OnInit {
   readonly store = inject(AssessmentSessionStore);
+  private readonly appConfig = inject(AppConfigService);
   private readonly toaster = inject(ToasterService);
   private readonly assessmentService = inject(AssessmentService);
   private readonly assessmentNavigationService = inject(AssessmentNavigationService);
@@ -152,6 +154,12 @@ export class QuestionPage implements OnInit {
       return;
     }
     this.response.set(value);
+  }
+
+  onClipboardAction(event: Event): void {
+    if (!this.appConfig.allowCopyPaste) {
+      event.preventDefault();
+    }
   }
 
   onCodingContinue(code: string): void {

@@ -22,6 +22,7 @@ import { AssessmentService } from '../../../core/assessment.service';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentQuestionDto } from '../../../models/assessment-session.model';
 import { TaoButtonComponent, ToasterService } from '@tao/ui';
+import { AppConfigService } from '@tao/core';
 
 @Component({
   selector: 'tao-coding-workspace',
@@ -34,6 +35,7 @@ import { TaoButtonComponent, ToasterService } from '@tao/ui';
 export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   @ViewChild('editorHost', { static: true })
   private readonly editorHost!: ElementRef<HTMLDivElement>;
+  private readonly appConfig = inject(AppConfigService);
   private readonly assessmentService = inject(AssessmentService);
   readonly toaster = inject(ToasterService);
   readonly store = inject(AssessmentSessionStore);
@@ -103,7 +105,9 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    this.addClipboardGuards();
+    if (!this.appConfig.allowCopyPaste) {
+      this.addClipboardGuards();
+    }
 
     try {
       /**
@@ -122,7 +126,7 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
       this.editor = this.monaco!.editor.create(this.editorHost.nativeElement, {
         model: this.model,
         theme: 'vs-dark',
-        contextmenu: false,
+        contextmenu: this.appConfig.allowCopyPaste,
         automaticLayout: true,
         minimap: {
           enabled: false,
@@ -432,6 +436,10 @@ export class CodingWorkspacePage implements AfterViewInit, OnDestroy {
   }
 
   private addClipboardGuards(): void {
+    if (this.appConfig.allowCopyPaste) {
+      return;
+    }
+
     const host = this.editorHost.nativeElement;
     host.addEventListener('keydown', this.preventClipboardShortcut, true);
 

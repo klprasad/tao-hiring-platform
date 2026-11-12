@@ -1,20 +1,31 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
-import { HttpLoadingService } from '@tao/core';
+import { AppConfigService, HttpLoadingService } from '@tao/core';
+import { vi } from 'vitest';
 import { CandidateShellComponent } from './candidate-shell.component';
+import { AssessmentNavigationService } from '../core/assessment-navigation.service';
 import { AssessmentSessionStore } from '../core/assessment-session.store';
 
 describe('CandidateShellComponent', () => {
   let fixture: ComponentFixture<CandidateShellComponent>;
   const isLoading = signal(false);
+  const submitted = vi.fn();
 
   beforeEach(async () => {
     isLoading.set(false);
+    submitted.mockReset();
     await TestBed.configureTestingModule({
       imports: [CandidateShellComponent],
-      providers: [{ provide: HttpLoadingService, useValue: { isLoading } }],
+      providers: [
+        { provide: HttpLoadingService, useValue: { isLoading } },
+        { provide: AssessmentNavigationService, useValue: { submitted } },
+      ],
     }).compileComponents();
+    TestBed.inject(AppConfigService).setConfig({
+      apiUrl: 'https://localhost:44329',
+      maxAllowedWindowLeavePopups: 2,
+    });
     fixture = TestBed.createComponent(CandidateShellComponent);
     fixture.detectChanges();
   });
@@ -53,6 +64,12 @@ describe('CandidateShellComponent', () => {
     window.dispatchEvent(new Event('focus'));
     fixture.detectChanges();
     expect(host.querySelector('[role="alertdialog"]')).toBeTruthy();
+    expect(host.querySelector('#focus-warning-description')?.textContent).toContain(
+      'leave the assessment window up to 2 times',
+    );
+    expect(host.querySelector('#focus-warning-description')?.textContent).toContain(
+      'submitted automatically',
+    );
     host.querySelector<HTMLButtonElement>('[role="alertdialog"] button')?.click();
     fixture.detectChanges();
     expect(host.querySelector('[role="alertdialog"]')).toBeNull();
@@ -75,12 +92,37 @@ describe('CandidateShellComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('[role="alertdialog"]')).toHaveLength(1);
-    expect(fixture.componentInstance.focusWarningPending()).toBe(true);
+    expect(fixture.componentInstance.focusWarningPending()).toBe(false);
 
     if (visibilityDescriptor) {
       Object.defineProperty(document, 'visibilityState', visibilityDescriptor);
     } else {
       Reflect.deleteProperty(document, 'visibilityState');
     }
+  });
+
+  it('submits the assessment after more focus-loss popups than configured', () => {
+    const store = TestBed.inject(AssessmentSessionStore);
+    store.started.set(true);
+    const component = fixture.componentInstance;
+
+    for (let count = 0; count < 2; count += 1) {
+      window.dispatchEvent(new Event('blur'));
+      window.dispatchEvent(new Event('focus'));
+      fixture.detectChanges();
+      expect(component.focusWarningCount()).toBe(count + 1);
+      const host = fixture.nativeElement as HTMLElement;
+      host.querySelector<HTMLButtonElement>('[role="alertdialog"] button')?.click();
+      fixture.detectChanges();
+    }
+
+    window.dispatchEvent(new Event('blur'));
+    window.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
+
+    expect(component.focusWarningCount()).toBe(3);
+    expect(store.submitted()).toBe(true);
+    expect(submitted).toHaveBeenCalledOnce();
+    expect(fixture.nativeElement.querySelector('[role="alertdialog"]')).toBeNull();
   });
 });

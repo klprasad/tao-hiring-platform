@@ -5,6 +5,7 @@ import { AssessmentService } from '../../../core/assessment.service';
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentRoundType } from '../../../models/assessment-session.model';
 import { CodingWorkspacePage } from './coding-workspace.page';
+import { AppConfigService } from '@tao/core';
 
 describe('CodingWorkspacePage', () => {
   let fixture: ComponentFixture<CodingWorkspacePage>;
@@ -104,5 +105,19 @@ describe('CodingWorkspacePage', () => {
     const pasteEvent = new Event('paste', { bubbles: true, cancelable: true });
     editorHost.dispatchEvent(pasteEvent);
     expect(pasteEvent.defaultPrevented).toBe(true);
+  });
+
+  it('allows clipboard actions when enabled in runtime configuration', () => {
+    TestBed.inject(AppConfigService).setConfig({
+      apiUrl: 'https://localhost:44329',
+      allowCopyPaste: true,
+    });
+    fixture.detectChanges();
+    const editorHost = fixture.nativeElement.querySelector('.monaco-host') as HTMLDivElement;
+    const pasteEvent = new Event('paste', { bubbles: true, cancelable: true });
+
+    editorHost.dispatchEvent(pasteEvent);
+
+    expect(pasteEvent.defaultPrevented).toBe(false);
   });
 });

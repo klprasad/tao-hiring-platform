@@ -29,7 +29,9 @@
         <h2 id="focus-warning-title">Stay in your assessment</h2>
         <p id="focus-warning-description">
           This assessment tab became hidden or lost focus. Please keep this window active while you
-          complete your assessment.
+          complete your assessment. You may leave the assessment window up to
+          {{ maxAllowedWindowLeavePopups }} times. If you exceed this limit, your assessment will be
+          submitted automatically.
         </p>
         <button type="button" autofocus (click)="dismissFocusWarning()">
           Return to assessment

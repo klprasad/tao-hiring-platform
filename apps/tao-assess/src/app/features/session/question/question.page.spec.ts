@@ -7,6 +7,7 @@ import { AssessmentSessionStore } from '../../../core/assessment-session.store';
 import { AssessmentRoundType } from '../../../models/assessment-session.model';
 import { ToasterService } from '@tao/ui';
 import { QuestionPage } from './question.page';
+import { AppConfigService } from '@tao/core';
 
 describe('QuestionPage', () => {
   let fixture: ComponentFixture<QuestionPage>;
@@ -59,5 +60,19 @@ describe('QuestionPage', () => {
     fixture.componentInstance.next();
 
     expect(saveCandidateResponse).not.toHaveBeenCalled();
+  });
+
+  it('respects the runtime copy and paste setting for written responses', () => {
+    const appConfig = TestBed.inject(AppConfigService);
+    const pasteEvent = new Event('paste', { cancelable: true });
+
+    appConfig.setConfig({ apiUrl: 'https://localhost:44329', allowCopyPaste: false });
+    fixture.componentInstance.onClipboardAction(pasteEvent);
+    expect(pasteEvent.defaultPrevented).toBe(true);
+
+    appConfig.setConfig({ apiUrl: 'https://localhost:44329', allowCopyPaste: true });
+    const allowedPasteEvent = new Event('paste', { cancelable: true });
+    fixture.componentInstance.onClipboardAction(allowedPasteEvent);
+    expect(allowedPasteEvent.defaultPrevented).toBe(false);
   });
 });
