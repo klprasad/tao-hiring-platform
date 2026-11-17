@@ -8,7 +8,6 @@ import {
   TaoDataTableComponent,
   TaoEmptyStateComponent,
   TaoLoadingStateComponent,
-  TaoPageHeaderComponent,
   TaoTableColumn,
   TaoTableConfig,
 } from '@tao/ui';
@@ -44,7 +43,6 @@ interface CandidateResultRow {
     TaoDataTableComponent,
     TaoEmptyStateComponent,
     TaoLoadingStateComponent,
-    TaoPageHeaderComponent,
     TaoButtonComponent,
     CandidateAssessmentSummaryComponent,
     AssessmentRoundResultsComponent,

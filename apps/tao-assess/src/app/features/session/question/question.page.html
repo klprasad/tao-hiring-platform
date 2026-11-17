@@ -10,12 +10,7 @@
           {{ currentRoundName() }}
         </div>
 
-        <div class="question-position">
-          Question
-          {{ currentQuestionNumber() }}
-          of
-          {{ totalQuestions() }}
-        </div>
+        <div class="question-position">Your current question</div>
       </div>
 
       <!-- =================================================== -->
@@ -76,9 +71,6 @@
               <div class="follow-ups__header">
                 <span class="eyebrow"> Follow-up Discussion </span>
 
-                <span class="follow-ups__count">
-                  {{ followUpQuestions().length }}
-                </span>
               </div>
 
               <!-- Follow-up Questions -->
@@ -100,9 +92,6 @@
                       }
                     </span>
 
-                    <span class="question-card__label">
-                      Follow-up {{ followUpQuestions().length - index }}
-                    </span>
                   </div>
 
                   <!-- Question -->

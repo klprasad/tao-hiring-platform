@@ -450,3 +450,10 @@
   font-size: 12px;
   line-height: 16px;
 }
+
+
+/* TAO enterprise control refinement */
+:host { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+:host ::ng-deep .mat-mdc-form-field { width: 100%; }
+:host ::ng-deep .mat-mdc-text-field-wrapper { background: #fff; border-radius: 9px; }

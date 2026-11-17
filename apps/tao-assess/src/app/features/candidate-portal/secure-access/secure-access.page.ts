@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,7 +7,7 @@ import { TaoButtonComponent } from '@tao/ui';
 @Component({
   selector: 'tao-secure-access',
   standalone: true,
-  imports: [FormsModule, TaoButtonComponent],
+  imports: [FormsModule, TaoButtonComponent, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './secure-access.page.html',
   styleUrl: './secure-access.page.scss',

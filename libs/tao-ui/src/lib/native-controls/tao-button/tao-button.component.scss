@@ -395,3 +395,15 @@ button.tao-button.mat-mdc-button {
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
+
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+.tao-button { font-weight: 650 !important; letter-spacing: 0 !important; }
+.tao-button--small { border-radius: 8px !important; }
+.tao-button--medium { border-radius: 9px !important; }
+.tao-button--large { border-radius: 10px !important; }
+button.tao-button--filled.tao-button--primary { background: #4263eb !important; border-color: #4263eb !important; color: #fff !important; box-shadow: 0 2px 5px rgb(49 86 216 / 16%) !important; }
+button.tao-button--filled.tao-button--primary:hover:not(:disabled) { background: #3156d8 !important; border-color: #3156d8 !important; }
+button.tao-button--outlined.tao-button--primary { border-color: #cbd5f5 !important; color: #3156d8 !important; }
+button.tao-button--outlined.tao-button--primary:hover:not(:disabled) { background: #f4f6ff !important; border-color: #9eaff5 !important; }

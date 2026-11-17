@@ -1,53 +1,31 @@
-<tao-page-header
-  title="Good morning, {{ user()?.firstName }} {{ user()?.lastName }}"
-  description="A clear view of the work moving through your hiring pipeline."
->
-  <tao-button label="Create campaign" color="primary" (click)="createCampaign()" />
-</tao-page-header>
-<div class="metrics">
-  <tao-card title="Open campaigns"><strong>12</strong><small>+2 this month</small></tao-card>
-  <tao-card title="Candidates in review"
-    ><strong>248</strong><small>18 need your attention</small></tao-card
-  >
-  <tao-card title="Active assessments"
-    ><strong>36</strong><small>94% completion rate</small></tao-card
-  >
-</div>
-<div class="grid">
-  <tao-card title="Attention needed">
-    <div class="attention">
-      <span class="dot amber"></span>
-      <div>
-        <strong>Senior Product Designer</strong
-        ><small>7 candidates ready for shortlist review</small>
-      </div>
-      <tao-button label="Review" appearance="text" />
+<section class="dashboard-page">
+  <header class="dashboard-hero">
+    <div class="dashboard-hero__copy">
+      <span class="dashboard-kicker">TAO ACQUIRE / WORKSPACE</span>
+      <h1>Good morning, {{ user()?.firstName }} {{ user()?.lastName }}</h1>
+      <p>Your hiring work, priorities and campaign momentum in one place.</p>
     </div>
-    <div class="attention">
-      <span class="dot blue"></span>
-      <div><strong>Backend Engineer</strong><small>Assessment strategy needs approval</small></div>
-      <tao-button label="Open" appearance="text" />
-    </div>
-    <div class="attention">
-      <span class="dot green"></span>
-      <div><strong>Growth Marketing Lead</strong><small>New resumes imported recently</small></div>
-      <tao-button label="View" appearance="text" />
-    </div>
-  </tao-card>
-  <tao-card title="Active campaigns">
-    <div class="campaign">
-      <span
-        ><strong>Senior Product Designer</strong><small>12 candidates - Updated today</small></span
-      ><b>Active</b>
-    </div>
-    <div class="campaign">
-      <span><strong>Backend Engineer</strong><small>42 candidates - Updated yesterday</small></span
-      ><b>Active</b>
-    </div>
-    <div class="campaign">
-      <span
-        ><strong>Customer Success Lead</strong><small>28 candidates - Updated Aug 29</small></span
-      ><b>Draft</b>
-    </div>
-  </tao-card>
-</div>
+    <tao-button label="Create campaign" icon="add" color="primary" (click)="createCampaign()" />
+  </header>
+
+  <section class="dashboard-metrics" aria-label="Hiring overview">
+    <tao-card><div class="metric-label"><span class="metric-icon metric-icon--blue"><mat-icon>work_outline</mat-icon></span>Open campaigns</div><strong>12</strong><small>+2 created this month</small></tao-card>
+    <tao-card><div class="metric-label"><span class="metric-icon metric-icon--violet"><mat-icon>groups</mat-icon></span>Candidates in review</div><strong>248</strong><small>18 need your attention</small></tao-card>
+    <tao-card><div class="metric-label"><span class="metric-icon metric-icon--green"><mat-icon>fact_check</mat-icon></span>Active assessments</div><strong>36</strong><small>94% completion rate</small></tao-card>
+  </section>
+
+  <div class="dashboard-columns">
+    <section class="dashboard-panel dashboard-panel--attention">
+      <div class="dashboard-panel__heading"><div><span class="dashboard-kicker">PRIORITIES</span><h2>Needs your attention</h2><p>Items waiting for a recruiter action</p></div><span class="attention-count">3</span></div>
+      <div class="attention"><span class="attention-icon attention-icon--amber"><mat-icon>fact_check</mat-icon></span><div><strong>Senior Product Designer</strong><small>7 candidates are ready for shortlist review</small></div><tao-button label="Review" appearance="text" /></div>
+      <div class="attention"><span class="attention-icon attention-icon--blue"><mat-icon>rule</mat-icon></span><div><strong>Backend Engineer</strong><small>Assessment strategy needs approval</small></div><tao-button label="Open" appearance="text" /></div>
+      <div class="attention"><span class="attention-icon attention-icon--green"><mat-icon>description</mat-icon></span><div><strong>Growth Marketing Lead</strong><small>New resumes were imported recently</small></div><tao-button label="View" appearance="text" /></div>
+    </section>
+    <section class="dashboard-panel dashboard-panel--campaigns">
+      <div class="dashboard-panel__heading"><div><span class="dashboard-kicker">LIVE WORK</span><h2>Active campaigns</h2><p>Current hiring activity across your roles</p></div></div>
+      <div class="campaign"><span class="campaign-avatar">PD</span><span><strong>Senior Product Designer</strong><small>12 candidates · Updated today</small></span><b>Active</b></div>
+      <div class="campaign"><span class="campaign-avatar">BE</span><span><strong>Backend Engineer</strong><small>42 candidates · Updated yesterday</small></span><b>Active</b></div>
+      <div class="campaign"><span class="campaign-avatar">CS</span><span><strong>Customer Success Lead</strong><small>28 candidates · Updated Aug 29</small></span><b class="campaign-status--draft">Draft</b></div>
+    </section>
+  </div>
+</section>

@@ -1,28 +1,42 @@
-<div class="page">
-  <tao-page-header
-    title="Resume Process"
-    description="Import candidate resumes into this campaign."
-  />
+<section class="resume-workspace">
+  <header class="resume-workspace__hero">
+    <div>
+      <span class="workspace-kicker">CAMPAIGN WORKFLOW / CANDIDATE INTAKE</span>
+      <h1>Import resumes</h1>
+      <p>Add candidate documents to this campaign for screening.</p>
+    </div>
+  </header>
 
-  <tao-card title="Import Resumes">
-    <div class="import-section">
-      <!-- Information -->
-      <div class="import-info">
-        <div class="import-info__icon">
-          <span>↑</span>
+  <div class="resume-import-layout">
+    <tao-card class="resume-guidance-panel">
+      <span class="workspace-kicker">BEFORE YOU IMPORT</span>
+      <h2>Resume intake</h2>
+      <p>Choose one or more documents. Processing starts automatically after upload.</p>
+      <div class="upload-rules">
+        <div class="upload-rule">
+          <span class="upload-rule__icon">✓</span>
+          <span
+            >Up to <strong>{{ maxFiles }}</strong> files per import</span
+          >
         </div>
-
-        <div class="import-info__content">
-          <h3>Upload candidate resumes</h3>
-
-          <p>
-            Select one or more resume files to import into this campaign. The system will process
-            the resumes automatically after upload.
-          </p>
+        <div class="upload-rule">
+          <span class="upload-rule__icon">✓</span>
+          <span>Maximum <strong>10 MB</strong> per file</span>
+        </div>
+        <div class="upload-rule">
+          <span class="upload-rule__icon">✓</span>
+          <span>PDF and supported document formats</span>
         </div>
       </div>
+    </tao-card>
 
-      <!-- Upload area -->
+    <tao-card class="resume-upload-panel">
+      <header class="resume-upload-panel__heading">
+        <div>
+          <span class="workspace-kicker">FILE UPLOAD</span>
+          <h2>Select candidate resumes</h2>
+        </div>
+      </header>
       <div class="upload-area">
         <input
           #fileInput
@@ -34,58 +48,31 @@
           [disabled]="isUploading() || !campaignId"
           (change)="onFilesSelected($event)"
         />
-
         <label
           for="resumeFiles"
           class="upload-area__content"
           [class.upload-area__content--disabled]="isUploading() || !campaignId"
         >
-          <div class="upload-area__icon">
-            <span>↑</span>
-          </div>
-
-          <div class="upload-area__title">
+          <span class="upload-area__icon" aria-hidden="true">↑</span>
+          <strong class="upload-area__title">
             @if (isUploading()) {
               Uploading resumes...
             } @else {
               Select resume files
             }
-          </div>
-
+          </strong>
           <div class="upload-area__description">Click here to browse and select files</div>
-
           <div class="upload-area__formats">
             Supported formats:
             <strong>{{ acceptedFormats }}</strong>
           </div>
         </label>
       </div>
+    </tao-card>
+  </div>
 
-      <!-- Upload restrictions -->
-      <div class="upload-rules">
-        <div class="upload-rule">
-          <span class="upload-rule__icon">✓</span>
-          <span
-            >Up to <strong>{{ maxFiles }}</strong> files per import</span
-          >
-        </div>
-
-        <div class="upload-rule">
-          <span class="upload-rule__icon">✓</span>
-          <span>Maximum <strong>10 MB</strong> per file</span>
-        </div>
-
-        <div class="upload-rule">
-          <span class="upload-rule__icon">✓</span>
-          <span>PDF and supported document formats</span>
-        </div>
-      </div>
-    </div>
-  </tao-card>
-
-  <!-- Import started -->
   @if (batchId(); as id) {
-    <tao-card title="Import Started">
+    <tao-card class="resume-import-success">
       <div class="import-success">
         <div class="import-success__icon">✓</div>
 
@@ -106,4 +93,4 @@
       </div>
     </tao-card>
   }
-</div>
+</section>

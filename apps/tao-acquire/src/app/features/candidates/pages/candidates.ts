@@ -13,7 +13,7 @@ import {
   tap,
 } from 'rxjs';
 
-import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
+import { TaoButtonComponent } from '@tao/ui';
 
 import { CandidateDto, ResumeScreeningProgress } from '../models/candidates.mode';
 import { CandidatesService } from '../data-access/candidates.service';
@@ -22,7 +22,7 @@ type CandidateFilter = 'all' | 'recommended' | 'rejected';
 
 @Component({
   selector: 'tao-candidates',
-  imports: [TaoCardComponent, TaoPageHeaderComponent, TaoButtonComponent],
+  imports: [TaoButtonComponent],
   templateUrl: './candidates.html',
   styleUrl: './candidates.scss',
 })

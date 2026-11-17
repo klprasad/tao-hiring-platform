@@ -156,3 +156,21 @@
   outline: 3px solid #b45309;
   outline-offset: 3px;
 }
+
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+.candidate-shell { background: #f5f7fb; color: #1e293b; }
+.candidate-shell__header { height: 64px; padding: 0 40px; background: #fff; border-bottom: 1px solid #e8edf4; }
+.candidate-shell__brand { gap: 10px; color: #1e293b; }
+.candidate-shell__status { width: 9px; height: 9px; background: #16a36a; box-shadow: 0 0 0 4px #e8f7ef; }
+.candidate-shell__logo { color: #243b68; font-size: 19px; letter-spacing: .06em; }
+.candidate-shell__divider { height: 22px; margin: 0 8px; background: #e2e8f0; }
+.candidate-shell__title { color: #64748b; font-size: 13px; font-weight: 500; }
+.candidate-shell__content { min-height: calc(100vh - 64px); padding: 36px 28px 56px; align-items: flex-start; }
+.focus-warning { border-radius: 14px; border-color: #e2e8f0; box-shadow: 0 24px 64px rgb(15 23 42 / 16%); }
+.focus-warning button { border-radius: 8px; background: #4263eb; }
+.focus-warning button:hover { background: #3156d8; }
+
+/* Candidate shell: quiet, distraction-free assessment frame */
+.candidate-shell__header{height:60px;padding:0 36px;border-bottom-color:#e7ebf2;box-shadow:0 1px 3px rgb(22 38 61 / 2%)}.candidate-shell__brand{gap:11px;color:#25354d}.candidate-shell__status{background:#35a875;box-shadow:0 0 0 3px rgb(53 168 117 / 12%)}.candidate-shell__logo{font-size:17px;letter-spacing:-.03em}.candidate-shell__title{color:#718097;font-size:12px;font-weight:550}.candidate-shell__content{width:100%;min-height:calc(100vh - 60px);padding:0 0 30px;box-sizing:border-box}.candidate-shell tao-theme-switcher{display:none}

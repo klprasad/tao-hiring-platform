@@ -1,8 +1,10 @@
-<div class="page">
-  <tao-page-header
-    title="Create job profile"
-    subtitle="Define the role requirements for your hiring team."
-  >
+<section class="job-profile-form-workspace">
+  <header class="job-profile-form-workspace__hero">
+    <div>
+      <span class="workspace-kicker">CAMPAIGN WORKFLOW / ROLE DEFINITION</span>
+      <h1>Create job profile</h1>
+      <p>Define the role requirements for your hiring team.</p>
+    </div>
     <tao-button
       appearance="icon"
       icon="arrow_back"
@@ -10,8 +12,8 @@
       tooltip="Back to job profiles"
       (click)="cancel()"
     />
-  </tao-page-header>
-  <div class="content">
+  </header>
+  <main class="job-profile-form-workspace__content">
     <tao-job-profile-form (submitted)="createProfile($event)" (cancelled)="cancel()" />
-  </div>
-</div>
+  </main>
+</section>

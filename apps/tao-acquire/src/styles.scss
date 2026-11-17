@@ -27,3 +27,300 @@ body {
   --mat-snack-bar-button-color: #ffffff;
 }
 /* You can add global styles to this file, and also import other style files */
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+html {
+  min-width: 320px;
+}
+body {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1e293b;
+  font-size: 14px;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+.mat-mdc-snack-bar-container.tao-toast--success {
+  --mat-snack-bar-container-color: #16845a;
+}
+.mat-mdc-snack-bar-container.tao-toast--error {
+  --mat-snack-bar-container-color: #b42318;
+}
+.mat-mdc-snack-bar-container.tao-toast--info {
+  --mat-snack-bar-container-color: #315fd4;
+}
+
+/* A single, intentional brand theme is used across the recruiter workspace. */
+.theme-picker {
+  display: none !important;
+}
+
+.hiring-workspace {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 30px 36px 48px;
+  color: #17243a;
+}
+
+.hiring-workspace__hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e7ebf2;
+}
+
+.workspace-kicker {
+  display: block;
+  margin-bottom: 9px;
+  color: #71809a;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+}
+
+.hiring-workspace__hero h1 {
+  margin: 0;
+  color: #17243a;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.hiring-workspace__hero p {
+  margin: 8px 0 0;
+  color: #748198;
+  font-size: 13px;
+}
+
+.hiring-workspace__error {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px solid #f1caca;
+  border-radius: 8px;
+  background: #fff7f7;
+  color: #a93232;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .hiring-workspace {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 680px) {
+  .hiring-workspace {
+    padding: 16px;
+  }
+}
+
+.job-profile-form-workspace {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 30px 36px 48px;
+  color: #17243a;
+}
+
+.job-profile-form-workspace__hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e7ebf2;
+}
+
+.job-profile-form-workspace__hero h1 {
+  margin: 0;
+  color: #17243a;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.job-profile-form-workspace__hero p {
+  margin: 8px 0 0;
+  color: #748198;
+  font-size: 13px;
+}
+
+.job-profile-form-workspace__content {
+  margin-top: 22px;
+}
+.job-profile-form-workspace__error {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px solid #f1caca;
+  border-radius: 8px;
+  background: #fff7f7;
+  color: #a93232;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .job-profile-form-workspace {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 680px) {
+  .job-profile-form-workspace {
+    padding: 16px;
+  }
+  .job-profile-form-workspace__hero {
+    align-items: flex-start;
+  }
+}
+
+.campaign-overview-page {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 30px 36px 48px;
+}
+.campaign-overview-page .campaign-header {
+  align-items: flex-end;
+}
+.campaign-stage {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #eaf7f0;
+  color: #23845a;
+  font-size: 11px;
+  font-weight: 650;
+}
+.campaign-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.75fr);
+  gap: 18px;
+  align-items: start;
+  margin-top: 20px;
+}
+.workflow-panel,
+.campaign-summary-panel {
+  display: block;
+  min-width: 0;
+}
+.campaign-summary-panel .campaign-summary {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.summary-panel-heading {
+  margin-bottom: 16px;
+}
+.summary-panel-heading h2 {
+  margin: 0;
+  color: #1d2b42;
+  font-size: 17px;
+}
+.overview-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: #71809a;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.resume-workspace {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 30px 36px 48px;
+  color: #17243a;
+}
+.resume-workspace__hero {
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e7ebf2;
+}
+.resume-workspace__hero .workspace-kicker,
+.resume-upload-panel__heading .workspace-kicker,
+.resume-guidance-panel .workspace-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: #71809a;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+.resume-workspace__hero h1 {
+  margin: 0;
+  color: #17243a;
+  font-size: 30px;
+  line-height: 1.2;
+}
+.resume-workspace__hero p,
+.resume-guidance-panel p {
+  margin: 8px 0 0;
+  color: #748198;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.resume-import-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.35fr);
+  gap: 18px;
+  align-items: start;
+  margin-top: 22px;
+}
+.resume-guidance-panel,
+.resume-upload-panel {
+  display: block;
+  min-width: 0;
+}
+.resume-guidance-panel h2,
+.resume-upload-panel h2 {
+  margin: 0;
+  color: #1d2b42;
+  font-size: 17px;
+}
+.resume-guidance-panel .upload-rules {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px;
+}
+.resume-upload-panel__heading {
+  margin-bottom: 18px;
+}
+.resume-upload-panel .upload-area__input {
+  pointer-events: auto;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.resume-upload-panel .upload-area__input:focus-visible + .upload-area__content {
+  outline: 3px solid #4263eb;
+  outline-offset: 3px;
+}
+.resume-import-success {
+  display: block;
+  margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+  .campaign-overview-page,
+  .resume-workspace {
+    padding: 22px;
+  }
+  .campaign-overview-grid,
+  .resume-import-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .campaign-overview-page,
+  .resume-workspace {
+    padding: 16px;
+  }
+  .campaign-overview-page .campaign-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

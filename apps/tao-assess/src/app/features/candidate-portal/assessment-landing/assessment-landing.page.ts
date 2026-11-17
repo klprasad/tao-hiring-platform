@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 
 import { AssessmentSessionStore } from '../../../core/assessment-session.store';
@@ -12,7 +13,7 @@ import { TaoButtonComponent, ToasterService } from '@tao/ui';
 
 @Component({
   selector: 'tao-assessment-landing',
-  imports: [TaoButtonComponent],
+  imports: [TaoButtonComponent, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './assessment-landing.page.html',
   styleUrl: './assessment-landing.page.scss',

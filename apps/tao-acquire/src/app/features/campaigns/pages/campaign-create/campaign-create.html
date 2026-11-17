@@ -1,21 +1,6 @@
-<div class="page">
-  <tao-page-header
-    title="Create Campaign"
-    description="Set up a hiring campaign and configure the requirements for candidate evaluation"
-  >
-    <tao-button
-      appearance="icon"
-      icon="arrow_back"
-      color="primary"
-      label="Back to Campaigns"
-      tooltip="Back to Campaigns"
-      (click)="cancel()"
-    >
-    </tao-button>
-  </tao-page-header>
-
-  <div class="content">
-    <tao-campaign-form (submitted)="createCampaign($event)" (cancelled)="cancel()">
-    </tao-campaign-form>
+<section class="campaign-create-workspace">
+  <header class="campaign-create-heading"><div><span class="workspace-kicker">CAMPAIGN SETUP</span><h1>Create a hiring campaign</h1><p>Start with the role you need to fill. You can refine the profile and hiring workflow in the next steps.</p></div><tao-button appearance="outlined" icon="arrow_back" label="Back to campaigns" (click)="cancel()" /></header>
+  <div class="campaign-create-layout"><aside class="campaign-create-aside"><span class="campaign-create-aside__icon"><mat-icon>workspaces</mat-icon></span><h2>Build your hiring workspace</h2><p>Each campaign keeps its role profile, candidate pipeline and assessment plan together.</p><div class="campaign-create-aside__step"><span>01</span><div><strong>Define the role</strong><small>Set the position and hiring context</small></div></div><div class="campaign-create-aside__step"><span>02</span><div><strong>Review the job profile</strong><small>Generate and approve role requirements</small></div></div><div class="campaign-create-aside__step"><span>03</span><div><strong>Move through the pipeline</strong><small>Screen candidates and plan assessments</small></div></div></aside>
+    <main class="campaign-create-form"><tao-campaign-form (submitted)="createCampaign($event)" (cancelled)="cancel()"></tao-campaign-form></main>
   </div>
-</div>
+</section>

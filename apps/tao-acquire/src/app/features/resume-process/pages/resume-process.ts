@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoCardComponent, TaoPageHeaderComponent, ToasterService } from '@tao/ui';
+import { TaoCardComponent, ToasterService } from '@tao/ui';
 import { ResumeImportService } from '../data-access/resume-import.service';
 import {
   RESUME_IMPORT_ALLOWED_EXTENSIONS,
@@ -11,7 +11,7 @@ import {
 
 @Component({
   selector: 'tao-resume-process',
-  imports: [TaoCardComponent, TaoPageHeaderComponent],
+  imports: [TaoCardComponent],
   templateUrl: './resume-process.html',
   styleUrl: './resume-process.scss',
 })

@@ -2,7 +2,6 @@ import { Component, computed, inject, input, OnInit, output, signal } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoPageHeaderComponent } from '@tao/ui';
 import { AuthStore } from '@tao/core';
 import { JobProfileService } from '../../data-access/job-profile.service';
 import { mapJobProfileFormToRegenerateDto } from '../../data-access/job-profile.mapper';
@@ -11,7 +10,7 @@ import { JobProfileVm, RegenerateJobProfileForm } from '../../models/job-profile
 import { JobProfileFormComponent } from '../../components/job-profile-form/job-profile-form';
 @Component({
   selector: 'tao-job-profile-edit',
-  imports: [TaoPageHeaderComponent, JobProfileFormComponent],
+  imports: [JobProfileFormComponent],
   templateUrl: './job-profile-edit.html',
   styleUrl: './job-profile-edit.scss',
 })

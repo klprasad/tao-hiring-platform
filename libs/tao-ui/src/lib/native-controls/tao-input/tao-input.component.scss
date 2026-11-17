@@ -453,3 +453,10 @@
   input.mat-mdc-input-element {
   cursor: not-allowed;
 }
+
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+.field { --mdc-outlined-text-field-outline-color: #dbe3ee; --mdc-outlined-text-field-hover-outline-color: #aab9d0; --mdc-outlined-text-field-focus-outline-color: #4263eb; --mdc-outlined-text-field-input-text-color: #263449; --mdc-outlined-text-field-label-text-color: #52627a; --mdc-outlined-text-field-focus-label-text-color: #4263eb; }
+.field-label { color: #475569; font-weight: 600; }
+:host ::ng-deep .field .mat-mdc-text-field-wrapper { border-radius: 9px; }

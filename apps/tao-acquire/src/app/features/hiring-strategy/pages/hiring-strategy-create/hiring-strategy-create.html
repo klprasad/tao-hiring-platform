@@ -1,10 +1,15 @@
-<div class="page">
-  <tao-page-header
-    title="Hiring strategy"
-    description="Generate and approve the recruitment strategy for this campaign."
-  >
-  </tao-page-header>
+<section class="hiring-workspace">
+  <header class="hiring-workspace__hero">
+    <div>
+      <span class="workspace-kicker">CAMPAIGN WORKFLOW / STRATEGY</span>
+      <h1>Generate hiring strategy</h1>
+      <p>Build a candidate profile and screening threshold from the approved job profile.</p>
+    </div>
+  </header>
+  @if (errorMessage()) {
+    <p class="hiring-workspace__error" role="alert">{{ errorMessage() }}</p>
+  }
   @if (strategy(); as currentStrategy) {
     <tao-hiring-strategy-edit [profile]="currentStrategy" />
   }
-</div>
+</section>

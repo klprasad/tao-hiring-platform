@@ -1,22 +1,21 @@
 <main class="assessment-results-page">
-  <header class="assessment-results-page__header">
-    <tao-page-header
-      kicker="TAO Acquire"
-      title="Assessment Results"
-      description="Review candidate assessment outcomes, inspect round performance, and drill into question-level evidence."
-    >
-      @if (selectedCandidate()) {
-        <tao-button
-          label="Back to candidates"
-          icon="arrow_back"
-          appearance="outlined"
-          color="basic"
-          size="small"
-          tooltip="Back to candidates"
-          (click)="backToCandidates()"
-        />
-      }
-    </tao-page-header>
+  <header class="assessment-results-page__hero">
+    <div>
+      <span class="workspace-kicker">CAMPAIGN WORKFLOW / EVALUATION</span>
+      <h1>Assessment results</h1>
+      <p>Review candidate outcomes, round performance, and question-level evidence.</p>
+    </div>
+    @if (selectedCandidate()) {
+      <tao-button
+        label="Back to candidates"
+        icon="arrow_back"
+        appearance="outlined"
+        color="basic"
+        size="small"
+        tooltip="Back to candidates"
+        (click)="backToCandidates()"
+      />
+    }
   </header>
 
   @if (loadingCandidates()) {

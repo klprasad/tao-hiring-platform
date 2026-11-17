@@ -1,22 +1,15 @@
-<div class="page">
-  <header class="campaign-header">
-    <div class="campaign-heading">
-      <div class="campaign-mark" aria-hidden="true">
-        <mat-icon>workspaces</mat-icon>
-      </div>
-
-      <div class="campaign-title">
-        <h1>Hiring Campaigns</h1>
-        <p>Track progress and manage your open roles.</p>
-      </div>
+<section class="campaign-workspace">
+  <header class="campaign-workspace__hero">
+    <div class="campaign-workspace__copy">
+      <span class="workspace-kicker">RECRUITER WORKSPACE</span>
+      <h1>Hiring campaigns</h1>
+      <p>Track progress and manage the roles your team is hiring for.</p>
     </div>
 
-    <div class="campaign-actions">
+    <div class="campaign-workspace__actions">
       <label class="search-control">
         <mat-icon aria-hidden="true">search</mat-icon>
-
-        <span class="visually-hidden"> Search campaigns </span>
-
+        <span class="visually-hidden">Search campaigns</span>
         <input
           type="search"
           placeholder="Search campaigns..."
@@ -36,7 +29,14 @@
     </div>
   </header>
 
-  <div class="campaign-list-card">
+  <section class="campaign-list-card" aria-label="Campaign list">
+    <div class="campaign-list-card__heading">
+      <div>
+        <span class="workspace-kicker">ALL ROLES</span>
+        <h2>Campaign directory</h2>
+      </div>
+      <span class="campaign-list-card__count">{{ filteredCampaigns().length }} shown</span>
+    </div>
     @if (filteredCampaigns().length > 0) {
       <tao-data-table
         [columns]="columns"
@@ -53,5 +53,5 @@
         message="Try changing your search or create a new campaign."
       />
     }
-  </div>
-</div>
+  </section>
+</section>

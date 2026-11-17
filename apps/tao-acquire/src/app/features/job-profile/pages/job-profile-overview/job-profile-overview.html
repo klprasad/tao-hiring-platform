@@ -1,44 +1,21 @@
 @if (!isEditing() && !profileNotFound()) {
-  <div class="page">
-    <tao-page-header
-      title="Job profile"
-      description="Review the AI-generated job profile and approve it for the hiring workflow."
-    >
-    </tao-page-header>
+  <section class="job-profile-workspace">
+    <header class="job-profile-heading"><div><span class="workspace-kicker">CAMPAIGN SETUP / JOB PROFILE</span><h1>Job profile review</h1><p>Validate the AI-generated role definition before moving to hiring strategy.</p></div><span class="review-state"><mat-icon>auto_awesome</mat-icon>AI generated</span></header>
     @if (loadedProfile(); as currentProfile) {
-      <div class="content">
-        <tao-job-profile-preview [generatedContent]="currentProfile.generatedContent">
-        </tao-job-profile-preview>
-
-        <div class="form-actions">
-          <tao-button type="button" label="Back" appearance="outlined" (click)="cancel()" />
-
+      <div class="job-profile-layout">
+        <main class="job-profile-document"><tao-job-profile-preview [generatedContent]="currentProfile.generatedContent"></tao-job-profile-preview></main>
+        <aside class="job-profile-actions"><span class="job-profile-actions__icon"><mat-icon>fact_check</mat-icon></span><h2>Review and approve</h2><p>Check the generated role profile for accuracy and make any required edits before approval.</p>
           @if (currentProfile.status === status.Generated) {
-            <tao-button
-              type="button"
-              label="Edit Profile"
-              appearance="filled"
-              color="primary"
-              (click)="editProfile()"
-            ></tao-button>
-            <tao-button
-              type="button"
-              label="Approve job profile"
-              appearance="filled"
-              color="primary"
-              [disabled]="isApproving()"
-              (click)="approve()"
-            />
-          }
-        </div>
+            <tao-button type="button" label="Edit profile" appearance="outlined" color="primary" [fullWidth]="true" (click)="editProfile()"></tao-button>
+            <tao-button type="button" label="Approve job profile" appearance="filled" color="primary" [fullWidth]="true" [disabled]="isApproving()" (click)="approve()" />
+          } @else { <span class="approval-state"><mat-icon>check_circle</mat-icon>Profile approved</span> }
+          <tao-button type="button" label="Back" appearance="text" (click)="cancel()" />
+        </aside>
       </div>
     }
-  </div>
+  </section>
 } @else if (profileNotFound()) {
   <tao-job-profile-create (jobProfile)="createdJobProfile($event)"></tao-job-profile-create>
 } @else if (loadedProfile(); as currentProfile) {
-  <tao-job-profile-edit
-    [profile]="currentProfile"
-    (refresh)="reloadJobProfile()"
-  ></tao-job-profile-edit>
+  <tao-job-profile-edit [profile]="currentProfile" (refresh)="reloadJobProfile()"></tao-job-profile-edit>
 }

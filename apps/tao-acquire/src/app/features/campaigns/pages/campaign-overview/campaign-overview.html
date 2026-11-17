@@ -1,4 +1,4 @@
-<div class="page">
+<main class="page campaign-overview-page">
   <header class="campaign-header">
     <div class="campaign-header__main">
       <tao-button
@@ -11,123 +11,87 @@
       >
       </tao-button>
       <div>
-        <div class="eyebrow">Hiring Campaign</div>
-
-        <h1>
-          {{ campaignWorkflow()?.campaignName }}
-        </h1>
+        <div class="eyebrow">CAMPAIGN WORKSPACE</div>
+        <h1>{{ campaignWorkflow()?.campaignName }}</h1>
       </div>
     </div>
+    @if (campaignWorkflow(); as workflow) {
+      <span class="campaign-stage">{{ workflow.currentStage }}</span>
+    }
   </header>
-  <tao-card>
-    <section class="workflow">
-      <div class="section-header">
-        <div>
-          <h2>Campaign Workflow</h2>
-          <p>Complete each stage to progress your campaign.</p>
-        </div>
 
-        <span class="workflow-progress">
-          {{ completedSteps() }} of {{ steps().length }} completed
-        </span>
-      </div>
-
-      <div class="workflow-list">
-        @for (step of steps(); track step.id; let last = $last) {
-          <div class="workflow-item">
-            <button
-              class="workflow-step"
-              [class.workflow-step--completed]="step.status === 'completed'"
-              [class.workflow-step--active]="step.status === 'in-progress'"
-              [class.workflow-step--disabled]="step.status === 'not-started'"
-              [disabled]="step.status === 'not-started'"
-              (click)="navigateToStep(step)"
-            >
-              <div class="workflow-step__icon">
-                @if (step.status === 'completed') {
-                  <mat-icon>check</mat-icon>
-                } @else if (step.status === 'in-progress') {
-                  <mat-icon>arrow_forward</mat-icon>
-                } @else {
-                  <mat-icon>radio_button_unchecked</mat-icon>
-                }
-              </div>
-
-              <div class="workflow-step__content">
-                <div class="workflow-step__title">
-                  {{ step.name }}
-                </div>
-
-                <div class="workflow-step__description">
-                  {{ step.description }}
-                </div>
-              </div>
-
-              <mat-icon class="workflow-step__arrow"> chevron_right </mat-icon>
-            </button>
-
-            @if (!last) {
-              <div
-                class="workflow-connector"
-                [class.workflow-connector--completed]="step.status === 'completed'"
-              ></div>
-            }
-          </div>
-        }
-      </div>
-    </section>
-
-    <section class="overview-grid">
-      <tao-card title="Campaign Summary">
-        <dl class="campaign-summary">
-          <div class="summary-item">
-            <dt>
-              <mat-icon>event</mat-icon>
-              Current Stage
-            </dt>
-
-            <dd>
-              {{ campaignWorkflow()?.currentStage }}
-            </dd>
-          </div>
-
-          <div class="summary-item">
-            <dt>
-              <mat-icon>work_outline</mat-icon>
-              Campaign Name
-            </dt>
-
-            <dd>
-              {{ campaignWorkflow()?.campaignName }}
-            </dd>
-          </div>
-
-          <div class="summary-item">
-            <dt>
-              <mat-icon>people_outline</mat-icon>
-              Completion %
-            </dt>
-
-            <dd>
-              {{ campaignWorkflow()?.completionPercentage }}
-            </dd>
-          </div>
-        </dl>
-      </tao-card>
-
-      <!-- <tao-card title="Next Recommended Action">
-        <div class="next-action">
-          <div class="next-action__icon">
-            <mat-icon>people</mat-icon>
-          </div>
-
+  <div class="campaign-overview-grid">
+    <tao-card class="workflow-panel">
+      <section class="workflow">
+        <div class="section-header">
           <div>
-            <strong> Continue candidate screening </strong>
-
-            <p>Review candidates and build your shortlist before configuring assessments.</p>
+            <span class="overview-kicker">CAMPAIGN PROGRESS</span>
+            <h2>Workflow</h2>
+            <p>Move through each stage to bring this role to completion.</p>
           </div>
+          <span class="workflow-progress">
+            {{ completedSteps() }} of {{ steps().length }} completed
+          </span>
         </div>
-      </tao-card> -->
-    </section>
-  </tao-card>
-</div>
+        <div class="workflow-list">
+          @for (step of steps(); track step.id; let last = $last) {
+            <div class="workflow-item">
+              <button
+                class="workflow-step"
+                [class.workflow-step--completed]="step.status === 'completed'"
+                [class.workflow-step--active]="step.status === 'in-progress'"
+                [class.workflow-step--disabled]="step.status === 'not-started'"
+                [disabled]="step.status === 'not-started'"
+                (click)="navigateToStep(step)"
+              >
+                <div class="workflow-step__icon">
+                  @if (step.status === 'completed') {
+                    <mat-icon>check</mat-icon>
+                  } @else if (step.status === 'in-progress') {
+                    <mat-icon>arrow_forward</mat-icon>
+                  } @else {
+                    <mat-icon>radio_button_unchecked</mat-icon>
+                  }
+                </div>
+
+                <div class="workflow-step__content">
+                  <div class="workflow-step__title">{{ step.name }}</div>
+                  <div class="workflow-step__description">{{ step.description }}</div>
+                </div>
+                <mat-icon class="workflow-step__arrow"> chevron_right </mat-icon>
+              </button>
+
+              @if (!last) {
+                <div
+                  class="workflow-connector"
+                  [class.workflow-connector--completed]="step.status === 'completed'"
+                ></div>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    </tao-card>
+
+    <tao-card class="campaign-summary-panel">
+      <header class="summary-panel-heading">
+        <span class="overview-kicker">AT A GLANCE</span>
+        <h2>Campaign summary</h2>
+      </header>
+      <dl class="campaign-summary">
+        <div class="summary-item">
+          <dt><mat-icon>event</mat-icon>Current stage</dt>
+          <dd>{{ campaignWorkflow()?.currentStage }}</dd>
+        </div>
+        <div class="summary-item">
+          <dt><mat-icon>work_outline</mat-icon>Campaign name</dt>
+          <dd>{{ campaignWorkflow()?.campaignName }}</dd>
+        </div>
+        <div class="summary-item">
+          <dt><mat-icon>people_outline</mat-icon>Completion</dt>
+          <dd>{{ campaignWorkflow()?.completionPercentage }}</dd>
+        </div>
+      </dl>
+    </tao-card>
+  </div>
+</main>

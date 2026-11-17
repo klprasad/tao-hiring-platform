@@ -1,8 +1,9 @@
+import { MatIconModule } from '@angular/material/icon';
 import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 
-import { TaoButtonComponent, TaoPageHeaderComponent } from '@tao/ui';
+import { TaoButtonComponent } from '@tao/ui';
 import { AuthStore } from '@tao/core';
 import { JobProfileService } from '../../data-access/job-profile.service';
 import { mapJobProfileDtoToVm } from '../../data-access/job-profile.mapper';
@@ -15,8 +16,8 @@ import { CampaignService } from '../../../campaigns/data-access/campaign.service
 
 @Component({
   imports: [
+    MatIconModule,
     TaoButtonComponent,
-    TaoPageHeaderComponent,
     JobProfilePreviewComponent,
     JobProfileEditComponent,
     JobProfileCreateComponent,

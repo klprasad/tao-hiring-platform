@@ -637,3 +637,157 @@ nav a.active {
 .top-actions .user-menu-item:focus-visible {
   background: var(--tao-color-fdecea);
 }
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+:host {
+  color: #1e293b;
+}
+.shell {
+  background: #f5f7fb;
+}
+.sidebar {
+  width: 256px;
+  min-width: 256px;
+  padding: 22px 16px 16px;
+  background: #fff;
+  color: #334155;
+  border-right: 1px solid #e8edf4;
+  box-shadow: 4px 0 18px rgb(25 42 70 / 3%);
+}
+.brand {
+  height: 48px;
+  padding: 0 12px;
+  color: #1e293b;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: #4263eb;
+  color: #fff;
+  box-shadow: 0 5px 12px rgb(66 99 235 / 20%);
+}
+.eyebrow {
+  margin: 30px 12px 12px;
+  color: #94a3b8;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+.navigation {
+  gap: 5px;
+}
+.nav-item {
+  min-height: 42px;
+  padding: 0 13px;
+  border-radius: 9px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 550;
+}
+.nav-item:hover {
+  background: #f5f7fc;
+  color: #29466f;
+}
+.nav-item.active {
+  background: #eef2ff;
+  color: #3156d8;
+  font-weight: 650;
+}
+.nav-item.active::before {
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: #4263eb;
+}
+.nav-icon {
+  color: currentColor;
+  opacity: 0.9;
+}
+.navigation-divider {
+  margin: 18px 10px 14px;
+  background: #e9eef5;
+}
+.navigation-section-title {
+  color: #94a3b8;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.child-nav-item {
+  margin-left: 8px;
+}
+.child-nav-item.active {
+  border-left-color: #4263eb;
+  background: #f4f6ff;
+}
+nav a.nav-item.active:not(.child-nav-item),
+nav a.nav-item.active:not(.child-nav-item):hover {
+  background: #315fd4;
+  color: #fff;
+}
+nav a.nav-item.child-nav-item.active,
+nav a.nav-item.child-nav-item.active:hover {
+  background: #e8efff;
+  color: #2445a8;
+  border-left-color: #315fd4;
+}
+.sidebar-footer {
+  padding: 16px 10px 6px;
+  border-top-color: #e9eef5;
+  color: #334155;
+}
+.avatar,
+.user-initials {
+  width: 34px;
+  height: 34px;
+  background: #e8edff;
+  color: #3156d8;
+  font-size: 11px;
+}
+.main {
+  min-width: 0;
+}
+.topbar {
+  height: 68px;
+  padding: 0 34px;
+  background: #fff;
+  border-bottom: 1px solid #e8edf4;
+}
+.context {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 550;
+}
+.top-actions {
+  gap: 14px;
+}
+.content {
+  width: 100%;
+  max-width: 1600px;
+  padding: 32px 38px 52px;
+}
+@media (min-width: 1600px) {
+  .content {
+    padding-right: 52px;
+    padding-left: 52px;
+  }
+}
+
+/* TAO enterprise control refinement */
+:host {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+:host {
+  color: #263449;
+}

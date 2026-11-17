@@ -1,36 +1,14 @@
-<tao-page-header
-  title="Reports"
-  description="Review hiring outcomes and evidence across your campaigns."
->
-  <tao-button label="Export report" appearance="outlined" />
-</tao-page-header>
-<div class="metrics">
-  <tao-card title="Time to shortlist"
-    ><strong>6.2 <small>days</small></strong
-    ><span class="positive">12% faster than last month</span></tao-card
-  ><tao-card title="Assessment completion"
-    ><strong>91%</strong><span class="positive">4% above target</span></tao-card
-  ><tao-card title="Offers accepted"
-    ><strong>24</strong><span class="positive">+6 this month</span></tao-card
-  >
-</div>
-<tao-card title="Campaign performance"
-  ><div class="report">
-    <div>
-      <strong>Senior Product Designer</strong><small>12 candidates · 3 shortlisted · 1 offer</small>
-    </div>
-    <b>25% shortlist rate</b>
-  </div>
-  <div class="report">
-    <div>
-      <strong>Backend Engineer</strong><small>42 candidates · 8 shortlisted · 2 offers</small>
-    </div>
-    <b>19% shortlist rate</b>
-  </div>
-  <div class="report">
-    <div>
-      <strong>Customer Success Lead</strong><small>28 candidates · 6 shortlisted · 3 offers</small>
-    </div>
-    <b>21% shortlist rate</b>
-  </div></tao-card
->
+<section class="reports-workspace">
+  <header class="reports-hero"><div><span class="workspace-kicker">INSIGHTS</span><h1>Hiring reports</h1><p>Understand campaign performance and identify where your hiring process can improve.</p></div><tao-button label="Export report" icon="download" appearance="outlined" /></header>
+  <section class="report-kpis" aria-label="Hiring performance indicators">
+    <tao-card><span class="report-kpi__label">Time to shortlist</span><strong>6.2 <small>days</small></strong><span class="positive">12% faster than last month</span></tao-card>
+    <tao-card><span class="report-kpi__label">Assessment completion</span><strong>91%</strong><span class="positive">4% above target</span></tao-card>
+    <tao-card><span class="report-kpi__label">Offers accepted</span><strong>24</strong><span class="positive">+6 this month</span></tao-card>
+  </section>
+  <section class="report-performance"><header><div><span class="workspace-kicker">CAMPAIGN BREAKDOWN</span><h2>Campaign performance</h2><p>Compare shortlist conversion across active roles.</p></div></header>
+    <div class="report-performance__head"><span>Campaign</span><span>Funnel activity</span><span>Shortlist rate</span></div>
+    <div class="report"><div><strong>Senior Product Designer</strong><small>12 candidates · 3 shortlisted · 1 offer</small></div><div class="report-bar"><span style="width:25%"></span></div><b>25%</b></div>
+    <div class="report"><div><strong>Backend Engineer</strong><small>42 candidates · 8 shortlisted · 2 offers</small></div><div class="report-bar"><span style="width:19%"></span></div><b>19%</b></div>
+    <div class="report"><div><strong>Customer Success Lead</strong><small>28 candidates · 6 shortlisted · 3 offers</small></div><div class="report-bar"><span style="width:21%"></span></div><b>21%</b></div>
+  </section>
+</section>

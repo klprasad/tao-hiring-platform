@@ -1,20 +1,4 @@
-<section class="access">
-  <div class="brand">TAO</div>
-  <div class="card">
-    <p class="eyebrow">Technical Assessment</p>
-    <h1>Secure access</h1>
-    <p>Enter the email address associated with your assessment invitation.</p>
-    <label>Email<input type="email" [(ngModel)]="email" placeholder="you@example.com" /></label>
-    <tao-button
-      class="full-width"
-      type="button"
-      appearance="filled"
-      color="primary"
-      label="Continue"
-      [fullWidth]="true"
-      [disabled]="!email"
-      (click)="continue()"
-    />
-    <span class="secure">Your assessment is secure</span>
-  </div>
+<section class="access access--split">
+  <aside class="access-intro"><span class="access-intro__mark">TAO</span><span class="access-intro__eyebrow">CANDIDATE ASSESSMENT</span><h1>A thoughtful way to show what you can do.</h1><p>Continue securely to your assessment. Your invitation details will guide you through each step.</p><div class="access-trust"><mat-icon>verified_user</mat-icon><span>Private, secure assessment access</span></div></aside>
+  <div class="access-panel"><div class="card"><p class="eyebrow">INVITATION ACCESS</p><h2>Let's get started</h2><p>Enter the email address associated with your assessment invitation.</p><label>Email address<input type="email" [(ngModel)]="email" placeholder="you@example.com" /></label><tao-button class="full-width" type="button" appearance="filled" color="primary" label="Continue" [fullWidth]="true" [disabled]="!email" (click)="continue()" /><span class="secure"><mat-icon>lock</mat-icon>Your assessment is secure</span></div></div>
 </section>

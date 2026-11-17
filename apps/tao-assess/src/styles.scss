@@ -27,3 +27,17 @@ body {
   --mat-snack-bar-button-color: #ffffff;
 }
 /* You can add global styles to this file, and also import other style files */
+
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+html { min-width: 1024px; }
+body { min-height: 100vh; background: #f5f7fb; color: #1e293b; font-size: 14px; }
+button, input, textarea, select { font: inherit; }
+.mat-mdc-snack-bar-container.tao-toast--success { --mat-snack-bar-container-color: #16845a; }
+.mat-mdc-snack-bar-container.tao-toast--error { --mat-snack-bar-container-color: #b42318; }
+.mat-mdc-snack-bar-container.tao-toast--info { --mat-snack-bar-container-color: #315fd4; }
+
+
+/* Candidate assessment uses the same quiet, light brand palette. */
+.theme-picker { display: none !important; }

@@ -1284,3 +1284,110 @@
   --tao-color-f8fbf9: rgb(255 251 245);
   --tao-color-rgba-84-168-125-0-1: rgba(245, 124, 0, 0.1);
 }
+
+
+/* TAO Enterprise Refresh — shared visual layer */
+
+/* --------------------------------------------------------------------------
+   TAO ENTERPRISE LIGHT SYSTEM
+   Keep semantic token names stable so existing feature styles inherit the
+   refreshed palette without page-by-page overrides.
+   -------------------------------------------------------------------------- */
+:root[data-tao-theme] {
+  color-scheme: light;
+  --tao-font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --tao-shell-topbar-bg: #ffffff;
+  --tao-shell-topbar-border: #e8edf4;
+  --tao-shell-topbar-text: #64748b;
+  --tao-shell-sidebar-bg: #ffffff;
+  --tao-shell-sidebar-active: #eef4ff;
+  --tao-shell-sidebar-divider: #e9eef5;
+  --tao-shell-sidebar-muted: #66758b;
+  --tao-shell-sidebar-accent: #4263eb;
+  --tao-shell-sidebar-accent-strong: #4263eb;
+  --tao-shell-sidebar-mark-text: #ffffff;
+
+  --tao-color-0f1929: #17243b;
+  --tao-color-101827: #17243b;
+  --tao-color-102f4d: #1d3557;
+  --tao-color-172033: #1e293b;
+  --tao-color-183a58: #29466f;
+  --tao-color-214d72: #315a91;
+  --tao-color-247d55: #315fd4;
+  --tao-color-24865a: #315fd4;
+  --tao-color-286b83: #4263eb;
+  --tao-color-31805d: #315fd4;
+  --tao-color-319667: #4263eb;
+  --tao-color-34865a: #315fd4;
+  --tao-color-35845c: #315fd4;
+  --tao-color-3e6e9d: #6684f2;
+  --tao-color-3ea371: #6684f2;
+  --tao-color-43a878: #8299f5;
+  --tao-color-54a87d: #4263eb;
+  --tao-color-57bd8d: #6684f2;
+  --tao-color-67dfb0: #c7d2fe;
+  --tao-color-69dfb0: #4263eb;
+  --tao-color-79cfa7: #a5b4fc;
+  --tao-color-79e2b1: #c7d2fe;
+  --tao-color-8bc4a6: #c7d2fe;
+  --tao-color-26332e: #263449;
+  --tao-color-34433d: #334155;
+  --tao-color-445269: #52627a;
+  --tao-color-526075: #64748b;
+  --tao-color-647086: #64748b;
+  --tao-color-64748b: #64748b;
+  --tao-color-6e7a8e: #64748b;
+  --tao-color-778398: #8491a5;
+  --tao-color-788598: #8491a5;
+  --tao-color-9aa8a2: #94a3b8;
+  --tao-color-d5ded9: #dbe3ee;
+  --tao-color-e3e8f0: #e4eaf2;
+  --tao-color-e4e9f1: #e8edf4;
+  --tao-color-edf8f2: #eef4ff;
+  --tao-color-e9f1fb: #eef4ff;
+  --tao-color-e9f7ef: #eef4ff;
+  --tao-color-e9f8ef: #f3f6ff;
+  --tao-color-e9f8f0: #f3f6ff;
+  --tao-color-eaf7ef: #f3f6ff;
+  --tao-color-edf0f4: #edf1f7;
+  --tao-color-edf0f5: #edf1f7;
+  --tao-color-edf4f9: #edf3fb;
+  --tao-color-eef1f6: #f1f4f9;
+  --tao-color-eef3f8: #f1f5fb;
+  --tao-color-eef7f2: #f1f5fb;
+  --tao-color-eef8f3: #f1f5fb;
+  --tao-color-f0edf9: #f0f2ff;
+  --tao-color-f0faf5: #f3f6ff;
+  --tao-color-f1f8f4: #f3f6ff;
+  --tao-color-f1fbf5: #f7f9ff;
+  --tao-color-f2faf5: #eef4ff;
+  --tao-color-f3f6f4: #f4f6fa;
+  --tao-color-f4f8fb: #f7f9fc;
+  --tao-color-f5f7fb: #f5f7fb;
+  --tao-color-f5fbf8: #f7f9ff;
+  --tao-color-f7f9fc: #f6f8fc;
+  --tao-color-f8fbf9: #ffffff;
+  --tao-color-fff: #ffffff;
+  --tao-color-ffffff: #ffffff;
+  --tao-color-rgba-84-168-125-0-1: rgb(66 99 235 / 12%);
+  --mat-sys-primary: #4263eb;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: #eef2ff;
+  --mat-sys-on-primary-container: #243b83;
+  --mat-sys-secondary: #64748b;
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-surface: #ffffff;
+  --mat-sys-on-surface: #1e293b;
+  --mat-sys-on-surface-variant: #64748b;
+  --mat-sys-surface-container-low: #f7f9fc;
+  --mat-sys-surface-container-high: #edf1f7;
+  --mat-sys-outline: #94a3b8;
+  --mat-sys-outline-variant: #dbe3ee;
+  --mat-sys-error: #b42318;
+  --mat-sys-on-error: #ffffff;
+}
+
+html, body { background: #f5f7fb; color: #1e293b; }
+body { font-family: var(--tao-font-family); -webkit-font-smoothing: antialiased; }
+::selection { background: #dbe5ff; color: #1e293b; }
+:focus-visible { outline: 3px solid rgb(66 99 235 / 28%); outline-offset: 2px; }

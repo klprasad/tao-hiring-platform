@@ -1,50 +1,17 @@
 @if (landing(); as assessment) {
-  <section class="page">
-    <p class="eyebrow">Assessment overview</p>
-
-    <h1>{{ assessment.roleTitle }}</h1>
-
-    <p class="org">
-      {{ assessment.organizationName }} · Estimated duration
-      {{ assessment.durationMinutes }} minutes
-    </p>
-
-    <div class="card round-list">
-      <div class="section-title">Assessment includes</div>
-
-      @for (round of assessment.rounds; track round.id) {
-        <div class="round">
-          <div class="round__number">
-            {{ round.order.toString().padStart(2, '0') }}
-          </div>
-
-          <div class="round__body">
-            <strong>{{ round.name }}</strong>
-
-            <span> {{ round.durationMinutes }} min · {{ round.questionCount }} questions </span>
-          </div>
-        </div>
-      }
-    </div>
-
-    <div class="card instructions">
-      <div class="section-title">Before you begin</div>
-
-      <ul>
-        @for (item of assessment.instructions; track item) {
-          <li>{{ item }}</li>
+  <section class="assessment-overview-layout">
+    <main class="assessment-overview-main">
+      <span class="eyebrow">YOUR ASSESSMENT</span>
+      <h1>{{ assessment.roleTitle }}</h1>
+      <p class="org">{{ assessment.organizationName }} · Estimated duration {{ assessment.durationMinutes }} minutes</p>
+      <section class="card round-list"><header class="candidate-section-heading"><div><h2>Assessment structure</h2><p>A guided sequence of assessment rounds</p></div><span class="round-total">{{ assessment.rounds.length }} rounds</span></header>
+        @for (round of assessment.rounds; track round.id) {
+          <article class="round"><div class="round__number">{{ round.order.toString().padStart(2, '0') }}</div><div class="round__body"><strong>{{ round.name }}</strong><span>{{ round.durationMinutes }} minutes</span></div><mat-icon>chevron_right</mat-icon></article>
         }
-      </ul>
-    </div>
-
-    <div class="actions">
-      <tao-button
-        type="button"
-        label="Continue"
-        appearance="filled"
-        color="primary"
-        (click)="continue()"
-      ></tao-button>
-    </div>
+      </section>
+      <section class="card instructions"><h2>Before you begin</h2><p>Take a moment to review these instructions.</p><ul>@for (item of assessment.instructions; track item) { <li>{{ item }}</li> }</ul></section>
+      <div class="actions"><tao-button type="button" label="Continue" appearance="filled" color="primary" (click)="continue()" /></div>
+    </main>
+    <aside class="assessment-overview-aside"><span class="overview-aside__icon"><mat-icon>assignment_turned_in</mat-icon></span><h2>Prepare for a focused session</h2><p>Choose a quiet place, allow enough uninterrupted time and keep this browser window open while completing your assessment.</p><div class="overview-fact"><mat-icon>schedule</mat-icon><span><small>Estimated time</small><strong>{{ assessment.durationMinutes }} minutes</strong></span></div><div class="overview-fact"><mat-icon>layers</mat-icon><span><small>Assessment stages</small><strong>{{ assessment.rounds.length }} rounds</strong></span></div></aside>
   </section>
 }

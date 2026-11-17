@@ -1,11 +1,13 @@
-<div class="page">
-  <tao-page-header
-    title="Hiring strategy"
-    description="Generate and approve the recruitment strategy for this campaign."
-  >
-  </tao-page-header>
+<section class="hiring-workspace">
+  <header class="hiring-workspace__hero">
+    <div>
+      <span class="workspace-kicker">CAMPAIGN WORKFLOW / STRATEGY</span>
+      <h1>Hiring strategy</h1>
+      <p>Review the candidate profile and screening threshold for this campaign.</p>
+    </div>
+  </header>
 
   @if (strategy(); as currentStrategy) {
     <tao-hiring-strategy-edit [profile]="currentStrategy" />
   }
-</div>
+</section>

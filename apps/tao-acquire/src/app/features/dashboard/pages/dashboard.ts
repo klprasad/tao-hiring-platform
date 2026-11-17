@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
+import { TaoButtonComponent, TaoCardComponent } from '@tao/ui';
 import { AuthStore } from '@tao/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'tao-dashboard',
-  imports: [TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent],
+  imports: [TaoButtonComponent, TaoCardComponent, MatIconModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
