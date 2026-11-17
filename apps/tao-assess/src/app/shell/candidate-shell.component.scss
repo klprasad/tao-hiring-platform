@@ -1,111 +1,82 @@
 :host {
-  display: block;
+  display: flex;
   min-height: 100vh;
+  flex-direction: column;
+  color: var(--mat-sys-on-surface);
 }
 
 .candidate-shell {
+  display: flex;
   min-height: 100vh;
-  background: var(--tao-color-f7f9fc);
-  color: var(--tao-color-172033);
+  flex: 1;
+  flex-direction: column;
+  background: var(--tao-color-f5f7fb);
 }
-
-/* =========================================================
-   HEADER
-   ========================================================= */
 
 .candidate-shell__header {
-  height: 48px;
-
   display: flex;
+  height: 60px;
+  flex: 0 0 60px;
   align-items: center;
   justify-content: space-between;
-
-  padding: 0 28px;
-
-  box-sizing: border-box;
-
-  background: var(--tao-color-ffffff);
-  border-bottom: 1px solid var(--tao-color-e5e9f0);
+  padding: 0 36px;
+  border-bottom: 1px solid var(--tao-color-e4e9f1);
+  background: var(--mat-sys-surface);
 }
-
-/* =========================================================
-   BRAND
-   ========================================================= */
 
 .candidate-shell__brand {
   display: flex;
-  align-items: center;
-
-  gap: 8px;
-
+  min-width: 0;
   height: 100%;
-
+  align-items: center;
+  gap: 10px;
   color: var(--tao-color-183a58);
 }
-
-/* Green status dot */
 
 .candidate-shell__status {
   width: 8px;
   height: 8px;
-
   flex: 0 0 8px;
-
-  border-radius: var(--tao-radius-50);
-
-  background: var(--tao-color-79e2b1);
-
-  box-shadow: 0 0 0 2px var(--tao-color-rgba-121-226-177-0-18);
+  border-radius: 50%;
+  background: var(--tao-color-319667);
+  box-shadow: 0 0 0 3px var(--tao-color-edf8f2);
 }
-
-/* TAO */
 
 .candidate-shell__logo {
   color: var(--tao-color-183a58);
-
-  font-size: 18px;
-  line-height: 1;
-
+  font-size: 17px;
   font-weight: 800;
-
-  letter-spacing: 0.02em;
+  line-height: 1;
 }
-
-/* Vertical separator */
 
 .candidate-shell__divider {
   width: 1px;
-  height: 18px;
-
-  margin: 0 6px;
-
+  height: 20px;
+  margin: 0 4px;
   background: var(--tao-color-dce2ea);
 }
 
-/* Technical Assessment */
-
 .candidate-shell__title {
-  color: var(--tao-color-64748b);
-
+  overflow: hidden;
+  color: var(--mat-sys-on-surface-variant);
   font-size: 12px;
-  line-height: 18px;
-
-  font-weight: 400;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* =========================================================
-   CONTENT
-   ========================================================= */
 .candidate-shell__content {
-  min-height: calc(100vh - 48px);
-
   display: flex;
-  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
   align-items: flex-start;
+  justify-content: center;
+  padding: 32px 28px 48px;
+}
 
-  padding: 20px 16px 40px;
-
-  box-sizing: border-box;
+.candidate-shell tao-theme-switcher {
+  display: none;
 }
 
 .focus-warning__backdrop {
@@ -120,12 +91,12 @@
 
 .focus-warning {
   width: min(100%, 440px);
-  padding: 24px;
-  border: 1px solid var(--tao-color-e5e9f0);
-  border-radius: 8px;
-  background: var(--tao-color-ffffff);
-  color: var(--tao-color-172033);
-  box-shadow: 0 16px 48px rgb(17 24 39 / 24%);
+  padding: 28px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--tao-radius-12px);
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  box-shadow: 0 24px 64px rgb(15 23 42 / 16%);
 }
 
 .focus-warning h2 {
@@ -136,41 +107,50 @@
 
 .focus-warning p {
   margin: 0 0 24px;
-  font-size: 15px;
-  line-height: 1.5;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .focus-warning button {
   min-height: 44px;
   padding: 0 16px;
   border: 0;
-  border-radius: 4px;
-  background: #183a58;
-  color: #ffffff;
+  border-radius: var(--tao-radius-8px);
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
   font: inherit;
-  font-weight: 600;
+  font-weight: 650;
   cursor: pointer;
 }
 
 .focus-warning button:focus-visible {
-  outline: 3px solid #b45309;
+  outline: 3px solid var(--mat-sys-primary);
   outline-offset: 3px;
 }
 
+@media (max-width: 640px) {
+  .candidate-shell__header {
+    height: 56px;
+    flex-basis: 56px;
+    padding: 0 18px;
+  }
 
-/* TAO Enterprise Refresh — shared visual layer */
+  .candidate-shell__content {
+    padding: 24px 18px 36px;
+  }
+}
 
-.candidate-shell { background: #f5f7fb; color: #1e293b; }
-.candidate-shell__header { height: 64px; padding: 0 40px; background: #fff; border-bottom: 1px solid #e8edf4; }
-.candidate-shell__brand { gap: 10px; color: #1e293b; }
-.candidate-shell__status { width: 9px; height: 9px; background: #16a36a; box-shadow: 0 0 0 4px #e8f7ef; }
-.candidate-shell__logo { color: #243b68; font-size: 19px; letter-spacing: .06em; }
-.candidate-shell__divider { height: 22px; margin: 0 8px; background: #e2e8f0; }
-.candidate-shell__title { color: #64748b; font-size: 13px; font-weight: 500; }
-.candidate-shell__content { min-height: calc(100vh - 64px); padding: 36px 28px 56px; align-items: flex-start; }
-.focus-warning { border-radius: 14px; border-color: #e2e8f0; box-shadow: 0 24px 64px rgb(15 23 42 / 16%); }
-.focus-warning button { border-radius: 8px; background: #4263eb; }
-.focus-warning button:hover { background: #3156d8; }
+@media (max-width: 360px) {
+  .candidate-shell__header {
+    padding: 0 12px;
+  }
 
-/* Candidate shell: quiet, distraction-free assessment frame */
-.candidate-shell__header{height:60px;padding:0 36px;border-bottom-color:#e7ebf2;box-shadow:0 1px 3px rgb(22 38 61 / 2%)}.candidate-shell__brand{gap:11px;color:#25354d}.candidate-shell__status{background:#35a875;box-shadow:0 0 0 3px rgb(53 168 117 / 12%)}.candidate-shell__logo{font-size:17px;letter-spacing:-.03em}.candidate-shell__title{color:#718097;font-size:12px;font-weight:550}.candidate-shell__content{width:100%;min-height:calc(100vh - 60px);padding:0 0 30px;box-sizing:border-box}.candidate-shell tao-theme-switcher{display:none}
+  .candidate-shell__brand {
+    gap: 7px;
+  }
+
+  .candidate-shell__title {
+    font-size: 11px;
+  }
+}

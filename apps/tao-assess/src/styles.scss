@@ -2,42 +2,128 @@
 
 html,
 body {
+  min-width: 320px;
+  min-height: 100%;
   margin: 0;
   font-family: var(--tao-font-family);
   background: var(--tao-color-f5f7fb);
+  color: var(--mat-sys-on-surface);
 }
+
 * {
   box-sizing: border-box;
 }
 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.auth-page__content tao-login .login {
+  min-height: 0;
+  padding: 0;
+}
+
+.auth-page__content tao-login {
+  min-height: 0;
+  align-self: start;
+}
+
+.auth-page__content tao-login .login-card {
+  max-width: none;
+  padding: 28px;
+  border-radius: var(--tao-radius-12px);
+  box-shadow: 0 8px 24px rgb(23 32 51 / 8%);
+}
+
 .mat-mdc-snack-bar-container.tao-toast--success {
-  --mat-snack-bar-container-color: #50c878;
+  --mat-snack-bar-container-color: var(--tao-color-168453);
   --mat-snack-bar-supporting-text-color: #ffffff;
   --mat-snack-bar-button-color: #ffffff;
 }
 
 .mat-mdc-snack-bar-container.tao-toast--error {
-  --mat-snack-bar-container-color: #ff0000;
+  --mat-snack-bar-container-color: var(--mat-sys-error);
   --mat-snack-bar-supporting-text-color: #ffffff;
   --mat-snack-bar-button-color: #ffffff;
 }
+
 .mat-mdc-snack-bar-container.tao-toast--info {
-  --mat-snack-bar-container-color: #4169e1;
+  --mat-snack-bar-container-color: var(--mat-sys-primary);
   --mat-snack-bar-supporting-text-color: #ffffff;
   --mat-snack-bar-button-color: #ffffff;
 }
-/* You can add global styles to this file, and also import other style files */
 
+@media (max-width: 900px) {
+  .access--split {
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: 28px 24px 40px;
+  }
 
-/* TAO Enterprise Refresh — shared visual layer */
+  .access-intro {
+    max-width: 680px;
+  }
 
-html { min-width: 1024px; }
-body { min-height: 100vh; background: #f5f7fb; color: #1e293b; font-size: 14px; }
-button, input, textarea, select { font: inherit; }
-.mat-mdc-snack-bar-container.tao-toast--success { --mat-snack-bar-container-color: #16845a; }
-.mat-mdc-snack-bar-container.tao-toast--error { --mat-snack-bar-container-color: #b42318; }
-.mat-mdc-snack-bar-container.tao-toast--info { --mat-snack-bar-container-color: #315fd4; }
+  .access-intro__mark {
+    margin-bottom: 24px;
+  }
 
+  .access-trust {
+    margin-top: 24px;
+  }
 
-/* Candidate assessment uses the same quiet, light brand palette. */
-.theme-picker { display: none !important; }
+  .assessment-overview-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 24px 20px 36px;
+  }
+
+  .assessment-overview-aside {
+    position: static;
+  }
+}
+
+@media (max-width: 560px) {
+  .access--split {
+    gap: 24px;
+    padding: 22px 4px 32px;
+  }
+
+  .access-intro h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .access-panel {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .access-panel .card {
+    padding: 22px;
+  }
+
+  .assessment-overview-layout {
+    padding: 16px 4px 28px;
+  }
+
+  .assessment-overview-main > h1 {
+    font-size: 26px;
+  }
+
+  .round-list,
+  .instructions,
+  .assessment-overview-aside {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-page__content tao-login .login-card {
+    padding: 22px;
+  }
+}

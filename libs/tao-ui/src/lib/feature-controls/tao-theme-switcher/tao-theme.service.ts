@@ -2,10 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { DestroyRef, Injectable, inject, signal } from '@angular/core';
 
 export const TAO_THEMES = [
+  { name: 'indigo', label: 'Indigo', swatch: '#4263eb' },
   { name: 'emerald', label: 'Emerald', swatch: '#319667' },
-  { name: 'ocean', label: 'Ocean', swatch: '#316896' },
-  { name: 'amethyst', label: 'Pink', swatch: '#e91e63' },
-  { name: 'rose', label: 'Orange', swatch: '#f57c00' },
 ] as const;
 
 export type TaoThemeName = (typeof TAO_THEMES)[number]['name'];
@@ -62,7 +60,7 @@ export class TaoThemeService {
       // Use the default when browser storage is unavailable.
     }
 
-    return 'emerald';
+    return 'indigo';
   }
 
   private readonly syncSavedTheme = (): void => {

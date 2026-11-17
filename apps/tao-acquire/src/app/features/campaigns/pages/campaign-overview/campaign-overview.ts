@@ -58,12 +58,6 @@ export class CampaignOverview {
       description: 'Import and screen candidates.',
       route: 'candidates',
     },
-    {
-      id: 'invitations',
-      name: 'Invitations',
-      description: 'Invite shortlisted candidates.',
-      route: 'invitations',
-    },
   ] as const;
 
   readonly steps = computed<CampaignStepVm[]>(() => {
@@ -115,10 +109,6 @@ export class CampaignOverview {
 
     if (workflow.assessmentStrategyApprovedOn) {
       completed.add('assessment-strategy');
-    }
-
-    if (workflow.invitationsCompletedOn) {
-      completed.add('invitations');
     }
 
     return completed;

@@ -791,3 +791,285 @@ nav a.nav-item.child-nav-item.active:hover {
 :host {
   color: #263449;
 }
+
+/* TAO Acquire workspace frame */
+:host {
+  color: var(--tao-color-172033);
+  font-family: var(--tao-font-family);
+}
+
+.shell {
+  background: var(--tao-color-f5f7fb);
+}
+
+.sidebar {
+  width: 248px;
+  min-width: 248px;
+  padding: 18px 14px 14px;
+  background: var(--tao-shell-sidebar-bg);
+  color: var(--tao-color-fff);
+  box-shadow: none;
+}
+
+.brand {
+  height: 48px;
+  padding: 0 10px;
+  color: var(--tao-shell-brand-text, var(--tao-color-fff));
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--tao-radius-8px);
+  background: var(--tao-shell-sidebar-accent-strong);
+  color: var(--tao-shell-sidebar-mark-text);
+  box-shadow: none;
+}
+
+.eyebrow {
+  margin: 28px 12px 10px;
+  color: var(--tao-shell-sidebar-muted);
+  letter-spacing: 0.12em;
+}
+
+.navigation {
+  gap: 4px;
+}
+
+.nav-item {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: var(--tao-radius-7px);
+  color: var(--tao-shell-sidebar-muted);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.nav-item:hover {
+  background: var(--tao-color-rgba-255-255-255-0-08);
+  color: var(--tao-color-fff);
+}
+
+.nav-item.active,
+nav a.nav-item.active:not(.child-nav-item),
+nav a.nav-item.active:not(.child-nav-item):hover {
+  background: var(--tao-shell-sidebar-active);
+  color: var(--tao-shell-sidebar-active-text, var(--tao-color-fff));
+}
+
+.nav-item.active::before {
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: var(--tao-radius-0-4px-4px-0);
+  background: var(--tao-shell-sidebar-accent-strong);
+}
+
+.nav-icon {
+  color: var(--tao-shell-sidebar-accent-strong);
+  opacity: 1;
+}
+
+.nav-icon::before {
+  font-family: "Material Icons";
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.nav-icon-dashboard::before {
+  content: "dashboard";
+}
+.nav-icon-campaigns::before {
+  content: "work_outline";
+}
+.nav-icon-candidates::before {
+  content: "groups";
+}
+.nav-icon-assessments::before {
+  content: "fact_check";
+}
+.nav-icon-reports::before {
+  content: "query_stats";
+}
+.nav-icon-invitations::before {
+  content: "mail_outline";
+}
+.nav-icon-resume-process::before {
+  content: "upload_file";
+}
+.nav-icon-hiring-strategy::before {
+  content: "tune";
+}
+.nav-icon-job-profiles::before {
+  content: "description";
+}
+.nav-icon-assessment-results::before {
+  content: "analytics";
+}
+
+.navigation-divider {
+  margin: 16px 10px 12px;
+  background: var(--tao-shell-sidebar-divider);
+}
+
+.navigation-section-title {
+  color: var(--tao-shell-sidebar-muted);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.child-nav-item.active,
+nav a.nav-item.child-nav-item.active,
+nav a.nav-item.child-nav-item.active:hover {
+  border-left-color: var(--tao-shell-sidebar-accent-strong);
+  background: var(--tao-shell-sidebar-active);
+  color: var(--tao-shell-sidebar-active-text, var(--tao-color-fff));
+}
+
+.sidebar-footer {
+  padding: 14px 10px 6px;
+  border-top-color: var(--tao-shell-sidebar-divider);
+  color: var(--tao-color-fff);
+}
+
+.avatar,
+.user-initials {
+  background: var(--tao-shell-sidebar-accent);
+  color: var(--tao-shell-sidebar-mark-text);
+}
+
+.topbar {
+  height: 64px;
+  padding: 0 28px;
+  background: var(--mat-sys-surface);
+  border-bottom-color: var(--tao-color-e2e7ef);
+}
+
+.context {
+  color: var(--tao-color-647086);
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.top-actions {
+  gap: 12px;
+}
+
+.content {
+  max-width: none;
+  padding: 0;
+}
+
+.nav-item:focus-visible,
+.top-actions .user-initials:focus-visible,
+.top-actions .user-menu-item:focus-visible {
+  outline: 2px solid var(--tao-shell-sidebar-accent-strong);
+  outline-offset: 2px;
+}
+
+@media (max-width: 960px) {
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .topbar {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 680px) {
+  .sidebar {
+    width: 64px;
+    min-width: 64px;
+    padding: 14px 8px;
+  }
+
+  .brand {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .brand > span:not(.brand-mark),
+  .eyebrow,
+  .nav-label,
+  .user-info {
+    display: none;
+  }
+
+  .navigation {
+    margin-top: 20px;
+  }
+
+  .nav-item {
+    justify-content: center;
+    width: 48px;
+    min-height: 44px;
+    padding: 0;
+  }
+
+  .nav-item.active::before {
+    left: -8px;
+  }
+
+  .nav-icon {
+    margin: 0;
+  }
+
+  .navigation-divider {
+    margin: 14px 4px 10px;
+  }
+
+  .navigation-section-title {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  .child-nav-item {
+    margin-left: 0;
+    padding: 0;
+    border-left: 0;
+  }
+
+  .sidebar-footer {
+    justify-content: center;
+    padding: 12px 0 0;
+  }
+
+  .topbar {
+    height: 58px;
+    padding: 0 14px;
+  }
+
+  .top-actions {
+    gap: 6px;
+  }
+
+  .content {
+    padding: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .sidebar {
+    width: 56px;
+    min-width: 56px;
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+  .nav-item {
+    width: 48px;
+  }
+
+  .context {
+    max-width: 38vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

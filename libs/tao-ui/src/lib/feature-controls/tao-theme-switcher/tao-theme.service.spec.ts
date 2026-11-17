@@ -31,9 +31,9 @@ describe('TaoThemeService', () => {
   it('selects a CSS theme and restores the Emerald palette', () => {
     const service = TestBed.inject(TaoThemeService);
 
-    service.setTheme('ocean');
+    service.setTheme('indigo');
 
-    expect(document.documentElement.getAttribute('data-tao-theme')).toBe('ocean');
+    expect(document.documentElement.getAttribute('data-tao-theme')).toBe('indigo');
 
     service.setTheme('emerald');
 
@@ -41,30 +41,39 @@ describe('TaoThemeService', () => {
     expect(service.theme()).toBe('emerald');
   });
 
-  it('persists the selected palette', () => {
-    const service = TestBed.inject(TaoThemeService);
-
-    service.setTheme('amethyst');
-
-    expect(localStorage.getItem('tao-theme')).toBe('amethyst');
-    expect(document.cookie).toContain('tao-theme=amethyst');
-  });
-
-  it('restores a previously selected palette on initialization', () => {
+  it('uses Indigo when no supported theme has been saved', () => {
     localStorage.setItem('tao-theme', 'rose');
 
     const service = TestBed.inject(TaoThemeService);
 
-    expect(service.theme()).toBe('rose');
-    expect(document.documentElement.getAttribute('data-tao-theme')).toBe('rose');
+    expect(service.theme()).toBe('indigo');
+    expect(document.documentElement.getAttribute('data-tao-theme')).toBe('indigo');
+  });
+
+  it('persists the selected palette', () => {
+    const service = TestBed.inject(TaoThemeService);
+
+    service.setTheme('indigo');
+
+    expect(localStorage.getItem('tao-theme')).toBe('indigo');
+    expect(document.cookie).toContain('tao-theme=indigo');
+  });
+
+  it('restores a previously selected palette on initialization', () => {
+    localStorage.setItem('tao-theme', 'indigo');
+
+    const service = TestBed.inject(TaoThemeService);
+
+    expect(service.theme()).toBe('indigo');
+    expect(document.documentElement.getAttribute('data-tao-theme')).toBe('indigo');
   });
 
   it('prefers the shared cookie over app-specific storage', () => {
     localStorage.setItem('tao-theme', 'emerald');
-    document.cookie = 'tao-theme=ocean; Path=/; SameSite=Lax';
+    document.cookie = 'tao-theme=indigo; Path=/; SameSite=Lax';
 
     const service = TestBed.inject(TaoThemeService);
 
-    expect(service.theme()).toBe('ocean');
+    expect(service.theme()).toBe('indigo');
   });
 });

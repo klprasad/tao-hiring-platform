@@ -14,9 +14,14 @@
 }
 
 .auth-page__content {
-  width: 100%;
-  max-width: 600px;
-
+  display: grid;
+  width: min(1120px, 100%);
+  min-height: calc(100vh - 124px);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+  grid-template-rows: auto auto auto 1fr auto;
+  column-gap: clamp(40px, 7vw, 100px);
+  align-content: center;
+  align-items: center;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -26,6 +31,7 @@
    ========================================================= */
 
 .auth-page__eyebrow {
+  grid-column: 1;
   margin: 0 0 12px;
 
   color: var(--tao-color-64748b);
@@ -38,6 +44,7 @@
 }
 
 .auth-page__title {
+  grid-column: 1;
   margin: 0;
 
   color: var(--tao-color-102f4d);
@@ -48,12 +55,19 @@
 }
 
 .auth-page__description {
+  grid-column: 1;
   margin: 12px 0 24px;
 
   color: var(--tao-color-64748b);
 
   font-size: 15px;
   line-height: 24px;
+}
+
+.auth-page__content tao-login {
+  grid-column: 2;
+  grid-row: 1 / 5;
+  min-width: 0;
 }
 
 /* =========================================================
@@ -155,9 +169,11 @@
    ========================================================= */
 
 .auth-page__security {
+  grid-column: 1;
+  grid-row: 5;
   margin: 18px 0 0;
 
-  text-align: center;
+  text-align: left;
 
   color: var(--tao-color-94a3b8);
 
@@ -171,7 +187,26 @@
 
 @media (max-width: 640px) {
   .auth-page__content {
+    width: 100%;
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    gap: 0;
+  }
+
+  .auth-page__content {
     max-width: 100%;
+  }
+
+  .auth-page__content tao-login {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 20px;
+  }
+
+  .auth-page__security {
+    grid-row: auto;
+    text-align: center;
   }
 
   .auth-card {
@@ -185,20 +220,100 @@
 }
 
 /* TAO Assess — focused candidate experience refinement */
-:host { color: #263449; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-:host h1, :host h2, :host h3 { color: #17243a; letter-spacing: -0.025em; }
-:host p { color: #64748b; }
-:host button { border-radius: 9px; font-weight: 650; }
-:host input:not([type="checkbox"]), :host textarea, :host select { border: 1px solid #dbe3ee; border-radius: 9px; background: #fff; color: #263449; }
-:host input:focus, :host textarea:focus, :host select:focus { outline: none; border-color: #6684f2; box-shadow: 0 0 0 3px rgb(66 99 235 / 11%); }
-:host .card, :host .summary, :host .round-list, :host .instructions, :host .consent-card, :host .question-card, :host .answer { background: #fff; border: 1px solid #e5eaf2; border-radius: 14px; box-shadow: 0 3px 12px rgb(15 23 42 / 3%); }
-:host .eyebrow, :host .round, :host .round__number { color: #52627a; }
-:host .round__number { background: #eef2ff; color: #3858d8; border-radius: 10px; }
-:host .notice { background: #f7f9ff; border-color: #e1e8ff; border-radius: 10px; color: #52627a; }
-:host .timer { border-color: #dbe3ee; border-radius: 10px; background: #fff; color: #3154d8; font-variant-numeric: tabular-nums; }
-:host .progress { background: #e9edf5; border-radius: 999px; overflow: hidden; }
-:host .progress span { background: #4263eb; border-radius: 999px; }
-:host .summary div { border-color: #edf1f6; }
-:host .complete { padding-top: 88px; }
-:host .complete h1 { font-size: 32px; line-height: 1.2; }
-:host .signup-card, :host .auth-page__content { border-radius: 16px; }
+:host {
+  color: #263449;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+:host h1,
+:host h2,
+:host h3 {
+  color: #17243a;
+  letter-spacing: -0.025em;
+}
+:host p {
+  color: #64748b;
+}
+:host button {
+  border-radius: 9px;
+  font-weight: 650;
+}
+:host input:not([type="checkbox"]),
+:host textarea,
+:host select {
+  border: 1px solid #dbe3ee;
+  border-radius: 9px;
+  background: #fff;
+  color: #263449;
+}
+:host input:focus,
+:host textarea:focus,
+:host select:focus {
+  outline: none;
+  border-color: var(--mat-sys-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mat-sys-primary) 11%, transparent);
+}
+:host .card,
+:host .summary,
+:host .round-list,
+:host .instructions,
+:host .consent-card,
+:host .question-card,
+:host .answer {
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgb(15 23 42 / 3%);
+}
+:host .eyebrow,
+:host .round,
+:host .round__number {
+  color: #52627a;
+}
+:host .round__number {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary);
+  border-radius: 10px;
+}
+:host .notice {
+  background: var(--mat-sys-primary-container);
+  border-color: var(--mat-sys-primary-container);
+  border-radius: 10px;
+  color: #52627a;
+}
+:host .timer {
+  border-color: #dbe3ee;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--mat-sys-primary);
+  font-variant-numeric: tabular-nums;
+}
+:host .progress {
+  background: #e9edf5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+:host .progress span {
+  background: var(--mat-sys-primary);
+  border-radius: 999px;
+}
+:host .summary div {
+  border-color: #edf1f6;
+}
+:host .complete {
+  padding-top: 88px;
+}
+:host .complete h1 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+:host .signup-card,
+:host .auth-page__content {
+  border-radius: 16px;
+}

@@ -24,6 +24,8 @@
       @for (item of visibleItems(); track item.route) {
         <a
           class="nav-item"
+          [attr.aria-label]="item.label"
+          [attr.title]="item.label"
           [routerLink]="item.route"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{
@@ -56,6 +58,8 @@
         @for (item of childItems(); track item.route) {
           <a
             class="nav-item child-nav-item"
+            [attr.aria-label]="item.label"
+            [attr.title]="item.label"
             [routerLink]="childRoute(item)"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{

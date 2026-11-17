@@ -23,15 +23,15 @@ describe('TaoThemeSwitcherComponent', () => {
 
   it('renders a selected state for the active palette', () => {
     expect(host().querySelector('[aria-pressed="true"]')).toBeTruthy();
-    expect(host().querySelectorAll('.theme-picker__swatch').length).toBeGreaterThan(1);
+    expect(host().querySelectorAll('.theme-picker__swatch').length).toBe(2);
   });
 
   it('selects the palette named by the activated swatch', () => {
-    const button = host().querySelector<HTMLButtonElement>('button[aria-label="Ocean theme"]');
+    const button = host().querySelector<HTMLButtonElement>('button[aria-label="Indigo theme"]');
     expect(button).toBeTruthy();
 
     button!.click();
 
-    expect(setTheme).toHaveBeenCalledWith('ocean');
+    expect(setTheme).toHaveBeenCalledWith('indigo');
   });
 });
