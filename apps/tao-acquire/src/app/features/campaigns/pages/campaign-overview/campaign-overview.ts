@@ -41,6 +41,12 @@ export class CampaignOverview {
       route: 'hiring-strategy',
     },
     {
+      id: 'assessment-strategy',
+      name: 'Assessment Strategy',
+      description: 'Configure assessment rounds and competencies.',
+      route: 'assessment-strategy',
+    },
+    {
       id: 'resume-imports',
       name: 'Resume Imports',
       description: 'Upload candidates resumes for screening',
@@ -51,12 +57,6 @@ export class CampaignOverview {
       name: 'Candidates Screening',
       description: 'Import and screen candidates.',
       route: 'candidates',
-    },
-    {
-      id: 'assessment-strategy',
-      name: 'Assessment Strategy',
-      description: 'Configure assessment rounds and competencies.',
-      route: 'assessment-strategy',
     },
     {
       id: 'invitations',

@@ -235,7 +235,7 @@ export class HiringStrategyEdit {
       )
       .subscribe(() => {
         this.isApproving.set(false);
-        this.router.navigate(['/campaigns', strategy.campaignId, 'resume-imports']);
+        this.router.navigate(['/campaigns', strategy.campaignId, 'assessment-strategy']);
       });
   }
 

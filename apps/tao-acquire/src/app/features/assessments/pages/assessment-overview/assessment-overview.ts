@@ -257,6 +257,7 @@ export class AssessmentOverview implements OnInit {
           });
         }
         this.toaster.success('Assessment strategy approved.');
+        this.router.navigate(['/campaigns', this.campaignId, 'resume-imports']);
       });
   }
 
@@ -349,19 +350,5 @@ export class AssessmentOverview implements OnInit {
   cancel(): void {
     const campaignId = this.route.snapshot.paramMap.get('campaignId');
     this.router.navigate(['/campaigns', campaignId]);
-  }
-  sendInvitations() {
-    this.service
-      .sendInvitations(this.campaignId)
-      .pipe(
-        catchError(() => {
-          this.toaster.error('Sending invitations failed. Please try again.');
-          return EMPTY;
-        }),
-      )
-      .subscribe(() => {
-        this.toaster.success('Invitations sent successfully.');
-        this.router.navigate(['/campaigns', this.campaignId]);
-      });
   }
 }

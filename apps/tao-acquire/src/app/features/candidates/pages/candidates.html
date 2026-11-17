@@ -5,13 +5,19 @@
   @if (candidates().length > 0) {
     <tao-button
       appearance="filled"
-      label="Assessment Strategy"
-      tooltip="Assessment Strategy"
+      label="Send Invitations"
+      tooltip="Send Invitations"
       color="primary"
-      (click)="goToAssessment()"
+      (click)="sendInvitations()"
     />
   }
 </tao-page-header>
+
+@if (screeningProgress() || isScreening()) {
+  <p class="screening-update" role="status" aria-live="polite">
+    {{ screeningStatusMessage() }}
+  </p>
+}
 
 <!-- Metrics -->
 <div class="metrics">

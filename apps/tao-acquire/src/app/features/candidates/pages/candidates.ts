@@ -1,10 +1,21 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY } from 'rxjs';
+import {
+  catchError,
+  concat,
+  EMPTY,
+  exhaustMap,
+  forkJoin,
+  interval,
+  of,
+  takeWhile,
+  tap,
+} from 'rxjs';
 
 import { TaoButtonComponent, TaoCardComponent, TaoPageHeaderComponent } from '@tao/ui';
 
-import { CandidateDto } from '../models/candidates.mode';
+import { CandidateDto, ResumeScreeningProgress } from '../models/candidates.mode';
 import { CandidatesService } from '../data-access/candidates.service';
 
 type CandidateFilter = 'all' | 'recommended' | 'rejected';
@@ -19,11 +30,13 @@ export class Candidates implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(CandidatesService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   // ---------------------------------------------------------------------------
   // State
   // ---------------------------------------------------------------------------
 
   readonly candidates = signal<CandidateDto[]>([]);
+  readonly screeningProgress = signal<ResumeScreeningProgress | null>(null);
   readonly errorMessage = signal<string>('');
 
   readonly selectedFilter = signal<CandidateFilter>('all');
@@ -46,6 +59,25 @@ export class Candidates implements OnInit {
   readonly rejectedCandidates = computed(() =>
     this.candidates().filter((candidate) => candidate.status === 'Rejected'),
   );
+
+  readonly isScreening = computed(() => {
+    const progress = this.screeningProgress();
+    return !progress || progress.totalCandidates !== 0 || progress.queuedCandidates !== 0;
+  });
+
+  readonly screeningStatusMessage = computed(() => {
+    const progress = this.screeningProgress();
+
+    if (!progress) {
+      return 'Loading screening progress...';
+    }
+
+    if (!this.isScreening()) {
+      return 'Screening complete.';
+    }
+
+    return `Candidates: ${progress.totalCandidates} · Queued: ${progress.queuedCandidates} · Processing: ${progress.processingCandidates} · Completed: ${progress.completedCandidates} · Failed: ${progress.failedCandidates}`;
+  });
 
   readonly filteredCandidates = computed(() => {
     switch (this.selectedFilter()) {
@@ -147,18 +179,36 @@ export class Candidates implements OnInit {
   private loadCandidates(): void {
     this.errorMessage.set('');
 
-    this.service
-      .getCandidates(this.campaignId)
+    concat(of(null), interval(3000))
       .pipe(
-        catchError(() => {
-          this.errorMessage.set('Unable to load candidates. Please try again.');
-
-          return EMPTY;
+        exhaustMap(() =>
+          forkJoin({
+            candidates: this.service.getCandidates(this.campaignId).pipe(
+              catchError(() => {
+                this.errorMessage.set('Unable to refresh screening results.');
+                return of(null);
+              }),
+            ),
+            progress: this.service.getResumeScreeningProgress(this.campaignId).pipe(
+              catchError(() => {
+                this.errorMessage.set('Unable to refresh screening progress.');
+                return of(null);
+              }),
+            ),
+          }),
+        ),
+        tap(({ candidates, progress }) => {
+          if (candidates) {
+            this.candidates.set(candidates);
+          }
+          if (progress) {
+            this.screeningProgress.set(progress);
+          }
         }),
+        takeWhile(() => this.isScreening(), true),
+        takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((response) => {
-        this.candidates.set(response);
-      });
+      .subscribe();
   }
 
   // ---------------------------------------------------------------------------
@@ -173,7 +223,18 @@ export class Candidates implements OnInit {
       ''
     );
   }
-
+  sendInvitations() {
+    this.service
+      .sendInvitations(this.campaignId)
+      .pipe(
+        catchError(() => {
+          return EMPTY;
+        }),
+      )
+      .subscribe(() => {
+        this.router.navigate(['/campaigns', this.campaignId]);
+      });
+  }
   goToAssessment() {
     this.router.navigate(['/campaigns', this.campaignId, 'assessment-strategy']);
   }

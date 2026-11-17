@@ -65,6 +65,11 @@ export class App {
           icon: 'hiring-strategy',
         },
         {
+          label: 'Assessment Strategy',
+          route: 'assessment-strategy',
+          icon: 'assessments',
+        },
+        {
           label: 'Resume Imports',
           route: 'resume-imports',
           icon: 'resume-process',
@@ -74,11 +79,7 @@ export class App {
           route: 'candidates',
           icon: 'candidates',
         },
-        {
-          label: 'Assessment Strategy',
-          route: 'assessment-strategy',
-          icon: 'assessments',
-        },
+
         {
           label: 'Assessment Results',
           route: 'assessment-results',

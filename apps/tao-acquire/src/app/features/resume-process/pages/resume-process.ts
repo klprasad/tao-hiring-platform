@@ -66,17 +66,22 @@ export class ResumeProcess {
         this.candidatesScreening();
       });
   }
-  candidatesScreening() {
+  candidatesScreening(): void {
     this.service
       .candidateScreening(this.campaignId)
       .pipe(
         catchError(() => {
+          this.navigateToCandidates();
           return EMPTY;
         }),
       )
-      .subscribe(() => {
-        this.router.navigate(['/campaigns', this.campaignId, 'candidates']);
+      .subscribe((screening) => {
+        this.navigateToCandidates();
       });
+  }
+
+  private navigateToCandidates(): void {
+    this.router.navigate(['/campaigns', this.campaignId, 'candidates']);
   }
 
   private resolveCampaignId(): string {

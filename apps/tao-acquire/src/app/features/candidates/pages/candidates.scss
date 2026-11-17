@@ -18,6 +18,12 @@
    Metrics
    -------------------------------------------------------------------------- */
 
+.screening-update {
+  margin: 0 0 16px;
+  color: var(--tao-color-3e6e9d);
+  font-size: 13px;
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
