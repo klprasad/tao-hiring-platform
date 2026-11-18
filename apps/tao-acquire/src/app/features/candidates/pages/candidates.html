@@ -1,28 +1,97 @@
 <section class="candidate-workspace">
   <header class="candidate-workspace__header">
-    <div><span class="workspace-kicker">TALENT PIPELINE</span><h1>Candidates</h1><p>Review candidate fit and move qualified people to the next stage.</p></div>
-    @if (candidates().length > 0) { <tao-button appearance="filled" label="Send invitations" icon="send" color="primary" (click)="sendInvitations()" /> }
+    <div>
+      <span class="workspace-kicker">TALENT PIPELINE</span>
+      <h1>Candidates</h1>
+      <p>Review candidate fit and move qualified people to the next stage.</p>
+    </div>
+    @if (candidates().length > 0) {
+      <tao-button
+        appearance="filled"
+        label="Send invitations"
+        icon="send"
+        color="primary"
+        (click)="sendInvitations()"
+      />
+    }
   </header>
-  @if (screeningProgress() || isScreening()) { <p class="screening-update" role="status" aria-live="polite">{{ screeningStatusMessage() }}</p> }
   <div class="candidate-summary" aria-label="Candidate summary">
-    <button type="button" class="candidate-summary__item" [class.is-active]="selectedFilter() === 'all'" (click)="selectFilter('all')"><span>All candidates</span><strong>{{ candidates().length }}</strong><small>Across this campaign</small></button>
-    <button type="button" class="candidate-summary__item" [class.is-active]="selectedFilter() === 'recommended'" (click)="selectFilter('recommended')"><span>Recommended</span><strong>{{ recommendedCandidates().length }}</strong><small>{{ recommendedPercentage() }}% of candidates</small></button>
-    <button type="button" class="candidate-summary__item" [class.is-active]="selectedFilter() === 'rejected'" (click)="selectFilter('rejected')"><span>Not recommended</span><strong>{{ rejectedCandidates().length }}</strong><small>Review screening outcomes</small></button>
+    <button
+      type="button"
+      class="candidate-summary__item"
+      [class.is-active]="selectedFilter() === 'all'"
+      (click)="selectFilter('all')"
+    >
+      <span>All candidates</span><strong>{{ candidates().length }}</strong
+      ><small>Across this campaign</small>
+    </button>
+    <button
+      type="button"
+      class="candidate-summary__item"
+      [class.is-active]="selectedFilter() === 'recommended'"
+      (click)="selectFilter('recommended')"
+    >
+      <span>Recommended</span><strong>{{ recommendedCandidates().length }}</strong
+      ><small>{{ recommendedPercentage() }}% of candidates</small>
+    </button>
+    <button
+      type="button"
+      class="candidate-summary__item"
+      [class.is-active]="selectedFilter() === 'rejected'"
+      (click)="selectFilter('rejected')"
+    >
+      <span>Not recommended</span><strong>{{ rejectedCandidates().length }}</strong
+      ><small>Review screening outcomes</small>
+    </button>
   </div>
   <section class="candidate-results">
-    <header class="candidate-results__heading"><div><h2>{{ selectedFilterTitle() }}</h2><p>Candidate profiles and latest screening outcomes</p></div><span>{{ filteredCandidates().length }} results</span></header>
+    <header class="candidate-results__heading">
+      <div>
+        <h2>{{ selectedFilterTitle() }}</h2>
+        <p>Candidate profiles and latest screening outcomes</p>
+      </div>
+      <span>{{ filteredCandidates().length }} results</span>
+    </header>
     @if (filteredCandidates().length > 0) {
       <div class="candidate-table" role="table" aria-label="Candidates">
-        <div class="candidate-table__head" role="row"><span>Candidate</span><span>Match</span><span>Screening status</span><span>Last activity</span></div>
+        <div class="candidate-table__head" role="row">
+          <span>Candidate</span><span>Match</span><span>Screening status</span
+          ><span>Last activity</span>
+        </div>
         @for (candidate of filteredCandidates(); track candidate.id) {
           <article class="candidate-row" role="row">
-            <div class="candidate-identity"><span class="avatar">{{ getInitials(candidate.candidateName) }}</span><span><strong>{{ candidate.candidateName }}</strong><small>{{ candidate.currentCompany || 'Company not available' }}@if (candidate.currentLocation) { · {{ candidate.currentLocation }} }</small></span></div>
-            <div class="candidate-match"><strong>{{ candidate.overallMatchPercentage }}%</strong><span>Profile match</span></div>
-            <div><b class="status" [class.rejected]="candidate.status === 'Rejected'" [class.recommended]="candidate.status === 'Shortlisted' || candidate.status === 'Recommended'" [class.screening]="candidate.status === 'Screening'">{{ candidate.status }}</b></div>
+            <div class="candidate-identity">
+              <span class="avatar">{{ getInitials(candidate.candidateName) }}</span
+              ><span
+                ><strong>{{ candidate.candidateName }}</strong
+                ><small
+                  >{{ candidate.currentCompany || 'Company not available' }}
+                  @if (candidate.currentLocation) {
+                    · {{ candidate.currentLocation }}
+                  }
+                </small></span
+              >
+            </div>
+            <div class="candidate-match">
+              <strong>{{ candidate.overallMatchPercentage }}%</strong><span>Profile match</span>
+            </div>
+            <div>
+              <b
+                class="status"
+                [class.rejected]="candidate.status === 'Rejected'"
+                [class.recommended]="
+                  candidate.status === 'Shortlisted' || candidate.status === 'Recommended'
+                "
+                [class.screening]="candidate.status === 'Screening'"
+                >{{ candidate.status }}</b
+              >
+            </div>
             <time class="candidate-date">{{ formatCandidateDate(candidate) }}</time>
           </article>
         }
       </div>
-    } @else { <div class="empty-state">No candidates found.</div> }
+    } @else {
+      <div class="empty-state">No candidates found.</div>
+    }
   </section>
 </section>

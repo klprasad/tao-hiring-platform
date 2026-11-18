@@ -1,21 +1,11 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  catchError,
-  concat,
-  EMPTY,
-  exhaustMap,
-  forkJoin,
-  interval,
-  of,
-  takeWhile,
-  tap,
-} from 'rxjs';
+import { catchError, EMPTY, of } from 'rxjs';
 
 import { TaoButtonComponent } from '@tao/ui';
 
-import { CandidateDto, ResumeScreeningProgress } from '../models/candidates.mode';
+import { CandidateDto } from '../models/candidates.mode';
 import { CandidatesService } from '../data-access/candidates.service';
 
 type CandidateFilter = 'all' | 'recommended' | 'rejected';
@@ -36,7 +26,6 @@ export class Candidates implements OnInit {
   // ---------------------------------------------------------------------------
 
   readonly candidates = signal<CandidateDto[]>([]);
-  readonly screeningProgress = signal<ResumeScreeningProgress | null>(null);
   readonly errorMessage = signal<string>('');
 
   readonly selectedFilter = signal<CandidateFilter>('all');
@@ -59,25 +48,6 @@ export class Candidates implements OnInit {
   readonly rejectedCandidates = computed(() =>
     this.candidates().filter((candidate) => candidate.status === 'Rejected'),
   );
-
-  readonly isScreening = computed(() => {
-    const progress = this.screeningProgress();
-    return !progress || progress.totalCandidates !== 0 || progress.queuedCandidates !== 0;
-  });
-
-  readonly screeningStatusMessage = computed(() => {
-    const progress = this.screeningProgress();
-
-    if (!progress) {
-      return 'Loading screening progress...';
-    }
-
-    if (!this.isScreening()) {
-      return 'Screening complete.';
-    }
-
-    return `Candidates: ${progress.totalCandidates} · Queued: ${progress.queuedCandidates} · Processing: ${progress.processingCandidates} · Completed: ${progress.completedCandidates} · Failed: ${progress.failedCandidates}`;
-  });
 
   readonly filteredCandidates = computed(() => {
     switch (this.selectedFilter()) {
@@ -179,36 +149,20 @@ export class Candidates implements OnInit {
   private loadCandidates(): void {
     this.errorMessage.set('');
 
-    concat(of(null), interval(3000))
+    this.service
+      .getCandidates(this.campaignId)
       .pipe(
-        exhaustMap(() =>
-          forkJoin({
-            candidates: this.service.getCandidates(this.campaignId).pipe(
-              catchError(() => {
-                this.errorMessage.set('Unable to refresh screening results.');
-                return of(null);
-              }),
-            ),
-            progress: this.service.getResumeScreeningProgress(this.campaignId).pipe(
-              catchError(() => {
-                this.errorMessage.set('Unable to refresh screening progress.');
-                return of(null);
-              }),
-            ),
-          }),
-        ),
-        tap(({ candidates, progress }) => {
-          if (candidates) {
-            this.candidates.set(candidates);
-          }
-          if (progress) {
-            this.screeningProgress.set(progress);
-          }
+        catchError(() => {
+          this.errorMessage.set('Unable to refresh screening results.');
+          return of(null);
         }),
-        takeWhile(() => this.isScreening(), true),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe();
+      .subscribe((candidates) => {
+        if (candidates) {
+          this.candidates.set(candidates);
+        }
+      });
   }
 
   // ---------------------------------------------------------------------------

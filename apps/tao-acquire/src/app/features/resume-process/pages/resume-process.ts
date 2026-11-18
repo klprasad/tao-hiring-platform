@@ -1,18 +1,16 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY, exhaustMap, takeWhile, timer } from 'rxjs';
 
-import { TaoCardComponent, ToasterService } from '@tao/ui';
+import { TaoButtonComponent, TaoCardComponent, ToasterService } from '@tao/ui';
 import { ResumeImportService } from '../data-access/resume-import.service';
 import {
   RESUME_IMPORT_ALLOWED_EXTENSIONS,
   RESUME_IMPORT_MAX_FILES,
-  ResumeImportProgess,
 } from '../models/resume-import.models';
 
 @Component({
   selector: 'tao-resume-process',
-  imports: [TaoCardComponent],
+  imports: [TaoCardComponent, TaoButtonComponent],
   templateUrl: './resume-process.html',
   styleUrl: './resume-process.scss',
 })
@@ -21,27 +19,30 @@ export class ResumeProcess {
   private readonly service = inject(ResumeImportService);
   private readonly router = inject(Router);
   private readonly toaster = inject(ToasterService);
-  readonly isUploading = signal(false);
-  readonly batchId = signal<string | undefined>(undefined);
-  readonly importProgress = signal<ResumeImportProgess | null>(null);
-  readonly progressError = signal<string | null>(null);
+  readonly campaignId = this.resolveCampaignId();
+  private readonly processing = this.service.stateForCampaign(this.campaignId);
+  readonly isUploading = this.processing.isUploading;
+  readonly isScreening = this.processing.isScreening;
+  readonly batchId = this.processing.batchId;
+  readonly importProgress = this.processing.importProgress;
+  readonly screeningProgress = this.processing.screeningProgress;
+  readonly progressError = this.processing.importError;
+  readonly screeningError = this.processing.screeningError;
   readonly progressPercent = computed(() => {
     const progress = this.importProgress();
     return progress?.totalFiles
       ? Math.round((progress.processedFiles / progress.totalFiles) * 100)
       : 0;
   });
+  readonly screeningPercent = computed(() => {
+    const progress = this.screeningProgress();
+    return progress?.totalCandidates
+      ? Math.round((progress.processedCandidates / progress.totalCandidates) * 100)
+      : 0;
+  });
 
   readonly acceptedFormats = RESUME_IMPORT_ALLOWED_EXTENSIONS.join(',');
   readonly maxFiles = RESUME_IMPORT_MAX_FILES;
-
-  /**
-   * Campaign the resumes are imported into.
-   *
-   * Comes from `/campaigns/:campaignId/resume-imports` (route param), or from
-   * the `campaignId` query parameter when opened standalone.
-   */
-  readonly campaignId = this.resolveCampaignId();
 
   onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -56,65 +57,11 @@ export class ResumeProcess {
       return;
     }
 
-    this.isUploading.set(true);
-    this.importProgress.set(null);
-    this.progressError.set(null);
-
-    this.service
-      .importResumes(this.campaignId, files)
-      .pipe(
-        catchError(() => {
-          this.toaster.error('The resumes could not be imported. Please try again.');
-          this.isUploading.set(false);
-          return EMPTY;
-        }),
-      )
-      .subscribe((response) => {
-        this.batchId.set(response);
-        this.toaster.success('Resume import started successfully.');
-        input.value = '';
-        this.ResumeImportProgress();
-      });
-  }
-  ResumeImportProgress(): void {
-    const importId = this.batchId();
-    if (!importId) {
-      return;
-    }
-
-    timer(0, 3000)
-      .pipe(
-        exhaustMap(() => this.service.resumeImportProgress(this.campaignId, importId)),
-        takeWhile((progress) => !progress.isCompleted, true),
-        catchError(() => {
-          this.isUploading.set(false);
-          this.progressError.set('Import progress could not be loaded. Please try again.');
-          return EMPTY;
-        }),
-      )
-      .subscribe((progress) => {
-        this.importProgress.set(progress);
-        if (progress.isCompleted) {
-          this.isUploading.set(false);
-          this.candidatesScreening();
-        }
-      });
-  }
-  candidatesScreening(): void {
-    this.service
-      .candidateScreening(this.campaignId)
-      .pipe(
-        catchError(() => {
-          this.navigateToCandidates();
-          return EMPTY;
-        }),
-      )
-      .subscribe((screening) => {
-        this.navigateToCandidates();
-      });
+    this.service.startImport(this.campaignId, files);
+    input.value = '';
   }
 
-  private navigateToCandidates(): void {
+  navigateToCandidates(): void {
     this.router.navigate(['/campaigns', this.campaignId, 'candidates']);
   }
 

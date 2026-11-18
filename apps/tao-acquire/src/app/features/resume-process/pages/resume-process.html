@@ -7,6 +7,10 @@
     </div>
   </header>
 
+  @if (progressError(); as error) {
+    <p class="import-success__error" role="alert">{{ error }}</p>
+  }
+
   @if (batchId(); as id) {
     <tao-card class="resume-import-success">
       <div class="import-success">
@@ -62,15 +66,85 @@
             </dl>
           }
 
-          @if (progressError(); as error) {
-            <p class="import-success__error" role="alert">{{ error }}</p>
-          }
-
           <div class="import-success__batch">
             <span>Import Batch ID</span>
 
             <strong>{{ id }}</strong>
           </div>
+        </div>
+      </div>
+    </tao-card>
+  }
+
+  @if (isScreening() || screeningProgress() || screeningError()) {
+    <tao-card class="resume-import-success resume-screening-progress">
+      <div class="import-success">
+        <div
+          class="import-success__icon"
+          [class.import-success__icon--complete]="screeningProgress()?.isCompleted"
+        >
+          @if (screeningProgress()?.isCompleted) {
+            ✓
+          } @else {
+            <span class="import-success__spinner" aria-hidden="true"></span>
+          }
+        </div>
+
+        <div class="import-success__content">
+          <h3>
+            {{
+              screeningProgress()?.isCompleted ? 'Resume screening complete' : 'Screening resumes'
+            }}
+          </h3>
+
+          @if (screeningProgress(); as progress) {
+            <p>
+              {{ progress.processedCandidates }} of {{ progress.totalCandidates }} candidates
+              processed
+            </p>
+
+            <progress
+              class="import-success__progress"
+              max="100"
+              [value]="screeningPercent()"
+              [attr.aria-label]="screeningPercent() + '% of candidates screened'"
+            ></progress>
+
+            <dl class="import-success__counts" aria-live="polite">
+              <div>
+                <dt>Queued</dt>
+                <dd>{{ progress.queuedCandidates }}</dd>
+              </div>
+              <div>
+                <dt>Processing</dt>
+                <dd>{{ progress.processingCandidates }}</dd>
+              </div>
+              <div>
+                <dt>Completed</dt>
+                <dd>{{ progress.completedCandidates }}</dd>
+              </div>
+              <div>
+                <dt>Failed</dt>
+                <dd>{{ progress.failedCandidates }}</dd>
+              </div>
+            </dl>
+          } @else {
+            <p>Starting resume screening. Waiting for processing status...</p>
+          }
+
+          @if (screeningError(); as error) {
+            <p class="import-success__error" role="alert">{{ error }}</p>
+          }
+
+          @if (screeningProgress()?.isCompleted) {
+            <tao-button
+              appearance="filled"
+              label="View candidates"
+              icon="arrow_forward"
+              color="primary"
+              (click)="navigateToCandidates()"
+            />
+          }
         </div>
       </div>
     </tao-card>
@@ -114,13 +188,13 @@
           multiple
           class="upload-area__input"
           [attr.accept]="acceptedFormats"
-          [disabled]="isUploading() || !campaignId"
+          [disabled]="isUploading() || isScreening() || !campaignId"
           (change)="onFilesSelected($event)"
         />
         <label
           for="resumeFiles"
           class="upload-area__content"
-          [class.upload-area__content--disabled]="isUploading() || !campaignId"
+          [class.upload-area__content--disabled]="isUploading() || isScreening() || !campaignId"
         >
           <span class="upload-area__icon" aria-hidden="true">↑</span>
           <strong class="upload-area__title">

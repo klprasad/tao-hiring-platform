@@ -34,3 +34,23 @@ export interface ResumeImportProgess {
   completedOn: string;
   files: any[];
 }
+
+export interface ResumeScreeningProgress {
+  campaignId: string;
+  totalCandidates: number;
+  queuedCandidates: number;
+  processingCandidates: number;
+  completedCandidates: number;
+  failedCandidates: number;
+  processedCandidates: number;
+  pendingSchedulingCandidates: number;
+  activeImportBatches: number;
+  totalBatches: number;
+  queuedBatches: number;
+  processingBatches: number;
+  completedBatches: number;
+  partiallyCompletedBatches: number;
+  failedBatches: number;
+  isCompleted: boolean;
+  batches: any[];
+}

@@ -18,12 +18,6 @@
    Metrics
    -------------------------------------------------------------------------- */
 
-.screening-update {
-  margin: 0 0 16px;
-  color: var(--tao-color-3e6e9d);
-  font-size: 13px;
-}
-
 .metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -169,42 +163,333 @@
 }
 
 /* TAO Acquire — enterprise workspace refinement */
-:host { display: block; color: #263449; }
-.page { color: #263449; }
-.page h1, .campaign-header h1 { color: #17243a; letter-spacing: -0.025em; }
-.page h2, .page h3 { color: #263449; letter-spacing: -0.015em; }
-.page p, .page small { color: #64748b; }
-.page tao-card, .campaign-list-card, .candidate-card { display: block; }
-.page .campaign-list-card, .campaign-list-card { background: #fff; border: 1px solid #e5eaf2; border-radius: 14px; box-shadow: 0 2px 8px rgb(15 23 42 / 3%); overflow: hidden; }
-.page input:not([type="checkbox"]):not([type="radio"]), .page textarea, .page select, .search-control input { border-color: #dbe3ee; border-radius: 9px; color: #263449; background: #fff; }
-.page input:focus, .page textarea:focus, .page select:focus, .search-control:focus-within { border-color: var(--mat-sys-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mat-sys-primary) 11%, transparent); outline: none; }
-.page .search-control { background: #fff; border: 1px solid #dbe3ee; border-radius: 9px; }
-.page .status, .page .campaign b, .page .report b { border-radius: 999px; font-weight: 650; }
-.page .candidate, .page .report, .page .attention, .page .campaign { border-color: #edf1f6; }
-.page .avatar { background: var(--mat-sys-primary-container); color: #3858d8; font-weight: 700; }
-.page .upload-area, .page .upload-area__content { border-color: #cbd6f6; background: #f8faff; border-radius: 14px; }
-.page .upload-area__content:hover { background: #f1f5ff; }
-.page .form-actions { border-top: 1px solid #edf1f6; padding-top: 18px; }
-.page .error, .page [role="alert"] { border-radius: 10px; }
-.page .empty-state { color: #8491a5; padding: 36px 20px; text-align: center; }
-.page .metrics { gap: 16px; }
-.page .grid { gap: 18px; }
-.page .metrics strong { color: #17243a; font-variant-numeric: tabular-nums; }
-.page .positive { color: #16845a; }
-.page .screening-update { padding: 10px 14px; background: #f3f6ff; border: 1px solid #e0e7ff; border-radius: 9px; }
-
+:host {
+  display: block;
+  color: #263449;
+}
+.page {
+  color: #263449;
+}
+.page h1,
+.campaign-header h1 {
+  color: #17243a;
+  letter-spacing: -0.025em;
+}
+.page h2,
+.page h3 {
+  color: #263449;
+  letter-spacing: -0.015em;
+}
+.page p,
+.page small {
+  color: #64748b;
+}
+.page tao-card,
+.campaign-list-card,
+.candidate-card {
+  display: block;
+}
+.page .campaign-list-card,
+.campaign-list-card {
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+  overflow: hidden;
+}
+.page input:not([type="checkbox"]):not([type="radio"]),
+.page textarea,
+.page select,
+.search-control input {
+  border-color: #dbe3ee;
+  border-radius: 9px;
+  color: #263449;
+  background: #fff;
+}
+.page input:focus,
+.page textarea:focus,
+.page select:focus,
+.search-control:focus-within {
+  border-color: var(--mat-sys-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mat-sys-primary) 11%, transparent);
+  outline: none;
+}
+.page .search-control {
+  background: #fff;
+  border: 1px solid #dbe3ee;
+  border-radius: 9px;
+}
+.page .status,
+.page .campaign b,
+.page .report b {
+  border-radius: 999px;
+  font-weight: 650;
+}
+.page .candidate,
+.page .report,
+.page .attention,
+.page .campaign {
+  border-color: #edf1f6;
+}
+.page .avatar {
+  background: var(--mat-sys-primary-container);
+  color: #3858d8;
+  font-weight: 700;
+}
+.page .upload-area,
+.page .upload-area__content {
+  border-color: #cbd6f6;
+  background: #f8faff;
+  border-radius: 14px;
+}
+.page .upload-area__content:hover {
+  background: #f1f5ff;
+}
+.page .form-actions {
+  border-top: 1px solid #edf1f6;
+  padding-top: 18px;
+}
+.page .error,
+.page [role="alert"] {
+  border-radius: 10px;
+}
+.page .empty-state {
+  color: #8491a5;
+  padding: 36px 20px;
+  text-align: center;
+}
+.page .metrics {
+  gap: 16px;
+}
+.page .grid {
+  gap: 18px;
+}
+.page .metrics strong {
+  color: #17243a;
+  font-variant-numeric: tabular-nums;
+}
+.page .positive {
+  color: #16845a;
+}
+.page .screening-update {
+  padding: 10px 14px;
+  background: #f3f6ff;
+  border: 1px solid #e0e7ff;
+  border-radius: 9px;
+}
 
 /* Dashboard and recruiter workbench details */
-.metrics tao-card { min-height: 112px; }
-.metrics tao-card strong { color: #17243a; font-size: 29px; letter-spacing: -0.03em; }
-.grid tao-card, .campaign-list-card { min-width: 0; }
-.campaign-header { background: #fff; border-color: #e5eaf2; border-radius: 14px; box-shadow: 0 2px 8px rgb(15 23 42 / 3%); }
-.campaign-header h1 { color: #17243a; letter-spacing: -0.025em; }
-.campaign-mark { background: var(--mat-sys-primary-container); color: var(--mat-sys-primary); border-radius: 12px; }
-.campaign-list-card { margin-top: 18px; }
-.candidate-card { border-radius: 14px; }
-.candidate-info strong { color: #263449; font-weight: 650; }
-.candidate-date { color: #8491a5; font-size: 12px; }
+.metrics tao-card {
+  min-height: 112px;
+}
+.metrics tao-card strong {
+  color: #17243a;
+  font-size: 29px;
+  letter-spacing: -0.03em;
+}
+.grid tao-card,
+.campaign-list-card {
+  min-width: 0;
+}
+.campaign-header {
+  background: #fff;
+  border-color: #e5eaf2;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+}
+.campaign-header h1 {
+  color: #17243a;
+  letter-spacing: -0.025em;
+}
+.campaign-mark {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary);
+  border-radius: 12px;
+}
+.campaign-list-card {
+  margin-top: 18px;
+}
+.candidate-card {
+  border-radius: 14px;
+}
+.candidate-info strong {
+  color: #263449;
+  font-weight: 650;
+}
+.candidate-date {
+  color: #8491a5;
+  font-size: 12px;
+}
 
 /* Candidate pipeline: summary-first, structured review workspace */
-:host {display:block}.candidate-workspace {max-width:1480px;margin:0 auto;padding:30px 36px 48px;color:#17243a}.candidate-workspace__header {display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #e7ebf2}.workspace-kicker {display:block;margin-bottom:8px;color:#71809a;font-size:10px;font-weight:750;letter-spacing:.13em}.candidate-workspace__header h1,.reports-hero h1 {margin:0;color:#17243a;font-size:29px;letter-spacing:-.04em}.candidate-workspace__header p,.reports-hero p {margin:7px 0 0;color:#748198;font-size:13px}.candidate-summary {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 22px}.candidate-summary__item {display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:116px;padding:18px 20px;text-align:left;background:#fff;border:1px solid #e5eaf2;border-radius:12px;cursor:pointer;transition:border-color .15s,box-shadow .15s}.candidate-summary__item span {color:#68768d;font-size:12px;font-weight:650}.candidate-summary__item strong {color:#1b2a42;font-size:29px;line-height:1.1;letter-spacing:-.04em}.candidate-summary__item small {color:#8a95a7;font-size:11px}.candidate-summary__item.is-active {border-color:#8da2f3;box-shadow:0 0 0 3px rgb(66 99 235 / 8%)}.candidate-results {overflow:hidden;background:#fff;border:1px solid #e5eaf2;border-radius:14px;box-shadow:0 3px 12px rgb(22 38 61 / 3%)}.candidate-results__heading {display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid #edf0f5}.candidate-results__heading h2 {margin:0;color:#1e2c43;font-size:16px}.candidate-results__heading p {margin:5px 0 0;color:#8792a4;font-size:11px}.candidate-results__heading>span {color:#7d899c;font-size:11px}.candidate-table__head,.candidate-row {display:grid;grid-template-columns:minmax(260px,1.6fr) minmax(120px,.65fr) minmax(160px,.8fr) minmax(130px,.65fr);align-items:center;gap:16px;padding:13px 22px}.candidate-table__head {background:#f8f9fc;color:#8994a6;font-size:10px;font-weight:750;letter-spacing:.07em;text-transform:uppercase}.candidate-row {min-height:74px;border-top:1px solid #f0f2f6}.candidate-identity {display:flex;align-items:center;gap:12px;min-width:0}.candidate-identity>span:last-child {min-width:0}.candidate-identity strong {display:block;overflow:hidden;color:#27364e;font-size:12px;text-overflow:ellipsis;white-space:nowrap}.candidate-identity small,.candidate-match span {display:block;margin-top:5px;color:#8792a4;font-size:10px}.candidate-match strong {color:#26364e;font-size:14px;font-variant-numeric:tabular-nums}.candidate-date {color:#7d899c;font-size:11px}.candidate-row .status {display:inline-flex;width:max-content;padding:5px 9px;border-radius:99px;font-size:10px}.screening-update {margin:0 0 16px;padding:12px 15px;border:1px solid #dce5ff;border-radius:9px;background:#f5f7ff;color:#465caa;font-size:12px}
+:host {
+  display: block;
+}
+.candidate-workspace {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 30px 36px 48px;
+  color: #17243a;
+}
+.candidate-workspace__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #e7ebf2;
+}
+.workspace-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: #71809a;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+}
+.candidate-workspace__header h1,
+.reports-hero h1 {
+  margin: 0;
+  color: #17243a;
+  font-size: 29px;
+  letter-spacing: -0.04em;
+}
+.candidate-workspace__header p,
+.reports-hero p {
+  margin: 7px 0 0;
+  color: #748198;
+  font-size: 13px;
+}
+.candidate-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 22px;
+}
+.candidate-summary__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  min-height: 116px;
+  padding: 18px 20px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.candidate-summary__item span {
+  color: #68768d;
+  font-size: 12px;
+  font-weight: 650;
+}
+.candidate-summary__item strong {
+  color: #1b2a42;
+  font-size: 29px;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.candidate-summary__item small {
+  color: #8a95a7;
+  font-size: 11px;
+}
+.candidate-summary__item.is-active {
+  border-color: #8da2f3;
+  box-shadow: 0 0 0 3px rgb(66 99 235 / 8%);
+}
+.candidate-results {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgb(22 38 61 / 3%);
+}
+.candidate-results__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  border-bottom: 1px solid #edf0f5;
+}
+.candidate-results__heading h2 {
+  margin: 0;
+  color: #1e2c43;
+  font-size: 16px;
+}
+.candidate-results__heading p {
+  margin: 5px 0 0;
+  color: #8792a4;
+  font-size: 11px;
+}
+.candidate-results__heading > span {
+  color: #7d899c;
+  font-size: 11px;
+}
+.candidate-table__head,
+.candidate-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.6fr) minmax(120px, 0.65fr) minmax(160px, 0.8fr) minmax(
+      130px,
+      0.65fr
+    );
+  align-items: center;
+  gap: 16px;
+  padding: 13px 22px;
+}
+.candidate-table__head {
+  background: #f8f9fc;
+  color: #8994a6;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.candidate-row {
+  min-height: 74px;
+  border-top: 1px solid #f0f2f6;
+}
+.candidate-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.candidate-identity > span:last-child {
+  min-width: 0;
+}
+.candidate-identity strong {
+  display: block;
+  overflow: hidden;
+  color: #27364e;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.candidate-identity small,
+.candidate-match span {
+  display: block;
+  margin-top: 5px;
+  color: #8792a4;
+  font-size: 10px;
+}
+.candidate-match strong {
+  color: #26364e;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.candidate-date {
+  color: #7d899c;
+  font-size: 11px;
+}
+.candidate-row .status {
+  display: inline-flex;
+  width: max-content;
+  padding: 5px 9px;
+  border-radius: 99px;
+  font-size: 10px;
+}
