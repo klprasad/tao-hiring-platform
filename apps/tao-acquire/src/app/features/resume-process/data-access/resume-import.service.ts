@@ -5,6 +5,7 @@ import { ApiClientService } from '@tao/core';
 import {
   candidateScreeningRespose,
   RESUME_IMPORT_FORM_FIELD,
+  ResumeImportProgess,
 } from '../models/resume-import.models';
 
 /**
@@ -33,6 +34,12 @@ export class ResumeImportService {
     }
 
     return this.api.post<string>(`/api/campaigns/${campaignId}/resume-imports`, formData);
+  }
+
+  resumeImportProgress(campaignId: string, importId: string): Observable<ResumeImportProgess> {
+    return this.api.get<ResumeImportProgess>(
+      `/api/campaigns/${campaignId}/resume-imports/${importId}/progress`,
+    );
   }
 
   candidateScreening(campaignId: string): Observable<candidateScreeningRespose> {

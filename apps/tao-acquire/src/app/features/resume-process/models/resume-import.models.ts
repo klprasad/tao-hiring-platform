@@ -20,3 +20,17 @@ export interface candidateScreeningRespose {
   notRecommendedCandidates: number;
   failedCandidates: number;
 }
+export interface ResumeImportProgess {
+  resumeImportId: string;
+  campaignId: string;
+  status: string;
+  totalFiles: number;
+  queuedFiles: number;
+  processingFiles: number;
+  successfulFiles: number;
+  failedFiles: number;
+  processedFiles: number;
+  isCompleted: boolean;
+  completedOn: string;
+  files: any[];
+}

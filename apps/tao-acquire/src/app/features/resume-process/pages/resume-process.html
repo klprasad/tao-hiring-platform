@@ -7,6 +7,75 @@
     </div>
   </header>
 
+  @if (batchId(); as id) {
+    <tao-card class="resume-import-success">
+      <div class="import-success">
+        <div
+          class="import-success__icon"
+          [class.import-success__icon--complete]="importProgress()?.isCompleted"
+        >
+          @if (importProgress()?.isCompleted) {
+            ✓
+          } @else {
+            <span class="import-success__spinner" aria-hidden="true"></span>
+          }
+        </div>
+
+        <div class="import-success__content">
+          <h3>
+            {{ importProgress()?.isCompleted ? 'Resume import complete' : 'Importing resumes' }}
+          </h3>
+
+          <p>
+            @if (importProgress(); as progress) {
+              {{ progress.processedFiles }} of {{ progress.totalFiles }} files processed
+            } @else {
+              The import has started. Waiting for processing status...
+            }
+          </p>
+
+          @if (importProgress(); as progress) {
+            <progress
+              class="import-success__progress"
+              max="100"
+              [value]="progressPercent()"
+              [attr.aria-label]="progressPercent() + '% of resume files processed'"
+            ></progress>
+
+            <dl class="import-success__counts" aria-live="polite">
+              <div>
+                <dt>Queued</dt>
+                <dd>{{ progress.queuedFiles }}</dd>
+              </div>
+              <div>
+                <dt>Processing</dt>
+                <dd>{{ progress.processingFiles }}</dd>
+              </div>
+              <div>
+                <dt>Successful</dt>
+                <dd>{{ progress.successfulFiles }}</dd>
+              </div>
+              <div>
+                <dt>Failed</dt>
+                <dd>{{ progress.failedFiles }}</dd>
+              </div>
+            </dl>
+          }
+
+          @if (progressError(); as error) {
+            <p class="import-success__error" role="alert">{{ error }}</p>
+          }
+
+          <div class="import-success__batch">
+            <span>Import Batch ID</span>
+
+            <strong>{{ id }}</strong>
+          </div>
+        </div>
+      </div>
+    </tao-card>
+  }
+
   <div class="resume-import-layout">
     <tao-card class="resume-guidance-panel">
       <span class="workspace-kicker">BEFORE YOU IMPORT</span>
@@ -56,7 +125,7 @@
           <span class="upload-area__icon" aria-hidden="true">↑</span>
           <strong class="upload-area__title">
             @if (isUploading()) {
-              Uploading resumes...
+              Importing resumes...
             } @else {
               Select resume files
             }
@@ -70,27 +139,4 @@
       </div>
     </tao-card>
   </div>
-
-  @if (batchId(); as id) {
-    <tao-card class="resume-import-success">
-      <div class="import-success">
-        <div class="import-success__icon">✓</div>
-
-        <div class="import-success__content">
-          <h3>Resume import started successfully</h3>
-
-          <p>
-            Your resumes are being processed. You can continue working while the import is
-            completed.
-          </p>
-
-          <div class="import-success__batch">
-            <span>Import Batch ID</span>
-
-            <strong>{{ id }}</strong>
-          </div>
-        </div>
-      </div>
-    </tao-card>
-  }
 </section>

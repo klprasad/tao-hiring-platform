@@ -1,12 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, exhaustMap, takeWhile, timer } from 'rxjs';
 
 import { TaoCardComponent, ToasterService } from '@tao/ui';
 import { ResumeImportService } from '../data-access/resume-import.service';
 import {
   RESUME_IMPORT_ALLOWED_EXTENSIONS,
   RESUME_IMPORT_MAX_FILES,
+  ResumeImportProgess,
 } from '../models/resume-import.models';
 
 @Component({
@@ -22,6 +23,14 @@ export class ResumeProcess {
   private readonly toaster = inject(ToasterService);
   readonly isUploading = signal(false);
   readonly batchId = signal<string | undefined>(undefined);
+  readonly importProgress = signal<ResumeImportProgess | null>(null);
+  readonly progressError = signal<string | null>(null);
+  readonly progressPercent = computed(() => {
+    const progress = this.importProgress();
+    return progress?.totalFiles
+      ? Math.round((progress.processedFiles / progress.totalFiles) * 100)
+      : 0;
+  });
 
   readonly acceptedFormats = RESUME_IMPORT_ALLOWED_EXTENSIONS.join(',');
   readonly maxFiles = RESUME_IMPORT_MAX_FILES;
@@ -48,6 +57,8 @@ export class ResumeProcess {
     }
 
     this.isUploading.set(true);
+    this.importProgress.set(null);
+    this.progressError.set(null);
 
     this.service
       .importResumes(this.campaignId, files)
@@ -60,10 +71,33 @@ export class ResumeProcess {
       )
       .subscribe((response) => {
         this.batchId.set(response);
-        this.isUploading.set(false);
         this.toaster.success('Resume import started successfully.');
         input.value = '';
-        this.candidatesScreening();
+        this.ResumeImportProgress();
+      });
+  }
+  ResumeImportProgress(): void {
+    const importId = this.batchId();
+    if (!importId) {
+      return;
+    }
+
+    timer(0, 3000)
+      .pipe(
+        exhaustMap(() => this.service.resumeImportProgress(this.campaignId, importId)),
+        takeWhile((progress) => !progress.isCompleted, true),
+        catchError(() => {
+          this.isUploading.set(false);
+          this.progressError.set('Import progress could not be loaded. Please try again.');
+          return EMPTY;
+        }),
+      )
+      .subscribe((progress) => {
+        this.importProgress.set(progress);
+        if (progress.isCompleted) {
+          this.isUploading.set(false);
+          this.candidatesScreening();
+        }
       });
   }
   candidatesScreening(): void {

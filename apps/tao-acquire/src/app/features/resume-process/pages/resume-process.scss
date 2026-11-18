@@ -40,6 +40,20 @@
 
     font-size: 13px;
     font-weight: 700;
+
+    &--complete {
+      background: var(--tao-color-e5f7ed);
+      color: var(--tao-color-24915e);
+    }
+  }
+
+  &__spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--tao-color-b9cec3);
+    border-top-color: var(--tao-color-24915e);
+    border-radius: 50%;
+    animation: import-spin 800ms linear infinite;
   }
 
   strong {
@@ -375,6 +389,48 @@
       font-size: 11px;
       font-weight: 600;
     }
+  }
+
+  &__progress {
+    width: 100%;
+    height: 8px;
+    margin: 0 0 12px;
+    accent-color: var(--tao-color-24915e);
+  }
+
+  &__counts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px 16px;
+    margin: 0 0 14px;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--tao-color-687780);
+      font-size: 12px;
+    }
+
+    dt,
+    dd {
+      margin: 0;
+    }
+
+    dd {
+      color: var(--tao-color-183a58);
+      font-weight: 700;
+    }
+  }
+
+  &__error {
+    color: var(--tao-color-a93232) !important;
+  }
+}
+
+@keyframes import-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
